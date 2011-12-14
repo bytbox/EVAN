@@ -4,6 +4,8 @@
 
 from tkinter import *
 
+from program import *
+
 def make_menubar(root):
     """ Initializes the menus."""
     menubar = Menu(root)
