@@ -47,7 +47,7 @@ class CanvasState:
         x = self.canvas.canvasx(event.x)
         y = self.canvas.canvasy(event.y)
         if self.isdown:
-            self.canvas.create_line(self.last_x,self.last_y,x,y)
+            gId = self.canvas.create_line(self.last_x,self.last_y,x,y)
         self.last_x, self.last_y = x, y
 
 # Set up the GUI
@@ -66,6 +66,7 @@ extraFrame.pack(side=TOP, anchor='nw', fill=BOTH, expand=1)
 canvas = Canvas(extraFrame, bg='white', bd=2, relief=SUNKEN)
 canvas.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
 cState = CanvasState(canvas)
+# And event hooks
 canvas.bind('<ButtonPress>', cState.canvas_down)
 canvas.bind('<ButtonRelease>', cState.canvas_up)
 canvas.bind('<Motion>', cState.canvas_move)
