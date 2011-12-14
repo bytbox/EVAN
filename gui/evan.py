@@ -5,6 +5,7 @@
 from tkinter import *
 
 def make_menubar(root):
+    """ Initializes the menus."""
     menubar = Menu(root)
     root.config(menu=menubar)
     
@@ -16,31 +17,36 @@ def make_menubar(root):
     helpmenu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpmenu)
 
-# Mouse handling info
-last_x = 0
-last_y = 0
-isdown = False
+class CanvasState:
+    """ Encapsulates the state of the canvas as well as the user interaction
+    logic. """
 
-def canvas_down(event):
-    global isdown, last_x, last_y, canvas
-    isdown = True
-    x = canvas.canvasx(event.x)
-    y = canvas.canvasy(event.y)
+    def __init__(self, canvas):
+        self.last_x = -1
+        self.last_y = -1
+        self.isdown = False
+        self.dragdist = 0
+        self.canvas = canvas
+    
+    def canvas_down(self, event):
+        self.isdown = True
+        self.dragdist = 0
+        x = self.canvas.canvasx(event.x)
+        y = self.canvas.canvasy(event.y)
+        self.last_x, self.last_y = x, y
 
-def canvas_up(event):
-    global isdown, last_x, last_y, canvas
-    isdown = False
-    x = canvas.canvasx(event.x)
-    y = canvas.canvasy(event.y)
+    def canvas_up(self, event):
+        self.isdown = False
+        x = self.canvas.canvasx(event.x)
+        y = self.canvas.canvasy(event.y)
+        self.last_x, self.last_y = x, y
 
-def canvas_move(event):
-    global isdown, last_x, last_y, canvas
-    x = canvas.canvasx(event.x)
-    y = canvas.canvasy(event.y)
-    if isdown:
-        canvas.create_line(last_x,last_y,x,y)
-    last_x = x
-    last_y = y
+    def canvas_move(self, event):
+        x = self.canvas.canvasx(event.x)
+        y = self.canvas.canvasy(event.y)
+        if self.isdown:
+            self.canvas.create_line(self.last_x,self.last_y,x,y)
+        self.last_x, self.last_y = x, y
 
 # Set up the GUI
 root = Tk()
@@ -57,9 +63,10 @@ extraFrame = Frame(drawFrame)
 extraFrame.pack(side=TOP, anchor='nw', fill=BOTH, expand=1)
 canvas = Canvas(extraFrame, bg='white', bd=2, relief=SUNKEN)
 canvas.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
-canvas.bind('<ButtonPress>', canvas_down)
-canvas.bind('<ButtonRelease>', canvas_up)
-canvas.bind('<Motion>', canvas_move)
+cState = CanvasState(canvas)
+canvas.bind('<ButtonPress>', cState.canvas_down)
+canvas.bind('<ButtonRelease>', cState.canvas_up)
+canvas.bind('<Motion>', cState.canvas_move)
 
 # canvas should be scrollable, in both directions
 hBar = Scrollbar(drawFrame, orient=HORIZONTAL)
