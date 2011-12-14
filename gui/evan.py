@@ -16,14 +16,31 @@ def make_menubar(root):
     helpmenu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpmenu)
 
+# Mouse handling info
+last_x = 0
+last_y = 0
+isdown = False
+
 def canvas_down(event):
-    pass
+    global isdown, last_x, last_y, canvas
+    isdown = True
+    x = canvas.canvasx(event.x)
+    y = canvas.canvasy(event.y)
 
 def canvas_up(event):
-    pass
+    global isdown, last_x, last_y, canvas
+    isdown = False
+    x = canvas.canvasx(event.x)
+    y = canvas.canvasy(event.y)
 
 def canvas_move(event):
-    pass
+    global isdown, last_x, last_y, canvas
+    x = canvas.canvasx(event.x)
+    y = canvas.canvasy(event.y)
+    if isdown:
+        canvas.create_line(last_x,last_y,x,y)
+    last_x = x
+    last_y = y
 
 # Set up the GUI
 root = Tk()
