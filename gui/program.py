@@ -2,6 +2,11 @@
 
 import json
 
+class Graphical:
+    """ The graphical representation of an object. This class doesn't actually
+    interact with a canvas; it simply makes doing so in an efficient way
+    possible. """
+
 class Program:
     """ A program consists, in our model, of a set of blocks and pipes. """
 
@@ -12,7 +17,7 @@ class Program:
     def asJSON(self):
         return json.dumps({})
 
-class Block:
+class Block(Graphical):
     """ A block represents a function call. """
 
     def __init__(self):
@@ -21,7 +26,7 @@ class Block:
     def asJSON(self):
         return json.dumps({})
 
-class Pipe:
+class Pipe(Graphical):
     """ A pipe represents a variable. """
 
     def __init__(self):

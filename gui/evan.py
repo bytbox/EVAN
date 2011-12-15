@@ -30,14 +30,32 @@ def showAbout():
     pass
 
 class ReadyTool:
-    pass
+    def __init__(self):
+        pass
+
+    def select(self):
+        pass
 
 class SelectTool:
-    pass
+    def __init__(self):
+        pass
 
-def populate_toolbar(toolbar):
+    def select(self):
+        pass
+
+tools = {
+    "Cancel": ReadyTool,
+    "Select": SelectTool,
+}
+
+def use_tool(t, cState):
+    return lambda:cState.useTool(t)
+
+def populate_toolbar(toolbar, cState):
     """ Populate toolbar. """
-    pass
+    for tool in tools:
+        b = Button(toolbar, text=tool, command=use_tool(tool, cState))
+        b.pack(side=TOP)
 
 class CanvasState:
     """ Encapsulates the state of the canvas as well as the user interaction
@@ -48,9 +66,12 @@ class CanvasState:
         self.last_y = -1
         self.isdown = False
         self.dragdist = 0
-        self.canvas = canvas
         self.tool = None
+        self.canvas = canvas
         self.program = Program()
+
+    def useTool(self, toolName):
+        print(toolName)
     
     def canvas_down(self, event):
         self.isdown = True
@@ -132,7 +153,7 @@ canvas.config(yscrollcommand=vBar.set)
 # change it is probably a mistake.
 toolbarFrame = Frame(root, bd=2, relief=SUNKEN)
 toolbarFrame.pack(side=LEFT, anchor='nw', fill=BOTH, expand=0)
-populate_toolbar(toolbarFrame)
+populate_toolbar(toolbarFrame, cState)
 
 # Menu bar
 make_menubar(root)
