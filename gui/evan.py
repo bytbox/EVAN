@@ -14,10 +14,30 @@ def make_menubar(root):
     # File menu
     filemenu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="File", menu=filemenu)
+    filemenu.add_command(label="New", command=cState.newProg)
+    filemenu.add_command(label="Open...", command=cState.loadProg)
+    filemenu.add_command(label="Save", command=cState.saveProg)
+    filemenu.add_command(label="Save As...", command=cState.saveProgAs)
+    filemenu.add_separator()
+    filemenu.add_command(label="Exit", command=root.destroy)
 
     # Help menu
     helpmenu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", menu=helpmenu)
+    helpmenu.add_command(label="About", command=showAbout)
+
+def showAbout():
+    pass
+
+class ReadyTool:
+    pass
+
+class SelectTool:
+    pass
+
+def populate_toolbar(toolbar):
+    """ Populate toolbar. """
+    pass
 
 class CanvasState:
     """ Encapsulates the state of the canvas as well as the user interaction
@@ -29,6 +49,8 @@ class CanvasState:
         self.isdown = False
         self.dragdist = 0
         self.canvas = canvas
+        self.tool = None
+        self.program = Program()
     
     def canvas_down(self, event):
         self.isdown = True
@@ -50,13 +72,34 @@ class CanvasState:
             gId = self.canvas.create_line(self.last_x,self.last_y,x,y)
         self.last_x, self.last_y = x, y
 
+    def newProg(self):
+        """ Create a new program. Called when the menu item File->New is activated.
+        """
+
+        self.program = Program()
+
+    def loadProg(self):
+        """ Load a program from a file. Called when the menu item File->Open is
+        activated. """
+
+        pass
+
+    def saveProg(self):
+        """ Save a program to a file. Called when the menu item File->Save is
+        activated. """
+
+        print(self.program.asJSON())
+
+    def saveProgAs(self):
+        """ Save a program to a selected file. Called when the menu item File->Save
+        As is activated. """
+
+        pass
+
 # Set up the GUI
 root = Tk()
 root.title('EVAN')
 root.protocol('WM_DELETE_WINDOW', root.destroy)
-
-# Menu bar
-make_menubar(root)
 
 # Drawing area
 drawFrame = Frame(root)
@@ -89,6 +132,10 @@ canvas.config(yscrollcommand=vBar.set)
 # change it is probably a mistake.
 toolbarFrame = Frame(root, bd=2, relief=SUNKEN)
 toolbarFrame.pack(side=LEFT, anchor='nw', fill=BOTH, expand=0)
+populate_toolbar(toolbarFrame)
+
+# Menu bar
+make_menubar(root)
 
 # Main loop
 root.mainloop()
