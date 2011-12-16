@@ -22,13 +22,12 @@ out appropriate diagnostics.
 > extract (Ok i) = i
 > extract (Error e) = error e
 
-The internal storage types for the program and objects. No, we don't bother to
-distinguish at the data structure level amongst Blocks, Pipes, and so forth -
-that can be done with almost equal ease during encoding, without introducing
-unnecessary inertia.
+The internal storage type for the program. No, we don't bother to distinguish
+at the data structure level amongst Blocks, Pipes, and so forth - that can be
+done with almost equal ease during encoding, without introducing unnecessary
+inertia.
 
-> type Object = [(String, JSValue)]
-> type Program = [(String, Object)]
+> type Program = [(String, [(String, JSValue)])]
 
 Read all JSON from standard input, returning the rawest sensible data
 structure. Again, this data structure is transformed directly into the haskell
