@@ -3,3 +3,5 @@ __pycache__
 *.o
 *.hi
 json2hs/json2hs
+dist
+lib/evan
