@@ -1,5 +1,3 @@
-> {-# LANGUAGE FlexibleInstances #-}
-
 This program converts an EVAN JSON program representation into compile-able
 haskell code. This is a one-way transformation - the original JSON
 representation cannot be reconstructed from the haskell string. (Doing
@@ -44,8 +42,7 @@ blocks, it's roughly arbitrary, and won't end up in the generated haskell code.
 >   deriving (Eq, Show)
 
 > instance JSON Program where
->   readJSON v = do
->     return . Program . asMap =<< readJSObject v
+>   readJSON v = return . Program . asMap =<< readJSObject v
 >   showJSON = const JSNull
 
 Each object may be a block, pipe, or a comment.
@@ -61,8 +58,7 @@ in descriptions for pipes and blocks.
 >   deriving (Eq, Show)
 
 > instance JSON Object where
->   readJSON v = do
->     return $ Comment "Hello, world"
+>   readJSON v = return $ Comment "Hello, world"
 >   showJSON = const JSNull
 
 Note that the JSON representation we are given will also contain other data,
@@ -82,5 +78,4 @@ full haskell program ready for compilation.
 > asHaskell :: Program -> String
 > asHaskell = show
 
-> main = do
->   putStrLn . asHaskell . readProgram =<< getContents
+> main = putStrLn . asHaskell . readProgram =<< getContents
