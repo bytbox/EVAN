@@ -34,7 +34,9 @@ The internal storage types for the program. All of these types claim to be JSON
 instances, but in reality, none bother to implement showJSON properly, because
 we're not going to be outputting any JSON.
 
-> data Program = Program (Map String Int)
+> type Object = Int
+
+> data Program = Program (Map String Object)
 >   deriving (Eq, Show)
 
 > instance JSON Program where
