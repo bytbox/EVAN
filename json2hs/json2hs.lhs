@@ -13,7 +13,9 @@ out appropriate diagnostics.
 > extract (Ok i) = i
 > extract (Error e) = error e
 
-Read all JSON from standard input.
+Read all JSON from standard input, returning the rawest sensible data
+structure. This data structure is transformed directly into the haskell string
+- there's no point going through a more advanced and specialized structure.
 
 > doReadJSON :: IO [(String, Int)]
 > doReadJSON =
