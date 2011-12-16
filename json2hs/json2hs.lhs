@@ -1,19 +1,15 @@
+> {-# LANGUAGE FlexibleInstances #-}
+
 This program converts an EVAN JSON program representation into compile-able
 haskell code.
 
 > module Main
 >   where
 
-> import Text.JSON
-
-Utility function for handling lists of pairs.
-
-> mapSnd :: (b -> c) -> [(a, b)] -> [(a, c)]
-> mapSnd f vs =
->   zip xs $ map f ys
->   where
->     xs = fst $ unzip vs
->     ys = snd $ unzip vs
+> import Data.Map (Map)
+> import qualified Data.Map as Map
+> import Text.JSON (
+>   Result(..), JSValue(..), JSON(..), JSObject, decode, encode, fromJSObject)
 
 Convenience for interfacing with Text.JSON. There's no purpose to handling
 errors nicely - just spit them out so the calling python (or web) code can spit
@@ -22,23 +18,34 @@ out appropriate diagnostics.
 > extract (Ok i) = i
 > extract (Error e) = error e
 
-The internal storage type for the program. No, we don't bother to distinguish
-at the data structure level amongst Blocks, Pipes, and so forth - that can be
-done with almost equal ease during encoding, without introducing unnecessary
-inertia.
+Convenience for extracting JSON objects, instead of attempting to extract a
+list of pairs. I'm not sure why Text.JSON insists on the latter behaviour, but
+it's most definitely not right for us.
 
-> type Program = [(String, [(String, JSValue)])]
+> readJSObject :: JSON a => JSValue -> Result (JSObject a)
+> readJSObject = readJSON
 
-Read all JSON from standard input, returning the rawest sensible data
-structure. Again, this data structure is transformed directly into the haskell
-string - there's no point going through a more advanced and specialized
-structure if the logic can be programmed just as easily during encoding.
+Transform a JSObject into the appropriate map.
 
-> doReadJSON :: IO Program
-> doReadJSON =
->   (((return . extract . decode) =<< getContents)
->     ::(IO (JSObject (JSObject JSValue))))
->   >>= (return . mapSnd fromJSObject . fromJSObject)
+> asMap :: JSObject a -> Map String a
+> asMap = Map.fromList . fromJSObject
+
+The internal storage types for the program. All of these types claim to be JSON
+instances, but in reality, none bother to implement showJSON properly, because
+we're not going to be outputting any JSON.
+
+> data Program = Program (Map String Int)
+>   deriving (Eq, Show)
+
+> instance JSON Program where
+>   readJSON v = do
+>     return . Program . asMap =<< readJSObject v
+>   showJSON p = JSNull
+
+Parse the given JSON, returning a constructed Program object.
+
+> readProgram :: String -> Program
+> readProgram = extract . decode
 
 Convert a program in the post-JSON data structure to a string representing a
 full haskell program ready for compilation.
@@ -47,5 +54,4 @@ full haskell program ready for compilation.
 > asHaskell = show
 
 > main = do
->   p <- doReadJSON
->   putStrLn $ asHaskell p
+>   putStrLn . show . readProgram =<< getContents
