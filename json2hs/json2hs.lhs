@@ -40,6 +40,12 @@ structure if the logic can be programmed just as easily during encoding.
 >     ::(IO (JSObject (JSObject JSValue))))
 >   >>= (return . mapSnd fromJSObject . fromJSObject)
 
+Convert a program in the post-JSON data structure to a string representing a
+full haskell program ready for compilation.
+
+> asHaskell :: Program -> String
+> asHaskell = show
+
 > main = do
->   d <- doReadJSON
->   putStrLn $ show $ d
+>   p <- doReadJSON
+>   putStrLn $ asHaskell p
