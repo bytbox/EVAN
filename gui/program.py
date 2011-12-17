@@ -12,6 +12,7 @@ class Graphical:
 
     def as_json(self):
         """ Convert to a json string. """
+
         return json.dumps({})
 
 class Program:
@@ -26,6 +27,7 @@ class Program:
 
     def as_json(self):
         """ Convert to a json string. """
+
         return json.dumps({})
 
 class Block(Graphical):
@@ -36,6 +38,7 @@ class Block(Graphical):
 
     def as_json(self):
         """ Convert to a json string. """
+
         return json.dumps({})
 
 class Pipe(Graphical):
@@ -46,6 +49,7 @@ class Pipe(Graphical):
 
     def as_json(self):
         """ Convert to a json string. """
+
         return json.dumps({})
 
 def program_from_json(j):
