@@ -73,9 +73,19 @@ Parse the given JSON, returning a constructed Program object.
 > readProgram = extract . decode
 
 Convert a program in the post-JSON data structure to a string representing a
-full haskell program ready for compilation.
+full haskell program ready for compilation. This just means calling out to the
+appropriate method on the program data structure.
 
 > asHaskell :: Program -> String
-> asHaskell = show
+> asHaskell = toHaskell
 
-> main = putStrLn . asHaskell . readProgram =<< getContents
+> class Haskell h where
+>   toHaskell :: h -> String
+
+Now we go to implement the Haskell typeclass (i.e., define the 'toHaskell'
+method) on all of our relevant data structures.
+
+> instance Haskell Program where
+>   toHaskell = const "module Main where\n"
+
+> main = putStr . asHaskell . readProgram =<< getContents
