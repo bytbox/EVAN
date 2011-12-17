@@ -3,6 +3,8 @@ haskell code. This is a one-way transformation - the original JSON
 representation cannot be reconstructed from the haskell string. (Doing
 otherwise would require parsing haskell, which is just way too hard.)
 
+> {-# LANGUAGE TypeSynonymInstances, GADTs #-}
+
 > module Main
 >   where
 
@@ -77,15 +79,38 @@ full haskell program ready for compilation. This just means calling out to the
 appropriate method on the program data structure.
 
 > asHaskell :: Program -> String
-> asHaskell = toHaskell
+> asHaskell = toHaskell "TODO"
 
 > class Haskell h where
->   toHaskell :: h -> String
 
-Now we go to implement the Haskell typeclass (i.e., define the 'toHaskell'
+Converting a data structure to haskell also required the id of the data
+structure, hence the initial String in the type signature - implementations
+that don't actually need this will just ignore it.
+
+>   toHaskell :: String -> h -> String
+
+Again, the `fromHaskell' method is here only as a formality.
+
+>   fromHaskell :: String -> (String, h)
+
+Now we go to implement the Haskell typeclass (i.e., define the `toHaskell'
 method) on all of our relevant data structures.
 
+Although we need go to no great lengths to prittify the haskell output, since
+haskell /does/ care about indentation, we'll adopt the convention of using one
+space indentation throughout.
+
 > instance Haskell Program where
->   toHaskell = const "module Main where\n"
+>   fromHaskell = const ("", Program Map.empty)
+>   toHaskell name (Program p) = concat $
+>     ["module Main\n where\n"] ++
+>     do
+>       (id, obj) <- (Map.toList p)
+>       return $ toHaskell id obj
+>
+> instance Haskell Object where
+>   fromHaskell = const ("", Comment "")
+>   toHaskell _ (Comment str) = "{- " ++ str ++ " -}\n"
+>   toHaskell id _ = "{- ERR " ++ id ++ " -}\n"
 
 > main = putStr . asHaskell . readProgram =<< getContents
