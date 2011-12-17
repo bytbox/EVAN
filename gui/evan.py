@@ -109,6 +109,7 @@ class CanvasState:
         """
 
         self.program = Program()
+        self.update_display()
 
     def loadProg(self):
         """ Load a program from a file. Called when the menu item File->Open is
@@ -119,6 +120,7 @@ class CanvasState:
     def doLoadProg(self, j):
         """ Load a program from the given JSON string. """
         self.program = Program_from_json(j)
+        self.update_display()
 
     def saveProg(self):
         """ Save a program to a file. Called when the menu item File->Save is
@@ -135,7 +137,8 @@ class CanvasState:
     def update_display(self):
         """ Update the canvas display. """
 
-        pass
+        # TODO don't re-draw /everything/
+        self.canvas.delete(ALL)
 
 # Set up the GUI
 root = Tk()
