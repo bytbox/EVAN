@@ -30,8 +30,8 @@ def showAbout():
     pass
 
 class ReadyTool:
-    """ The default tool, which draws pipes whenever possible and otherwise
-    acts just like SelectTool. """
+    """ The default tool, which draws pipes when appropriate and otherwise acts
+    just like SelectTool. """
 
     def __init__(self):
         pass
@@ -48,6 +48,9 @@ class SelectTool:
 
     def select(self):
         pass
+
+class CommentTool:
+    """ The comment tool. """
 
 class BlockTool:
     """ The block drawing tool. """
