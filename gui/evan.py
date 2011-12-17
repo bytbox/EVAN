@@ -105,6 +105,10 @@ class CanvasState:
 
         pass
 
+    def doLoadProg(self, j):
+        """ Load a program from the given JSON string. """
+        self.program = Program_fromJSON(j)
+
     def saveProg(self):
         """ Save a program to a file. Called when the menu item File->Save is
         activated. """
