@@ -2,13 +2,21 @@
 
 import json
 
+last_x = 0
+last_y = 0
+
 class Graphical:
     """ The graphical representation of an object. This class doesn't actually
     interact with a canvas; it simply makes doing so in an efficient way
     possible. """
 
     def __init__(self):
-        pass
+        global last_x, last_y
+        x=last_x+5
+        y=last_y+5
+        last_x, last_y = x, y
+        self.pos = x, y
+        self.ids = []
 
     def as_json(self):
         """ Convert to a json string. """
@@ -34,7 +42,7 @@ class Block(Graphical):
     """ A block represents a function call. """
 
     def __init__(self):
-        pass
+        Graphical.__init__(self)
 
     def as_json(self):
         """ Convert to a json string. """

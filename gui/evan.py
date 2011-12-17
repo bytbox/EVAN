@@ -30,6 +30,9 @@ def showAbout():
     pass
 
 class ReadyTool:
+    """ The default tool, which draws pipes whenever possible and otherwise
+    acts just like SelectTool. """
+
     def __init__(self):
         pass
 
@@ -37,11 +40,19 @@ class ReadyTool:
         pass
 
 class SelectTool:
+    """ The selection tool, which selects whatever it's clicked on, pulling up
+    context menus on right clicks. """
+
     def __init__(self):
         pass
 
     def select(self):
         pass
+
+class BlockTool:
+    """ The block drawing tool. """
+
+    pass
 
 tools = {
     "Cancel": ReadyTool,
@@ -118,6 +129,11 @@ class CanvasState:
     def saveProgAs(self):
         """ Save a program to a selected file. Called when the menu item File->Save
         As is activated. """
+
+        pass
+
+    def update_display(self):
+        """ Update the canvas display. """
 
         pass
 
