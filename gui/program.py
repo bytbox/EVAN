@@ -10,7 +10,7 @@ class Graphical:
     def __init__(self):
         pass
 
-    def asJSON(self):
+    def as_json(self):
         return json.dumps({})
 
 class Program:
@@ -23,7 +23,7 @@ class Program:
         self.blocks = {"Events": Block(), "Return": Block()}
         self.pipes = {}
 
-    def asJSON(self):
+    def as_json(self):
         return json.dumps({})
 
 class Block(Graphical):
@@ -32,7 +32,7 @@ class Block(Graphical):
     def __init__(self):
         pass
 
-    def asJSON(self):
+    def as_json(self):
         return json.dumps({})
 
 class Pipe(Graphical):
@@ -41,17 +41,21 @@ class Pipe(Graphical):
     def __init__(self):
         pass
 
-    def asJSON(self):
+    def as_json(self):
         return json.dumps({})
 
-def Program_fromJSON(j):
+def program_from_json(j):
+    """ Create a program object from the given JSON string. """
     return Program()
 
-def Graphical_fromJSON(j):
+def graphical_from_json(j):
+    """ Create a graphics description object from the given JSON string. """
     return Graphical()
 
-def Block_fromJSON(j):
+def block_from_json(j):
+    """ Create a block from the given JSON string. """
     return Block()
 
-def Pipe_fromJSON(j):
+def pipe_from_json(j):
+    """ Create a pipe from the given JSON string. """
     return Pipe()
