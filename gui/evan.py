@@ -142,7 +142,6 @@ class CanvasState:
         self.canvas.delete(ALL)
         blocks, pipes = self.program.blocks, self.program.pipes
         for block in blocks:
-            print(block)
             canvas.create_text(blocks[block].pos, text=block)
 
         for pipe in pipes:

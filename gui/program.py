@@ -8,6 +8,10 @@ POS_SHIFT = 20
 last_x = 0
 last_y = 0
 
+class Json:
+    def as_json(self):
+        return json.dumps(self.as_object())
+
 class Graphical:
     """ The graphical representation of an object. This class doesn't actually
     interact with a canvas; it simply makes doing so in an efficient way
@@ -21,25 +25,36 @@ class Graphical:
         self.pos = x, y
         self.ids = []
 
-    def as_json(self):
-        """ Convert to a json string. """
+    def as_object(self):
+        """ Convert to a json-able object. """
 
-        return json.dumps({})
+        return {}
 
-class Program:
+class Program(Json):
     """ A program consists, in our model, of a set of blocks and pipes. """
 
     def __init__(self):
         """ A program is not initialized blank - there is an input and an
         output block """
 
+        Json.__init__(self)
         self.blocks = {"Events": Block(), "Return": Block()}
         self.pipes = {}
 
-    def as_json(self):
-        """ Convert to a json string. """
+    def as_object(self):
+        """ Convert to a json-able object. """
 
-        return json.dumps({})
+        top = {}
+
+        # add all blocks
+        for block in self.blocks:
+            top[block] = self.blocks[block].as_object()
+
+        # add all pipes
+        for pipe in self.pipes:
+            top[pipe] = self.pipes[pipe].as_object()
+
+        return top
 
 class Block(Graphical):
     """ A block represents a function call. """
@@ -47,10 +62,10 @@ class Block(Graphical):
     def __init__(self):
         Graphical.__init__(self)
 
-    def as_json(self):
-        """ Convert to a json string. """
+    def as_object(self):
+        """ Convert to a json-able object. """
 
-        return json.dumps({})
+        return {}
 
 class Pipe(Graphical):
     """ A pipe represents a variable. """
@@ -58,10 +73,10 @@ class Pipe(Graphical):
     def __init__(self):
         pass
 
-    def as_json(self):
-        """ Convert to a json string. """
+    def as_object(self):
+        """ Convert to a json-able object. """
 
-        return json.dumps({})
+        return {}
 
 def program_from_json(j):
     """ Create a program object from the given JSON string. """
