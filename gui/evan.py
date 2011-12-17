@@ -137,8 +137,16 @@ class CanvasState:
     def update_display(self):
         """ Update the canvas display. """
 
-        # TODO don't re-draw /everything/
+        # TODO don't re-draw /everything/ - use find_all and Graphical.ids
+
         self.canvas.delete(ALL)
+        blocks, pipes = self.program.blocks, self.program.pipes
+        for block in blocks:
+            print(block)
+            canvas.create_text(blocks[block].pos, text=block)
+
+        for pipe in pipes:
+            pass
 
 # Set up the GUI
 root = Tk()
@@ -180,6 +188,9 @@ populate_toolbar(toolbarFrame, cState)
 
 # Menu bar
 make_menubar(root)
+
+# Initialize
+cState.newProg()
 
 # Main loop
 root.mainloop()

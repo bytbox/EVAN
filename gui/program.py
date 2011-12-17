@@ -2,6 +2,9 @@
 
 import json
 
+# The distance to shift when adding a block
+POS_SHIFT = 20
+
 last_x = 0
 last_y = 0
 
@@ -12,8 +15,8 @@ class Graphical:
 
     def __init__(self):
         global last_x, last_y
-        x=last_x+5
-        y=last_y+5
+        x=last_x+POS_SHIFT*3
+        y=last_y+POS_SHIFT
         last_x, last_y = x, y
         self.pos = x, y
         self.ids = []
