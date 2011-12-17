@@ -97,8 +97,8 @@ Now we go to implement the Haskell typeclass (i.e., define the `toHaskell'
 method) on all of our relevant data structures.
 
 Although we need go to no great lengths to prittify the haskell output, since
-haskell /does/ care about indentation, we'll adopt the convention of using one
-space indentation throughout.
+haskell /does/ care about indentation, we'll adopt the convention of using
+one-space indentation throughout.
 
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
