@@ -25,10 +25,10 @@ class Graphical:
         self.pos = x, y
         self.ids = []
 
-    def as_object(self):
+    def g_as_object(self):
         """ Convert to a json-able object. """
 
-        return {}
+        return {"x": self.pos[0], "y": self.pos[1]}
 
 class Program(Json):
     """ A program consists, in our model, of a set of blocks and pipes. """
@@ -66,7 +66,7 @@ class Block(Json, Graphical):
     def as_object(self):
         """ Convert to a json-able object. """
 
-        return {"graphics": {}}
+        return {"graphics": self.g_as_object()}
 
 class Pipe(Json, Graphical):
     """ A pipe represents a variable. """
@@ -78,7 +78,7 @@ class Pipe(Json, Graphical):
     def as_object(self):
         """ Convert to a json-able object. """
 
-        return {}
+        return {"graphics": self.g_as_object()}
 
 def program_from_json(j):
     """ Create a program object from the given JSON string. """
