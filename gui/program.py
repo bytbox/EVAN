@@ -10,7 +10,7 @@ last_y = 0
 
 class Json:
     def as_json(self):
-        return json.dumps(self.as_object())
+        return json.dumps(self.as_object(), indent=2)
 
 class Graphical:
     """ The graphical representation of an object. This class doesn't actually
@@ -56,22 +56,24 @@ class Program(Json):
 
         return top
 
-class Block(Graphical):
+class Block(Json, Graphical):
     """ A block represents a function call. """
 
     def __init__(self):
+        Json.__init__(self)
         Graphical.__init__(self)
 
     def as_object(self):
         """ Convert to a json-able object. """
 
-        return {}
+        return {"graphics": {}}
 
-class Pipe(Graphical):
+class Pipe(Json, Graphical):
     """ A pipe represents a variable. """
 
     def __init__(self):
-        pass
+        Json.__init__(self)
+        Graphical.__init__(self)
 
     def as_object(self):
         """ Convert to a json-able object. """
