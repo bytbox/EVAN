@@ -3,6 +3,7 @@
 # Main component of the EVAN python+tk frontend. See README for notes.
 
 from tkinter import *
+from tkinter.filedialog import *
 
 from program import *
 
@@ -113,6 +114,7 @@ class CanvasState:
 
         self.program = Program()
         self.update_display()
+        self.fname = None
 
     def loadProg(self):
         """ Load a program from a file. Called when the menu item File->Open is
@@ -129,13 +131,17 @@ class CanvasState:
         """ Save a program to a file. Called when the menu item File->Save is
         activated. """
 
-        print(self.program.as_json())
+        if self.fname is None:
+            self.fname = asksaveasfilename()
+        with open(self.fname, 'w') as f:
+            f.write(self.program.as_json())
 
     def saveProgAs(self):
         """ Save a program to a selected file. Called when the menu item File->Save
         As is activated. """
-
-        pass
+        
+        self.fname = asksaveasfilename()
+        self.saveProg
 
     def update_display(self):
         """ Update the canvas display. """
