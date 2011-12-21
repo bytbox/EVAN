@@ -81,21 +81,6 @@ class Pipe(Json, Graphical):
         return {"graphics": self.g_as_object()}
 
 def program_from_json(j):
-    """ Create a program object from the given JSON string. """
+    """ Create a program object from the JSON string in the given file. """
 
     return Program()
-
-def graphical_from_json(j):
-    """ Create a graphics description object from the given JSON string. """
-
-    return Graphical()
-
-def block_from_json(j):
-    """ Create a block from the given JSON string. """
-
-    return Block()
-
-def pipe_from_json(j):
-    """ Create a pipe from the given JSON string. """
-
-    return Pipe()

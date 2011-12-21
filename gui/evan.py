@@ -120,11 +120,8 @@ class CanvasState:
         """ Load a program from a file. Called when the menu item File->Open is
         activated. """
 
-        pass
-
-    def doLoadProg(self, j):
-        """ Load a program from the given JSON string. """
-        self.program = Program_from_json(j)
+        self.fname = askopenfilename()
+        self.program = program_from_json(self.fname)
         self.update_display()
 
     def saveProg(self):
