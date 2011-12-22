@@ -166,8 +166,11 @@ class CanvasState:
             w = 50
             pos = blocks[block].pos
             ids = []
-            ids.append(canvas.create_rectangle(pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2, fill="#00ff00"))
-            ids.append(canvas.create_text(blocks[block].pos, text=block))
+            ids.append(canvas.create_rectangle(
+                pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
+                fill="#ffff00", activefill="#ffffaa"))
+            ids.append(canvas.create_text(blocks[block].pos,
+                text=block, state=DISABLED))
 
         for pipe in pipes:
             pass
