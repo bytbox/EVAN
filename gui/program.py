@@ -40,6 +40,7 @@ class Program(Json):
         Json.__init__(self)
         self.blocks = {"Events": Block(), "Return": Block()}
         self.pipes = {}
+        self.comments = {"_comment1": Comment("Hello, world")}
 
     def as_object(self):
         """ Convert to a json-able object. """
@@ -54,7 +55,24 @@ class Program(Json):
         for pipe in self.pipes:
             top[pipe] = self.pipes[pipe].as_object()
 
+        # add all comments
+        for c in self.comments:
+            top[c] = self.comments[c].as_object()
+
         return top
+
+class Comment(Json, Graphical):
+    """ A comment. """
+
+    def __init__(self, text):
+        Json.__init__(self)
+        Graphical.__init__(self)
+        self.text = text
+
+    def as_object(self):
+        """ Convert to a json-able object."""
+
+        return {"graphics": self.g_as_object(), "text": self.text}
 
 class Block(Json, Graphical):
     """ A block represents a function call. """
