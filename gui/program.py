@@ -68,17 +68,16 @@ class Block(Json, Graphical):
 
         return {"graphics": self.g_as_object()}
 
-class Pipe(Json, Graphical):
+class Pipe(Json):
     """ A pipe represents a variable. """
 
     def __init__(self):
         Json.__init__(self)
-        Graphical.__init__(self)
 
     def as_object(self):
         """ Convert to a json-able object. """
 
-        return {"graphics": self.g_as_object()}
+        return {}
 
 def program_from_json(j):
     """ Create a program object from the JSON string in the given file. """

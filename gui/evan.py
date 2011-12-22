@@ -68,6 +68,10 @@ def use_tool(t, cState):
 
 def populate_toolbar(toolbar, cState):
     """ Populate toolbar. """
+
+    Button(toolbar, text="Compile", command=cState.do_compile).pack(side=TOP)
+    Button(toolbar, text="Run", command=cState.do_run).pack(side=TOP)
+
     for tool in tools:
         b = Button(toolbar, text=tool, command=use_tool(tool, cState))
         b.pack(side=TOP)
@@ -140,6 +144,16 @@ class CanvasState:
         self.fname = asksaveasfilename()
         self.saveProg
 
+    def do_compile(self):
+        """ Perform compilation. """
+
+        self.saveProg()
+
+    def do_run(self):
+        """ Run the analysis. """
+
+        self.do_compile()
+
     def update_display(self):
         """ Update the canvas display. """
 
@@ -148,7 +162,12 @@ class CanvasState:
         self.canvas.delete(ALL)
         blocks, pipes = self.program.blocks, self.program.pipes
         for block in blocks:
-            canvas.create_text(blocks[block].pos, text=block)
+            h = 26
+            w = 50
+            pos = blocks[block].pos
+            ids = []
+            ids.append(canvas.create_rectangle(pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2, fill="#00ff00"))
+            ids.append(canvas.create_text(blocks[block].pos, text=block))
 
         for pipe in pipes:
             pass
