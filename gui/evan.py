@@ -31,18 +31,8 @@ def showAbout():
     pass
 
 class ReadyTool:
-    """ The default tool, which draws pipes when appropriate and otherwise acts
-    just like SelectTool. """
-
-    def __init__(self):
-        pass
-
-    def select(self):
-        pass
-
-class SelectTool:
-    """ The selection tool, which selects whatever it's clicked on, pulling up
-    context menus on right clicks. """
+    """ The default tool, which draws pipes when appropriate and otherwise
+    selects and drags. """
 
     def __init__(self):
         pass
@@ -60,7 +50,6 @@ class BlockTool:
 
 tools = {
     "Cancel": ReadyTool,
-    "Select": SelectTool,
 }
 
 def use_tool(t, cState):
