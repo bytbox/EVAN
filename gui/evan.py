@@ -180,6 +180,9 @@ class CanvasState:
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                 fill="#00ffff", activefill="#aaffff")
             self.objects[i] = blocks[block]
+
+            # below and above
+
             self.canvas.create_text(pos,
                 text=block, state=DISABLED)
 
@@ -191,12 +194,12 @@ class CanvasState:
             h = 26
             w = 160
             pos = comment.pos()
-            ids = []
-            ids.append(canvas.create_rectangle(
+            i = self.canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
-                fill="#ffff00", activefill="#ffffaa"))
-            ids.append(canvas.create_text(pos,
-                text=comment.text, state=DISABLED, width=w))
+                fill="#ffff00", activefill="#ffffaa")
+            self.objects[i] = comment
+            self.canvas.create_text(pos,
+                text=comment.text, state=DISABLED, width=w)
 
 # Set up the GUI
 root = Tk()
