@@ -61,6 +61,8 @@ def populate_toolbar(toolbar, cState):
     Button(toolbar, text="Compile", command=cState.do_compile).pack(side=TOP)
     Button(toolbar, text="Run", command=cState.do_run).pack(side=TOP)
 
+    cState.useTool(ReadyTool)
+
     for tool in tools:
         b = Button(toolbar, text=tool, command=use_tool(tool, cState))
         b.pack(side=TOP)
@@ -76,12 +78,14 @@ class CanvasState:
         self.last_y = -1
         self.isdown = False
         self.dragdist = 0
-        self.tool = None
         self.canvas = canvas
         self.program = None
+        self.tool = ReadyTool
+        self.selected = None
+        self.objects = {}
 
-    def useTool(self, toolName):
-        print(toolName)
+    def useTool(self, tool):
+        self.tool = tool
     
     def canvas_down(self, event):
         self.isdown = True
@@ -89,6 +93,9 @@ class CanvasState:
         x = self.canvas.canvasx(event.x)
         y = self.canvas.canvasy(event.y)
         self.last_x, self.last_y = x, y
+        # TODO select whatever is here
+        self.selected = self.obj_at(x, y)
+        self.update_display()
 
     def canvas_up(self, event):
         self.isdown = False
@@ -99,9 +106,12 @@ class CanvasState:
     def canvas_move(self, event):
         x = self.canvas.canvasx(event.x)
         y = self.canvas.canvasy(event.y)
-        if self.isdown:
-            gId = self.canvas.create_line(self.last_x,self.last_y,x,y)
+        if self.isdown and self.selected:
+            dx = x - self.last_x
+            dy = y - self.last_y
+            self.selected.move(dx, dy)
         self.last_x, self.last_y = x, y
+        self.update_display()
 
     def newProg(self):
         """ Create a new program. Called when the menu item File->New is activated.
@@ -145,6 +155,16 @@ class CanvasState:
 
         self.do_compile()
 
+    def obj_at(self, x, y):
+        """ Find and return the object at the specified co-ordinates. """
+
+        ids = self.canvas.find_overlapping(x,y,x,y)
+        for id in ids:
+            if id in self.objects:
+                return self.objects[id]
+
+        return None
+
     def update_display(self):
         """ Update the canvas display. """
 
@@ -156,12 +176,12 @@ class CanvasState:
             h = 26
             w = 50
             pos = blocks[block].pos()
-            ids = []
-            ids.append(canvas.create_rectangle(
+            i = self.canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
-                fill="#00ffff", activefill="#aaffff"))
-            ids.append(canvas.create_text(pos,
-                text=block, state=DISABLED))
+                fill="#00ffff", activefill="#aaffff")
+            self.objects[i] = blocks[block]
+            self.canvas.create_text(pos,
+                text=block, state=DISABLED)
 
         for pipe in pipes:
             pass
@@ -176,7 +196,7 @@ class CanvasState:
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                 fill="#ffff00", activefill="#ffffaa"))
             ids.append(canvas.create_text(pos,
-                text=cid, state=DISABLED))
+                text=comment.text, state=DISABLED, width=w))
 
 # Set up the GUI
 root = Tk()

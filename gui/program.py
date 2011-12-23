@@ -3,7 +3,7 @@
 import json
 
 # The distance to shift when adding a block
-POS_SHIFT = 0, 40
+POS_SHIFT = 0, 60
 
 last = 100, 0
 
@@ -26,6 +26,11 @@ class Graphical:
     def pos(self):
         return self._pos
 
+    def move(self, dx, dy):
+        """ Move this element by the specified amount. """
+
+        self._pos = ((self._pos[0]+dx), (self._pos[1]+dy))
+
     def g_as_object(self):
         """ Convert to a json-able object. """
 
@@ -41,7 +46,7 @@ class Program(Json):
         Json.__init__(self)
         self.blocks = {"Events": Block(), "Return": Block()}
         self.pipes = {}
-        self.comments = {"_comment1": Comment("Hello, world")}
+        self.comments = {"_comment1": Comment("Hello, world!")}
 
     def as_object(self):
         """ Convert to a json-able object. """
