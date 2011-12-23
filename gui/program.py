@@ -3,10 +3,10 @@
 import json
 
 # The distance to shift when adding a block
-POS_SHIFT = 20
+POS_SHIFT = 0, 40
 
-last_x = 0
-last_y = 0
+last_x = 100
+last_y = 20
 
 class Json:
     def as_json(self):
@@ -17,18 +17,21 @@ class Graphical:
     interact with a canvas; it simply makes doing so in an efficient way
     possible. """
 
-    def __init__(self):
+    def init_pos(self):
         global last_x, last_y
-        x=last_x+POS_SHIFT*3
-        y=last_y+POS_SHIFT
+        x=last_x+POS_SHIFT[0]
+        y=last_y+POS_SHIFT[1]
         last_x, last_y = x, y
-        self.pos = x, y
+        self._pos = x, y
         self.ids = []
+
+    def pos(self):
+        return self._pos
 
     def g_as_object(self):
         """ Convert to a json-able object. """
 
-        return {"x": self.pos[0], "y": self.pos[1]}
+        return {"x": self._pos[0], "y": self._pos[1]}
 
 class Program(Json):
     """ A program consists, in our model, of a set of blocks and pipes. """
@@ -66,7 +69,7 @@ class Comment(Json, Graphical):
 
     def __init__(self, text):
         Json.__init__(self)
-        Graphical.__init__(self)
+        Graphical.init_pos(self)
         self.text = text
 
     def as_object(self):
@@ -79,7 +82,7 @@ class Block(Json, Graphical):
 
     def __init__(self):
         Json.__init__(self)
-        Graphical.__init__(self)
+        Graphical.init_pos(self)
 
     def as_object(self):
         """ Convert to a json-able object. """

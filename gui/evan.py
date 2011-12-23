@@ -76,6 +76,8 @@ def populate_toolbar(toolbar, cState):
         b = Button(toolbar, text=tool, command=use_tool(tool, cState))
         b.pack(side=TOP)
 
+FILETYPES = [("EVAN Programs", ".evan")]
+
 class CanvasState:
     """ Encapsulates the state of the canvas as well as the user interaction
     logic. """
@@ -87,7 +89,7 @@ class CanvasState:
         self.dragdist = 0
         self.tool = None
         self.canvas = canvas
-        self.program = Program()
+        self.program = None
 
     def useTool(self, toolName):
         print(toolName)
@@ -124,7 +126,7 @@ class CanvasState:
         """ Load a program from a file. Called when the menu item File->Open is
         activated. """
 
-        self.fname = askopenfilename()
+        self.fname = askopenfilename(defaultextension=".evan", filetypes = FILETYPES)
         self.program = program_from_json(self.fname)
         self.update_display()
 
@@ -133,7 +135,7 @@ class CanvasState:
         activated. """
 
         if self.fname is None:
-            self.fname = asksaveasfilename()
+            self.fname = asksaveasfilename(defaultextension=".evan", filetypes = FILETYPES)
         with open(self.fname, 'w') as f:
             f.write(self.program.as_json())
 
@@ -141,7 +143,7 @@ class CanvasState:
         """ Save a program to a selected file. Called when the menu item File->Save
         As is activated. """
         
-        self.fname = asksaveasfilename()
+        self.fname = asksaveasfilename(defaultextension=".evan", filetypes = FILETYPES)
         self.saveProg
 
     def do_compile(self):
@@ -164,12 +166,12 @@ class CanvasState:
         for block in blocks:
             h = 26
             w = 50
-            pos = blocks[block].pos
+            pos = blocks[block].pos()
             ids = []
             ids.append(canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                 fill="#ffff00", activefill="#ffffaa"))
-            ids.append(canvas.create_text(blocks[block].pos,
+            ids.append(canvas.create_text(pos,
                 text=block, state=DISABLED))
 
         for pipe in pipes:
