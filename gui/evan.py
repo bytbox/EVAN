@@ -162,7 +162,7 @@ class CanvasState:
         # TODO don't re-draw /everything/ - use find_all and Graphical.ids
 
         self.canvas.delete(ALL)
-        blocks, pipes = self.program.blocks, self.program.pipes
+        blocks, pipes, comments = self.program.blocks, self.program.pipes, self.program.comments
         for block in blocks:
             h = 26
             w = 50
@@ -170,12 +170,24 @@ class CanvasState:
             ids = []
             ids.append(canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
-                fill="#ffff00", activefill="#ffffaa"))
+                fill="#00ffff", activefill="#aaffff"))
             ids.append(canvas.create_text(pos,
                 text=block, state=DISABLED))
 
         for pipe in pipes:
             pass
+
+        for cid in comments:
+            comment = comments[cid]
+            h = 26
+            w = 160
+            pos = comment.pos()
+            ids = []
+            ids.append(canvas.create_rectangle(
+                pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
+                fill="#ffff00", activefill="#ffffaa"))
+            ids.append(canvas.create_text(pos,
+                text=cid, state=DISABLED))
 
 # Set up the GUI
 root = Tk()
