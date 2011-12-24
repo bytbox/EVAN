@@ -86,6 +86,8 @@ class Block(Json, Graphical):
     def __init__(self):
         Json.__init__(self)
         Graphical.init_pos(self)
+        self.input_count = 3
+        self.output_count = 2
 
     def as_object(self):
         """ Convert to a json-able object. """
