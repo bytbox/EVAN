@@ -151,6 +151,14 @@ class CanvasState:
 
         self.canvas.delete(ALL)
         blocks, pipes, comments = self.program.blocks, self.program.pipes, self.program.comments
+
+        for pipe in pipes:
+            p = pipes[pipe]
+            sn, si = p.source
+            dn, di = p.dest
+            sp, dp = blocks[sn].pos(), blocks[dn].pos()
+            self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
+
         for block in blocks:
             # TODO get size of glyph or string
             h = 26
@@ -186,13 +194,6 @@ class CanvasState:
 
             self.canvas.create_text(pos, font=FONTA,
                 text=b.ident, state=DISABLED)
-
-        for pipe in pipes:
-            p = pipes[pipe]
-            sn, si = p.source
-            dn, di = p.dest
-            sp, dp = blocks[sn].pos(), blocks[dn].pos()
-            self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
 
         for cid in comments:
             comment = comments[cid]
