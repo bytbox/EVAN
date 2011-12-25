@@ -143,7 +143,7 @@ class CanvasState:
             i = self.canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                 fill="#00ffff", activefill="#aaffff")
-            self.objects[i] = blocks[block]
+            self.objects[i] = b
 
             mh = 8
             # input and output blocks
@@ -168,7 +168,7 @@ class CanvasState:
                 self.outputs[o] = block
 
             self.canvas.create_text(pos, font=FONTA,
-                text=block, state=DISABLED)
+                text=b.ident, state=DISABLED)
 
         for pipe in pipes:
             pass
