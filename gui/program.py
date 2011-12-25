@@ -110,13 +110,18 @@ class Block(Json, Graphical):
 class Pipe(Json):
     """ A pipe represents a variable. """
 
-    def __init__(self):
+    def __init__(self, source, dest):
         Json.__init__(self)
+        self.source = source
+        self.dest = dest
 
     def as_object(self):
         """ Convert to a json-able object. """
 
-        return {}
+        return {
+            "source": self.source,
+            "destination": self.dest,
+        }
 
 def program_from_json(j):
     """ Create a program object from the JSON string in the given file. """
