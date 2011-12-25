@@ -188,7 +188,11 @@ class CanvasState:
                 text=b.ident, state=DISABLED)
 
         for pipe in pipes:
-            pass
+            p = pipes[pipe]
+            sn, si = p.source
+            dn, di = p.dest
+            sp, dp = blocks[sn].pos(), blocks[dn].pos()
+            self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
 
         for cid in comments:
             comment = comments[cid]
