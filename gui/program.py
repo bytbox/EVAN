@@ -7,6 +7,10 @@ POS_SHIFT = 0, 60
 
 last = 100, 0
 
+COMMENT = "comment"
+PIPE = "pipe"
+BLOCK = "block"
+
 class Json:
     def as_json(self):
         return json.dumps(self.as_object(), indent=2)
@@ -89,7 +93,11 @@ class Comment(Json, Graphical):
     def as_object(self):
         """ Convert to a json-able object."""
 
-        return {"graphics": self.g_as_object(), "text": self.text}
+        return {
+            "kind": COMMENT,
+            "graphics": self.g_as_object(),
+            "text": self.text
+        }
 
 class Block(Json, Graphical):
     """ A block represents a function call. """
@@ -108,6 +116,7 @@ class Block(Json, Graphical):
         """ Convert to a json-able object. """
 
         return {
+            "kind": BLOCK,
             "ident": self.ident,
             "output-count": self.output_count,
             "input-count": self.input_count,
@@ -127,6 +136,7 @@ class Pipe(Json):
         """ Convert to a json-able object. """
 
         return {
+            "kind": PIPE,
             "source": self.source,
             "destination": self.dest,
         }
