@@ -195,7 +195,7 @@ class CanvasState:
             self.canvas.create_text(pos, font=FONTA,
                 text=b.ident, state=DISABLED)
 
-        for cid in comments:
+            for cid in comments:
             comment = comments[cid]
             h = 26
             w = 160
