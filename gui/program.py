@@ -44,7 +44,7 @@ class Program(Json):
         output block """
 
         Json.__init__(self)
-        self.blocks = {"Events": Block(), "Return": Block()}
+        self.blocks = {"Events": Block(0, 1), "Return": Block(1, 0)}
         self.pipes = {}
         self.comments = {"_comment1": Comment("Hello, world!")}
 
@@ -83,11 +83,11 @@ class Comment(Json, Graphical):
 class Block(Json, Graphical):
     """ A block represents a function call. """
 
-    def __init__(self):
+    def __init__(self, ic=0, oc=0):
         Json.__init__(self)
         Graphical.init_pos(self)
-        self.input_count = 3
-        self.output_count = 2
+        self.input_count = ic
+        self.output_count = oc
 
     def as_object(self):
         """ Convert to a json-able object. """

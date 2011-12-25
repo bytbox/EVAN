@@ -126,12 +126,26 @@ class CanvasState:
                 fill="#00ffff", activefill="#aaffff")
             self.objects[i] = blocks[block]
 
+            # TODO get size of glyph or string
+            mh = 6
             # input and output blocks
-            if b.input_count > 0:
-                pass
+            for i in range(0, b.input_count):
+                iw = w/b.input_count
+                self.canvas.create_rectangle(
+                    pos[0]-w/2+i*iw,
+                    pos[1]-h/2-mh,
+                    pos[0]-w/2+(i+1)*iw,
+                    pos[1]-h/2,
+                    fill="#00ffff", activefill="#aaffff")
 
-            if b.output_count > 0:
-                pass
+            for i in range(0, b.output_count):
+                ow = w/b.output_count
+                self.canvas.create_rectangle(
+                    pos[0]-w/2+i*ow,
+                    pos[1]+h/2,
+                    pos[0]-w/2+(i+1)*ow,
+                    pos[1]+h/2+mh,
+                    fill="#00ffff", activefill="#aaffff")
 
             self.canvas.create_text(pos, font=FONTA,
                 text=block, state=DISABLED)
