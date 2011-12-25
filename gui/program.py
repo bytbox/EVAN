@@ -56,6 +56,8 @@ class Program(Json):
 
         name = "_pipe_"+str(len(self.pipes))
         self.pipes[name] = p
+        d, i = p.dest
+        self.blocks[d].inputs[i] = name
 
     def as_object(self):
         """ Convert to a json-able object. """

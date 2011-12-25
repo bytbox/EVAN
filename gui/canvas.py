@@ -172,7 +172,7 @@ class CanvasState:
                     pos[0]-w/2+(i+1)*iw,
                     pos[1]-h/2,
                     fill="#00ffff", activefill="#aaffff")
-                self.inputs[o] = block
+                self.inputs[o] = block, i
 
             for i in range(0, b.output_count):
                 ow = w/b.output_count
@@ -182,7 +182,7 @@ class CanvasState:
                     pos[0]-w/2+(i+1)*ow,
                     pos[1]+h/2+mh,
                     fill="#00ffff", activefill="#aaffff")
-                self.outputs[o] = block
+                self.outputs[o] = block, i
 
             self.canvas.create_text(pos, font=FONTA,
                 text=b.ident, state=DISABLED)
