@@ -51,6 +51,12 @@ class Program(Json):
         self.pipes = {}
         self.comments = {"_comment1": Comment("Hello, world!")}
 
+    def add_pipe(self, p):
+        """ Add a pseudo-anonymous pipe. """
+
+        name = "_pipe_"+str(len(self.pipes))
+        self.pipes[name] = p
+
     def as_object(self):
         """ Convert to a json-able object. """
 

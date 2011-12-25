@@ -45,7 +45,14 @@ class CanvasState:
         if self.selected is None and self.seloutput is None:
             # find out if an output was clicked
             self.seloutput = self.out_at(x, y)
-            print(self.seloutput)
+        elif self.selected is None and self.seloutput:
+            selinput = self.in_at(x, y)
+            seloutput = self.seloutput
+            self.seloutput = None
+            if selinput:
+                p = Pipe(seloutput, selinput)
+                self.program.add_pipe(p)
+
         self.update_display()
 
     def canvas_up(self, event):
@@ -114,6 +121,16 @@ class CanvasState:
         for id in ids:
             if id in self.objects:
                 return self.objects[id]
+
+        return None
+
+    def in_at(self, x, y):
+        """ Find and return the object with an output at the specified co-ordinates. """
+        
+        ids = self.canvas.find_overlapping(x,y,x,y)
+        for id in ids:
+            if id in self.inputs:
+                return self.inputs[id]
 
         return None
 
