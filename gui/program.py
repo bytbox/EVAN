@@ -93,6 +93,9 @@ class Block(Json, Graphical):
         self.input_count = ic
         self.output_count = oc
 
+        # initialize input array
+        self.inputs = [None]*ic
+
     def as_object(self):
         """ Convert to a json-able object. """
 
@@ -100,6 +103,7 @@ class Block(Json, Graphical):
             "ident": self.ident,
             "output-count": self.output_count,
             "input-count": self.input_count,
+            "inputs": self.inputs,
             "graphics": self.g_as_object(),
         }
 
