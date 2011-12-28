@@ -20,6 +20,13 @@ out appropriate diagnostics.
 > extract (Ok i) = i
 > extract (Error e) = error e
 
+We also want to transform the Maybe monad into the Result monad with a generic
+error message when appropriate.
+
+> asResult :: Maybe a -> Result a
+> asResult (Just x) = Ok x
+> asResult Nothing = Error "Nothing"
+
 Convenience for extracting JSON objects, instead of attempting to extract a
 list of pairs. I'm not sure why Text.JSON insists on the latter behaviour, but
 it's most definitely not right for us.
@@ -63,8 +70,20 @@ in descriptions for pipes and blocks.
 
 > instance JSON Object where
 >   readJSON v =
->     let o = readJSObject v :: Result (JSObject String) in
->       return $ Comment "Hello, world"
+>     let o = readJSObject v :: Result (JSObject JSValue) in
+>       fromJSObject =<< o
+>     where
+>       jsLookup :: JSON a => String -> JSObject JSValue -> Result a
+>       jsLookup k v = readJSON =<< (asResult $ Map.lookup k $ asMap v)
+>       lookupKind = jsLookup "kind"
+>       fromJSObject :: JSObject JSValue -> Result Object
+>       fromJSObject v = do
+>         k <- lookupKind v
+>         case k of
+>           "comment" -> return . Comment =<< jsLookup "text" v
+>           "block" -> return $ Comment "BLOCK"
+>           "pipe" -> return $ Comment "PIPE"
+>           _ -> return $ Comment "UNKNOWN KIND"
 >   showJSON = const JSNull
 
 Note that the JSON representation we are given will also contain other data,
