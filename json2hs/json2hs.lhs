@@ -44,7 +44,9 @@ blocks, it's roughly arbitrary, and won't end up in the generated haskell code.
 >   deriving (Eq, Show)
 
 > instance JSON Program where
->   readJSON v = return . Program . asMap =<< (readJSObject v :: Result (JSObject Object))
+>   readJSON v =
+>     let o = readJSObject v :: Result (JSObject Object) in
+>       return . Program . asMap =<< (readJSObject v :: Result (JSObject Object))
 >   showJSON = const JSNull
 
 Each object may be a block, pipe, or a comment.
