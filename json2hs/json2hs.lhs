@@ -59,7 +59,7 @@ blocks, it's roughly arbitrary, and won't end up in the generated haskell code.
 Each object may be a block, pipe, or a comment.
 
 > data Object =
->     Block String
+>     Block String [String]
 >   | Pipe
 
 Comments aren't associated with any individual object - things like that belong
@@ -81,7 +81,7 @@ in descriptions for pipes and blocks.
 >         k <- lookupKind v
 >         case k of
 >           "comment" -> return . Comment =<< jsLookup "text" v
->           "block" -> return . Block =<< jsLookup "ident" v
+>           "block" -> return . (flip Block []) =<< jsLookup "ident" v
 >           "pipe" -> return $ Comment "PIPE"
 >           _ -> return $ Comment "UNKNOWN KIND"
 >   showJSON = const JSNull
