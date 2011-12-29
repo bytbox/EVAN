@@ -127,8 +127,12 @@ class Block(Json, Graphical):
 class Pipe(Json):
     """ A pipe represents a variable. """
 
-    def __init__(self, source, dest):
+    def __init__(self, source, dest, i=None):
         Json.__init__(self)
+       
+        if i is None:
+            i = "_pipe_" + source[0] + "__" + str(source[1])
+        self.ident = i
         self.source = source
         self.dest = dest
 
@@ -137,6 +141,7 @@ class Pipe(Json):
 
         return {
             "kind": PIPE,
+            "ident": self.ident,
             "source": self.source,
             "destination": self.dest,
         }
