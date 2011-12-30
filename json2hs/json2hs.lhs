@@ -59,6 +59,10 @@ blocks, it's roughly arbitrary, and won't end up in the generated haskell code.
 Each object may be a block, pipe, or a comment.
 
 > data Object =
+
+A block is an identity - the name of the function to be called - combined with
+a list of inputs.
+
 >     Block String [String]
 >   | Pipe
 
@@ -82,7 +86,7 @@ in descriptions for pipes and blocks.
 >         case k of
 >           "comment" -> return . Comment =<< jsLookup "text" v
 >           "block" -> return . (flip Block []) =<< jsLookup "ident" v
->           "pipe" -> return $ Comment "PIPE"
+>           "pipe" -> return $ Comment "TODO PIPE"
 >           _ -> return $ Comment "UNKNOWN KIND"
 >   showJSON = const JSNull
 
@@ -106,9 +110,9 @@ appropriate method on the program data structure.
 
 > class Haskell h where
 
-Converting a data structure to haskell also required the id of the data
-structure, hence the initial String in the type signature - implementations
-that don't actually need this will just ignore it.
+Converting a data structure to haskell requires the id of the data structure,
+hence the initial String in the type signature - implementations that don't
+actually need this will just ignore it.
 
 >   toHaskell :: String -> h -> String
 
@@ -134,6 +138,6 @@ one-space indentation throughout.
 > instance Haskell Object where
 >   fromHaskell = const ("", Comment "")
 >   toHaskell _ (Comment str) = "{- " ++ str ++ " -}\n"
->   toHaskell id _ = "{- ERR " ++ id ++ " -}\n"
+>   toHaskell id v = "{- ERR " ++ (show id) ++ " : " ++ show v ++ " -}\n"
 
 > main = putStr . asHaskell . readProgram =<< getContents
