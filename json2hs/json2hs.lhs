@@ -141,7 +141,7 @@ one-space indentation throughout.
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
 >   toHaskell name (Program p) = concat $
->     ["module " ++ name ++ "\n where\n"] ++
+>     ["module " ++ name ++ "\n where\n\nimport EVAN\n"] ++
 >     do
 >       (id, obj) <- (Map.toList p)
 >       return $ toHaskell id obj
