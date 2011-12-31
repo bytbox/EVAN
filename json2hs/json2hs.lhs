@@ -3,11 +3,15 @@ haskell code. This is a one-way transformation - the original JSON
 representation cannot be reconstructed from the haskell string. (Doing
 otherwise would require parsing haskell, which is just way too hard.)
 
+TODO consider using template haskell for the entire thing - thus the program
+would be compiled directly from the JSON in a more type-safe manner.
+
 > {-# LANGUAGE TypeSynonymInstances, GADTs #-}
 
 > module Main
 >   where
 
+> import Data.List (intercalate)
 > import Data.Map (Map)
 > import qualified Data.Map as Map
 > import Text.JSON (
@@ -89,7 +93,10 @@ in descriptions for pipes and blocks.
 >         k <- lookupKind v
 >         case k of
 >           "comment" -> return . Comment =<< jsLookup "text" v
->           "block" -> return . (flip Block []) =<< jsLookup "ident" v
+>           "block" -> do
+>             ident <- jsLookup "ident" v
+>             ins <- jsLookup "inputs" v
+>             return $ Block ident ins
 >           "pipe" -> return . Pipe =<< jsLookup "source" v
 >           _ -> return $ Comment "UNKNOWN KIND"
 >   showJSON = const JSNull
@@ -110,7 +117,7 @@ full haskell program ready for compilation. This just means calling out to the
 appropriate method on the program data structure.
 
 > asHaskell :: Program -> String
-> asHaskell = toHaskell "TODO"
+> asHaskell = toHaskell "Main"
 
 > class Haskell h where
 
@@ -134,7 +141,7 @@ one-space indentation throughout.
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
 >   toHaskell name (Program p) = concat $
->     ["module Main\n where\n"] ++
+>     ["module " ++ name ++ "\n where\n"] ++
 >     do
 >       (id, obj) <- (Map.toList p)
 >       return $ toHaskell id obj
@@ -146,9 +153,11 @@ an underscore.
 > instance Haskell Object where
 >   fromHaskell = const ("", Comment "")
 >   toHaskell _ (Comment str) = "{- " ++ str ++ " -}\n"
+>   toHaskell id (Block ident ins) =
+>     "\n_" ++ id ++ " = " ++ ident ++ " " ++
+>       intercalate " " (map (\x -> '_':x) ins) ++ "\n"
 >   toHaskell id (Pipe (sId, sNum)) =
 >     let sN = show sNum in
 >       "\n_" ++ id ++ " = $(nth " ++ sN ++ " _" ++ sId ++ ")\n"
->   toHaskell id v = "{- ERR " ++ show id ++ " : " ++ show v ++ " -}\n"
 
 > main = putStr . asHaskell . readProgram =<< getContents
