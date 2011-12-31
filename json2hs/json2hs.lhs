@@ -61,10 +61,14 @@ Each object may be a block, pipe, or a comment.
 > data Object =
 
 A block is an identity - the name of the function to be called - combined with
-a list of inputs.
+a list of inputs, each of which is a String identifying the source pipe.
 
 >     Block String [String]
->   | Pipe
+
+A pipe just connects whatever points to it to the output of a block, specified
+as a String (the id of the BLock) and an Int (the position of the output).
+
+>   | Pipe (String, Int)
 
 Comments aren't associated with any individual object - things like that belong
 in descriptions for pipes and blocks.
@@ -86,7 +90,7 @@ in descriptions for pipes and blocks.
 >         case k of
 >           "comment" -> return . Comment =<< jsLookup "text" v
 >           "block" -> return . (flip Block []) =<< jsLookup "ident" v
->           "pipe" -> return $ Comment "TODO PIPE"
+>           "pipe" -> return . Pipe =<< jsLookup "source" v
 >           _ -> return $ Comment "UNKNOWN KIND"
 >   showJSON = const JSNull
 
@@ -134,10 +138,17 @@ one-space indentation throughout.
 >     do
 >       (id, obj) <- (Map.toList p)
 >       return $ toHaskell id obj
->
+
+Identifiers in EVAN are permitted to (in fact, expected to) have upper-case
+names; however, for haskell, we must prefix all non-typename identifiers with
+an underscore.
+
 > instance Haskell Object where
 >   fromHaskell = const ("", Comment "")
 >   toHaskell _ (Comment str) = "{- " ++ str ++ " -}\n"
->   toHaskell id v = "{- ERR " ++ (show id) ++ " : " ++ show v ++ " -}\n"
+>   toHaskell id (Pipe (sId, sNum)) =
+>     let sN = show sNum in
+>       "\n_" ++ id ++ " = $(nth " ++ sN ++ " _" ++ sId ++ ")\n"
+>   toHaskell id v = "{- ERR " ++ show id ++ " : " ++ show v ++ " -}\n"
 
 > main = putStr . asHaskell . readProgram =<< getContents
