@@ -3,6 +3,8 @@ module Main
 
 import EVAN
 
+main = evanMain
+
 _Events1 = Events 
 
 _Return1 = Return __pipe_0
