@@ -16,3 +16,7 @@ select as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)
 passAll = do
   i <- input
   output i
+
+evanMain = do
+  evts <- parseEventFile "events.dat"
+  putStrLn "Hello, world!"

@@ -1,13 +1,11 @@
-module Main where
-
-import Data.HEPEVT
+module Main
+ where
 
 import EVAN
 
-main = do
-  evts <- parseEventFile "events.dat"
-  putStrLn $ show $ length $ select evts $ do
-    event <- evts
-    let jc = jetCount event
-    return (jc > 180)
-  putStrLn "Bye"
+_Events1 = Events 
+
+_Return1 = Return __pipe_0
+{- Hello, world! -}
+
+__pipe_0 = $(nth 0 _Events1)
