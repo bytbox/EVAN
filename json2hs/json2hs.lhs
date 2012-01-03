@@ -144,7 +144,8 @@ one-space indentation throughout.
 >     [ pragma "LANGUAGE" []
 >     , "module " ++ name ++ " where"
 >     , "import EVAN"
->     , "main = evanMain"] ++
+>     , "main = evanMain"
+>     ] ++
 >     do
 >       (id, obj) <- (Map.toList p)
 >       return $ toHaskell id obj
