@@ -148,8 +148,7 @@ one-space indentation throughout.
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
 >   toHaskell name c (Program p) = (++ "\n\n") $ intercalate "\n\n" $
->     [ pragma "LANGUAGE" []
->     , "module " ++ name ++ " where"
+>     [ "module " ++ name ++ " where"
 >     , "import EVAN"
 >     , "main = evanMain"
 >     ] ++
