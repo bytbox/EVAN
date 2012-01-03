@@ -6,8 +6,6 @@ otherwise would require parsing haskell, which is just way too hard.)
 TODO consider using template haskell for the entire thing - thus the program
 would be compiled directly from the JSON in a more type-safe manner.
 
-> {-# LANGUAGE TypeSynonymInstances, GADTs #-}
-
 > module Main
 >   where
 
