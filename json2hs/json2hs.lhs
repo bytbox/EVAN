@@ -13,6 +13,7 @@ would be compiled directly from the JSON in a more type-safe manner.
 
 > import Data.List (intercalate)
 > import Data.Map (Map)
+> import Data.Maybe (fromJust)
 > import qualified Data.Map as Map
 > import Text.JSON (
 >   Result(..), JSValue(..), JSON(..), JSObject, decode, encode, fromJSObject)
@@ -65,9 +66,10 @@ Each object may be a block, pipe, or a comment.
 > data Object =
 
 A block is an identity - the name of the function to be called - combined with
-a list of inputs, each of which is a String identifying the source pipe.
+a list of inputs, each of which is a String identifying the source pipe. Also
+provided is the number of outputs.
 
->     Block String [String]
+>     Block String [String] Int
 
 A pipe just connects whatever points to it to the output of a block, specified
 as a String (the id of the BLock) and an Int (the position of the output).
@@ -96,7 +98,8 @@ in descriptions for pipes and blocks.
 >           "block" -> do
 >             ident <- jsLookup "ident" v
 >             ins <- jsLookup "inputs" v
->             return $ Block ident ins
+>             outCount <- jsLookup "output-count" v
+>             return $ Block ident ins outCount
 >           "pipe" -> return . Pipe =<< jsLookup "source" v
 >           _ -> return $ Comment "UNKNOWN KIND"
 >   showJSON = const JSNull
@@ -117,15 +120,21 @@ full haskell program ready for compilation. This just means calling out to the
 appropriate method on the program data structure.
 
 > asHaskell :: Program -> String
-> asHaskell = toHaskell "Main"
+> asHaskell p = toHaskell "Main" (fromJust . getOutputCount p) p
+>   where
+>     getOutputCount :: Program -> String -> Maybe Int
+>     getOutputCount (Program m) id = do
+>       Block _ _ r <- Map.lookup id m
+>       return r
 
 > class Haskell h where
 
 Converting a data structure to haskell requires the id of the data structure,
 hence the initial String in the type signature - implementations that don't
-actually need this will just ignore it.
+actually need this will just ignore it. Also used is the context, a map of ids
+of blocks to the numbers of values returned.
 
->   toHaskell :: String -> h -> String
+>   toHaskell :: String -> (String -> Int) -> h -> String
 
 Again, the `fromHaskell' method is here only as a formality.
 
@@ -140,7 +149,7 @@ one-space indentation throughout.
 
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
->   toHaskell name (Program p) = intercalate "\n\n" $
+>   toHaskell name c (Program p) = (++ "\n\n") $ intercalate "\n\n" $
 >     [ pragma "LANGUAGE" []
 >     , "module " ++ name ++ " where"
 >     , "import EVAN"
@@ -148,7 +157,7 @@ one-space indentation throughout.
 >     ] ++
 >     do
 >       (id, obj) <- (Map.toList p)
->       return $ toHaskell id obj
+>       return $ toHaskell id c obj
 >     where
 >       pragma name ps =
 >         "{-# " ++ name ++ " " ++ intercalate "," ps ++ " #-}"
@@ -159,12 +168,33 @@ an underscore.
 
 > instance Haskell Object where
 >   fromHaskell = const ("", Comment "")
->   toHaskell _ (Comment str) = "{- " ++ str ++ " -}"
->   toHaskell id (Block ident ins) =
+>   toHaskell _ _ (Comment str) = "{- " ++ str ++ " -}"
+>   toHaskell id _ (Block ident ins oc) =
 >     "_" ++ id ++ " = " ++ ident ++ " " ++
 >       intercalate " " (map (\x -> '_':x) ins) ++ ""
->   toHaskell id (Pipe (sId, sNum)) =
->     let sN = show sNum in
->       "_" ++ id ++ " = $(nth " ++ sN ++ " _" ++ sId ++ ")"
+>   toHaskell id c (Pipe (sId, sNum)) =
+>     intercalate " "
+>       [ "_" ++ id
+>       , "="
+>       , nth (lookupReturnCount sId) sNum
+>       , "_" ++ sId
+>       ]
+>     where
+>       lookupReturnCount id = c id
+
+> parenthesize :: String -> String
+> parenthesize s = "(" ++ s ++ ")"
+
+Creating a lambda expression to get the Nth element out of an M-tuple is ugly,
+but easy.
+
+> nth :: Int -> Int -> String
+> nth m n = parenthesize $ intercalate " " $ 
+>   [ "\\"
+>   , (parenthesize $ intercalate "," $
+>       replicate n "_" ++ ["x"] ++ replicate (m-n-1) "_")
+>   , "->"
+>   , "x"
+>   ]
 
 > main = putStr . asHaskell . readProgram =<< getContents
