@@ -140,13 +140,16 @@ one-space indentation throughout.
 
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
->   toHaskell name (Program p) = concat $
->     ["{-# LANGUAGE TemplateHaskell #-}\n\nmodule "
->       ++ name
->       ++ "\n where\n\nimport EVAN\nimport TupleTH\n\nmain = evanMain"] ++
+>   toHaskell name (Program p) = intercalate "\n\n" $
+>     [ pragma "LANGUAGE" []
+>     , "module " ++ name ++ " where"
+>     , "import EVAN\n\nmain = evanMain\n"] ++
 >     do
 >       (id, obj) <- (Map.toList p)
 >       return $ toHaskell id obj
+>     where
+>       pragma name ps =
+>         "{-# " ++ name ++ " " ++ intercalate "," ps ++ " #-}"
 
 Identifiers in EVAN are permitted to (in fact, expected to) have upper-case
 names; however, for haskell, we must prefix all non-typename identifiers with
