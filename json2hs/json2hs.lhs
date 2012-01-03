@@ -143,7 +143,8 @@ one-space indentation throughout.
 >   toHaskell name (Program p) = intercalate "\n\n" $
 >     [ pragma "LANGUAGE" []
 >     , "module " ++ name ++ " where"
->     , "import EVAN\n\nmain = evanMain\n"] ++
+>     , "import EVAN"
+>     , "main = evanMain"] ++
 >     do
 >       (id, obj) <- (Map.toList p)
 >       return $ toHaskell id obj
@@ -157,12 +158,12 @@ an underscore.
 
 > instance Haskell Object where
 >   fromHaskell = const ("", Comment "")
->   toHaskell _ (Comment str) = "{- " ++ str ++ " -}\n"
+>   toHaskell _ (Comment str) = "{- " ++ str ++ " -}"
 >   toHaskell id (Block ident ins) =
->     "\n_" ++ id ++ " = " ++ ident ++ " " ++
->       intercalate " " (map (\x -> '_':x) ins) ++ "\n"
+>     "_" ++ id ++ " = " ++ ident ++ " " ++
+>       intercalate " " (map (\x -> '_':x) ins) ++ ""
 >   toHaskell id (Pipe (sId, sNum)) =
 >     let sN = show sNum in
->       "\n_" ++ id ++ " = $(nth " ++ sN ++ " _" ++ sId ++ ")\n"
+>       "_" ++ id ++ " = $(nth " ++ sN ++ " _" ++ sId ++ ")"
 
 > main = putStr . asHaskell . readProgram =<< getContents
