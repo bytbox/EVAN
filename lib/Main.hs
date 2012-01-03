@@ -1,5 +1,3 @@
-{-# LANGUAGE  #-}
-
 module Main where
 
 import EVAN
