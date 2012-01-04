@@ -19,6 +19,7 @@ passAll = do
   i <- input
   output i
 
+{-# NOINLINE _Events #-}
 _Events :: ()
 _Events = unsafePerformIO $ do
   evts <- parseEventFile "samples/events.dat"
