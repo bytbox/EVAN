@@ -17,6 +17,12 @@ passAll = do
   i <- input
   output i
 
+_Events :: IO ()
+_Events = return ()
+
+_Return :: a -> IO ()
+_Return _ = putStrLn "Done"
+
 evanMain = do
   evts <- parseEventFile "events.dat"
   putStrLn "Hello, world!"
