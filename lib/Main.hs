@@ -4,9 +4,9 @@ import EVAN
 
 main = evanMain
 
-_Events1 = Events 
+_Events1 = _Events 
 
-_Return1 = Return __pipe_0
+_Return1 = _Return __pipe_0
 
 {- Hello, world! -}
 

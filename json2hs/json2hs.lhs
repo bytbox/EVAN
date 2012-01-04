@@ -167,7 +167,7 @@ an underscore.
 >   fromHaskell = const ("", Comment "")
 >   toHaskell _ _ (Comment str) = "{- " ++ str ++ " -}"
 >   toHaskell id _ (Block ident ins oc) =
->     "_" ++ id ++ " = " ++ ident ++ " " ++
+>     "_" ++ id ++ " = _" ++ ident ++ " " ++
 >       intercalate " " (map (\x -> '_':x) ins) ++ ""
 >   toHaskell id c (Pipe (sId, sNum)) =
 >     intercalate " "
