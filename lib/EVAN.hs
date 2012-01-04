@@ -1,6 +1,8 @@
 module EVAN
   where
 
+import System.IO.Unsafe (unsafePerformIO)
+
 import Data.HEPEVT
 
 input = []
@@ -18,11 +20,9 @@ passAll = do
   output i
 
 _Events :: IO ()
-_Events = return ()
+_Events = do
+  evts <- parseEventFile "events.dat"
+  putStrLn "Beginning"
 
 _Return :: a -> IO ()
 _Return _ = putStrLn "Done"
-
-evanMain = do
-  evts <- parseEventFile "events.dat"
-  putStrLn "Hello, world!"

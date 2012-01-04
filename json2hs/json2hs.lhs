@@ -150,7 +150,7 @@ one-space indentation throughout.
 >   toHaskell name c (Program p) = (++ "\n\n") $ intercalate "\n\n" $
 >     [ "module " ++ name ++ " where"
 >     , "import EVAN"
->     , "main = evanMain"
+>     , "main = _Return1" -- TODO don't hard code this, of course
 >     ] ++
 >     do
 >       (id, obj) <- (Map.toList p)

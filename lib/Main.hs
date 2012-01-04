@@ -2,7 +2,7 @@ module Main where
 
 import EVAN
 
-main = evanMain
+main = _Return1
 
 _Events1 = _Events 
 

@@ -8,3 +8,5 @@ evan:
 clean:
 	rm -rf *.o *.hi evan
 #	cabal clean
+
+.PHONY: evan clean all
