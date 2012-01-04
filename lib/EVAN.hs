@@ -19,10 +19,10 @@ passAll = do
   i <- input
   output i
 
-_Events :: IO ()
-_Events = do
-  evts <- parseEventFile "events.dat"
+_Events :: ()
+_Events = unsafePerformIO $ do
+  evts <- parseEventFile "samples/events.dat"
   putStrLn "Beginning"
 
-_Return :: a -> IO ()
-_Return _ = putStrLn "Done"
+_Return :: Show a => a -> IO ()
+_Return = putStrLn . show
