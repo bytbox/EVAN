@@ -20,10 +20,8 @@ passAll = do
   output i
 
 {-# NOINLINE _Events #-}
-_Events :: ()
-_Events = unsafePerformIO $ do
-  evts <- parseEventFile "samples/events.dat"
-  putStrLn "Beginning"
+_Events :: [Event]
+_Events = unsafePerformIO $ parseEventFile "samples/events.dat"
 
 _Return :: Show a => a -> IO ()
 _Return = putStrLn . show
