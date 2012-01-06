@@ -40,6 +40,10 @@ class Graphical:
 
         return {"x": self._pos[0], "y": self._pos[1]}
 
+    def g_from_object(self, o):
+        """ Initialize from a json object. """
+        self._pos = o["x"], o["y"]
+
 class Program(Json):
     """ A program consists, in our model, of a set of blocks and pipes. """
 
@@ -48,6 +52,11 @@ class Program(Json):
         output block """
 
         Json.__init__(self)
+        self.blocks = {}
+        self.pipes = {}
+        self.comments = {}
+
+    def std_init(self):
         self.blocks = {
             "Events1": Block("Events", 0, 1),
             "Return1": Block("Return", 1, 0),
@@ -81,6 +90,21 @@ class Program(Json):
             top[c] = self.comments[c].as_object()
 
         return top
+
+    def from_object(self, top):
+        """ Convert from a json object. """
+
+        for n in top:
+            o = top[n]
+            if o['kind'] == COMMENT:
+                self.comments[n] = Comment(o["text"])
+                self.comments[n].g_from_object(o["graphics"])
+            if o['kind'] == BLOCK:
+                self.blocks[n] = Block(o["ident"], o["input-count"], o["output-count"])
+                self.blocks[n].inputs = o["inputs"]
+                self.blocks[n].g_from_object(o["graphics"])
+            if o['kind'] == PIPE:
+                self.pipes[n] = Pipe(o["source"], o["destination"], o["ident"])
 
 class Comment(Json, Graphical):
     """ A comment. """
@@ -149,4 +173,7 @@ class Pipe(Json):
 def program_from_json(j):
     """ Create a program object from the JSON string in the given file. """
 
-    return Program()
+    jo = json.loads(j)
+    p = Program()
+    p.from_object(jo)
+    return p

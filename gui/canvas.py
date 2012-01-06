@@ -77,6 +77,7 @@ class CanvasState:
         """
 
         self.program = Program()
+        self.program.std_init()
         self.update_display()
         self.fname = None
 
@@ -85,7 +86,8 @@ class CanvasState:
         activated. """
 
         self.fname = askopenfilename(defaultextension=".evan", filetypes = FILETYPES)
-        self.program = program_from_json(self.fname)
+        with open(self.fname) as f:
+            self.program = program_from_json(f.read())
         self.update_display()
 
     def saveProg(self):
