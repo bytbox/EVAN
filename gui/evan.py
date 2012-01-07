@@ -2,6 +2,8 @@
 
 # Main component of the EVAN python+tk frontend. See README for notes.
 
+from optparse import *
+
 from tkinter import *
 from tkinter.filedialog import *
 
@@ -9,8 +11,20 @@ from canvas import *
 from external import *
 from program import *
 
+# parse options
+parser = OptionParser(usage="usage: %prog [fname.evan]")
+options, args = parser.parse_args()
+
+arg_progname = None
+if len(args) > 1:
+    parser.print_help()
+    exit(1)
+if len(args) == 1:
+    arg_progname = args[0]
+
 def make_menubar(root):
     """ Initializes the menus."""
+
     menubar = Menu(root)
     root.config(menu=menubar)
     
@@ -101,8 +115,11 @@ populate_toolbar(toolbarFrame, cState)
 # Menu bar
 make_menubar(root)
 
-# Initialize
-cState.newProg()
+# Initialize.
+if arg_progname is None:
+    cState.newProg()
+else:
+    cState.openProg(arg_progname)
 
 # Main loop
 root.mainloop()

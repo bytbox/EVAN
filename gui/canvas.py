@@ -90,6 +90,13 @@ class CanvasState:
             self.program = program_from_json(f.read())
         self.update_display()
 
+    def openProg(self, fname):
+        """ Load a program fromt he given filename. """
+
+        with open(fname) as f:
+            self.program = program_from_json(f.read())
+        self.update_display()
+
     def saveProg(self):
         """ Save a program to a file. Called when the menu item File->Save is
         activated. """
