@@ -11,8 +11,10 @@ from canvas import *
 from external import *
 from program import *
 
+VERSION = "0.1"
+
 # parse options
-parser = OptionParser(usage="usage: %prog [fname.evan]")
+parser = OptionParser(usage="usage: %prog [fname.evan]", version="EVAN "+VERSION)
 options, args = parser.parse_args()
 
 arg_progname = None
