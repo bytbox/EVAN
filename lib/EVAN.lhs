@@ -8,12 +8,12 @@ _Events to avoid the need for the generated code to handle the IO monad.
 > 
 > import Data.HEPEVT
 > 
-> jetCount :: Event -> Int
-> jetCount (_, js) = length js
-> 
 > -- TODO make this type-safe
 > select :: [a] -> [Bool] -> [a]
 > select as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)
+>
+> _Count :: [a] -> Int
+> _Count = length
 > 
 > {-# NOINLINE _Events #-}
 > _Events :: [Event]
