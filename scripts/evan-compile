@@ -1,7 +1,8 @@
 #!/bin/sh
 
 f=$1
-hsn=$f.hs
+n=`echo $f | cut -d'.' -f1`
+hsn=$n.hs
 
 json2hs < "$f" > "$hsn"
-
+ghc --make $n
