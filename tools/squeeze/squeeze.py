@@ -49,7 +49,7 @@
 VERSION = "1.6/1998-05-04"
 MAGIC   = "[SQUEEZE]"
 
-import base64, imp, marshal, os, string, sys, md5
+import base64, imp, marshal, os, string, sys, hashlib
 
 # --------------------------------------------------------------------
 # usage
