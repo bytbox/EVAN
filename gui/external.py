@@ -3,6 +3,7 @@
 import os
 import os.path
 import shutil
+import subprocess
 
 BUILD_DIR = "_evan_build"
 
@@ -26,7 +27,12 @@ def compile_prog(prog):
     d = build_dir(prog)
     # Copy the .evan file into the build dir
     shutil.copy(prog.fname, d)
+    fname = os.path.join(d, prog.fname)
     # Run evan-compile on the copied file
+    PIPE=subprocess.PIPE
+    p = subprocess.Popen(["evan-compile", fname], stdout=PIPE, stderr=PIPE)
+    out, err = p.communicate()
+    
 
 def run_prog(prog, ds):
     """ Runs the given program on the given dataset. """
