@@ -55,9 +55,16 @@ def newComment(prog, x, y):
     c._pos = (x, y)
     prog.comments[name] = c
 
+def newCount(prog, x, y):
+    name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
+    b = Block("Count", 1, 1)
+    b._pos = (x, y)
+    prog.blocks[name] = b 
+
 tools = {
     "Cancel": None,
     "Comment": newComment,
+    "Count": newCount,
 }
 
 def use_tool(t, cState):
