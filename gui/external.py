@@ -32,7 +32,7 @@ def compile_prog(prog):
     PIPE=subprocess.PIPE
     p = subprocess.Popen(["evan-compile", fname], stdout=PIPE, stderr=PIPE)
     out, err = p.communicate()
-    
+    print(err) # TODO dialog or error window or somethine
 
 def run_prog(prog, ds):
     """ Runs the given program on the given dataset. """
