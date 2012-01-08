@@ -6,3 +6,4 @@ json2hs/json2hs
 dist
 lib/evan
 bin
+_evan_build
