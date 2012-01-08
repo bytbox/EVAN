@@ -41,6 +41,13 @@ class CanvasState:
         x = self.canvas.canvasx(event.x)
         y = self.canvas.canvasy(event.y)
         self.last_x, self.last_y = x, y
+
+        if self.tool is not None:
+            self.tool(self.program, x, y)
+            self.tool = None
+            self.update_display()
+            return
+
         # TODO select whatever is here
         self.selected = self.obj_at(x, y)
         if self.selected is None and self.seloutput is None:

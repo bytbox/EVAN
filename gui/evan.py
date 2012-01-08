@@ -3,6 +3,7 @@
 # Main component of the EVAN python+tk frontend. See README for notes.
 
 from optparse import *
+import random
 
 from tkinter import *
 from tkinter.filedialog import *
@@ -47,19 +48,16 @@ def make_menubar(root):
 def showAbout():
     pass
 
-class CommentTool:
-    """ The comment tool. """
-
-    pass
-
-class BlockTool:
-    """ The block drawing tool. """
-
-    pass
+def newComment(prog, x, y):
+    # TODO make sure it's unique
+    name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
+    c = Comment("Hello, world")
+    c._pos = (x, y)
+    prog.comments[name] = c
 
 tools = {
     "Cancel": None,
-    "Comment": CommentTool,
+    "Comment": newComment,
 }
 
 def use_tool(t, cState):
@@ -72,7 +70,7 @@ def populate_toolbar(toolbar, cState):
     Button(toolbar, text="Run", command=cState.do_run).pack(side=TOP)
 
     for tool in tools:
-        b = Button(toolbar, text=tool, command=use_tool(tool, cState))
+        b = Button(toolbar, text=tool, command=use_tool(tools[tool], cState))
         b.pack(side=TOP)
 
 # Set up the GUI
