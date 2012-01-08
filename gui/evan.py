@@ -8,7 +8,6 @@ from tkinter import *
 from tkinter.filedialog import *
 
 from canvas import *
-from external import *
 from program import *
 
 VERSION = "0.1"

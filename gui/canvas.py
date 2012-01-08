@@ -6,6 +6,7 @@ from tkinter import *
 from tkinter.filedialog import *
 from tkinter.font import *
 
+from external import *
 from program import *
 
 FILETYPES = [("EVAN Programs", ".evan")]
@@ -93,6 +94,7 @@ class CanvasState:
     def openProg(self, fname):
         """ Load a program fromt he given filename. """
 
+        self.fname = fname
         with open(fname) as f:
             self.program = program_from_json(f.read())
         self.update_display()
@@ -117,11 +119,14 @@ class CanvasState:
         """ Perform compilation. """
 
         self.saveProg()
+        compile_prog(self)
 
     def do_run(self):
         """ Run the analysis. """
 
-        self.do_compile()
+        self.saveProg()
+        compile_prog(self)
+        run_prog(self, None)
 
     def obj_at(self, x, y):
         """ Find and return the object at the specified co-ordinates. """
