@@ -8,8 +8,10 @@ import random
 from tkinter import *
 from tkinter.filedialog import *
 
+#!START local
 from canvas import *
 from program import *
+#!END local
 
 VERSION = "0.1"
 

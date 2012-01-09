@@ -6,8 +6,10 @@ from tkinter import *
 from tkinter.filedialog import *
 from tkinter.font import *
 
+#!START local
 from external import *
 from program import *
+#!END local
 
 FILETYPES = [("EVAN Programs", ".evan")]
 
