@@ -150,7 +150,7 @@ class CanvasState:
             if id in self.objectsById:
                 return self.objectsById[id]
 
-        return None
+        return None, None
 
     def in_at(self, x, y):
         """ Find and return the object with an output at the specified co-ordinates. """

@@ -6,8 +6,10 @@ make
 popd > /dev/null
 
 pushd . > /dev/null
-cd gui
-
+cd lib
+cabal configure
+cabal build
+cabal install
 popd > /dev/null
 
 mkdir -p bin

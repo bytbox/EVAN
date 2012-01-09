@@ -3,4 +3,4 @@
 def display_results(r):
     """ Displays the given results. """
 
-    pass
+    print(r)

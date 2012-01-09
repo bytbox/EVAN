@@ -39,5 +39,12 @@ def run_prog(prog, ds):
     """
 
     # TODO actually use the dataset passed in
+    datafname = "events.dat"
+
     d = build_dir(prog)
-    return 0
+    xname = os.path.join(d, os.path.splitext(prog.fname)[0])
+    PIPE = subprocess.PIPE
+    p = subprocess.Popen([xname], stdout=PIPE, stderr=PIPE)
+    out, err = p.communicate()
+
+    return out
