@@ -1,1 +1,2 @@
-The frontend is gui/evan.py.
+Run build.sh and add the bin/ directory to your path. The frontend is 'evan'.
+
