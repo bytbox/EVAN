@@ -35,6 +35,9 @@ def compile_prog(prog):
     print(err) # TODO dialog or error window or somethine
 
 def run_prog(prog, ds):
-    """ Runs the given program on the given dataset. """
+    """ Runs the given program on the given dataset. The results are returned.
+    """
 
+    # TODO actually use the dataset passed in
     d = build_dir(prog)
+    return 0

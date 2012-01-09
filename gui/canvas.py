@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # Canvas handling for the python+tk frontend. See README for notes.
 
 from tkinter import *
@@ -9,6 +7,7 @@ from tkinter.font import *
 #!START local
 from external import *
 from program import *
+from results import *
 #!END local
 
 FILETYPES = [("EVAN Programs", ".evan")]
@@ -135,7 +134,8 @@ class CanvasState:
 
         self.saveProg()
         compile_prog(self)
-        run_prog(self, None)
+        r = run_prog(self, None)
+        display_results(r)
 
     def obj_at(self, x, y):
         """ Find and return the object at the specified co-ordinates. """
