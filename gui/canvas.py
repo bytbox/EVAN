@@ -27,9 +27,10 @@ class CanvasState:
         self.canvas = canvas
         self.program = None
         self.tool = None
+        self.selname = None
         self.selected = None
         self.seloutput = None
-        self.objects = {}
+        self.objectsById = {}
         self.outputs = {}
         self.inputs = {}
 
@@ -49,7 +50,7 @@ class CanvasState:
             self.update_display()
             return
 
-        self.selected = self.obj_at(x, y)
+        self.selname, self.selected = self.obj_at(x, y)
         if self.selected is None and self.seloutput is None:
             # find out if an output was clicked
             self.seloutput = self.out_at(x, y)
@@ -82,7 +83,8 @@ class CanvasState:
 
     def key(self, event):
         if event.char == 'x':
-            print(self.selected)
+            self.program.delete(self.selname)
+        self.update_display()
 
     def newProg(self):
         """ Create a new program. Called when the menu item File->New is activated.
@@ -145,8 +147,8 @@ class CanvasState:
 
         ids = self.canvas.find_overlapping(x,y,x,y)
         for id in ids:
-            if id in self.objects:
-                return self.objects[id]
+            if id in self.objectsById:
+                return self.objectsById[id]
 
         return None
 
@@ -199,7 +201,7 @@ class CanvasState:
             i = self.canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                 fill=fill, activefill=afill)
-            self.objects[i] = b
+            self.objectsById[i] = block, b
 
             mh = 8
             # input and output blocks
@@ -234,6 +236,6 @@ class CanvasState:
             i = self.canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                 fill="#ffff00", activefill="#ffffaa")
-            self.objects[i] = comment
+            self.objectsById[i] = cid, comment
             self.canvas.create_text(pos, font=FONTB,
                 text=comment.text, state=DISABLED, width=w)

@@ -72,6 +72,16 @@ class Program(Json):
         d, i = p.dest
         self.blocks[d].inputs[i] = name
 
+    def delete(self, name):
+        """ Delete the named object. """
+
+        if name in self.pipes:
+            del self.pipes[name]
+        if name in self.blocks:
+            del self.blocks[name]
+        if name in self.comments:
+            del self.comments[name]
+
     def as_object(self):
         """ Convert to a json-able object. """
 
