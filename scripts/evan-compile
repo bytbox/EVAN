@@ -1,8 +1,11 @@
 #!/bin/sh
 
 f=$1
-n=`echo $f | cut -d'.' -f1`
+n=`echo $f | sed "s/.evan$//"`
 hsn=$n.hs
 
+echo $n
+echo $hsn
 json2hs < "$f" > "$hsn"
-ghc --make $n
+cd `dirname $n`
+ghc --make `basename $n`
