@@ -49,7 +49,6 @@ class CanvasState:
             self.update_display()
             return
 
-        # TODO select whatever is here
         self.selected = self.obj_at(x, y)
         if self.selected is None and self.seloutput is None:
             # find out if an output was clicked
@@ -80,6 +79,10 @@ class CanvasState:
             self.selected.move(dx, dy)
         self.last_x, self.last_y = x, y
         self.update_display()
+
+    def key(self, event):
+        if event.char == 'x':
+            print(self.selected)
 
     def newProg(self):
         """ Create a new program. Called when the menu item File->New is activated.
@@ -183,14 +186,19 @@ class CanvasState:
             self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
 
         for block in blocks:
+            fill = "#00ffff"
+            afill = "#aaffff"
+            b = blocks[block]
+            if b is self.selected:
+                fill = "#ffff00"
+                afill = "#ffffaa"
             # TODO get size of glyph or string
             h = 26
             w = 70
-            b = blocks[block]
             pos = blocks[block].pos()
             i = self.canvas.create_rectangle(
                 pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
-                fill="#00ffff", activefill="#aaffff")
+                fill=fill, activefill=afill)
             self.objects[i] = b
 
             mh = 8
@@ -202,7 +210,7 @@ class CanvasState:
                     pos[1]-h/2-mh,
                     pos[0]-w/2+(i+1)*iw,
                     pos[1]-h/2,
-                    fill="#00ffff", activefill="#aaffff")
+                    fill=fill, activefill=afill)
                 self.inputs[o] = block, i
 
             for i in range(0, b.output_count):
@@ -212,7 +220,7 @@ class CanvasState:
                     pos[1]+h/2,
                     pos[0]-w/2+(i+1)*ow,
                     pos[1]+h/2+mh,
-                    fill="#00ffff", activefill="#aaffff")
+                    fill=fill, activefill=afill)
                 self.outputs[o] = block, i
 
             self.canvas.create_text(pos, font=FONTA,

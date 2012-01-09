@@ -99,6 +99,7 @@ cState = CanvasState(canvas)
 canvas.bind('<ButtonPress>', cState.canvas_down)
 canvas.bind('<ButtonRelease>', cState.canvas_up)
 canvas.bind('<Motion>', cState.canvas_move)
+root.bind('<Key>', cState.key)
 
 # canvas should be scrollable, in both directions
 hBar = Scrollbar(drawFrame, orient=HORIZONTAL)
