@@ -19,7 +19,9 @@ read events.
 >
 > _Count :: [a] -> Int
 > _Count = length
-> 
+>
+> _Select :: [a] -> [Bool] -> [a]
+> _Select = select
 
 Repulsive as the idea is, we must use unsafePerformIO in the implementation of
 _Events to avoid the need for the generated code to handle the IO monad. This
