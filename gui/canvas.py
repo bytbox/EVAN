@@ -33,6 +33,7 @@ class CanvasState:
         self.selname = None
         self.selected = None
         self.seloutput = None
+        self.selinput = None
         self.objectsById = {}
         self.outputs = {}
         self.inputs = {}
@@ -175,6 +176,9 @@ class CanvasState:
 
         return None
 
+    def block_width(self, b):
+        return 70
+
     def update_display(self):
         """ Update the canvas display. """
 
@@ -215,7 +219,7 @@ class CanvasState:
                     afill = "#ffffaa"
                 # TODO get size of glyph or string
                 h = BLOCK_HEIGHT
-                w = 70
+                w = block_width(o)
                 pos = o.pos()
                 i = self.canvas.create_rectangle(
                     pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
