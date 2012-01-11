@@ -27,11 +27,20 @@ class BlockTool:
         name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
         b = Block(self.name, self.ins, self.outs)
         b._pos = (x, y)
-        prog.objects[name] = b 
+        prog.objects[name] = b
 
 tools = {
     "Cancel": None,
     "Comment": newComment,
-    "Count": BlockTool("Count", 1, 1),
 }
 
+def addBlockTool(name, i, o):
+    tools[name] = BlockTool(name, i, o)
+
+def addBlockTools(toolInfo):
+    for info in toolInfo:
+        addBlockTool(info[0], info[1], info[2])
+
+addBlockTools([
+    ("Count", 1, 1),
+])
