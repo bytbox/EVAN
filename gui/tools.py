@@ -43,4 +43,5 @@ def addBlockTools(toolInfo):
 
 addBlockTools([
     ("Count", 1, 1),
+    ("Jets", 1, 1),
 ])

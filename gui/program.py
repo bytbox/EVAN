@@ -73,6 +73,17 @@ class Program(Json):
         """ Delete the named object. """
 
         if name in self.objects:
+            o = self.objects[name]
+            if o.kind == BLOCK:
+                # delete all associated pipes
+                todel = []
+                for pn in self.objects:
+                    p = self.objects[pn]
+                    if p.kind == PIPE:
+                        if p.source[0] == name or p.dest[0] == name:
+                            todel.append(pn)
+                for pn in todel:
+                    del self.objects[pn]
             del self.objects[name]
 
     def as_object(self):
