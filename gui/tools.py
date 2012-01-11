@@ -17,9 +17,21 @@ def newCount(prog, x, y):
     b._pos = (x, y)
     prog.objects[name] = b 
 
+class BlockTool:
+    def __init__(self, name, i, o):
+        self.name = name
+        self.ins = i
+        self.outs = o
+
+    def __call__(self, prog, x, y):
+        name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
+        b = Block(self.name, self.ins, self.outs)
+        b._pos = (x, y)
+        prog.objects[name] = b 
+
 tools = {
     "Cancel": None,
     "Comment": newComment,
-    "Count": newCount,
+    "Count": BlockTool("Count", 1, 1),
 }
 
