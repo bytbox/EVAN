@@ -180,6 +180,11 @@ class CanvasState:
         self.canvas.delete(ALL)
         objects = self.program.objects
 
+        if self.selected is None and self.seloutput:
+            # We're in the process of drawing a pipe
+            sp = objects[self.seloutput[0]].pos()
+            self.canvas.create_line(sp[0], sp[1], self.last_x, self.last_y)
+
         for obj in objects:
             o = objects[obj]
             if o.kind == PIPE:
