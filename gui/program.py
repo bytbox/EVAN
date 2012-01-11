@@ -70,7 +70,8 @@ class Program(Json):
         self.objects[d].inputs[i] = name
 
     def delete(self, name):
-        """ Delete the named object. """
+        """ Delete the named object. If the object is a block, any adjoining
+        pipes will also be deleted. """
 
         if name in self.objects:
             o = self.objects[name]
