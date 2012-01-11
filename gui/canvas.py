@@ -219,7 +219,7 @@ class CanvasState:
                     afill = "#ffffaa"
                 # TODO get size of glyph or string
                 h = BLOCK_HEIGHT
-                w = block_width(o)
+                w = self.block_width(o)
                 pos = o.pos()
                 i = self.canvas.create_rectangle(
                     pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
