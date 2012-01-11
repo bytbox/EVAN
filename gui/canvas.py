@@ -15,6 +15,9 @@ FILETYPES = [("EVAN Programs", ".evan")]
 FONTA = ("Helvetica", 10, "bold")
 FONTB = ("Times", 10)
 
+BLOCK_HEIGHT = 26
+PORT_HEIGHT = 10
+
 class CanvasState:
     """ Encapsulates the state of the canvas as well as the user interaction
     logic. """
@@ -183,7 +186,11 @@ class CanvasState:
         if self.selected is None and self.seloutput:
             # We're in the process of drawing a pipe
             sp = objects[self.seloutput[0]].pos()
-            self.canvas.create_line(sp[0], sp[1], self.last_x, self.last_y)
+            self.canvas.create_line(
+                sp[0],
+                sp[1]+BLOCK_HEIGHT/2+PORT_HEIGHT,
+                self.last_x,
+                self.last_y)
 
         for obj in objects:
             o = objects[obj]
@@ -191,7 +198,11 @@ class CanvasState:
                 sn, si = o.source
                 dn, di = o.dest
                 sp, dp = objects[sn].pos(), objects[dn].pos()
-                self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
+                self.canvas.create_line(
+                    sp[0],
+                    sp[1]+BLOCK_HEIGHT/2+PORT_HEIGHT,
+                    dp[0],
+                    dp[1]-BLOCK_HEIGHT/2-PORT_HEIGHT)
 
         for obj in objects:
             o = objects[obj]
@@ -203,7 +214,7 @@ class CanvasState:
                     fill = "#ffff00"
                     afill = "#ffffaa"
                 # TODO get size of glyph or string
-                h = 26
+                h = BLOCK_HEIGHT
                 w = 70
                 pos = o.pos()
                 i = self.canvas.create_rectangle(
@@ -211,7 +222,7 @@ class CanvasState:
                     fill=fill, activefill=afill)
                 self.objectsById[i] = obj, o
 
-                mh = 8
+                mh = PORT_HEIGHT
                 # input and output blocks
                 for i in range(0, b.input_count):
                     iw = w/b.input_count
