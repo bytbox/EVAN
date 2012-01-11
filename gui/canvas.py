@@ -178,64 +178,66 @@ class CanvasState:
         # TODO don't re-draw /everything/ - use find_all and Graphical.ids
 
         self.canvas.delete(ALL)
-        blocks, pipes, comments = self.program.blocks, self.program.pipes, self.program.comments
+        objects = self.program.objects
 
-        for pipe in pipes:
-            p = pipes[pipe]
-            sn, si = p.source
-            dn, di = p.dest
-            sp, dp = blocks[sn].pos(), blocks[dn].pos()
-            self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
+        for obj in objects:
+            o = objects[obj]
+            if o.kind == PIPE:
+                sn, si = o.source
+                dn, di = o.dest
+                sp, dp = objects[sn].pos(), objects[dn].pos()
+                self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
 
-        for block in blocks:
-            fill = "#00ffff"
-            afill = "#aaffff"
-            b = blocks[block]
-            if b is self.selected:
-                fill = "#ffff00"
-                afill = "#ffffaa"
-            # TODO get size of glyph or string
-            h = 26
-            w = 70
-            pos = blocks[block].pos()
-            i = self.canvas.create_rectangle(
-                pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
-                fill=fill, activefill=afill)
-            self.objectsById[i] = block, b
-
-            mh = 8
-            # input and output blocks
-            for i in range(0, b.input_count):
-                iw = w/b.input_count
-                o = self.canvas.create_rectangle(
-                    pos[0]-w/2+i*iw,
-                    pos[1]-h/2-mh,
-                    pos[0]-w/2+(i+1)*iw,
-                    pos[1]-h/2,
+            if o.kind == BLOCK:
+                b=o
+                fill = "#00ffff"
+                afill = "#aaffff"
+                if o is self.selected:
+                    fill = "#ffff00"
+                    afill = "#ffffaa"
+                # TODO get size of glyph or string
+                h = 26
+                w = 70
+                pos = o.pos()
+                i = self.canvas.create_rectangle(
+                    pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
                     fill=fill, activefill=afill)
-                self.inputs[o] = block, i
+                self.objectsById[i] = obj, o
 
-            for i in range(0, b.output_count):
-                ow = w/b.output_count
-                o = self.canvas.create_rectangle(
-                    pos[0]-w/2+i*ow,
-                    pos[1]+h/2,
-                    pos[0]-w/2+(i+1)*ow,
-                    pos[1]+h/2+mh,
-                    fill=fill, activefill=afill)
-                self.outputs[o] = block, i
+                mh = 8
+                # input and output blocks
+                for i in range(0, b.input_count):
+                    iw = w/b.input_count
+                    ob = self.canvas.create_rectangle(
+                        pos[0]-w/2+i*iw,
+                        pos[1]-h/2-mh,
+                        pos[0]-w/2+(i+1)*iw,
+                        pos[1]-h/2,
+                        fill=fill, activefill=afill)
+                    self.inputs[ob] = obj, i
 
-            self.canvas.create_text(pos, font=FONTA,
-                text=b.ident, state=DISABLED)
+                for i in range(0, b.output_count):
+                    ow = w/b.output_count
+                    ob = self.canvas.create_rectangle(
+                        pos[0]-w/2+i*ow,
+                        pos[1]+h/2,
+                        pos[0]-w/2+(i+1)*ow,
+                        pos[1]+h/2+mh,
+                        fill=fill, activefill=afill)
+                    self.outputs[ob] = obj, i
 
-        for cid in comments:
-            comment = comments[cid]
-            h = 26
-            w = 160
-            pos = comment.pos()
-            i = self.canvas.create_rectangle(
-                pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
-                fill="#ffff00", activefill="#ffffaa")
-            self.objectsById[i] = cid, comment
-            self.canvas.create_text(pos, font=FONTB,
-                text=comment.text, state=DISABLED, width=w)
+                self.canvas.create_text(pos, font=FONTA,
+                    text=b.ident, state=DISABLED)
+
+            if o.kind == COMMENT:
+                cid = obj
+                comment = o
+                h = 26
+                w = 160
+                pos = comment.pos()
+                i = self.canvas.create_rectangle(
+                    pos[0]-w/2, pos[1]-h/2, pos[0]+w/2, pos[1]+h/2,
+                    fill="#ffff00", activefill="#ffffaa")
+                self.objectsById[i] = cid, comment
+                self.canvas.create_text(pos, font=FONTB,
+                    text=comment.text, state=DISABLED, width=w)

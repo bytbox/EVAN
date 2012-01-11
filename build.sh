@@ -8,7 +8,6 @@ popd > /dev/null
 pushd . > /dev/null
 cd lib
 cabal configure
-cabal build
 cabal install
 popd > /dev/null
 

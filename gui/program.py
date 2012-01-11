@@ -52,53 +52,35 @@ class Program(Json):
         output block """
 
         Json.__init__(self)
-        self.blocks = {}
-        self.pipes = {}
-        self.comments = {}
+        self.objects = {}
 
     def std_init(self):
-        self.blocks = {
+        self.objects = {
             "Events1": Block("Events", 0, 1),
             "Return1": Block("Return", 1, 0),
+            "_comment1": Comment("Hello, world!"),
         }
-        self.pipes = {}
-        self.comments = {"_comment1": Comment("Hello, world!")}
 
     def add_pipe(self, p):
         """ Add a pseudo-anonymous pipe. """
 
-        name = "_pipe_"+str(len(self.pipes))
-        self.pipes[name] = p
+        name = "_pipe_"+str(len(self.objects))
+        self.objects[name] = p
         d, i = p.dest
-        self.blocks[d].inputs[i] = name
+        self.objects[d].inputs[i] = name
 
     def delete(self, name):
         """ Delete the named object. """
 
-        if name in self.pipes:
-            del self.pipes[name]
-        if name in self.blocks:
-            del self.blocks[name]
-        if name in self.comments:
-            del self.comments[name]
+        if name in self.objects:
+            del self.objects[name]
 
     def as_object(self):
         """ Convert to a json-able object. """
 
         top = {}
-
-        # add all blocks
-        for block in self.blocks:
-            top[block] = self.blocks[block].as_object()
-
-        # add all pipes
-        for pipe in self.pipes:
-            top[pipe] = self.pipes[pipe].as_object()
-
-        # add all comments
-        for c in self.comments:
-            top[c] = self.comments[c].as_object()
-
+        for obj in self.objects:
+            top[obj] = self.objects[obj].as_object()
         return top
 
     def from_object(self, top):
@@ -107,14 +89,14 @@ class Program(Json):
         for n in top:
             o = top[n]
             if o['kind'] == COMMENT:
-                self.comments[n] = Comment(o["text"])
-                self.comments[n].g_from_object(o["graphics"])
+                self.objects[n] = Comment(o["text"])
+                self.objects[n].g_from_object(o["graphics"])
             if o['kind'] == BLOCK:
-                self.blocks[n] = Block(o["ident"], o["input-count"], o["output-count"])
-                self.blocks[n].inputs = o["inputs"]
-                self.blocks[n].g_from_object(o["graphics"])
+                self.objects[n] = Block(o["ident"], o["input-count"], o["output-count"])
+                self.objects[n].inputs = o["inputs"]
+                self.objects[n].g_from_object(o["graphics"])
             if o['kind'] == PIPE:
-                self.pipes[n] = Pipe(o["source"], o["destination"], o["ident"])
+                self.objects[n] = Pipe(o["source"], o["destination"], o["ident"])
 
 class Comment(Json, Graphical):
     """ A comment. """
@@ -123,6 +105,7 @@ class Comment(Json, Graphical):
         Json.__init__(self)
         Graphical.init_pos(self)
         self.text = text
+        self.kind = COMMENT
 
     def as_object(self):
         """ Convert to a json-able object."""
@@ -142,6 +125,7 @@ class Block(Json, Graphical):
         self.ident = i
         self.input_count = ic
         self.output_count = oc
+        self.kind = BLOCK
 
         # initialize input array
         self.inputs = [None]*ic
@@ -169,6 +153,7 @@ class Pipe(Json):
         self.ident = i
         self.source = source
         self.dest = dest
+        self.kind = PIPE
 
     def as_object(self):
         """ Convert to a json-able object. """
