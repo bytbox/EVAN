@@ -188,6 +188,8 @@ class CanvasState:
                 sp, dp = objects[sn].pos(), objects[dn].pos()
                 self.canvas.create_line(sp[0], sp[1], dp[0], dp[1])
 
+        for obj in objects:
+            o = objects[obj]
             if o.kind == BLOCK:
                 b=o
                 fill = "#00ffff"
