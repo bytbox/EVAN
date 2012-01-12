@@ -189,9 +189,12 @@ class CanvasState:
 
         if self.selected is None and self.seloutput:
             # We're in the process of drawing a pipe
+            w = self.block_width(objects[self.seloutput[0]])
+            oc = objects[self.seloutput[0]].output_count
+            o = self.seloutput[1]
             sp = objects[self.seloutput[0]].pos()
             self.canvas.create_line(
-                sp[0],
+                sp[0] - w/2 + (w/oc)/2 + o*(w/oc),
                 sp[1]+BLOCK_HEIGHT/2+PORT_HEIGHT,
                 self.last_x,
                 self.last_y)
@@ -202,10 +205,16 @@ class CanvasState:
                 sn, si = o.source
                 dn, di = o.dest
                 sp, dp = objects[sn].pos(), objects[dn].pos()
+                sw = self.block_width(objects[sn])
+                oc = objects[sn].output_count
+                on = si
+                dw = self.block_width(objects[dn])
+                ic = objects[dn].input_count
+                i = di
                 self.canvas.create_line(
-                    sp[0],
+                    sp[0] - sw/2 + (sw/oc)/2 + on*sw/oc,
                     sp[1]+BLOCK_HEIGHT/2+PORT_HEIGHT,
-                    dp[0],
+                    dp[0] - dw/2 + (dw/ic)/2 + i*dw/ic,
                     dp[1]-BLOCK_HEIGHT/2-PORT_HEIGHT)
 
         for obj in objects:
