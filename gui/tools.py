@@ -45,5 +45,4 @@ addBlockTools([
     ("Count", 1, 1),
     ("Jets", 1, 1),
     ("Select", 2, 1),
-    ("Test", 3, 3),
 ])
