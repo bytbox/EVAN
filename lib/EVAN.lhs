@@ -16,12 +16,14 @@ read events.
 > -- TODO make this type-safe
 > select :: [a] -> [Bool] -> [a]
 > select as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)
->
+
+TODO: each :: Streamable a b => a -> [b]
+
 > _Count :: [a] -> Int
 > _Count = length
 >
-> _Select :: [a] -> [Bool] -> [a]
-> _Select = select
+> _Select :: ([a], [Bool]) -> [a]
+> _Select = uncurry select
 
 Repulsive as the idea is, we must use unsafePerformIO in the implementation of
 _Events to avoid the need for the generated code to handle the IO monad. This
