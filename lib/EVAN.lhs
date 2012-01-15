@@ -21,7 +21,9 @@ also implies the use of the NOINLINE pragma.
 > {-# NOINLINE _Events #-}
 > _Events :: [Event]
 > _Events = unsafePerformIO $ readEvents
->
+
+Returned values are JSON-encoded.
+
 > _Return :: JSON a => a -> IO ()
 > _Return = putStrLn . encode
 
