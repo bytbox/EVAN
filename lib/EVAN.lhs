@@ -3,7 +3,7 @@
 
 > import System (getArgs)
 > import System.IO.Unsafe (unsafePerformIO)
-> import Text.JSON (encode)
+> import Text.JSON (encode, JSON)
 > 
 > import Data.HEPEVT
 
@@ -22,8 +22,8 @@ also implies the use of the NOINLINE pragma.
 > _Events :: [Event]
 > _Events = unsafePerformIO $ readEvents
 >
-> _Return :: Show a => a -> IO ()
-> _Return = putStrLn . show
+> _Return :: JSON a => a -> IO ()
+> _Return = putStrLn . encode
 
 > -- TODO make this type-safe
 > select :: [a] -> [Bool] -> [a]
