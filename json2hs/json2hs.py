@@ -33,10 +33,11 @@ def render(p, i):
             line += "" + rid(i) + " <- " + o['inputs'][0]
         elif o['ident'] == 'Done':
             line += "let " + rid(i) + " = "
-            line += 'return (' + ','.join(o['inputs']) + ')'
+            line += 'return _' + o['inputs'][0]
         else:
             line += "let " + rid(i) + " = "
-            line += rid(o['ident']) + ' (' + ','.join(o['inputs']) + ')'
+            line += rid(o['ident']) + ' ('
+            line += ','.join(['_'+x for x in o['inputs']]) + ')'
     elif o['kind'] == 'pipe':
         # First render the source
         render(p, o['source'][0])
