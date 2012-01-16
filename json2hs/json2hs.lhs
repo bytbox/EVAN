@@ -147,10 +147,11 @@ one-space indentation throughout.
 
 > instance Haskell Program where
 >   fromHaskell = const ("", Program Map.empty)
->   toHaskell name c (Program p) = (++ "\n\n") $ intercalate "\n\n" $
+>   -- TODO don't hardcode Return1
+>   toHaskell name c (Program p) = (++ "\n  _Return1\n") $ intercalate "\n" $ filter (not . null) $
 >     [ "module " ++ name ++ " where"
 >     , "import EVAN"
->     , "main = _Return1" -- TODO don't hard code this, of course
+>     , "main = do"
 >     ] ++
 >     do
 >       (id, obj) <- (Map.toList p)
@@ -165,11 +166,11 @@ an underscore.
 
 > instance Haskell Object where
 >   fromHaskell = const ("", Comment "")
->   toHaskell _ _ (Comment str) = "{- " ++ str ++ " -}"
+>   toHaskell _ _ (Comment str) = ""
 >   toHaskell id _ (Block ident ins oc) =
->     "_" ++ id ++ " = _" ++ ident ++ " " ++
+>     "  let _" ++ id ++ " = _" ++ ident ++ " " ++
 >       intercalate " " (map (\x -> '_':x) ins) ++ ""
->   toHaskell id c (Pipe (sId, sNum)) =
+>   toHaskell id c (Pipe (sId, sNum)) = "  let " ++
 >     intercalate " "
 >       [ "_" ++ id
 >       , "="
