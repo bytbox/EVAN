@@ -19,8 +19,8 @@ _Events to avoid the need for the generated code to handle the IO monad. This
 also implies the use of the NOINLINE pragma.
 
 > {-# NOINLINE _Events #-}
-> _Events :: [Event]
-> _Events = unsafePerformIO $ readEvents
+> _Events :: () -> [Event]
+> _Events _ = unsafePerformIO $ readEvents
 
 Returned values are JSON-encoded.
 

@@ -4,7 +4,7 @@ import EVAN
 
 main = _Return1
 
-_Events1 = _Events 
+_Events1 = _Events ()
 
 _Return1 = _Return __pipe_1
 
