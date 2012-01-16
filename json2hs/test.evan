@@ -6,10 +6,6 @@
     "kind": "block", 
     "ident": "Return", 
     "input-count": 1, 
-    "graphics": {
-      "y": 120, 
-      "x": 100
-    }, 
     "output-count": 0
   }, 
   "_pipe_0": {
@@ -26,21 +22,13 @@
   }, 
   "_comment1": {
     "text": "Hello, world!", 
-    "kind": "comment", 
-    "graphics": {
-      "y": 180, 
-      "x": 100
-    }
+    "kind": "comment"
   }, 
   "Events1": {
     "inputs": [], 
     "kind": "block", 
     "ident": "Events", 
     "input-count": 0, 
-    "graphics": {
-      "y": 60, 
-      "x": 100
-    }, 
     "output-count": 1
   }
 }
