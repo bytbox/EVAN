@@ -30,7 +30,7 @@ def render(p, i):
         for inp in o['inputs']:
             render(p, inp)
         if o['ident'] == 'Each':
-            line += "" + rid(i) + " <- " + o['inputs'][0]
+            line += "" + rid(i) + " <- _" + o['inputs'][0]
         elif o['ident'] == 'Done':
             line += "let " + rid(i) + " = "
             line += 'return _' + o['inputs'][0]
