@@ -12,3 +12,5 @@ ln -s `pwd`/json2hs/json2hs.py bin/json2hs
 ln -s `pwd`/scripts/evan-compile bin/evan-compile
 tools/merge.pl gui/evan.py > bin/evan
 chmod +x bin/evan
+
+mkdir -p analysis
