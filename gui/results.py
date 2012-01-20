@@ -17,5 +17,5 @@ def display_results(r):
     if isinstance(r, list):
         # render a histogram. TODO don't make quite so many assumptions
         print(r)
-    else
+    else:
         resDisp.create_text(20, 20, text=r)
