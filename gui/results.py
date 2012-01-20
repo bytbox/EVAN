@@ -9,4 +9,9 @@ def display_results(r):
     root.title('Results')
     root.protocol('WM_DELETE_WINDOW', root.destroy)
 
-    print(r)
+    resFrame = Frame(root)
+    resFrame.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
+
+    resDisp = Canvas(resFrame, bg='white', bd=2, relief=SUNKEN)
+    resDisp.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
+    resDisp.create_text(20, 20, text=r)
