@@ -32,7 +32,9 @@ def compile_prog(prog):
     PIPE=subprocess.PIPE
     p = subprocess.Popen(["evan-compile", fname], stdout=PIPE, stderr=PIPE)
     out, err = p.communicate()
-    print(err.decode('utf-8')) # TODO dialog or error window or somethine
+    e = err.decode('utf-8')
+    if len(e) > 0:
+        handle_error(e)
 
 def run_prog(prog, ds):
     """ Runs the given program on the given dataset. The results are returned.
@@ -46,7 +48,11 @@ def run_prog(prog, ds):
     PIPE = subprocess.PIPE
     p = subprocess.Popen([xname, datafname], stdout=PIPE, stderr=PIPE)
     out, err = p.communicate()
-
-    print(err.decode('utf-8'))
+    e = err.decode('utf-8')
+    if len(e) > 0:
+        handle_error(e)
 
     return out.decode('utf-8')
+
+def handle_error(e):
+    print("ERR: " + e) # TODO dialog or error pane or something
