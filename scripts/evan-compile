@@ -8,4 +8,4 @@ echo $n
 echo $hsn
 json2hs < "$f" > "$hsn"
 cd `dirname $n`
-ghc --make `basename $n`
+ghc --make v0 `basename $n`
