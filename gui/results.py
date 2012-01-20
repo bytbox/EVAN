@@ -14,4 +14,8 @@ def display_results(r):
 
     resDisp = Canvas(resFrame, bg='white', bd=2, relief=SUNKEN)
     resDisp.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
-    resDisp.create_text(20, 20, text=r)
+    if isinstance(r, list):
+        # render a histogram. TODO don't make quite so many assumptions
+        print(r)
+    else
+        resDisp.create_text(20, 20, text=r)
