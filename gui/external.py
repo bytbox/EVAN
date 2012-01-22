@@ -35,6 +35,8 @@ def compile_prog(prog):
     e = err.decode('utf-8')
     if len(e) > 0:
         handle_error(e)
+        return False
+    return True
 
 def run_prog(prog, ds):
     """ Runs the given program on the given dataset. The results are returned.
@@ -51,6 +53,7 @@ def run_prog(prog, ds):
     e = err.decode('utf-8')
     if len(e) > 0:
         handle_error(e)
+        return None
 
     return out.decode('utf-8')
 

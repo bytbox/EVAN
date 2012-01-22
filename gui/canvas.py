@@ -142,9 +142,9 @@ class CanvasState:
         """ Run the analysis. """
 
         self.saveProg()
-        compile_prog(self)
-        r = run_prog(self, None)
-        display_results(r)
+        if compile_prog(self):
+            r = run_prog(self, None)
+            display_results(r)
 
     def obj_at(self, x, y):
         """ Find and return the object at the specified co-ordinates. """
