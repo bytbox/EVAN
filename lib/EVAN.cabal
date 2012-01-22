@@ -48,7 +48,7 @@ Library
   Exposed-modules: EVAN
   
   -- Packages needed in order to build this package.
-  Build-depends: haskell98, base >=3 && <5, lhe>=0.3, hepevt>=0.2, json>=0.5
+  Build-depends: haskell98, base >=3 && <5, lhe>=0.3, hepevt>=0.3, json>=0.5
   
   -- Modules not exported by this package.
   -- Other-modules:       
