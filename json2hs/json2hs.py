@@ -3,8 +3,6 @@
 import json
 import sys
 
-rendered = {}
-
 def rid(i):
     """ Represent an EVAN identifier as a valid haskell identifier, returning
     the resulting string. """
@@ -20,31 +18,51 @@ def elem(i, n):
     return '(\ (' + ','.join(ps) + ') -> x)'
 
 def render(p, i):
-    if i in rendered:
-        return
-    rendered[i] = True
     o = p[i]
-    line = "  "
-    if o['kind'] == 'block':
-        # First render each input
-        for inp in o['inputs']:
-            render(p, inp)
-        if o['ident'] == 'Each':
-            line += "" + rid(i) + " <- _" + o['inputs'][0]
-        elif o['ident'] == 'Done':
-            line += "let " + rid(i) + " = "
-            line += 'return _' + o['inputs'][0]
+    r = ""
+    deps = []
+    k = o['kind']
+    if k == 'block':
+        ident = o['ident']
+        if ident == 'Done':
+            pass
+        elif ident == 'Each':
+            # We don't render the dependency here, we just pass it down.
+            r = "do {"
         else:
-            line += "let " + rid(i) + " = "
-            line += rid(o['ident']) + ' ('
-            line += ','.join(['_'+x for x in o['inputs']]) + ')'
-    elif o['kind'] == 'pipe':
-        # First render the source
-        render(p, o['source'][0])
-        line += "let " + rid(i) + " = "
+            ds = ""
+            r = rid(i) + " = "
+            for inp in o['inputs']:
+                d, ign = render(p, inp)
+                ds += d
+            r += rid(ident) + ' ('
+            r += ','.join(['_'+x for x in o['inputs']]) + ') ;'
+            r = ds + r
+    elif k == 'pipe':
         src = o['source']
-        line += elem(src[1], p[src[0]]['output-count']) + ' ' + rid(src[0])
-    print(line)
+        rp, ds = render(p, src[0])
+        r = rp + rid(i) + " = " + elem(src[1], p[src[0]]['output-count']) + ' '
+        r += rid(src[0]) + ';'
+#    if o['kind'] == 'block':
+#        # First render each input
+#        for inp in o['inputs']:
+#            r += render(p, inp)
+#        if o['ident'] == 'Each':
+#            r += "do {" + rid(i) + " <- _" + o['inputs'][0]
+#        elif o['ident'] == 'Done':
+#            r += "let " + rid(i) + " = "
+#            r += 'return _' + o['inputs'][0]
+#        else:
+#            r += "let " + rid(i) + " = "
+#            r += rid(o['ident']) + ' ('
+#            r += ','.join(['_'+x for x in o['inputs']]) + ')'
+#    elif o['kind'] == 'pipe':
+#        # First render the source
+#        render(p, o['source'][0])
+#        r += "let {" + rid(i) + " = "
+#        src = o['source']
+#        r += elem(src[1], p[src[0]]['output-count']) + ' ' + rid(src[0]) + "} ;"
+    return r, deps
 
 prog = json.load(sys.stdin)
 
@@ -54,6 +72,5 @@ print ("module Main where")
 for imp in imports:
     print ("import "+imp)
 
-print ("main = do")
-render(prog, 'Return1')
-print ("  _Return1")
+p, deps = render(prog, 'Return1')
+print ("main = do { let {" + p + "}; _Return1 }")

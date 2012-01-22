@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 pushd . > /dev/null
 cd lib
 cabal configure

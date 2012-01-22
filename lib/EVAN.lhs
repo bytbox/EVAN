@@ -36,5 +36,8 @@ TODO: each :: Streamable a b => a -> [b]
 > _Count :: [a] -> Int
 > _Count = length
 >
+> _Jets :: Event -> [Particle]
+> _Jets = snd
+>
 > _Select :: ([a], [Bool]) -> [a]
 > _Select = uncurry select
