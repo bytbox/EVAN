@@ -20,27 +20,34 @@ def elem(i, n):
 def render(p, i):
     o = p[i]
     r = ""
-    deps = []
+    deps = [] # the dependency stack
     k = o['kind']
     if k == 'block':
         ident = o['ident']
         if ident == 'Done':
-            pass
+            rs, deps = render(p, o['inputs'][0])
+            d = deps.pop()
+            rds, ds = render(p, d)
+            r = rds + rid(i) + ' = ' + rs + '} ; return ' + rid(o['inputs'][0]) + '} ; '
         elif ident == 'Each':
-            # We don't render the dependency here, we just pass it down.
-            r = "do {"
+            # We don't render the dependency here, we just pass it down to be
+            # handled by 'Done'.
+            inp = o['inputs'][0]
+            deps.append(inp)
+            r = "do {" + rid(i) + ' <- ' + rid(inp) + ' ; let {'
         else:
             ds = ""
-            r = rid(i) + " = "
+            r = rid(i) + ' = '
             for inp in o['inputs']:
-                d, ign = render(p, inp)
+                d, dep = render(p, inp)
+                deps += dep
                 ds += d
             r += rid(ident) + ' ('
-            r += ','.join(['_'+x for x in o['inputs']]) + ') ;'
+            r += ','.join(['_'+x for x in o['inputs']]) + ') ; '
             r = ds + r
     elif k == 'pipe':
         src = o['source']
-        rp, ds = render(p, src[0])
+        rp, deps = render(p, src[0])
         r = rp + rid(i) + " = " + elem(src[1], p[src[0]]['output-count']) + ' '
         r += rid(src[0]) + ';'
 #    if o['kind'] == 'block':
