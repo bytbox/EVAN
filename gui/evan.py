@@ -14,7 +14,7 @@ from program import *
 from tools import *
 #!END local
 
-VERSION = "0.1"
+VERSION = '0.1'
 
 # parse options
 parser = OptionParser(usage="usage: %prog [fname.evan]", version="EVAN "+VERSION)
