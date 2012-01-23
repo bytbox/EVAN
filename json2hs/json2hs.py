@@ -50,25 +50,6 @@ def render(p, i):
         rp, deps = render(p, src[0])
         r = rp + rid(i) + " = " + elem(src[1], p[src[0]]['output-count']) + ' '
         r += rid(src[0]) + ';'
-#    if o['kind'] == 'block':
-#        # First render each input
-#        for inp in o['inputs']:
-#            r += render(p, inp)
-#        if o['ident'] == 'Each':
-#            r += "do {" + rid(i) + " <- _" + o['inputs'][0]
-#        elif o['ident'] == 'Done':
-#            r += "let " + rid(i) + " = "
-#            r += 'return _' + o['inputs'][0]
-#        else:
-#            r += "let " + rid(i) + " = "
-#            r += rid(o['ident']) + ' ('
-#            r += ','.join(['_'+x for x in o['inputs']]) + ')'
-#    elif o['kind'] == 'pipe':
-#        # First render the source
-#        render(p, o['source'][0])
-#        r += "let {" + rid(i) + " = "
-#        src = o['source']
-#        r += elem(src[1], p[src[0]]['output-count']) + ' ' + rid(src[0]) + "} ;"
     return r, deps
 
 prog = json.load(sys.stdin)
