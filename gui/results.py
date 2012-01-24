@@ -31,18 +31,6 @@ def display_results(rs):
 def histogram(r):
     fig = plt.figure()
     ax = fig.add_subplot(111)
-
-    # the histogram of the data
-    n, bins, patches = ax.hist(r, 50, facecolor='green', alpha=0.75)
-
-    # hist uses np.histogram under the hood to create 'n' and 'bins'.
-    # np.histogram returns the bin edges, so there will be 50 probability
-    # density values in n, 51 bin edges in bins and 50 patches.  To get
-    # everything lined up, we'll compute the bin centers
-    bincenters = 0.5*(bins[1:]+bins[:-1])
-
-    ax.set_xlim(0, 1000)
-    ax.set_ylim(0, 200)
+    n, bins, patches = ax.hist(r, 25, facecolor='green', alpha=0.75)
     ax.grid(True)
-
     plt.show()
