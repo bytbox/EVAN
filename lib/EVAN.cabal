@@ -45,7 +45,7 @@ Cabal-version:       >=1.2
 
 Library
   -- Modules exported by the library.
-  Exposed-modules: EVAN
+  Exposed-modules: EVAN, EVAN.Primitive, EVAN.Math
   
   -- Packages needed in order to build this package.
   Build-depends: haskell98, base >=3 && <5, lhe>=0.3, hepevt>=0.3.1, json>=0.5

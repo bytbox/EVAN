@@ -54,7 +54,7 @@ def render(p, i):
 
 prog = json.load(sys.stdin)
 
-imports = ['EVAN']
+imports = ['EVAN', 'EVAN.Primitive', 'EVAN.Math']
 
 print ("module Main where")
 for imp in imports:
