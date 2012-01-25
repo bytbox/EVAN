@@ -3,14 +3,20 @@
 
 > import Data.Foldable (foldl')
 
-> _Add :: (Int, Int) -> Int
+> _Add :: Num a => (a, a) -> a
 > _Add = uncurry (+)
 
-> _Mul :: (Int, Int) -> Int
+> _Mul :: Num a => (a, a) -> a
 > _Mul = uncurry (*)
 
-> _Sum :: [Int] -> Int
+> _Sum :: Num a => [a] -> a
 > _Sum = foldl' (+) 0
 
-> _Product :: [Int] -> Int
+> _Product :: Num a => [a] -> a
 > _Product = foldl' (*) 1
+
+> _Sub :: Num a => (a, a) -> a
+> _Sub = uncurry (-)
+
+> _Div :: Fractional a => (a, a) -> a
+> _Div = uncurry (/)
