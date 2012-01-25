@@ -29,6 +29,7 @@ def render(p, i):
             d = deps.pop()
             rds, ds = render(p, d)
             r = rds + rid(i) + ' = ' + rs + '} ; return ' + rid(o['inputs'][0]) + '} ; '
+            deps = ds
         elif ident == 'Each':
             # We don't render the dependency here, we just pass it down to be
             # handled by 'Done'.
