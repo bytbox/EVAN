@@ -11,3 +11,7 @@
 
 > _Mass :: Particle -> Double
 > _Mass = mass
+
+> _Count :: [a] -> Int
+> _Count = length
+

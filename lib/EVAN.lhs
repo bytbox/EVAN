@@ -33,9 +33,6 @@ Returned values are JSON-encoded.
 
 TODO: each :: Streamable a b => a -> [b]
 
-> _Count :: [a] -> Int
-> _Count = length
->
 > _Jets :: Event -> [Particle]
 > _Jets = snd
 >
