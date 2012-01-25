@@ -47,4 +47,6 @@ addBlockTools([
     ("Select", 2, 1),
     ("Each", 1, 1),
     ("Done", 1, 1),
+    ("Sum", 1, 1),
+    ("Mass", 1, 1),
 ])
