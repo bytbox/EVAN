@@ -20,3 +20,22 @@
 
 > _Div :: Fractional a => (a, a) -> a
 > _Div = uncurry (/)
+
+> _Lt :: Ord a => (a, a) -> Bool
+> _Lt = uncurry (<)
+
+> _Le :: Ord a => (a, a) -> Bool
+> _Le = uncurry (<=)
+
+> _Gt :: Ord a => (a, a) -> Bool
+> _Gt = uncurry (>)
+
+> _Ge :: Ord a => (a, a) -> Bool
+> _Ge = uncurry (>=)
+
+> _Eq :: Ord a => (a, a) -> Bool
+> _Eq = uncurry (==)
+
+> _Ne :: Ord a => (a, a) -> Bool
+> _Ne = not . _Eq
+
