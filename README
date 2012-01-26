@@ -1,2 +1,6 @@
 Run build.sh and add the bin/ directory to your path. The frontend is 'evan'.
 
+Binary distribution tarballs can be generated with dist.sh (which will call build.sh
+as appropriate). Cross-compiling is not supported - the binaries will only work
+on the kind of system (arch/os) on which they were constructed.
+
