@@ -9,12 +9,20 @@ sub ptup;
 
 # TODO support aliases
 
+open FOUT, ">ftools.py" or die $!;
+
+print FOUT <<END;
+""" Auto-generated file. Do not modify. """
+
+def addFTools(add_category):
+END
+
 my $ed = dirname $0;
 my $pdir = $ARGV[0] || "$ed/../lib/EVAN";
 my @hsfiles = glob "$pdir/*.lhs";
 for my $f (@hsfiles) {
 	$f =~ /\/(\w+)\.lhs/;
-	print "add_category('$1', [\n";
+	print FOUT "    add_category('$1', [\n";
 	open FIN, $f or die $!;
 	my $hs = "";
 	$hs .= $_ while <FIN>;
@@ -24,9 +32,9 @@ for my $f (@hsfiles) {
 		my @args = ptup $argstr;
 		my @res = ptup $restr;
 		my ($al, $rl) = ($#args+1, $#res+1);
-		print "    ('$name', $al, $rl),\n";
+		print FOUT "        ('$name', $al, $rl),\n";
 	}
-	print "])\n";
+	print FOUT "    ])\n";
 }
 
 sub ptup {
@@ -36,3 +44,5 @@ sub ptup {
 	my @args = split /,/, $as;
 	return @args;
 }
+
+close FOUT;

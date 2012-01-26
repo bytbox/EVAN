@@ -3,6 +3,11 @@
 set -e
 
 pushd . > /dev/null
+cd gui
+./genTools.pl
+popd > /dev/null
+
+pushd . > /dev/null
 cd lib
 cabal configure
 cabal install

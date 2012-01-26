@@ -3,6 +3,7 @@
 import random
 
 #!START local
+from ftools import *
 from program import *
 #!END local
 
@@ -60,4 +61,6 @@ addBlockTools([
 
 def add_category(name, toolinfo):
     for info in toolinfo:
-        pass
+        print (info)
+
+addFTools(add_category)
