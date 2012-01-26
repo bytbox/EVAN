@@ -1,8 +1,12 @@
+""" Tool list. See README for notes. """
+
 import random
 
 #!START local
 from program import *
 #!END local
+
+# TODO properly generate ids.
 
 def newComment(prog, x, y):
     # TODO make sure it's unique

@@ -64,7 +64,7 @@ class Program(Json):
     def add_pipe(self, p):
         """ Add a pseudo-anonymous pipe. """
 
-        name = "_pipe_"+str(len(self.objects))
+        name = "_pipe_"+str(len(self.objects)) # TODO this is a bug
         self.objects[name] = p
         d, i = p.dest
         self.objects[d].inputs[i] = name
