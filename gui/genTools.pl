@@ -7,6 +7,8 @@ use warnings;
 
 sub ptup;
 
+# TODO support aliases
+
 my $ed = dirname $0;
 my $pdir = $ARGV[0] || "$ed/../lib/EVAN";
 my @hsfiles = glob "$pdir/*.lhs";
