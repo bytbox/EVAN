@@ -46,21 +46,8 @@ def addBlockTools(toolInfo):
     for info in toolInfo:
         addBlockTool(info[0], info[1], info[2])
 
-addBlockTools([
-    ("Count", 1, 1),
-    ("Jets", 1, 1),
-    ("Select", 2, 1),
-    ("Each", 1, 1),
-    ("Done", 1, 1),
-    ("Sum", 1, 1),
-    ("Mass", 1, 1),
-    ("True", 0, 1),
-    ("False", 0, 1),
-    ("Repeat", 1, 1),
-])
-
 def add_category(name, toolinfo):
-    for info in toolinfo:
-        print (info)
+    #for info in toolinfo:
+    addBlockTools(toolinfo)
 
 addFTools(add_category)
