@@ -9,3 +9,4 @@ bin
 _evan_build
 analysis
 gui/ftools.py
+*.tar.gz
