@@ -49,4 +49,11 @@ addBlockTools([
     ("Done", 1, 1),
     ("Sum", 1, 1),
     ("Mass", 1, 1),
+    ("True", 0, 1),
+    ("False", 0, 1),
+    ("Repeat", 1, 1),
 ])
+
+def add_category(name, toolinfo):
+    for info in toolinfo:
+        pass
