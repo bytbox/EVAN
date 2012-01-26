@@ -16,12 +16,6 @@ def newComment(prog, x, y):
     c._pos = (x, y)
     prog.objects[name] = c
 
-def newCount(prog, x, y):
-    name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
-    b = Block("Count", 1, 1)
-    b._pos = (x, y)
-    prog.objects[name] = b 
-
 class BlockTool:
     def __init__(self, name, i, o):
         self.name = name
