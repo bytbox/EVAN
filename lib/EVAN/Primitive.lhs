@@ -27,6 +27,11 @@ Returned values are JSON-encoded.
 > _Return :: JSON a => a -> IO ()
 > _Return = putStrLn . encode
 
+Each and Done do not actually exist, but need to be here.
+
+_Each :: a -> b
+_Done :: a -> b
+
 > -- TODO make this type-safe
 > select :: [a] -> [Bool] -> [a]
 > select as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)

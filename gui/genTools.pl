@@ -27,7 +27,7 @@ for my $f (@hsfiles) {
 	my $hs = "";
 	$hs .= $_ while <FIN>;
 	close FIN or die $!;
-	while ($hs =~ /^> *_([A-Z]\w*) *:: *(.*=> *)?(.*?) *-> *(.*)/mg) {
+	while ($hs =~ /^>? *_([A-Z]\w*) *:: *(.*=> *)?(.*?) *-> *(.*)/mg) {
 		my ($name, $argstr, $restr) = ($1, $3, $4);
 		my @args = ptup $argstr;
 		my @res = ptup $restr;
