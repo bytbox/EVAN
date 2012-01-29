@@ -1,7 +1,7 @@
 > module EVAN.Primitive
 >   where
 
-> import System (getArgs)
+> import System.Environment (getArgs)
 > import System.IO.Unsafe (unsafePerformIO)
 > import Text.JSON (encode, JSON)
 > 

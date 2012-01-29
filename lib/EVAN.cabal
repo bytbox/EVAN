@@ -48,7 +48,7 @@ Library
   Exposed-modules: EVAN, EVAN.Primitive, EVAN.Math
   
   -- Packages needed in order to build this package.
-  Build-depends: haskell98, base >=3 && <5, lhe>=0.3, hepevt>=0.3.1, json>=0.5
+  Build-depends: base >=3 && <5, lhe>=0.3, hepevt>=0.3.1, json>=0.5
   
   -- Modules not exported by this package.
   -- Other-modules:       
