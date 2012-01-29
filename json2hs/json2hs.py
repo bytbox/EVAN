@@ -3,6 +3,8 @@
 import json
 import sys
 
+rd = {}
+
 def rid(i):
     """ Represent an EVAN identifier as a valid haskell identifier, returning
     the resulting string. """
@@ -18,6 +20,9 @@ def elem(i, n):
     return '(\ (' + ','.join(ps) + ') -> x)'
 
 def render(p, i):
+    if i in rd:
+        return '', []
+    rd[i] = True
     o = p[i]
     r = ""
     deps = [] # the dependency stack
