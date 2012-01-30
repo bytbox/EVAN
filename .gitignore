@@ -10,3 +10,4 @@ _evan_build
 analysis
 gui/ftools.py
 *.tar.gz
+www/log
