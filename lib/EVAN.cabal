@@ -9,9 +9,15 @@ Maintainer:          bytbox@gmail.com
 Category:            Physics
 Build-type:          Simple
 -- Extra-source-files:  
-Cabal-version:       >=1.4
-
+Cabal-version:       >=1.10
 
 Library
   Exposed-modules: EVAN, EVAN.Primitive, EVAN.Math
   Build-depends: base >=3 && <5, lhe>=0.3, hepevt>=0.3.1, json>=0.5
+  Default-language: Haskell2010
+
+Test-Suite test-evan
+  Default-language: Haskell2010
+  type: exitcode-stdio-1.0
+  Main-is: test.hs
+  build-depends: base, Cabal >= 1.10
