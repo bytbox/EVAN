@@ -11,3 +11,4 @@ analysis
 gui/ftools.py
 *.tar.gz
 www/log
+www/evan-httpd
