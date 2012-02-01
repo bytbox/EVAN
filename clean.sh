@@ -2,9 +2,15 @@
 
 set -e
 
-rm -r analysis bin
+rm -rf analysis bin gui/__pycache__
 
 pushd . > /dev/null
 cd lib
 cabal clean
 popd > /dev/null
+
+pushd . > /dev/null
+cd www
+cabal clean
+popd > /dev/null
+
