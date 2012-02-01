@@ -1,0 +1,15 @@
+Name:                mkref
+Version:             0.1
+Synopsis:            Reference documentation builder for EVAN
+License:             MIT
+License-file:        LICENSE
+Author:              Scott Lawrence
+Maintainer:          bytbox@gmail.com
+Category:            Development
+Build-type:          Simple
+Cabal-version:       >=1.2
+
+Executable mkref-html
+  Main-is: html.hs
+  Build-depends: haskell2010
+  Other-modules: EVAN.Documentation
