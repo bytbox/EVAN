@@ -12,7 +12,7 @@ popd > /dev/null
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
 cd lib
-cabal install
+cabal install | sed -u "s/^/  /"
 popd > /dev/null
 
 echo Populating bin/...
