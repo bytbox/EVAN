@@ -3,7 +3,7 @@
 set -e
 
 echo Preparing python GUI...
-python -c 'import matplotlib; import numpy; import tkinter'
+python3 -c 'import matplotlib; import numpy; import tkinter'
 pushd . > /dev/null
 cd gui
 ./genTools.pl
