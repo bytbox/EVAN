@@ -11,7 +11,7 @@ Cabal-version:       >=1.2
 
 Executable evan-mkref-html
   Main-is: html.hs
-  Build-depends: haskell2010
+  Build-depends: haskell2010, json >= 0.5
   Other-modules: EVAN.Documentation, EVAN.Documentation.HTML
 Executable evan-mkref-latex
   Main-is: latex.hs
