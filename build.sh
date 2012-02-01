@@ -23,4 +23,8 @@ ln -s `pwd`/scripts/evan-compile bin/evan-compile
 tools/merge.pl gui/evan.py > bin/evan
 chmod +x bin/evan
 
+echo Generating documentation...
+mkdir -p docs
+tools/xdocs.pl lib/EVAN > docs/reference.json
+
 mkdir -p analysis

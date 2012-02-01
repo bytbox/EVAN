@@ -2,7 +2,7 @@
 
 set -e
 
-rm -rf analysis bin gui/__pycache__
+rm -rf analysis bin docs gui/__pycache__
 
 pushd . > /dev/null
 cd lib
