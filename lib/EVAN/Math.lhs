@@ -3,6 +3,9 @@
 
 > import Data.Foldable (foldl')
 
+! Add a b -> c
+Add adds the two given numbers.
+
 > _Add :: Num a => (a, a) -> a
 > _Add = uncurry (+)
 
