@@ -2,6 +2,8 @@
 
 set -e
 
+EVANROOT=`pwd`
+
 echo Preparing python GUI...
 python3 -c 'import matplotlib; import numpy; import tkinter'
 pushd . > /dev/null
@@ -24,8 +26,19 @@ ln -s `pwd`/scripts/evan-compile bin/evan-compile
 tools/merge.pl gui/evan.py > bin/evan
 chmod +x bin/evan
 
+echo Building mkref...
+pushd . > /dev/null
+cd tools/mkref
+cabal install --bindir=$EVANROOT/bin | sed -u "s/^/  /"
+popd > /dev/null
+
 echo Generating documentation...
 mkdir -p docs
 tools/xdocs.pl lib/EVAN > docs/reference.json
+
+echo Building httpd...
+pushd . > /dev/null
+cd www
+popd > /dev/null
 
 mkdir -p analysis
