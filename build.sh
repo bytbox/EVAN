@@ -7,6 +7,7 @@ python3 -c 'import matplotlib; import numpy; import tkinter'
 pushd . > /dev/null
 cd gui
 ./genTools.pl
+./genDocs.pl
 popd > /dev/null
 
 echo Installing EVAN haskell libraries...

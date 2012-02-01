@@ -10,6 +10,7 @@ from tkinter.filedialog import *
 
 #!START local
 from canvas import *
+from docs import *
 from program import *
 from tools import *
 #!END local
