@@ -11,7 +11,7 @@ set -e
 ARCH=`uname -m`
 OS=`uname -s`
 VER=`git tag | tail -n1`
-DIRS="bin examples lib"
+INCS="bin docs examples lib install.sh LICENSE README"
 
-tar czf "evan-$VER-$OS-$ARCH.tar.gz" $DIRS
+tar czf "evan-$VER-$OS-$ARCH.tar.gz" $INCS
 
