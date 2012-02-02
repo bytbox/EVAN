@@ -6,12 +6,9 @@ EVANROOT=`pwd`
 
 rm -rf analysis bin docs gui/__pycache__
 
-cd $EVANROOT/lib
-cabal clean
+HSCLEAN="lib www tools/mkref"
 
-cd $EVANROOT/www
-cabal clean
-
-cd $EVANROOT/tools/mkref
-cabal clean
+for d in $HSCLEAN; do
+	cd $EVANROOT/$d
+done
 
