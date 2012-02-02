@@ -10,5 +10,6 @@ HSCLEAN="lib www tools/mkref"
 
 for d in $HSCLEAN; do
 	cd $EVANROOT/$d
+	cabal clean -v0
 done
 
