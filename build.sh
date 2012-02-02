@@ -4,6 +4,7 @@
 # Builds all libraries and binaries.
 
 set -e
+set -o pipefail
 
 cpipe() {
 	sed -u "s/^/  > /"
@@ -16,13 +17,16 @@ rm -rf bin
 mkdir -p bin lib analysis
 
 EVANBIN=$EVANROOT/bin
-HSINST="cabal install --libdir=$EVANROOT/lib --bindir=$EVANROOT/bin"
+HSINST="cabal install --bindir=$EVANROOT/bin"
 
 echo Checking python dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
 
+#echo Updating haskell package database...
+#cabal update 2>&1 | cpipe
+
 echo Checking haskell dependencies...
-cabal install --reinstall json 2>&1 | cpipe
+$HSINST json 2>&1 | cpipe
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
