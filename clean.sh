@@ -2,15 +2,16 @@
 
 set -e
 
+EVANROOT=`pwd`
+
 rm -rf analysis bin docs gui/__pycache__
 
-pushd . > /dev/null
-cd lib
+cd $EVANROOT/lib
 cabal clean
-popd > /dev/null
 
-pushd . > /dev/null
-cd www
+cd $EVANROOT/www
 cabal clean
-popd > /dev/null
+
+cd $EVANROOT/tools/mkref
+cabal clean
 
