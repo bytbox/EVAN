@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# build.sh
+# Builds all libraries and binaries.
+
 set -e
 
 EVANROOT=`pwd`

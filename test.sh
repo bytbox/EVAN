@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# test.sh
+# Runs all available tests.
+
 set -e
 
 echo Testing EVAN haskell libraries...
