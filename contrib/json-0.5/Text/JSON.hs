@@ -361,16 +361,6 @@ instance JSON a => JSON [a] where
 
 -- container types:
 
-#if !defined(MAP_AS_DICT)
-instance (Ord a, JSON a, JSON b) => JSON (M.Map a b) where
-  showJSON = encJSArray M.toList
-  readJSON = decJSArray "Map" M.fromList
-
-instance (JSON a) => JSON (IntMap.IntMap a) where
-  showJSON = encJSArray IntMap.toList
-  readJSON = decJSArray "IntMap" IntMap.fromList
-
-#else
 instance (Ord a, JSKey a, JSON b) => JSON (M.Map a b) where
   showJSON    = encJSDict . M.toList
   readJSON o  = M.fromList <$> decJSDict "Map" o
@@ -379,8 +369,6 @@ instance (JSON a) => JSON (IntMap.IntMap a) where
   {- alternate (dict) mapping: -}
   showJSON    = encJSDict . IntMap.toList
   readJSON o  = IntMap.fromList <$> decJSDict "IntMap" o
-#endif
-
 
 instance (Ord a, JSON a) => JSON (Set.Set a) where
   showJSON = encJSArray Set.toList
