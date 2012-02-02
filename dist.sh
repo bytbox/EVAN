@@ -11,7 +11,7 @@ set -e
 ARCH=`uname -m`
 OS=`uname -s`
 VER=`git tag | tail -n1`
-DIRS="bin examples www lib"
+DIRS="bin examples lib"
 
 tar czf "evan-$VER-$OS-$ARCH.tar.gz" $DIRS
 
