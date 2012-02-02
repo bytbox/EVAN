@@ -7,13 +7,17 @@ set -e
 
 EVANROOT=`pwd`
 
-echo Checking dependencies...
+echo Checking python dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
+
+echo Checking haskell dependencies...
+echo "  Installing json with mapdict flagged..."
+cabal install -v2 json -f mapdict | sed -u "s/^/  > /"
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
 cd lib
-cabal install | sed -u "s/^/  /"
+cabal install 2>&1 | sed -u "s/^/  > /"
 popd > /dev/null
 
 echo Populating bin/...
@@ -27,7 +31,7 @@ chmod +x bin/evan
 echo Building mkref...
 pushd . > /dev/null
 cd tools/mkref
-cabal install --bindir=$EVANROOT/bin | sed -u "s/^/  /"
+cabal install --bindir=$EVANROOT/bin 2>&1 | sed -u "s/^/  > /"
 popd > /dev/null
 
 echo Generating documentation...
