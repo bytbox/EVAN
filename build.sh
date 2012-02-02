@@ -16,20 +16,27 @@ rm -rf bin
 mkdir -p bin lib analysis
 
 EVANBIN=$EVANROOT/bin
+HSINST="cabal install --libdir=$EVANROOT/lib --bindir=$EVANROOT/bin"
 
 echo Checking python dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
 
+echo Checking haskell dependencies...
+if [ ! -d lib/json* ]; then
+	echo "  Building json..."
+	$HSINST --reinstall json 2>&1 | cpipe
+fi
+
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
 cd evanlib
-cabal install --libdir=$EVANROOT/lib 2>&1 | cpipe
+$HSINST 2>&1 | cpipe
 popd > /dev/null
 
 echo Building mkref...
 pushd . > /dev/null
 cd tools/mkref
-cabal install --bindir=$EVANROOT/bin 2>&1 | cpipe
+$HSINST 2>&1 | cpipe
 popd > /dev/null
 
 echo Generating documentation...
