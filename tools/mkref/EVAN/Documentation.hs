@@ -16,7 +16,9 @@ data Docs = Docs
   }
 
 data Category = Category
-  { functions :: [Function]
+  { title       :: String
+  , description :: String
+  , functions   :: [Function]
   }
   deriving Show
 
@@ -47,8 +49,12 @@ instance JSON Category where
   readJSON (JSObject jso) = do
     functionsJSON <- lkup "functions"
     functions <- readJSON functionsJSON
+    titleJSON <- lkup "title"
+    title <- readJSON titleJSON
     return $ Category
-      { functions = functions
+      { title       = title
+      , functions   = functions
+      , description = "DESC"
       }
     where
       obj = Map.fromList $ fromJSObject jso

@@ -19,7 +19,9 @@ while (readdir DH) {
 	next unless /\.lhs$/;
 	my ($fn, $cn) = ("$ldn/$_", $_);
 	$cn =~ s/\.lhs$//;
-	my $ci = {};
+	my $ci = {
+		title => $cn,
+	};
 	my $cl = [];
 	open FIN, "$fn" or die $!;
 	while (my $l = <FIN>) {
