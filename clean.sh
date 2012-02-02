@@ -9,7 +9,7 @@ EVANROOT=`pwd`
 
 rm -rf bin docs gui/__pycache__
 
-HSCLEAN="lib www tools/mkref"
+HSCLEAN="evanlib www tools/mkref"
 
 for d in $HSCLEAN; do
 	cd $EVANROOT/$d

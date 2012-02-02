@@ -16,7 +16,7 @@ cabal install -v2 json -f mapdict | sed -u "s/^/  > /"
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
-cd lib
+cd evanlib
 cabal install 2>&1 | sed -u "s/^/  > /"
 popd > /dev/null
 
@@ -36,7 +36,7 @@ popd > /dev/null
 
 echo Generating documentation...
 mkdir -p docs
-tools/xdocs.pl lib/EVAN > docs/reference.json
+tools/xdocs.pl evanlib/EVAN > docs/reference.json
 
 echo Preparing python GUI...
 pushd . > /dev/null

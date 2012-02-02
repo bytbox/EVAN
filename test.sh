@@ -7,7 +7,7 @@ set -e
 
 echo Testing EVAN haskell libraries...
 pushd . > /dev/null
-cd lib
+cd evanlib
 cabal configure --enable-tests
 cabal test
 popd > /dev/null
