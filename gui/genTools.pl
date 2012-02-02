@@ -18,7 +18,7 @@ def addFTools(add_category):
 END
 
 my $ed = dirname $0;
-my $pdir = $ARGV[0] || "$ed/../lib/EVAN";
+my $pdir = $ARGV[0] || "$ed/../evanlib/EVAN";
 my @hsfiles = glob "$pdir/*.lhs";
 for my $f (@hsfiles) {
 	$f =~ /\/(\w+)\.lhs/;

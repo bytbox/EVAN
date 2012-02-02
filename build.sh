@@ -12,6 +12,7 @@ cpipe() {
 EVANROOT=`pwd`
 
 echo Creating directories...
+rm -rf bin
 mkdir -p bin lib analysis
 
 echo Checking python dependencies...
@@ -28,13 +29,6 @@ pushd . > /dev/null
 cd evanlib
 cabal install --libdir=$EVANROOT/lib 2>&1 | cpipe
 popd > /dev/null
-
-echo Populating bin/...
-rm -f bin/*
-ln -s `pwd`/tools/json2hs/json2hs.py bin/json2hs
-ln -s `pwd`/scripts/evan-compile bin/evan-compile
-tools/merge.pl gui/evan.py > bin/evan
-chmod +x bin/evan
 
 echo Building mkref...
 pushd . > /dev/null
@@ -57,3 +51,9 @@ echo Building httpd...
 pushd . > /dev/null
 cd www
 popd > /dev/null
+
+echo Populating bin/...
+ln -s `pwd`/tools/json2hs/json2hs.py bin/json2hs
+ln -s `pwd`/scripts/evan-compile bin/evan-compile
+tools/merge.pl gui/evan.py > bin/evan
+chmod +x bin/evan

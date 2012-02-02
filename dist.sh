@@ -13,5 +13,12 @@ OS=`uname -s`
 VER=`git tag | tail -n1`
 INCS="bin docs examples lib install.sh LICENSE README"
 
-tar czf "evan-$VER-$OS-$ARCH.tar.gz" $INCS
+DNAME="EVAN-$VER-$OS-$ARCH"
 
+mkdir -p $DNAME
+cp -r $INCS $DNAME
+
+echo Preparing tarball...
+tar czf $DNAME.tgz $DNAME
+
+rm -rf $DNAME

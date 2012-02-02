@@ -32,6 +32,7 @@ sub write_script {
 		}
 		
 	}
+	print "\n";
 	close $fh;
 }
 
