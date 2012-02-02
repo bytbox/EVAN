@@ -15,14 +15,10 @@ echo Creating directories...
 rm -rf bin
 mkdir -p bin lib analysis
 
+EVANBIN=$EVANROOT/bin
+
 echo Checking python dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
-
-echo Checking haskell dependencies...
-if [ ! -d lib/json* ]; then
-	echo "  Building json with mapdict flagged..."
-	cabal install -v0 --libdir=$EVANROOT/lib --reinstall json -f mapdict 2>&1 | cpipe
-fi
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
@@ -39,6 +35,7 @@ popd > /dev/null
 echo Generating documentation...
 mkdir -p docs
 tools/xdocs.pl evanlib/EVAN > docs/reference.json
+$EVANBIN/evan-mkref-html < docs/reference.json > docs/reference.html
 
 echo Preparing python GUI...
 pushd . > /dev/null
