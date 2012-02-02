@@ -1,5 +1,3 @@
-{-# LANGUAGE FlexibleInstances, UndecidableInstances #-}
-
 module EVAN.Documentation where
 
 import Data.Map (Map)
