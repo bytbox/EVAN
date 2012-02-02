@@ -1,6 +1,7 @@
 module EVAN.Documentation.HTML where
 
 import Data.List (intercalate)
+import qualified Data.Map as M
 
 import EVAN.Documentation
 
@@ -15,8 +16,10 @@ instance HTMLShow Docs where
       \<title>EVAN Reference Documentation</title>\
       \</head><body>"
     , generated d
+    , intercalate "\n" $ map categoryLink $ M.keys $ categories d
     , show $ categories d
     , "</body>\
       \</html>"
     ]
 
+categoryLink cn = "<a href=\"#cat-" ++ cn ++ "\">" ++ cn ++ "</a>"
