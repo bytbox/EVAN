@@ -22,10 +22,7 @@ echo Checking python dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
 
 echo Checking haskell dependencies...
-if [ ! -d lib/json* ]; then
-	echo "  Building json..."
-	$HSINST --reinstall json 2>&1 | cpipe
-fi
+cabal install --reinstall json 2>&1 | cpipe
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
