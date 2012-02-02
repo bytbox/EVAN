@@ -4,13 +4,8 @@ set -e
 
 EVANROOT=`pwd`
 
-echo Preparing python GUI...
+echo Checking dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
-pushd . > /dev/null
-cd gui
-./genTools.pl
-./genDocs.pl
-popd > /dev/null
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
@@ -35,6 +30,13 @@ popd > /dev/null
 echo Generating documentation...
 mkdir -p docs
 tools/xdocs.pl lib/EVAN > docs/reference.json
+
+echo Preparing python GUI...
+pushd . > /dev/null
+cd gui
+./genTools.pl
+./genDocs.pl
+popd > /dev/null
 
 echo Building httpd...
 pushd . > /dev/null
