@@ -5,6 +5,10 @@
 
 set -e
 
+cpipe() {
+	sed -u "s/^/  > /"
+}
+
 EVANROOT=`pwd`
 
 echo Creating directories...
@@ -16,13 +20,13 @@ python3 -c 'import matplotlib; import numpy; import tkinter'
 echo Checking haskell dependencies...
 if [ ! -d lib/json* ]; then
 	echo "  Building json with mapdict flagged..."
-	cabal install -v0 --libdir=$EVANROOT/lib --reinstall json -f mapdict | sed -u "s/^/  > /"
+	cabal install -v0 --libdir=$EVANROOT/lib --reinstall json -f mapdict 2>&1 | cpipe
 fi
 
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
 cd evanlib
-cabal install 2>&1 | sed -u "s/^/  > /"
+cabal install --libdir=$EVANROOT/lib 2>&1 | cpipe
 popd > /dev/null
 
 echo Populating bin/...
@@ -35,7 +39,7 @@ chmod +x bin/evan
 echo Building mkref...
 pushd . > /dev/null
 cd tools/mkref
-cabal install --bindir=$EVANROOT/bin 2>&1 | sed -u "s/^/  > /"
+cabal install --bindir=$EVANROOT/bin 2>&1 | cpipe
 popd > /dev/null
 
 echo Generating documentation...
