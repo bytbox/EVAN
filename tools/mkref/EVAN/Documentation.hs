@@ -1,13 +1,32 @@
 module EVAN.Documentation where
 
-import Text.JSON (decode, JSON, JSON(..), Result(..))
+import Data.Map (Map)
+import qualified Data.Map as Map
+
+import Text.JSON
 
 data Docs = Docs
-  { published :: String
+  { generated   :: String
+  , categories  :: Map String Function
   }
 
+data Function = Function
+  {
+  }
+  deriving Show
+
 instance JSON Docs where
-  readJSON v = Ok $ Docs "hi"
+  readJSON (JSObject jso) = do
+    JSString generatedStr <- lkup "generated"
+    return $ Docs
+      { generated = fromJSString generatedStr
+      , categories = Map.fromList []
+      }
+    where
+      obj = Map.fromList $ fromJSObject jso
+      lkup k = case Map.lookup k obj of
+                Just v -> Ok v
+                Nothing -> Error ("key not found: " ++ k)
   showJSON = undefined
 
 readDocs :: String -> Either Docs String
