@@ -9,7 +9,7 @@ EVANROOT=`pwd`
 
 rm -rf bin lib docs gui/__pycache__ gui/fdocs.py gui/ftools.py
 
-HSCLEAN="evanlib www tools/mkref"
+HSCLEAN="evanlib httpd tools/mkref"
 
 for d in $HSCLEAN; do
 	echo Cleaning $d...

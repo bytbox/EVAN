@@ -54,7 +54,7 @@ popd > /dev/null
 
 echo Building httpd...
 pushd . > /dev/null
-cd www
+cd httpd
 popd > /dev/null
 
 echo Populating bin/...
