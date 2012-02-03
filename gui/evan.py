@@ -55,15 +55,64 @@ def showAbout():
 def use_tool(t, cState):
     return lambda:cState.useTool(t)
 
-def populate_toolbar(toolbar, cState):
-    """ Populate toolbar. """
+def popup_cat(t, root, x, y):
+    return lambda:do_popup(t, root, x, y)
 
-    Button(toolbar, text="Compile", command=cState.do_compile).pack(side=TOP)
-    Button(toolbar, text="Run", command=cState.do_run).pack(side=TOP)
+def do_popup(cat, root, x, y):
+    popup = Menu(root, tearoff=0)
+    popup.add_command(label="Exit", command=lambda:1)
+    for n in cat:
+        pass
 
-    for tool in tools:
-        b = Button(toolbar, text=tool, command=use_tool(tools[tool], cState))
-        b.pack(side=TOP)
+    # display the popup menu
+    try:
+        popup.post(int(glob['x']), int(glob['y']))
+    finally:
+        # make sure to release the grab
+        popup.grab_release()
+    print(cat)
+
+# A popup toolbar.
+class Popup(Menu):
+
+    def __init__(self, cState, root, tb, cname, cat):
+        Menu.__init__(self, root, tearoff=0)
+        self.tb = tb
+        for n in cat:
+            self.add_command(label=n, command=use_tool(cat[n], cState))
+    
+    def popup(self):
+        try:
+            self.post(self.tb.x, self.tb.y)
+        finally:
+            self.grab_release()
+
+# Toolbar. Yes, the toolbar goes on the left side; not the top, not the right,
+# and not the bottom. Screens are wider than they are tall, and people will
+# tend to be working on the left side of the screen, making a left-handed
+# toolbar easier to use. This shouldn't even be configurable - any attempt to
+# change it is probably a mistake.
+class Toolbar(Frame):
+    def __init__(self, cState, root):
+        Frame.__init__(self, root, bd=2, relief=SUNKEN)
+        self.pack(side=LEFT, anchor='nw', fill=BOTH, expand=0)
+        self.x = 0
+        self.y = 0
+
+    def move(self, e):
+        self.x, self.y = e.x_root, e.y_root
+
+    def populate(self):
+        Button(self, text="Compile", command=cState.do_compile).pack(side=TOP)
+        Button(self, text="Run", command=cState.do_run).pack(side=TOP)
+        for tool in tools:
+            b = Button(self, text=tool, command=use_tool(tools[tool], cState))
+            b.pack(side=TOP)
+
+        for cat in categories:
+            p = Popup(cState, root, self, cat, categories[cat])
+            b = Button(self, text=cat, command=p.popup)
+            b.pack(side=TOP)
 
 # Set up the GUI
 root = Tk()
@@ -95,14 +144,9 @@ vBar.pack(side=RIGHT, anchor='ne', fill=Y)
 vBar.config(command=canvas.yview)
 canvas.config(yscrollcommand=vBar.set)
 
-# Toolbar. Yes, the toolbar goes on the left side; not the top, not the right,
-# and not the bottom. Screens are wider than they are tall, and people will
-# tend to be working on the left side of the screen, making a left-handed
-# toolbar easier to use. This shouldn't even be configurable - any attempt to
-# change it is probably a mistake.
-toolbarFrame = Frame(root, bd=2, relief=SUNKEN)
-toolbarFrame.pack(side=LEFT, anchor='nw', fill=BOTH, expand=0)
-populate_toolbar(toolbarFrame, cState)
+toolbar = Toolbar(cState, root)
+toolbar.populate()
+root.bind('<Motion>', toolbar.move)
 
 # Menu bar
 make_menubar(root)

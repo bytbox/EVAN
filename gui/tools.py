@@ -33,6 +33,8 @@ tools = {
     "Comment": newComment,
 }
 
+categories = {}
+
 def addBlockTool(name, i, o):
     tools[name] = BlockTool(name, i, o)
 
@@ -41,7 +43,10 @@ def addBlockTools(toolInfo):
         addBlockTool(info[0], info[1], info[2])
 
 def add_category(name, toolinfo):
-    #for info in toolinfo:
-    addBlockTools(toolinfo)
+    ts = {}
+    for info in toolinfo:
+        ts[info[0]] = BlockTool(info[0], info[1], info[2])
+    categories[name+">"] = ts
+    #addBlockTools(toolinfo)
 
 addFTools(add_category)
