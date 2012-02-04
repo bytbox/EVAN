@@ -105,6 +105,7 @@ class Toolbar(Frame):
     def populate(self):
         Button(self, text="Compile", command=cState.do_compile).pack(side=TOP)
         Button(self, text="Run", command=cState.do_run).pack(side=TOP)
+        Button(self, text="Run On...", command=cState.do_run_on).pack(side=TOP)
         for tool in tools:
             b = Button(self, text=tool, command=use_tool(tools[tool], cState))
             b.pack(side=TOP)

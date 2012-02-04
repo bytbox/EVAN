@@ -11,6 +11,7 @@ from results import *
 #!END local
 
 FILETYPES = [("EVAN Programs", ".evan")]
+DATATYPES = [("HEPEVT", ".dat")]
 
 FONTA = ("Helvetica", 10, "bold")
 FONTB = ("Times", 10)
@@ -37,6 +38,7 @@ class CanvasState:
         self.objectsById = {}
         self.outputs = {}
         self.inputs = {}
+        self.datafname = "events.dat"
 
     def useTool(self, tool):
         self.tool = tool
@@ -142,7 +144,16 @@ class CanvasState:
 
         self.saveProg()
         if compile_prog(self):
-            r = run_prog(self, None)
+            r = run_prog(self, self.datafname)
+            display_results(r)
+
+    def do_run_on(self):
+        """ Ask for a filename and run the analysis on that file. """
+        
+        self.saveProg()
+        if compile_prog(self):
+            self.datafname = askopenfilename(filetypes = DATATYPES)
+            r = run_prog(self, self.datafname)
             display_results(r)
 
     def obj_at(self, x, y):

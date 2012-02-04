@@ -38,12 +38,9 @@ def compile_prog(prog):
         return False
     return True
 
-def run_prog(prog, ds):
+def run_prog(prog, datafname="events.dat"):
     """ Runs the given program on the given dataset. The results are returned.
     """
-
-    # TODO actually use the dataset passed in
-    datafname = "events.dat"
 
     d = build_dir(prog)
     xname = os.path.join(d, os.path.splitext(prog.fname)[0])
