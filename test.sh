@@ -9,5 +9,6 @@ echo Testing EVAN haskell libraries...
 pushd . > /dev/null
 cd evanlib
 cabal configure --enable-tests
+cabal build
 cabal test
 popd > /dev/null
