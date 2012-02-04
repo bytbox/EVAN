@@ -4,6 +4,7 @@ import random
 
 #!START local
 from ftools import *
+from ids import *
 from program import *
 #!END local
 
