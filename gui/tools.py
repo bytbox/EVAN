@@ -8,10 +8,8 @@ from ids import *
 from program import *
 #!END local
 
-# TODO properly generate ids.
-
 def newComment(prog, x, y):
-    # TODO make sure it's unique
+    # TODO use the registry
     name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
     c = Comment("Hello, world")
     c._pos = (x, y)

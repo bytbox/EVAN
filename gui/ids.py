@@ -5,6 +5,20 @@
 #!END local
 
 class Registry:
-    def __init__(self):
-        pass
+    def __init__(self, n=1):
+        self.n = n
+
+    def next(self):
+        n = self.n
+        self.n = self.n+1
+        return str(n)
+
+    def named(self, name):
+        return "_" + name + "_" + self.next()
+
+    def as_object(self):
+        return {
+            "kind": 'registry',
+            "n": self.n
+        }
 

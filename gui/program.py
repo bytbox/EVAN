@@ -2,11 +2,16 @@
 
 import json
 
+#!START local
+from ids import *
+#!END local
+
 # The distance to shift when adding a block
 POS_SHIFT = 0, 60
 
 last = 100, 0
 
+REGISTRY = "registry"
 COMMENT = "comment"
 PIPE = "pipe"
 BLOCK = "block"
@@ -52,6 +57,7 @@ class Program(Json):
         output block """
 
         Json.__init__(self)
+        self.registry = Registry()
         self.objects = {}
 
     def std_init(self):
@@ -64,7 +70,7 @@ class Program(Json):
     def add_pipe(self, p):
         """ Add a pseudo-anonymous pipe. """
 
-        name = "_pipe_"+str(len(self.objects)) # TODO this is a bug
+        name = self.registry.named("pipe") # TODO this is a bug
         self.objects[name] = p
         d, i = p.dest
         self.objects[d].inputs[i] = name
@@ -93,6 +99,7 @@ class Program(Json):
         top = {}
         for obj in self.objects:
             top[obj] = self.objects[obj].as_object()
+        top["registry"] = self.registry.as_object()
         return top
 
     def from_object(self, top):
@@ -109,6 +116,8 @@ class Program(Json):
                 self.objects[n].g_from_object(o["graphics"])
             if o['kind'] == PIPE:
                 self.objects[n] = Pipe(o["source"], o["destination"], o["ident"])
+            if o['kind'] == REGISTRY:
+                self.registry = Registry(o['n'])
 
 class Comment(Json, Graphical):
     """ A comment. """
