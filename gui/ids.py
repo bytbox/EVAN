@@ -14,7 +14,7 @@ class Registry:
         return str(n)
 
     def named(self, name):
-        return "_" + name + "_" + self.next()
+        return "_" + name + "_reg_" + self.next()
 
     def as_object(self):
         return {
