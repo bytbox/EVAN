@@ -85,12 +85,11 @@ class CanvasState:
         self.last_x, self.last_y = x, y
         self.update_display()
 
-    def key(self, event):
-        if event.char == 'x':
-            self.program.delete(self.selname)
+    def dele(self, event=None):
+        self.program.delete(self.selname)
         self.update_display()
 
-    def newProg(self):
+    def newProg(self, event=None):
         """ Create a new program. Called when the menu item File->New is activated.
         """
 
@@ -99,7 +98,7 @@ class CanvasState:
         self.update_display()
         self.fname = None
 
-    def loadProg(self):
+    def loadProg(self, event=None):
         """ Load a program from a file. Called when the menu item File->Open is
         activated. """
 
@@ -116,7 +115,7 @@ class CanvasState:
             self.program = program_from_json(f.read())
         self.update_display()
 
-    def saveProg(self):
+    def saveProg(self, event=None):
         """ Save a program to a file. Called when the menu item File->Save is
         activated. """
 
