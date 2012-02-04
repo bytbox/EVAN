@@ -36,18 +36,18 @@ def make_menubar(root):
     
     # File menu
     filemenu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label="File", menu=filemenu)
-    filemenu.add_command(label="New", command=cState.newProg)
-    filemenu.add_command(label="Open...", command=cState.loadProg)
-    filemenu.add_command(label="Save", command=cState.saveProg)
-    filemenu.add_command(label="Save As...", command=cState.saveProgAs)
+    menubar.add_cascade(label="File", underline=0, menu=filemenu)
+    filemenu.add_command(label="New", underline=0, command=cState.newProg)
+    filemenu.add_command(label="Open...", underline=0, command=cState.loadProg)
+    filemenu.add_command(label="Save", underline=0, command=cState.saveProg)
+    filemenu.add_command(label="Save As...", underline=5, command=cState.saveProgAs)
     filemenu.add_separator()
-    filemenu.add_command(label="Exit", command=root.destroy)
+    filemenu.add_command(label="Exit", underline=1, command=root.destroy)
 
     # Help menu
     helpmenu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label="Help", menu=helpmenu)
-    helpmenu.add_command(label="About", command=showAbout)
+    menubar.add_cascade(label="Help", underline=0, menu=helpmenu)
+    helpmenu.add_command(label="About", underline=0, command=showAbout)
 
 def showAbout():
     pass
