@@ -13,7 +13,7 @@ Cabal-version:       >=1.10
 
 Library
   Exposed-modules: EVAN, EVAN.Primitive, EVAN.Math, EVAN.Tracks
-  Build-depends: base >=3 && <5, lhe>=0.3, hepevt>=0.3.1, json>=0.5
+  Build-depends: base >=3 && <5, lhe>=0.3, hepevt>=0.4, lha>=0.1.1, json>=0.5
   Default-language: Haskell2010
 
 Test-Suite test-evan

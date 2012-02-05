@@ -4,6 +4,7 @@
 > import System.IO.Unsafe (unsafePerformIO)
 > import Text.JSON (encode, JSON)
 >
+> import Data.LHA
 > import Data.HEPEVT
 
 The first and only argument shall be the name of the data file from which to
@@ -38,18 +39,18 @@ _Done :: a -> b
 TODO: each :: Streamable a b => a -> [b]
 
 > _Jets :: Event -> [Particle]
-> _Jets = snd
+> _Jets = parts
 >
 > _Select :: ([a], [Bool]) -> [a]
 > _Select = uncurry select
 
 > _PID :: Particle -> Int
-> _PID = pid
+> _PID = partPDG
 
 > _Energy :: Particle -> Double
-> _Energy = energy
+> _Energy = partE
 
 > _Mass :: Particle -> Double
-> _Mass = mass
+> _Mass = partM
 
 
