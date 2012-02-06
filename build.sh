@@ -42,7 +42,7 @@ popd > /dev/null
 
 echo Generating documentation...
 mkdir -p docs
-tools/xdocs.pl evanlib/EVAN > docs/reference.json
+perl -Icontrib tools/xdocs.pl evanlib/EVAN > docs/reference.json
 $EVANBIN/evan-mkref-html < docs/reference.json > docs/reference.html
 
 echo Preparing python GUI...
