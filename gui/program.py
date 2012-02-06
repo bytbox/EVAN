@@ -176,6 +176,9 @@ class Pipe(Json):
         self.dest = dest
         self.kind = PIPE
 
+    def move(self, dx, dy):
+        pass
+
     def as_object(self):
         """ Convert to a json-able object. """
 
