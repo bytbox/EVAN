@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use JSON;
+use JSON::PP;
 
 # This script is used to extract and JSON-encode reference documentation from
 # the EVAN libraries.
@@ -52,5 +52,5 @@ my $docs = {
 	categories => $categories,
 };
 
-my $json = JSON->new->utf8->pretty;
+my $json = JSON::PP->new->utf8->pretty;
 print $json->encode($docs);
