@@ -11,7 +11,7 @@ from results import *
 #!END local
 
 FILETYPES = [("EVAN Programs", ".evan")]
-DATATYPES = [("HEPEVT", ".dat")]
+DATATYPES = [("HEPEVT", ".dat"), ("LHE", ".lhe")]
 
 FONTA = ("Helvetica", 10, "bold")
 FONTB = ("Times", 10)
