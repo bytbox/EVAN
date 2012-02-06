@@ -1,18 +1,24 @@
 > module EVAN.Tracks where
 
 > import System.Environment (getArgs)
+> import System.FilePath (takeExtension)
 > import System.IO.Unsafe (unsafePerformIO)
 > import Text.JSON (encode, JSON)
 >
 > import Data.LHA
-> import Data.HEPEVT
+> import qualified Data.LHE as LHE
+> import qualified Data.HEPEVT as HEPEVT
 
 The first and only argument shall be the name of the data file from which to
 read events.
 
 > readEvents = do
 >   args <- getArgs
->   parseEventFile (args !! 0)
+>   let fn = args !! 0
+>   case takeExtension fn of
+>     ".dat"  -> HEPEVT.parseEventFile fn
+>     ".lhe"  -> LHE.parseEventFile fn
+>     _       -> fail "Unrecognized file format"
 
 Repulsive as the idea is, we must use unsafePerformIO in the implementation of
 _Events to avoid the need for the generated code to handle the IO monad. This
