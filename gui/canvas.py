@@ -158,7 +158,10 @@ class CanvasState:
 
     def obj_at(self, x, y):
         """ Find and return the object at the specified co-ordinates. """
-        
+       
+        if self.in_at(x, y) is not None or self.out_at(x, y) is not None:
+            return None, None
+
         for i in range(0,5):
             ids = self.canvas.find_overlapping(x-i,y-i,x+i,y+i)
             for id in ids:
@@ -222,11 +225,15 @@ class CanvasState:
                 dw = self.block_width(objects[dn])
                 ic = objects[dn].input_count
                 i = di
+                color = "#000000"
+                if o is self.selected:
+                    color = "#ff2255"
                 ld = self.canvas.create_line(
                     sp[0] - sw/2 + (sw/oc)/2 + on*sw/oc,
                     sp[1]+BLOCK_HEIGHT/2+PORT_HEIGHT,
                     dp[0] - dw/2 + (dw/ic)/2 + i*dw/ic,
-                    dp[1]-BLOCK_HEIGHT/2-PORT_HEIGHT)
+                    dp[1]-BLOCK_HEIGHT/2-PORT_HEIGHT,
+                    fill=color)
                 self.objectsById[ld] = obj, o
 
         for obj in objects:
