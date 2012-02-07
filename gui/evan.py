@@ -9,6 +9,7 @@ from tkinter import *
 from tkinter.filedialog import *
 
 #!START local
+from about import *
 from canvas import *
 from docs import *
 from program import *
@@ -48,9 +49,6 @@ def make_menubar(root):
     helpmenu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Help", underline=0, menu=helpmenu)
     helpmenu.add_command(label="About", underline=0, command=showAbout)
-
-def showAbout():
-    pass
 
 def use_tool(t, cState):
     return lambda:cState.useTool(t)
@@ -160,6 +158,8 @@ if arg_progname is None:
     cState.newProg()
 else:
     cState.openProg(arg_progname)
+
+prepareAbout(root)
 
 # Main loop
 root.mainloop()
