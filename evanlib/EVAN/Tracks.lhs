@@ -25,38 +25,38 @@ _Events to avoid the need for the generated code to handle the IO monad. This
 also implies the use of the NOINLINE pragma.
 
 > {-# NOINLINE _Events #-}
-> _Events :: () -> [Event]
-> _Events _ = unsafePerformIO $ readEvents
+> _Events :: () -> () -> [Event]
+> _Events () () = unsafePerformIO $ readEvents
 
 Returned values are JSON-encoded.
 
-> _Return :: JSON a => a -> IO ()
-> _Return = putStrLn . encode
+> _Return :: () -> JSON a => a -> IO ()
+> _Return () = putStrLn . encode
 
 Each and Done do not actually exist, but need to be here.
 
-_Each :: a -> b
-_Done :: a -> b
+_Each :: () -> a -> b
+_Done :: () -> a -> b
 
 > -- TODO make this type-safe
-> select :: [a] -> [Bool] -> [a]
-> select as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)
+> select :: () -> [a] -> [Bool] -> [a]
+> select () as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)
 
-TODO: each :: Streamable a b => a -> [b]
+TODO: each :: () -> Streamable a b => a -> [b]
 
-> _Jets :: Event -> [Particle]
-> _Jets = parts
+> _Jets :: () -> Event -> [Particle]
+> _Jets () = parts
 >
-> _Select :: ([a], [Bool]) -> [a]
-> _Select = uncurry select
+> _Select :: () -> ([a], [Bool]) -> [a]
+> _Select () = uncurry (select ())
 
-> _PID :: Particle -> Int
-> _PID = partPDG
+> _PID :: () -> Particle -> Int
+> _PID () = partPDG
 
-> _Energy :: Particle -> Double
-> _Energy = partE
+> _Energy :: () -> Particle -> Double
+> _Energy () = partE
 
-> _Mass :: Particle -> Double
-> _Mass = partM
+> _Mass :: () -> Particle -> Double
+> _Mass () = partM
 
 
