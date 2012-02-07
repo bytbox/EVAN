@@ -19,7 +19,7 @@ mkdir -p bin lib analysis
 EVANBIN=$EVANROOT/bin
 HSINST="cabal install --bindir=$EVANROOT/bin"
 
-echo Unpacking contrib/
+echo Unpacking contrib...
 tar xzf contrib.tgz
 
 echo Checking python dependencies...

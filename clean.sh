@@ -7,7 +7,7 @@ set -e
 
 EVANROOT=`pwd`
 
-rm -rf bin lib docs gui/__pycache__ gui/fdocs.py gui/ftools.py
+rm -rf bin lib contrib docs gui/__pycache__ gui/fdocs.py gui/ftools.py
 
 HSCLEAN="evanlib httpd tools/mkref"
 
