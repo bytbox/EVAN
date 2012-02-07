@@ -20,9 +20,7 @@ EVANBIN=$EVANROOT/bin
 HSINST="cabal install --bindir=$EVANROOT/bin"
 
 echo Unpacking contrib/
-for f in contrib/*.tgz; do
-	tar xzf $f
-done
+tar xzf contrib.tgz
 
 echo Checking python dependencies...
 python3 -c 'import matplotlib; import numpy; import tkinter'
