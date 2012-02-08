@@ -53,37 +53,26 @@ def make_menubar(root):
 def use_tool(t, cState):
     return lambda:cState.useTool(t)
 
-def popup_cat(t, root, x, y):
-    return lambda:do_popup(t, root, x, y)
-
-def do_popup(cat, root, x, y):
-    popup = Menu(root, tearoff=0)
-    popup.add_command(label="Exit", command=lambda:1)
-    for n in cat:
-        pass
-
-    # display the popup menu
-    try:
-        popup.post(int(glob['x']), int(glob['y']))
-    finally:
-        # make sure to release the grab
-        popup.grab_release()
-    print(cat)
-
 # A popup toolbar.
 class Popup(Menu):
 
     def __init__(self, cState, root, tb, cname, cat):
         Menu.__init__(self, root, tearoff=0)
         self.tb = tb
+        self.up = False
         for n in cat:
             self.add_command(label=n, command=use_tool(cat[n], cState))
     
     def popup(self):
-        try:
-            self.post(self.tb.x, self.tb.y)
-        finally:
-            self.grab_release()
+        if self.up:
+            self.unpost()
+            self.up = False
+        else:
+            self.up = True
+            try:
+                self.post(self.tb.x, self.tb.y)
+            finally:
+                self.grab_release()
 
 # Toolbar. Yes, the toolbar goes on the left side; not the top, not the right,
 # and not the bottom. Screens are wider than they are tall, and people will
