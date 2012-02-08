@@ -1,5 +1,7 @@
 """ Tool list. See README for notes. """
 
+from tkinter import *
+from tkinter.simpledialog import *
 import random
 
 #!START local
@@ -22,11 +24,62 @@ class BlockTool:
         self.outs = o
         self.params = p
 
-    def __call__(self, prog, x, y):
+    def __call__(self, prog, x, y, root):
         name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
+        if len(self.params) > 0:
+            self.prompt(root)
         b = Block(self.name, self.ins, self.outs)
         b._pos = (x, y)
         prog.objects[name] = b
+
+    def prompt(self, root):
+        pd = ParamDialog(root)
+        
+class ParamDialog(SimpleDialog):
+    def body(self, master):
+        body = Frame(master)
+        Label(body, text="Params").pack()
+        
+
+"""
+class AboutDialog(Toplevel):
+    def __init__(self, parent):
+        Toplevel.__init__(self, parent)
+        self.parent = parent
+        self.title("About EVAN")
+        #self.transient(parent)
+        body = Frame(self)
+        Label(body, text="EVAN "+VERSION).pack()
+        self.initial_focus = body
+        body.pack(padx=5, pady=5)
+        self.grab_set()
+        self.protocol("WM_DELETE_WINDOW", self.cancel)
+        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
+        parent.winfo_rooty()+50))
+        self.initial_focus.focus_set()
+        self.wait_window(self)
+
+def cancel(self):
+self.parent.focus_set()
+self.destroy()
+
+def validate(self):
+return 1
+
+def apply(self):
+pass
+
+about_dialog_parent = None
+
+def prepareAbout(parent):
+global about_dialog_parent
+about_dialog_parent = parent
+
+def showAbout():
+ad = AboutDialog(about_dialog_parent)
+
+
+"""
 
 tools = {
     "Cancel": None,

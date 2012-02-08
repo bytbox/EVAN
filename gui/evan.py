@@ -127,7 +127,7 @@ extraFrame = Frame(drawFrame)
 extraFrame.pack(side=TOP, anchor='nw', fill=BOTH, expand=1)
 canvas = Canvas(extraFrame, bg='white', bd=2, relief=SUNKEN)
 canvas.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
-cState = CanvasState(canvas)
+cState = CanvasState(canvas, root)
 # And event hooks
 canvas.bind('<ButtonPress>', cState.canvas_down)
 canvas.bind('<ButtonRelease>', cState.canvas_up)

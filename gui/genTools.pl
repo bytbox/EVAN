@@ -33,7 +33,8 @@ for my $f (@hsfiles) {
 		my @args = ptup $argstr;
 		my @res = ptup $restr;
 		my ($pl, $al, $rl) = ($#params+1, $#args+1, $#res+1);
-		print FOUT "        ('$name', $pl, $al, $rl),\n";
+		my $pstr = join ",", map {"'$_'"} @params;
+		print FOUT "        ('$name', [$pstr], $al, $rl),\n";
 	}
 	print FOUT "    ])\n";
 }
