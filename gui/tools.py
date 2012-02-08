@@ -26,61 +26,42 @@ class BlockTool:
 
     def __call__(self, prog, x, y, root):
         name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
+        pinf = []
         if len(self.params) > 0:
-            self.prompt(root)
-        b = Block(self.name, self.ins, self.outs)
+            pinf = self.prompt(root)
+        b = Block(self.name, self.ins, self.outs, params=pinf)
         b._pos = (x, y)
         prog.objects[name] = b
 
     def prompt(self, root):
-        pd = ParamDialog(root)
+        pd = ParamDialog(root, self.name, self.params)
+        return pd.res
         
-class ParamDialog(SimpleDialog):
+class ParamDialog(Dialog):
+    
+    def __init__(self, parent, name, ps):
+        self.name = name
+        self.ps = ps
+        self.es = [None]*len(self.ps)
+        self.res = [None]*len(self.ps)
+        Dialog.__init__(self, parent, "Block Parameters")
+
     def body(self, master):
-        body = Frame(master)
-        Label(body, text="Params").pack()
+        i = 0
+        for par in self.ps:
+            Label(master, text=par).grid(row=i)
+            self.es[i] = Entry(master)
+            self.es[i].grid(row=i, column=1)
+            i += 1
+        return self.es[0]
+
+    def apply(self):
+        i = 0
+        for par in self.ps:
+            r = self.es[i].get()
+            self.res[i] = r
+            i += 1
         
-
-"""
-class AboutDialog(Toplevel):
-    def __init__(self, parent):
-        Toplevel.__init__(self, parent)
-        self.parent = parent
-        self.title("About EVAN")
-        #self.transient(parent)
-        body = Frame(self)
-        Label(body, text="EVAN "+VERSION).pack()
-        self.initial_focus = body
-        body.pack(padx=5, pady=5)
-        self.grab_set()
-        self.protocol("WM_DELETE_WINDOW", self.cancel)
-        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
-        parent.winfo_rooty()+50))
-        self.initial_focus.focus_set()
-        self.wait_window(self)
-
-def cancel(self):
-self.parent.focus_set()
-self.destroy()
-
-def validate(self):
-return 1
-
-def apply(self):
-pass
-
-about_dialog_parent = None
-
-def prepareAbout(parent):
-global about_dialog_parent
-about_dialog_parent = parent
-
-def showAbout():
-ad = AboutDialog(about_dialog_parent)
-
-
-"""
-
 tools = {
     "Cancel": None,
     "Comment": newComment,

@@ -107,11 +107,13 @@ class Program(Json):
 
         for n in top:
             o = top[n]
+            if not 'params' in o:
+                o['params'] = []
             if o['kind'] == COMMENT:
                 self.objects[n] = Comment(o["text"])
                 self.objects[n].g_from_object(o["graphics"])
             if o['kind'] == BLOCK:
-                self.objects[n] = Block(o["ident"], o["input-count"], o["output-count"])
+                self.objects[n] = Block(o["ident"], o["input-count"], o["output-count"], params=o['params'])
                 self.objects[n].inputs = o["inputs"]
                 self.objects[n].g_from_object(o["graphics"])
             if o['kind'] == PIPE:
@@ -140,12 +142,13 @@ class Comment(Json, Graphical):
 class Block(Json, Graphical):
     """ A block represents a function call. """
 
-    def __init__(self, i, ic=0, oc=0):
+    def __init__(self, i, ic=0, oc=0, params=[]):
         Json.__init__(self)
         Graphical.init_pos(self)
         self.ident = i
         self.input_count = ic
         self.output_count = oc
+        self.params = params
         self.kind = BLOCK
 
         # initialize input array
@@ -159,6 +162,7 @@ class Block(Json, Graphical):
             "ident": self.ident,
             "output-count": self.output_count,
             "input-count": self.input_count,
+            "params": self.ps,
             "inputs": self.inputs,
             "graphics": self.g_as_object(),
         }
