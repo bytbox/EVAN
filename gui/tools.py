@@ -16,10 +16,11 @@ def newComment(prog, x, y):
     prog.objects[name] = c
 
 class BlockTool:
-    def __init__(self, name, i, o):
+    def __init__(self, name, p, i, o):
         self.name = name
         self.ins = i
         self.outs = o
+        self.params = p
 
     def __call__(self, prog, x, y):
         name = ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for i in range(12)])
@@ -44,7 +45,7 @@ def addBlockTools(toolInfo):
 def add_category(name, toolinfo):
     ts = {}
     for info in toolinfo:
-        ts[info[0]] = BlockTool(info[0], info[1], info[2])
+        ts[info[0]] = BlockTool(info[0], info[1], info[2], info[3])
     categories[name+">"] = ts
     #addBlockTools(toolinfo)
 
