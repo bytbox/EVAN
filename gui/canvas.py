@@ -38,7 +38,7 @@ class CanvasState:
         self.objectsById = {}
         self.outputs = {}
         self.inputs = {}
-        self.datafname = "events.dat"
+        self.datafname = None
 
     def useTool(self, tool):
         self.tool = tool
@@ -142,6 +142,9 @@ class CanvasState:
     def do_run(self):
         """ Run the analysis. """
 
+        if self.datafname is None:
+            self.do_run_on()
+            return
         self.saveProg()
         if compile_prog(self):
             r = run_prog(self, self.datafname)

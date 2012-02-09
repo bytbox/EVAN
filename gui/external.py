@@ -38,7 +38,7 @@ def compile_prog(prog):
         return False
     return True
 
-def run_prog(prog, datafname="events.dat"):
+def run_prog(prog, datafname):
     """ Runs the given program on the given dataset. The results are returned.
     """
 
