@@ -17,7 +17,7 @@ read events.
 >   let fn = args !! 0
 >   case takeExtension fn of
 >     ".dat"  -> HEPEVT.parseEventFile fn
->     ".lhe"  -> LHE.parseEventFile fn
+>     ".lhe"  -> return . snd =<< LHE.parseFile fn
 >     _       -> fail "Unrecognized file format"
 
 Repulsive as the idea is, we must use unsafePerformIO in the implementation of
