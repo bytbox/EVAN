@@ -162,7 +162,7 @@ class Block(Json, Graphical):
             "ident": self.ident,
             "output-count": self.output_count,
             "input-count": self.input_count,
-            "params": self.ps,
+            "params": self.params,
             "inputs": self.inputs,
             "graphics": self.g_as_object(),
         }
