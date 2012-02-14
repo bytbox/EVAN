@@ -277,8 +277,12 @@ class CanvasState:
                         fill=fill, activefill=afill)
                     self.outputs[ob] = obj, i
 
+                bt = b.ident
+                for p in o.params:
+                    bt += " : " + p
+
                 self.canvas.create_text(pos, font=FONTA,
-                    text=b.ident, state=DISABLED)
+                    text=bt, state=DISABLED)
 
             if o.kind == COMMENT:
                 cid = obj
