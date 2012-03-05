@@ -28,9 +28,6 @@ python3 -c 'import matplotlib; import numpy; import tkinter'
 #echo Updating haskell package database...
 #cabal update 2>&1 | cpipe
 
-echo Checking haskell dependencies...
-$HSINST json 2>&1 | cpipe
-
 echo Installing EVAN haskell libraries...
 pushd . > /dev/null
 cd evanlib
