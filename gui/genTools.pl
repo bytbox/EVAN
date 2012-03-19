@@ -27,12 +27,14 @@ for my $f (@hsfiles) {
 	my $hs = "";
 	$hs .= $_ while <FIN>;
 	close FIN or die $!;
-	while ($hs =~ /^>? *_([A-Z]\w*) *:: *(.*=> *)?(.*?) *-> *(.*)/mg) {
-		my ($name, $argstr, $restr) = ($1, $3, $4);
+	while ($hs =~ /^>? *_([A-Z]\w*) *:: *(.*=> *)?(.*?) *-> (.*?) *-> *(.*)/mg) {
+		my ($name, $paramstr, $argstr, $restr) = ($1, $3, $4, $5);
+		my @params = ptup $paramstr;
 		my @args = ptup $argstr;
 		my @res = ptup $restr;
-		my ($al, $rl) = ($#args+1, $#res+1);
-		print FOUT "        ('$name', $al, $rl),\n";
+		my ($pl, $al, $rl) = ($#params+1, $#args+1, $#res+1);
+		my $pstr = join ",", map {"'$_'"} @params;
+		print FOUT "        ('$name', [$pstr], $al, $rl),\n";
 	}
 	print FOUT "    ])\n";
 }

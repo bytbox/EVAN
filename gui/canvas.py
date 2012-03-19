@@ -23,12 +23,13 @@ class CanvasState:
     """ Encapsulates the state of the canvas as well as the user interaction
     logic. """
 
-    def __init__(self, canvas):
+    def __init__(self, canvas, root):
         self.last_x = -1
         self.last_y = -1
         self.isdown = False
         self.dragdist = 0
         self.canvas = canvas
+        self.root = root
         self.program = None
         self.tool = None
         self.selname = None
@@ -51,7 +52,7 @@ class CanvasState:
         self.last_x, self.last_y = x, y
 
         if self.tool is not None:
-            self.tool(self.program, x, y)
+            self.tool(self.program, x, y, self.root)
             self.tool = None
             self.update_display()
             return
@@ -279,8 +280,12 @@ class CanvasState:
                         fill=fill, activefill=afill)
                     self.outputs[ob] = obj, i
 
+                bt = b.ident
+                for p in o.params:
+                    bt += " : " + p
+
                 self.canvas.create_text(pos, font=FONTA,
-                    text=b.ident, state=DISABLED)
+                    text=bt, state=DISABLED)
 
             if o.kind == COMMENT:
                 cid = obj
