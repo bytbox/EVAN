@@ -49,6 +49,7 @@ def render(p, i):
                 deps += dep
                 ds += d
             r += rid(ident) + ' ('
+            r += ','.join(['_'+x for x in o['params']]) + ') ('
             r += ','.join(['_'+x for x in o['inputs']]) + ') ; '
             r = ds + r
     elif k == 'pipe':
