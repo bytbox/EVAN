@@ -25,6 +25,6 @@
 > _Count :: () -> [a] -> Int
 > _Count () = length
 
-> _Const :: Int -> () -> Int
+> _Const :: Num n => n -> () -> n
 > _Const a () = a
 
