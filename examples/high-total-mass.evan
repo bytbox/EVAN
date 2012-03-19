@@ -1,0 +1,318 @@
+{
+  "pxxekqybdvef": {
+    "inputs": [], 
+    "kind": "block", 
+    "ident": "Const", 
+    "input-count": 0, 
+    "params": [
+      "3500"
+    ], 
+    "graphics": {
+      "y": 439.0, 
+      "x": 345.0
+    }, 
+    "output-count": 1
+  }, 
+  "_pipe_reg_10": {
+    "source": [
+      "pdwdbdubtkxc", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_pdwdbdubtkxc__0", 
+    "destination": [
+      "rlcfmqfnwbuh", 
+      0
+    ]
+  }, 
+  "_pipe_reg_11": {
+    "source": [
+      "akqrqyjtllwx", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_akqrqyjtllwx__0", 
+    "destination": [
+      "rlcfmqfnwbuh", 
+      1
+    ]
+  }, 
+  "_pipe_reg_13": {
+    "source": [
+      "ivxjurugphff", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_ivxjurugphff__0", 
+    "destination": [
+      "Return1", 
+      0
+    ]
+  }, 
+  "_pipe_reg_14": {
+    "source": [
+      "rlcfmqfnwbuh", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_rlcfmqfnwbuh__0", 
+    "destination": [
+      "ivxjurugphff", 
+      0
+    ]
+  }, 
+  "ovxsulekmint": {
+    "inputs": [
+      "_pipe_reg_4"
+    ], 
+    "kind": "block", 
+    "ident": "Mass", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 305.0, 
+      "x": 180.0
+    }, 
+    "output-count": 1
+  }, 
+  "Events1": {
+    "inputs": [], 
+    "kind": "block", 
+    "ident": "Events", 
+    "input-count": 0, 
+    "params": [], 
+    "graphics": {
+      "y": 54.0, 
+      "x": 181.0
+    }, 
+    "output-count": 1
+  }, 
+  "_pipe_reg_6": {
+    "source": [
+      "uemstooezcjw", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_uemstooezcjw__0", 
+    "destination": [
+      "pdwdbdubtkxc", 
+      0
+    ]
+  }, 
+  "_pipe_reg_4": {
+    "source": [
+      "rgiaiaxgmyvc", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_rgiaiaxgmyvc__0", 
+    "destination": [
+      "ovxsulekmint", 
+      0
+    ]
+  }, 
+  "_pipe_reg_5": {
+    "source": [
+      "ovxsulekmint", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_ovxsulekmint__0", 
+    "destination": [
+      "uemstooezcjw", 
+      0
+    ]
+  }, 
+  "_pipe_reg_2": {
+    "source": [
+      "qjqdnwysqzee", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_qjqdnwysqzee__0", 
+    "destination": [
+      "yyqodbabjxaa", 
+      0
+    ]
+  }, 
+  "_pipe_reg_3": {
+    "source": [
+      "yyqodbabjxaa", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_yyqodbabjxaa__0", 
+    "destination": [
+      "rgiaiaxgmyvc", 
+      0
+    ]
+  }, 
+  "_pipe_reg_1": {
+    "source": [
+      "Events1", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_Events1__0", 
+    "destination": [
+      "qjqdnwysqzee", 
+      0
+    ]
+  }, 
+  "_pipe_reg_8": {
+    "source": [
+      "pdwdbdubtkxc", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_pdwdbdubtkxc__0", 
+    "destination": [
+      "akqrqyjtllwx", 
+      0
+    ]
+  }, 
+  "_pipe_reg_9": {
+    "source": [
+      "pxxekqybdvef", 
+      0
+    ], 
+    "kind": "pipe", 
+    "ident": "_pipe_pxxekqybdvef__0", 
+    "destination": [
+      "akqrqyjtllwx", 
+      1
+    ]
+  }, 
+  "pdwdbdubtkxc": {
+    "inputs": [
+      "_pipe_reg_6"
+    ], 
+    "kind": "block", 
+    "ident": "Sum", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 441.0, 
+      "x": 205.0
+    }, 
+    "output-count": 1
+  }, 
+  "yyqodbabjxaa": {
+    "inputs": [
+      "_pipe_reg_2"
+    ], 
+    "kind": "block", 
+    "ident": "Jets", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 179.0, 
+      "x": 178.0
+    }, 
+    "output-count": 1
+  }, 
+  "qjqdnwysqzee": {
+    "inputs": [
+      "_pipe_reg_1"
+    ], 
+    "kind": "block", 
+    "ident": "Each", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 114.0, 
+      "x": 182.0
+    }, 
+    "output-count": 1
+  }, 
+  "Return1": {
+    "inputs": [
+      "_pipe_reg_13"
+    ], 
+    "kind": "block", 
+    "ident": "Return", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 814.0, 
+      "x": 282.0
+    }, 
+    "output-count": 0
+  }, 
+  "registry": {
+    "kind": "registry", 
+    "n": 15
+  }, 
+  "ivxjurugphff": {
+    "inputs": [
+      "_pipe_reg_14"
+    ], 
+    "kind": "block", 
+    "ident": "Done", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 744.0, 
+      "x": 281.0
+    }, 
+    "output-count": 1
+  }, 
+  "uemstooezcjw": {
+    "inputs": [
+      "_pipe_reg_5"
+    ], 
+    "kind": "block", 
+    "ident": "Done", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 385.0, 
+      "x": 195.0
+    }, 
+    "output-count": 1
+  }, 
+  "akqrqyjtllwx": {
+    "inputs": [
+      "_pipe_reg_8", 
+      "_pipe_reg_9"
+    ], 
+    "kind": "block", 
+    "ident": "Ge", 
+    "input-count": 2, 
+    "params": [], 
+    "graphics": {
+      "y": 537.0, 
+      "x": 287.0
+    }, 
+    "output-count": 1
+  }, 
+  "rlcfmqfnwbuh": {
+    "inputs": [
+      "_pipe_reg_10", 
+      "_pipe_reg_11"
+    ], 
+    "kind": "block", 
+    "ident": "Select", 
+    "input-count": 2, 
+    "params": [], 
+    "graphics": {
+      "y": 655.0, 
+      "x": 279.0
+    }, 
+    "output-count": 1
+  }, 
+  "rgiaiaxgmyvc": {
+    "inputs": [
+      "_pipe_reg_3"
+    ], 
+    "kind": "block", 
+    "ident": "Each", 
+    "input-count": 1, 
+    "params": [], 
+    "graphics": {
+      "y": 237.0, 
+      "x": 187.0
+    }, 
+    "output-count": 1
+  }
+}
