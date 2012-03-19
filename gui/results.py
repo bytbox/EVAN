@@ -3,18 +3,11 @@
 import json
 from tkinter import *
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
-
 def display_results(rs):
     """ Displays the given results. """
 
     r = json.loads(rs)
-    if isinstance(r, list):
-        # render a histogram. TODO don't make quite so many assumptions
-        histogram(r)
-    elif isinstance(r, str):
+    if isinstance(r, str):
         root = Tk()
         root.title('Results')
         root.protocol('WM_DELETE_WINDOW', root.destroy)
@@ -28,9 +21,3 @@ def display_results(rs):
     else:
         print(r)
 
-def histogram(r):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    n, bins, patches = ax.hist(r, 25, facecolor='green', alpha=0.75)
-    ax.grid(True)
-    plt.show()
