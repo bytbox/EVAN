@@ -10,8 +10,7 @@ _evan_build
 analysis
 gui/ftools.py
 *.tar.gz
-httpd/log
-httpd/evan-httpd
+httpd/httpd
 docs/
 gui/fdocs.py
 lib

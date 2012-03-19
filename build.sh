@@ -52,10 +52,15 @@ cd gui
 ./genDocs.pl
 popd > /dev/null
 
-echo Building httpd...
-pushd . > /dev/null
-cd httpd
-popd > /dev/null
+if which go > /dev/null; then
+	echo Building httpd...
+	pushd . > /dev/null
+	cd httpd
+	go build
+	popd > /dev/null
+else
+	echo "Go installation not found; not building httpd"
+fi
 
 echo Populating bin/...
 ln -s `pwd`/tools/json2hs/json2hs.py bin/json2hs
