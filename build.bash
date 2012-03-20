@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-# build.sh
+# build.bash
 # Builds all libraries and binaries.
 
 set -e
@@ -29,16 +29,14 @@ python3 -c 'import tkinter'
 #cabal update 2>&1 | cpipe
 
 echo Installing EVAN haskell libraries...
-pushd . > /dev/null
-cd evanlib
+cd $EVANROOT/evanlib
 $HSINST 2>&1 | cpipe
-popd > /dev/null
 
 echo Building mkref...
-pushd . > /dev/null
-cd tools/mkref
+cd $EVANROOT/tools/mkref
 $HSINST 2>&1 | cpipe
-popd > /dev/null
+
+cd $EVANROOT
 
 echo Generating documentation...
 mkdir -p docs
@@ -46,21 +44,19 @@ perl -Icontrib/perl-json tools/xdocs.pl evanlib/EVAN > docs/reference.json
 $EVANBIN/evan-mkref-html < docs/reference.json > docs/reference.html
 
 echo Preparing python GUI...
-pushd . > /dev/null
-cd gui
+cd $EVANROOT/gui
 ./genTools.pl
 ./genDocs.pl
-popd > /dev/null
 
 if which go > /dev/null; then
 	echo Building httpd...
-	pushd . > /dev/null
-	cd httpd
+	cd $EVANROOT/httpd
 	go build
-	popd > /dev/null
 else
 	echo "Go installation not found; not building httpd"
 fi
+
+cd $EVANROOT
 
 echo Populating bin/...
 ln -s `pwd`/tools/json2hs/json2hs.py bin/json2hs

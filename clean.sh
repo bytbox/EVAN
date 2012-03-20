@@ -19,9 +19,7 @@ done
 
 if which go > /dev/null; then
 	echo Cleaning httpd...
-	pushd . > /dev/null
 	cd $EVANROOT/httpd
 	go clean
-	popd > /dev/null
 fi
 

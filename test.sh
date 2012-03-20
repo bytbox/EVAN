@@ -4,11 +4,11 @@
 # Runs all available tests.
 
 set -e
+EVANROOT=`pwd`
 
 echo Testing EVAN haskell libraries...
-pushd . > /dev/null
-cd evanlib
+cd $EVANROOT/evanlib
 cabal configure --enable-tests
 cabal build
 cabal test
-popd > /dev/null
+
