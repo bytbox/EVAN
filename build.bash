@@ -10,13 +10,12 @@ cpipe() {
 	sed -u "s/^/  > /"
 }
 
-EVANROOT=`pwd`
+. ./common.sh
 
 echo Creating directories...
 rm -rf bin
 mkdir -p bin lib analysis
 
-EVANBIN=$EVANROOT/bin
 HSINST="cabal install --bindir=$EVANROOT/bin"
 
 echo Unpacking contrib...
@@ -48,7 +47,7 @@ cd $EVANROOT/gui
 ./genTools.pl
 ./genDocs.pl
 
-if which go > /dev/null; then
+if $GO; then
 	echo Building httpd...
 	cd $EVANROOT/httpd
 	go build
@@ -63,3 +62,4 @@ ln -s `pwd`/tools/json2hs/json2hs.py bin/json2hs
 ln -s `pwd`/scripts/evan-compile bin/evan-compile
 tools/merge.pl gui/evan.py > bin/evan
 chmod +x bin/evan
+
