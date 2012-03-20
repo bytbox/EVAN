@@ -22,6 +22,7 @@ echo Unpacking contrib...
 tar xzf contrib.tgz
 
 if test $PY; then
+	# TODO keep going even when deps not found
 	echo Checking python dependencies...
 	python3 -c 'import tkinter'
 else
