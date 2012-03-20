@@ -21,8 +21,12 @@ HSINST="cabal install --bindir=$EVANROOT/bin"
 echo Unpacking contrib...
 tar xzf contrib.tgz
 
-echo Checking python dependencies...
-python3 -c 'import tkinter'
+if test $PY; then
+	echo Checking python dependencies...
+	python3 -c 'import tkinter'
+else
+	echo "Python3 not present; will prepare evan.py anyway"
+fi
 
 #echo Updating haskell package database...
 #cabal update 2>&1 | cpipe
@@ -47,7 +51,7 @@ cd $EVANROOT/gui
 ./genTools.pl
 ./genDocs.pl
 
-if $GO; then
+if test $GO; then
 	echo Building httpd...
 	cd $EVANROOT/httpd
 	go build

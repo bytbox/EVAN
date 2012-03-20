@@ -16,7 +16,7 @@ for d in $HSCLEAN; do
 	cabal clean -v0
 done
 
-if $GO; then
+if test $GO; then
 	echo Cleaning httpd...
 	cd $EVANROOT/httpd
 	go clean
