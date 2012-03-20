@@ -12,6 +12,14 @@ cpipe() {
 
 . ./common.sh
 
+if test $PY; then
+	# TODO keep going even when deps not found
+	echo Checking python dependencies...
+	python3 -c 'import tkinter'
+else
+	echo "Python3 not present; will prepare evan.py anyway"
+fi
+
 echo Creating directories...
 rm -rf bin
 mkdir -p bin lib analysis
@@ -20,14 +28,6 @@ HSINST="cabal install --bindir=$EVANROOT/bin"
 
 echo Unpacking contrib...
 tar xzf contrib.tgz
-
-if test $PY; then
-	# TODO keep going even when deps not found
-	echo Checking python dependencies...
-	python3 -c 'import tkinter'
-else
-	echo "Python3 not present; will prepare evan.py anyway"
-fi
 
 #echo Updating haskell package database...
 #cabal update 2>&1 | cpipe
