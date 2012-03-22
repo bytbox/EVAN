@@ -2,8 +2,10 @@
 
 > import Text.JSON (encode, JSON)
 
-> _Histogram :: () -> () -> ()
-> _Histogram () () = ()
+> import EVAN.Output.SVG
+
+> _Histogram :: () -> () -> SVGImage
+> _Histogram () () = SVGImage ""
 
 Returned values are JSON-encoded.
 
