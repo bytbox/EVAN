@@ -1,14 +1,9 @@
 module EVAN.Output.SVG where
 
-import Text.JSON (JSON(..), toJSObject)
+import EVAN.Output.Mime
 
 data SVGImage = SVGImage String
 
-instance JSON SVGImage where
-  readJSON = undefined
-  showJSON (SVGImage s) = showJSON $ toJSObject
-    [ ("mime", "image/svg+xml")
-    , ("kind", "histogram")
-    , ("data", s)
-    ]
+instance MIME SVGImage where
+  mimebox (SVGImage s) = MIMEBox "image/svg+xml" "histogram" s 
 
