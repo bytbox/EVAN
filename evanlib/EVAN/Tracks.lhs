@@ -3,7 +3,6 @@
 > import System.Environment (getArgs)
 > import System.FilePath (takeExtension)
 > import System.IO.Unsafe (unsafePerformIO)
-> import Text.JSON (encode, JSON)
 >
 > import Data.LHA
 > import qualified Data.LHE as LHE
@@ -27,11 +26,6 @@ also implies the use of the NOINLINE pragma.
 > {-# NOINLINE _Events #-}
 > _Events :: () -> () -> [Event]
 > _Events () () = unsafePerformIO $ readEvents
-
-Returned values are JSON-encoded.
-
-> _Return :: () -> JSON a => a -> IO ()
-> _Return () = putStrLn . encode
 
 Each and Done do not actually exist, but need to be here.
 
