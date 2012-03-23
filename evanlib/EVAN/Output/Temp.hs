@@ -1,5 +1,5 @@
 module EVAN.Output.Temp where
 
-tmpfile :: IO FilePath
-tmpfile = return "/tmp/_evan_out" -- TODO
+tmpfile :: String -> IO FilePath
+tmpfile ext = return $ "/tmp/_evan_out." ++ ext -- TODO
 

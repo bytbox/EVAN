@@ -9,7 +9,7 @@ svgMimeType = "image/svg+xml"
 
 tempSVG :: String -> (Int, Int) -> Render () -> IO MIMEBox
 tempSVG k sz r = do
-  tf <- tmpfile
+  tf <- tmpfile "svg"
   withSVGSurface tf (fromIntegral $ fst sz) (fromIntegral $ snd sz) (\s -> renderWith s r)
   return $ External svgMimeType k tf
 

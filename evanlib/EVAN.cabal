@@ -13,7 +13,7 @@ Cabal-version:       >=1.10
 
 Library
   Exposed-modules: EVAN, EVAN.Primitive, EVAN.Math, EVAN.Tracks, EVAN.Output
-  Other-modules: EVAN.Output.Histogram, EVAN.Output.SVG, EVAN.Output.MIME, EVAN.Output.Temp, EVAN.Output.Unsafe
+  Other-modules: EVAN.Output.Histogram, EVAN.Output.SVG, EVAN.Output.PNG, EVAN.Output.MIME, EVAN.Output.Temp, EVAN.Output.Unsafe
   Build-depends: base >=3 && <5, lhe==0.5, hepevt==0.5, lha==0.1.2, json==0.5, filepath>=1.2, plot==0.1.3.2, cairo==0.12.3, hmatrix==0.13.1.0
   Default-language: Haskell2010
 
