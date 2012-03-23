@@ -18,6 +18,19 @@ def display_results(rs):
         resDisp = Canvas(resFrame, bg='white', bd=2, relief=SUNKEN)
         resDisp.pack(side=LEFT, anchor='nw', fill=BOTH, expand=1)
         resDisp.create_text(20, 20, text=r)
+    elif isinstance(r, dict):
+        m = r['mime']
+        k = r['kind']
+        if 'data' in r:
+            d = r['data']
+        elif 'file' in r:
+            fn = r['file']
+            f = open(fn, "rb")
+            d = f.read()
+            f.close()
+        else:
+            # TODO ERROR
+            return
     else:
         print(r)
 
