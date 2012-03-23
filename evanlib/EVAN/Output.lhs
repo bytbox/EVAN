@@ -8,7 +8,7 @@
 > import EVAN.Output.Unsafe
 
 > _Histogram :: () -> [Double] -> IO MIMEBox
-> _Histogram () ns = tempSVG "histogram" $ renderHist ns
+> _Histogram () ns = tempSVG "histogram" (500, 350) $ renderHist (500, 350) ns
 
 Returned values are JSON-encoded.
 
