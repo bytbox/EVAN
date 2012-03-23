@@ -12,12 +12,12 @@ cpipe() {
 
 . ./common.sh
 
-if test $PY; then
+if test $PY && test $IMDISP; then
 	# TODO keep going even when deps not found
 	echo Checking python dependencies...
 	python3 -c 'import tkinter'
 else
-	echo "Python3 not present; will prepare evan.py anyway"
+	echo "Python dependencies not present; will prepare evan.py anyway"
 fi
 
 echo Creating directories...
