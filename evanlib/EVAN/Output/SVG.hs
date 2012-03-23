@@ -1,9 +1,15 @@
 module EVAN.Output.SVG where
 
-import EVAN.Output.Mime
+import Graphics.Rendering.Cairo (withSVGSurface, Render(..), renderWith)
 
-data SVGImage = SVGImage String
+import EVAN.Output.MIME
+import EVAN.Output.Temp
 
-instance MIME SVGImage where
-  mimebox (SVGImage s) = MIMEBox "image/svg+xml" "histogram" s 
+svgMimeType = "image/svg+xml"
+
+tempSVG :: String -> Render () -> IO MIMEBox
+tempSVG k r = do
+  tf <- tmpfile
+  withSVGSurface tf 72 72 (\s -> renderWith s r)
+  return $ External svgMimeType k tf
 
