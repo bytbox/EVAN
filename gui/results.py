@@ -32,7 +32,7 @@ def display_results(rs):
         else:
             # TODO ERROR
             return
-        print(d)
+        
         if re.match('^image/', m):
             img = PhotoImage(data=d)
             resDisp.create_image(30, 30, image=img)
