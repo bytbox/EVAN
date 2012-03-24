@@ -1,6 +1,17 @@
 > module EVAN.Primitive
 >   where
 
+Each and Done do not actually exist, but need to be here.
+
+_Each :: () -> a -> b
+_Done :: () -> a -> b
+
+> -- TODO make this type-safe
+> select :: () -> [a] -> [Bool] -> [a]
+> select () as bs = fst $ unzip $ filter (\(_, b) -> b) (zip as bs)
+
+TODO: each :: () -> Streamable a b => a -> [b]
+
 > _True :: () -> () -> Bool
 > _True () = const True
 
