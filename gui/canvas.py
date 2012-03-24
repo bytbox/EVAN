@@ -105,13 +105,17 @@ class CanvasState:
         """ Load a program from a file. Called when the menu item File->Open is
         activated. """
 
-        self.fname = askopenfilename(defaultextension=".evan", filetypes = FILETYPES)
+        nfname = askopenfilename(defaultextension=".evan", filetypes = FILETYPES)
+        if nfname is None or len(nfname) < 1:
+            # do nothing!
+            return
+        self.fname = nfname
         with open(self.fname) as f:
             self.program = program_from_json(f.read())
         self.update_display()
 
     def openProg(self, fname):
-        """ Load a program fromt he given filename. """
+        """ Load a program from the given filename. """
 
         self.fname = fname
         with open(fname) as f:
@@ -124,15 +128,18 @@ class CanvasState:
 
         if self.fname is None:
             self.fname = asksaveasfilename(defaultextension=".evan", filetypes = FILETYPES)
-        with open(self.fname, 'w') as f:
-            f.write(self.program.as_json())
+        if self.fname is not None and len(self.fname) > 0:
+            with open(self.fname, 'w') as f:
+                f.write(self.program.as_json())
 
     def saveProgAs(self):
         """ Save a program to a selected file. Called when the menu item File->Save
         As is activated. """
         
-        self.fname = asksaveasfilename(defaultextension=".evan", filetypes = FILETYPES)
-        self.saveProg
+        nfname = asksaveasfilename(defaultextension=".evan", filetypes = FILETYPES)
+        if nfname is not None and len(nfname) > 0:
+            self.fname = nfname
+            self.saveProg()
 
     def do_compile(self):
         """ Perform compilation. """
