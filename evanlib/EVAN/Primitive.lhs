@@ -12,6 +12,9 @@ _Done :: () -> a -> b
 
 TODO: each :: () -> Streamable a b => a -> [b]
 
+> _Select :: () -> ([a], [Bool]) -> [a]
+> _Select () = uncurry (select ())
+
 > _True :: () -> () -> Bool
 > _True () = const True
 

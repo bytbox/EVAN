@@ -29,9 +29,6 @@ also implies the use of the NOINLINE pragma.
 
 > _Tracks :: () -> Event -> [Particle]
 > _Tracks () = parts
->
-> _Select :: () -> ([a], [Bool]) -> [a]
-> _Select () = uncurry (select ())
 
 > _PID :: () -> Particle -> Int
 > _PID () = partPDG
