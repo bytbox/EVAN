@@ -56,3 +56,4 @@ def run_prog(prog, datafname):
 
 def handle_error(e):
     print("ERR: " + e) # TODO dialog or error pane or something
+
