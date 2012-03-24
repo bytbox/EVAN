@@ -39,4 +39,12 @@ also implies the use of the NOINLINE pragma.
 > _Mass :: () -> Particle -> Double
 > _Mass () = partM
 
+> _Px :: () -> Particle -> Double
+> _Px () = partPx
+
+> _Py :: () -> Particle -> Double
+> _Py () = partPy
+
+> _Pz :: () -> Particle -> Double
+> _Pz () = partPz
 
