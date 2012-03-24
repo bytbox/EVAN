@@ -299,3 +299,4 @@ class CanvasState:
                 self.objectsById[i] = cid, comment
                 self.canvas.create_text(pos, font=FONTB,
                     text=comment.text, state=DISABLED, width=w)
+
