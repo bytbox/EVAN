@@ -15,3 +15,5 @@ docs/
 gui/fdocs.py
 lib
 contrib/
+.depends
+gui/evan
