@@ -1,8 +1,12 @@
+#include <iostream>
+using namespace std;
+
 #include "fltk.hh"
 
 #define TITLE "EVAN"
 #define MENU_HEIGHT 28
 #define TOOL_HEIGHT 30
+#define TB_WIDTH 100
 
 /* Callbacks */
 void Cb_Quit (Fl_Widget *, void *);
@@ -31,7 +35,7 @@ void MkGui() {
 	menu_bar = new Fl_Menu_Bar(0, 0, main_window->w(), MENU_HEIGHT);
 	menu_bar->copy(menu_items);
 
-	tool_bar = new Fl_Pack(0, MENU_HEIGHT+1, 80, 0);
+	tool_bar = new Fl_Pack(0, MENU_HEIGHT+1, TB_WIDTH, 0);
 	run_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "Run");
 	tool_bar->end();
 
@@ -44,8 +48,9 @@ void Cb_Quit(Fl_Widget *, void *) {
 }
 
 int main(int argc, char *argv[]) {
+	Fl::scheme("plastic");
 	MkGui();
-	main_window->show(argc, argv);
+	main_window->show();
 	return Fl::run();
 }
 
