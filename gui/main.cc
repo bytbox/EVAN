@@ -1,8 +1,6 @@
 #include "fltk.hh"
 
 #define TITLE "EVAN"
-#define WIDTH 680
-#define HEIGHT 580
 #define MENU_HEIGHT 28
 #define TOOL_HEIGHT 30
 
@@ -28,8 +26,9 @@ Fl_Menu_Item menu_items[] = {
 };
 
 void MkGui() {
-	main_window = new Fl_Double_Window(WIDTH, HEIGHT, TITLE);
-	menu_bar = new Fl_Menu_Bar(0, 0, WIDTH, MENU_HEIGHT);
+	int wh = Fl::h(), ww = Fl::w();
+	main_window = new Fl_Double_Window(ww * .8, wh * .8, TITLE);
+	menu_bar = new Fl_Menu_Bar(0, 0, main_window->w(), MENU_HEIGHT);
 	menu_bar->copy(menu_items);
 
 	tool_bar = new Fl_Pack(0, MENU_HEIGHT+1, 80, 0);
