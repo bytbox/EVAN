@@ -9,6 +9,7 @@ using namespace std;
 #define TB_WIDTH 100
 
 /* Callbacks */
+void Cb_About (Fl_Widget *, void *);
 void Cb_Quit (Fl_Widget *, void *);
 
 /* Singleton GUI Components */
@@ -17,16 +18,31 @@ Fl_Menu_Bar *menu_bar;
 Fl_Pack *tool_bar;
 Fl_Button *run_button;
 
+Fl_Window *about_window;
+
 Fl_Menu_Item menu_items[] = {
 	{ "&File",              0, 0, 0, FL_SUBMENU },
+	{ "&New", FL_COMMAND + 'n', 0, 0},
+	{ "&Open", FL_COMMAND + 'o', 0, 0},
+	{ "&Save", FL_COMMAND + 's', 0, 0},
+	{ "Save &As", 0, 0, 0},
 	{ "E&xit", FL_COMMAND + 'q', (Fl_Callback *)Cb_Quit, 0 },
 	{ 0 },
 
 	{ "&Help", 0, 0, 0, FL_SUBMENU },
+	{ "&About", 0, (Fl_Callback *)Cb_About, 0},
 	{ 0 },
 
 
 	{ 0 }
+};
+
+struct tool_spec {
+	const char *name;
+};
+
+tool_spec tool_list[] = {
+	{""},
 };
 
 void MkGui() {
@@ -36,15 +52,26 @@ void MkGui() {
 	menu_bar->copy(menu_items);
 
 	tool_bar = new Fl_Pack(0, MENU_HEIGHT+1, TB_WIDTH, 0);
-	run_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "Run");
+	run_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "&Run");
 	tool_bar->end();
 
 	main_window->end();
+
+	about_window = new Fl_Window(ww * .2, wh * .2, "About EVAN");
+	Fl_Text_Display *td = new Fl_Text_Display(0, 0, about_window->w(), about_window->h());
+	Fl_Text_Buffer *ab = new Fl_Text_Buffer();
+	ab->text("EVAN v0.1");
+	td->buffer(ab);
+	about_window->end();
 }
 
 void Cb_Quit(Fl_Widget *, void *) {
 	delete main_window;
 	exit(0);
+}
+
+void Cb_About(Fl_Widget *, void *) {
+	about_window->show();
 }
 
 int main(int argc, char *argv[]) {
