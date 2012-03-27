@@ -21,6 +21,10 @@ HSINST="cabal install --bindir=$EVANROOT/bin"
 echo Unpacking contrib...
 tar xzf contrib.tgz
 
+echo Building GUI...
+cd $EVANROOT/gui
+make | cpipe
+
 #echo Updating haskell package database...
 #cabal update 2>&1 | cpipe
 
