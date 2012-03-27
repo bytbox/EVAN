@@ -1,7 +1,8 @@
-MODULES = main program canvas
-HEADERS = fltk.hh program.hh canvas.hh
+MODULES = main program canvas json
+HEADERS = fltk.hh program.hh canvas.hh json.hh
 
 LIBS = -lfltk
+LDFLAGS =
 CXXFLAGS = -O2 -Wall
 
 SOURCE = ${MODULES:=.cc}

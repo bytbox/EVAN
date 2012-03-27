@@ -1,27 +1,40 @@
 #ifndef PROGRAM_HH
 #define PROGRAM_HH
 
-class Position {
-public:
+#include <string>
+#include <vector>
+
+struct Position {
 	int x, y;
 };
 
 class Comment {
 public:
+	Comment(std::string text, Position pos) : text(text), pos(pos) {};
+	std::string text;
 	Position pos;
 };
 
-class Block {
-public:
-protected:
+struct Block {
 	Position pos;
-private:
+};
+
+struct Loop {
+	Position ul;
+	Position lr;
 };
 
 class Program {
 public:
-	char *filename;
+	const char *Name();
+
+	static Program *sample();
+
+	std::vector<Comment> comments;
+	std::vector<Block> blocks;
+	std::vector<Loop> loops;
 protected:
+	char *filename;
 private:
 };
 

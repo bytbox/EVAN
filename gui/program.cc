@@ -1,6 +1,14 @@
 #include "program.hh"
 
-Program *sample_program() {
+#include <vector>
+using namespace std;
+
+Program *Program::sample() {
 	Program *p = new Program();
 	return p;
 }
+
+const char *Program::Name() {
+	return filename;
+}
+

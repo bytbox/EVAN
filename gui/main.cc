@@ -20,7 +20,7 @@ Fl_Double_Window *main_window;
 Fl_Menu_Bar *menu_bar;
 Fl_Pack *tool_bar;
 Canvas *canvas;
-Fl_Button *run_button;
+Fl_Button *run_button, *comment_button;
 
 Fl_Window *about_window;
 
@@ -41,14 +41,6 @@ Fl_Menu_Item menu_items[] = {
 	{ 0 }
 };
 
-struct tool_spec {
-	const char *name;
-};
-
-tool_spec tool_list[] = {
-	{""},
-};
-
 void MkGui() {
 	int wh = Fl::h(), ww = Fl::w();
 	main_window = new Fl_Double_Window(ww * .8, wh * .8, TITLE);
@@ -56,7 +48,8 @@ void MkGui() {
 	menu_bar->copy(menu_items);
 
 	tool_bar = new Fl_Pack(0, MENU_HEIGHT+1, TB_WIDTH, 0);
-	run_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "&Run");
+	run_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "Run");
+	comment_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "Comment");
 	tool_bar->end();
 
 	canvas = new Canvas(TB_WIDTH+1, MENU_HEIGHT+1,
