@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+#include "canvas.hh"
+#include "program.hh"
+
 #include "fltk.hh"
 
 #define TITLE "EVAN"
@@ -16,6 +19,7 @@ void Cb_Quit (Fl_Widget *, void *);
 Fl_Double_Window *main_window;
 Fl_Menu_Bar *menu_bar;
 Fl_Pack *tool_bar;
+Canvas *canvas;
 Fl_Button *run_button;
 
 Fl_Window *about_window;
@@ -54,6 +58,10 @@ void MkGui() {
 	tool_bar = new Fl_Pack(0, MENU_HEIGHT+1, TB_WIDTH, 0);
 	run_button = new Fl_Button(0, 0, 0, TOOL_HEIGHT, "&Run");
 	tool_bar->end();
+
+	canvas = new Canvas(TB_WIDTH+1, MENU_HEIGHT+1,
+			main_window->w()-TB_WIDTH-2,
+			main_window->h()-MENU_HEIGHT-2);
 
 	main_window->end();
 

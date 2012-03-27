@@ -1,6 +1,8 @@
-MODULES = main
-HEADERS = fltk.hh
+MODULES = main program canvas
+HEADERS = fltk.hh program.hh canvas.hh
+
 LIBS = -lfltk
+CXXFLAGS = -O2 -Wall
 
 SOURCE = ${MODULES:=.cc}
 OBJECTS = ${MODULES:=.o}
@@ -13,7 +15,7 @@ all: evan
 -include .depends
 
 evan: ${OBJECTS}
-	${CXX} -o $@ ${LIBS} ${OBJECTS}
+	${CXX} -o $@ ${LDFLAGS} ${OBJECTS} ${LIBS}
 
 clean:
 	${RM} evan ${OBJECTS} .depends
