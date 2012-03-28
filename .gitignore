@@ -2,7 +2,7 @@
 __pycache__
 *.o
 *.hi
-evan2hs/evan2hs
+tools/evan2hs/evan2hs
 dist
 lib/evan
 bin
