@@ -14,13 +14,15 @@ data Statement = Assign Ident Expr | Each Ident Expr [Statement]
 
 skip p = p >> return ()
 
-comment = do
+comment = try $ do
   string "[["
   manyTill anyChar $ string "]]"
   return Nothing
 
 tokEach = skip $ string "each"
-ident = many1 letter >>= return . Ident
+ident =
+  (many1 letter <|> between (char '[') (char ']') (many $ noneOf "]"))
+  >>= return . Ident
 rarrow = skip $ string "<-"
 expr = ident >>= return . Id
 
