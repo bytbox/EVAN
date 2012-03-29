@@ -20,20 +20,21 @@ hsIdent (Ident s) = '_' : map spaceToUnderscore s
     spaceToUnderscore ' ' = '_'
     spaceToUnderscore x = x
 
+hsParam :: Param -> String
+hsParam (IParam i) = show i
+
 hsExpr :: Expr -> String
 hsExpr (Id i) = hsIdent i
 hsExpr (Pipe i ps is) = intercalate " "
   [ hsIdent i
-  , concat
-    [ "("
-    , ")"
-    ]
-  , concat
-    [ "("
-    , intercalate ", " $ map hsIdent is
-    , ")"
-    ]
+  , plist $ map hsParam ps
+  , plist $ map hsIdent is
   ]
+  where plist l = concat
+                  [ "("
+                  , intercalate ", " l
+                  , ")"
+                  ]
 
 main = do
   str <- getContents
