@@ -32,39 +32,40 @@ ident =
   (many1 letter <|> between (char '[') (char ']') (many $ noneOf "]"))
   >>= return . Ident
 larrow = skip $ string "<-"
-parenList p = between (char '(') (char ')') $ p `sepBy` (skipMany space >> char ',' >> skipMany space)
+parenList p = between (char '(') (char ')') $
+                p `sepBy` (skipMany space >> char ',' >> skipMany space)
 param = number >>= return . IParam
 paramList = parenList param
 argList = parenList ident
 pipe = do
-  f <- ident
-  skipMany space
-  ps <- paramList
-  skipMany space
-  as <- argList
-  return $ Pipe f ps as
+        f <- ident
+        skipMany space
+        ps <- paramList
+        skipMany space
+        as <- argList
+        return $ Pipe f ps as
 idExpr = ident >>= return . Id
 expr = try pipe <|> try idExpr
 
 assign = do
-  d <- ident
-  skipMany space
-  larrow
-  skipMany space
-  s <- expr
-  return $ Just (Assign d s)
+          d <- ident
+          skipMany space
+          larrow
+          skipMany space
+          s <- expr
+          return $ Just (Assign d s)
 
 each = do
-  tokEach
-  skipMany1 space
-  d <- ident
-  skipMany space
-  larrow
-  skipMany space
-  s <- expr
-  skipMany space
-  l <- between (char '{') (char '}') stmtList
-  return $ Just $ Each d s l
+        tokEach
+        skipMany1 space
+        d <- ident
+        skipMany space
+        larrow
+        skipMany space
+        s <- expr
+        skipMany space
+        l <- between (char '{') (char '}') stmtList
+        return $ Just $ Each d s l
 
 statement = try assign <|> try each
 
