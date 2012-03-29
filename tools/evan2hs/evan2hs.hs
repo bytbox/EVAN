@@ -31,10 +31,10 @@ hsExpr (Pipe i ps is) = intercalate " "
   , plist $ map hsIdent is
   ]
   where plist l = concat
-                  [ "("
-                  , intercalate ", " l
-                  , ")"
-                  ]
+                    [ "("
+                    , intercalate ", " l
+                    , ")"
+                    ]
 
 main = do
   str <- getContents
