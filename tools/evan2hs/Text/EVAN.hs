@@ -35,17 +35,19 @@ ident =
   (many1 letter <|> between (char '[') (char ']') (many $ noneOf "]"))
   >>= return . Ident
 larrow = skip $ string "<-"
-parenList p = (do {x <- p; return [x]}) <|>
-              (between (char '(') (char ')') $
-              p `sepBy` comma)
+parenList p = between (char '(') (char ')') $
+              p `sepBy` comma
 param = number >>= return . IParam
-paramList = parenList param
-argList = parenList ident
+paramList = try $ parenList param
+argList = ident `sepBy` comma
 pipe = do
         f <- ident
         skipMany space
-        ps <- paramList
+        psm <- optionMaybe $ paramList
         skipMany space
+        let ps = case psm of
+                  Nothing -> []
+                  Just a -> a
         as <- argList
         return $ Pipe f ps as
 idExpr = ident >>= return . Id
