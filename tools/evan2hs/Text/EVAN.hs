@@ -21,8 +21,6 @@ data Statement = Assign Ident Expr
 number :: Parsec String () Int
 number = many1 digit >>= return . read
 
-skip p = p >> return ()
-
 comma = try $ skipMany space >> char ',' >> skipMany space
 
 comment = try $ do
@@ -30,11 +28,9 @@ comment = try $ do
   manyTill anyChar $ try $ string "]]"
   return Nothing
 
-tokEach = skip $ string "each"
 ident =
   (many1 letter <|> between (char '[') (char ']') (many $ noneOf "]"))
   >>= return . Ident
-larrow = skip $ string "<-"
 parenList p = between (char '(') (char ')') $
               p `sepBy` comma
 param = number >>= return . IParam
@@ -55,7 +51,7 @@ idExpr = ident >>= return . Id
 assign = do
           d <- ident
           skipMany space
-          larrow
+          string "<-"
           skipMany space
           s <- pipe
           skipMany space
@@ -65,11 +61,11 @@ assign = do
 separating = flip sepBy
 
 each = do
-        tokEach
+        string "each"
         skipMany1 space
         d <- ident
         skipMany space
-        larrow
+        string "<-"
         skipMany space
         s <- ident
         skipMany space
@@ -105,5 +101,4 @@ parser = do
   return l
 
 parseFile f c = runParser parser () f c
-
 
