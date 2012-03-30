@@ -27,7 +27,7 @@ comma = try $ skipMany space >> char ',' >> skipMany space
 
 comment = try $ do
   string "[["
-  manyTill anyChar $ string "]]"
+  manyTill anyChar $ try $ string "]]"
   return Nothing
 
 tokEach = skip $ string "each"
@@ -95,6 +95,12 @@ stmtList = do
 
 parser = do
   l <- stmtList
+  string "return"
+  skipMany space
+  r <- ident
+  skipMany space
+  char '.'
+  skipMany space
   eof
   return l
 
