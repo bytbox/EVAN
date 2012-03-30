@@ -1,0 +1,12 @@
+[[ Test of EVAN Syntax ]]
+
+events <- Events .
+each ev <- events {
+	tracks <- Tracks ev .
+	each tr <- tracks {
+		pt <- Pt tr .
+	} pts -< pt .
+} [TPt List] -< [Total Pt] .
+hist <- Histogram [TPt List] .
+[[return List.]]
+

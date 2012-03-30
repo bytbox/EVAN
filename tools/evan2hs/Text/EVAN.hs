@@ -51,14 +51,13 @@ pipe = do
         as <- argList
         return $ Pipe f ps as
 idExpr = ident >>= return . Id
-expr = try pipe <|> try idExpr
 
 assign = do
           d <- ident
           skipMany space
           larrow
           skipMany space
-          s <- expr
+          s <- pipe
           skipMany space
           char '.'
           return $ Just (Assign d s)
