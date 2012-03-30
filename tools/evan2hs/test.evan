@@ -1,6 +1,5 @@
 [[ Test of EVAN Syntax ]]
 
-
 events <- Events .
 each ev <- events {
 	tracks <- Tracks ev .

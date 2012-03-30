@@ -3,11 +3,13 @@ module Main where
 import Data.List (intercalate)
 import Text.EVAN
 
-toHS :: [Statement] -> String
-toHS ss = intercalate "\n" $
-            "module Main where" :
-            "import EVAN" :
-            map hsStatement ss
+toHS :: ([Statement], Ident) -> String
+toHS (ss, r) =
+  intercalate "\n" $
+  "module Main where" :
+  "import EVAN" :
+  intercalate " " ["main = putStrLn $ show", hsIdent r] :
+  map hsStatement ss
 
 hsStatement :: Statement -> String
 hsStatement (Assign i e) = intercalate " "

@@ -98,7 +98,7 @@ parser = do
   char '.'
   skipMany space
   eof
-  return l
+  return (l, r)
 
 parseFile f c = runParser parser () f c
 
