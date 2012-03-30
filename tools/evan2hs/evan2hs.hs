@@ -4,7 +4,10 @@ import Data.List (intercalate)
 import Text.EVAN
 
 toHS :: [Statement] -> String
-toHS ss = intercalate "\n" $ map hsStatement ss
+toHS ss = intercalate "\n" $
+            "module Main where" :
+            "import EVAN" :
+            map hsStatement ss
 
 hsStatement :: Statement -> String
 hsStatement (Assign i e) = intercalate " "
@@ -12,7 +15,7 @@ hsStatement (Assign i e) = intercalate " "
   , "="
   , hsExpr e
   ]
-hsStatement (Each i e ss) = ""
+hsStatement (Each i l ss es) = ""
 
 hsIdent :: Ident -> String
 hsIdent (Ident s) = '_' : map spaceToUnderscore s

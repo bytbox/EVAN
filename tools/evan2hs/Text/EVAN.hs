@@ -14,13 +14,16 @@ data Param = IParam Int
 data Expr = Id Ident | Pipe Ident [Param] [Ident]
   deriving (Eq, Show)
 
-data Statement = Assign Ident Expr | Each Ident Expr [Statement]
+data Statement = Assign Ident Expr
+                |Each Ident Ident [Statement] [(Ident, Ident)]
   deriving (Eq, Show)
 
 number :: Parsec String () Int
 number = many1 digit >>= return . read
 
 skip p = p >> return ()
+
+comma = try $ skipMany space >> char ',' >> skipMany space
 
 comment = try $ do
   string "[["
@@ -32,8 +35,9 @@ ident =
   (many1 letter <|> between (char '[') (char ']') (many $ noneOf "]"))
   >>= return . Ident
 larrow = skip $ string "<-"
-parenList p = between (char '(') (char ')') $
-                p `sepBy` (skipMany space >> char ',' >> skipMany space)
+parenList p = (do {x <- p; return [x]}) <|>
+              (between (char '(') (char ')') $
+              p `sepBy` comma)
 param = number >>= return . IParam
 paramList = parenList param
 argList = parenList ident
@@ -53,7 +57,11 @@ assign = do
           larrow
           skipMany space
           s <- expr
+          skipMany space
+          char '.'
           return $ Just (Assign d s)
+
+separating = flip sepBy
 
 each = do
         tokEach
@@ -62,10 +70,20 @@ each = do
         skipMany space
         larrow
         skipMany space
-        s <- expr
+        s <- ident
         skipMany space
         l <- between (char '{') (char '}') stmtList
-        return $ Just $ Each d s l
+        skipMany space
+        e <- comma `separating` do
+                                  l <- ident
+                                  skipMany space
+                                  string "-<"
+                                  skipMany space
+                                  s <- ident
+                                  return (l, s)
+        skipMany space
+        char '.'
+        return $ Just $ Each d s l e
 
 statement = try assign <|> try each
 
