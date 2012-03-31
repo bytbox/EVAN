@@ -4,11 +4,11 @@ events <- Events .
 each ev <- events {
 	tracks <- Tracks ev .
 	each tr <- tracks {
-		pt <- Pt tr .
-	} pts -< pt .
-	[Total Pt] <- Sum pts .
-} [TPt List] -< [Total Pt] .
-hist <- Histogram [TPt List] .
+		m <- Mass tr .
+	} ms -< m .
+	[Total Mass] <- Sum ms .
+} [TMass List] -< [Total Mass] .
+hist <- Histogram [TMass List] .
 
 return hist .
 

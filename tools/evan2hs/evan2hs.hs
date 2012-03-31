@@ -8,16 +8,22 @@ toHS (ss, r) =
   intercalate "\n" $
   "module Main where" :
   "import EVAN" :
-  intercalate " " ["main = putStrLn $ show", hsIdent r] :
-  map hsStatement ss
+  intercalate " " ["main = putStrLn . show =<<", hsIdent r] :
+  map (hsStatement "id") ss
 
-hsStatement :: Statement -> String
-hsStatement (Assign i e) = intercalate " "
+hsStatement :: String -> Statement -> String
+hsStatement p (Assign i e) = intercalate " "
   [ hsIdent i
   , "="
+  , concat ["(", p, ")"]
   , hsExpr e
   ]
-hsStatement (Each i l ss es) = ""
+hsStatement p (Each i l ss es) =
+  intercalate "\n" . concat $
+  [ [intercalate " " $ [hsIdent i, "=", hsIdent l]]
+  , map (hsStatement ("map . " ++ p)) ss
+  , map (\(r, l) -> intercalate " " $ [hsIdent r, "=", hsIdent l]) es
+  ]
 
 hsIdent :: Ident -> String
 hsIdent (Ident s) = '_' : map spaceToUnderscore s
@@ -31,8 +37,10 @@ hsParam (IParam i) = show i
 hsExpr :: Expr -> String
 hsExpr (Id i) = hsIdent i
 hsExpr (Pipe i ps is) = intercalate " "
-  [ hsIdent i
+  [ "("
+  , hsIdent i
   , plist $ map hsParam ps
+  , ")"
   , plist $ map hsIdent is
   ]
   where plist l = concat

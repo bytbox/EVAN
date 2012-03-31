@@ -2,7 +2,7 @@
 
 module EVAN.Output.MIME where
 
-import Text.JSON (JSON(..), toJSObject)
+import Text.JSON (JSON(..), toJSObject, encode)
 
 data MIMEBox =
     Inline String String String
@@ -23,4 +23,7 @@ instance JSON MIMEBox where
     , ("kind", k)
     , ("file", f)
     ]
+
+instance Show MIMEBox where
+  show = encode
 
