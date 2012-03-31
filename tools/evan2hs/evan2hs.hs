@@ -8,7 +8,7 @@ toHS (ss, r) =
   intercalate "\n" $
   "module Main where" :
   "import EVAN" :
-  intercalate " " ["main = putStrLn . show =<<", hsIdent r] :
+  intercalate " " ["main = putStrLn . show $", hsIdent r] :
   map (hsStatement "id") ss
 
 hsStatement :: String -> Statement -> String
