@@ -1,7 +1,7 @@
 MODULES = main program canvas json parse lex
 HEADERS = fltk.hh program.hh canvas.hh json.hh
 
-LIBS = -lfltk
+LIBS = -lfltk -lstdc++
 LDFLAGS =
 CXXFLAGS = -O2 -Wall
 
