@@ -6,6 +6,9 @@ extern "C" int yywrap();
 %}
 
 %%
+return		return RETURN;
+each		return EACH;
+\.		return DOT;
 .		yyerror("Illegal token");
 %%
 

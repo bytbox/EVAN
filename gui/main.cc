@@ -75,6 +75,8 @@ void Cb_About(Fl_Widget *, void *) {
 	about_window->show();
 }
 
+extern int yylex(void);
+
 int main(int argc, char *argv[]) {
 	Fl::scheme("plastic");
 	MkGui();
