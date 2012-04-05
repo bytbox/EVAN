@@ -12,6 +12,7 @@ using namespace std;
 #define TB_WIDTH 100
 
 /* Callbacks */
+void Cb_New (Fl_Widget *, void *);
 void Cb_Open (Fl_Widget *, void *);
 void Cb_Save (Fl_Widget *, void *);
 void Cb_SaveAs (Fl_Widget *, void *);
@@ -29,7 +30,7 @@ Fl_Window *about_window;
 
 Fl_Menu_Item menu_items[] = {
 	{ "&File",              0, 0, 0, FL_SUBMENU },
-	{ "&New", FL_COMMAND + 'n', 0, 0},
+	{ "&New", FL_COMMAND + 'n', Cb_New, 0},
 	{ "&Open", FL_COMMAND + 'o', Cb_Open, 0},
 	{ "&Save", FL_COMMAND + 's', Cb_Save, 0},
 	{ "Save &As", 0, Cb_SaveAs, 0},
@@ -84,6 +85,10 @@ void Cb_SaveAs(Fl_Widget *, void *) {
 
 void Cb_Open(Fl_Widget *, void *) {
 	about_window->show();
+}
+
+void Cb_New(Fl_Widget *, void *) {
+
 }
 
 void Cb_About(Fl_Widget *, void *) {
