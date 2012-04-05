@@ -12,6 +12,9 @@ using namespace std;
 #define TB_WIDTH 100
 
 /* Callbacks */
+void Cb_Open (Fl_Widget *, void *);
+void Cb_Save (Fl_Widget *, void *);
+void Cb_SaveAs (Fl_Widget *, void *);
 void Cb_About (Fl_Widget *, void *);
 void Cb_Quit (Fl_Widget *, void *);
 
@@ -27,10 +30,10 @@ Fl_Window *about_window;
 Fl_Menu_Item menu_items[] = {
 	{ "&File",              0, 0, 0, FL_SUBMENU },
 	{ "&New", FL_COMMAND + 'n', 0, 0},
-	{ "&Open", FL_COMMAND + 'o', 0, 0},
-	{ "&Save", FL_COMMAND + 's', 0, 0},
-	{ "Save &As", 0, 0, 0},
-	{ "E&xit", FL_COMMAND + 'q', (Fl_Callback *)Cb_Quit, 0 },
+	{ "&Open", FL_COMMAND + 'o', Cb_Open, 0},
+	{ "&Save", FL_COMMAND + 's', Cb_Save, 0},
+	{ "Save &As", 0, Cb_SaveAs, 0},
+	{ "E&xit", FL_COMMAND + 'q', Cb_Quit, 0 },
 	{ 0 },
 
 	{ "&Help", 0, 0, 0, FL_SUBMENU },
@@ -69,6 +72,18 @@ void MkGui() {
 void Cb_Quit(Fl_Widget *, void *) {
 	delete main_window;
 	exit(0);
+}
+
+void Cb_Save(Fl_Widget *, void *) {
+	about_window->show();
+}
+
+void Cb_SaveAs(Fl_Widget *, void *) {
+	about_window->show();
+}
+
+void Cb_Open(Fl_Widget *, void *) {
+	about_window->show();
 }
 
 void Cb_About(Fl_Widget *, void *) {
