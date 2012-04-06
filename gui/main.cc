@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 
 #include "canvas.hh"
 #include "program.hh"
@@ -18,6 +17,10 @@ void Cb_Save (Fl_Widget *, void *);
 void Cb_SaveAs (Fl_Widget *, void *);
 void Cb_About (Fl_Widget *, void *);
 void Cb_Quit (Fl_Widget *, void *);
+
+/* GUI Actions */
+void New();
+void Open(const char *);
 
 /* Singleton GUI Components */
 Fl_Double_Window *main_window;
@@ -76,19 +79,34 @@ void Cb_Quit(Fl_Widget *, void *) {
 }
 
 void Cb_Save(Fl_Widget *, void *) {
-	about_window->show();
+	// TODO
 }
 
 void Cb_SaveAs(Fl_Widget *, void *) {
-	about_window->show();
+	// TODO
 }
 
 void Cb_Open(Fl_Widget *, void *) {
-	about_window->show();
+	Fl_File_Chooser *d = new Fl_File_Chooser(NULL, "EVAN Programs (*.evan)", Fl_File_Chooser::SINGLE, "TITLE");
+	d->show();
+	while (d->shown()) Fl::wait();
+	const char *fn = d->value();
+	if (fn != NULL) {
+		Open(fn);
+	}
+	delete d;
+}
+
+void Open(const char *fn) {
+	// TODO
 }
 
 void Cb_New(Fl_Widget *, void *) {
+	New();
+}
 
+void New() {
+	// TODO
 }
 
 void Cb_About(Fl_Widget *, void *) {
