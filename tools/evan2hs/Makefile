@@ -1,3 +1,5 @@
+RM ?= rm -f
+
 all:
 	ghc --make evan2hs
 
