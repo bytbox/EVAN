@@ -33,6 +33,7 @@ hsIdent (Ident s) = '_' : map spaceToUnderscore s
 
 hsParam :: Param -> String
 hsParam (IParam i) = show i
+hsParam (NParam i) = show i
 
 hsExpr :: Expr -> String
 hsExpr (Id i) = hsIdent i
