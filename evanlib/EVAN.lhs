@@ -5,6 +5,7 @@
 >   , module EVAN.Tracks
 >   ) where
 >
+> import EVAN.Combinatorics
 > import EVAN.Math
 > import EVAN.Output
 > import EVAN.Primitive
