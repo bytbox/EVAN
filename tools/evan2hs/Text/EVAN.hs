@@ -102,13 +102,6 @@ stmtListPart = do
 
 stmtList p = return . catMaybes =<< (manyTill stmtListPart $ try $ lookAhead p)
 
-{-
-stmtList = do
-  l <- many (try $ skipMany space >> (comment <|> statement))
-  skipMany space
-  return $ catMaybes l
--}
-
 parser = do
   l <- stmtList $ ignore $ string "return"
   skipMany space
