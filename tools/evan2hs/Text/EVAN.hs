@@ -30,6 +30,8 @@ number = do
 
 comma = try $ skipMany space >> char ',' >> skipMany space
 
+ignore p = p >> return ()
+
 comment = try $ do
   string "[["
   manyTill anyChar $ try $ string "]]"
@@ -77,7 +79,7 @@ each = do
         skipMany space
         s <- ident
         skipMany space
-        l <- between (char '{') (char '}') stmtList
+        l <- between (char '{') (char '}') (stmtList $ ignore $ char '}')
         skipMany space
         e <- comma `separating` do
                                   l <- ident
@@ -90,15 +92,26 @@ each = do
         char '.'
         return $ Just $ Each d s l e
 
-statement = try assign <|> try each
+statement = try assign <|> each
 
+stmtListPart = do
+  skipMany space
+  ms <- comment <|> statement
+  skipMany space
+  return ms
+
+stmtList p = return . catMaybes =<< (manyTill stmtListPart $ try $ lookAhead p)
+
+{-
 stmtList = do
   l <- many (try $ skipMany space >> (comment <|> statement))
   skipMany space
   return $ catMaybes l
+-}
 
 parser = do
-  l <- stmtList
+  l <- stmtList $ ignore $ string "return"
+  skipMany space
   string "return"
   skipMany space
   r <- ident
