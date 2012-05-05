@@ -1,5 +1,6 @@
 > module EVAN
->   ( module EVAN.Math
+>   ( module EVAN.Combinatorics
+>   , module EVAN.Math
 >   , module EVAN.Output
 >   , module EVAN.Primitive
 >   , module EVAN.Tracks

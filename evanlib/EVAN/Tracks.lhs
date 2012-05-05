@@ -48,10 +48,10 @@ also implies the use of the NOINLINE pragma.
 > _Pz :: () -> Particle -> Double
 > _Pz () = partPz
 
-Transverse momentum. TODO
+Transverse momentum.
 
 > _Pt :: () -> Particle -> Double
-> _Pt () t = 0
+> _Pt () t = (partPx t)*(partPx t) + (partPy t)*(partPy t)
 
 Pseudorapidity. TODO
 
