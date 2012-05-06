@@ -1,7 +1,12 @@
 module Main where
 
-import Data.List (intercalate)
 import Text.EVAN
+
+main = putStrLn "Hello, world!"
+
+
+-- old evan2hs code
+{-
 
 toHS :: ([Statement], Ident) -> String
 toHS (ss, r) =
@@ -55,4 +60,5 @@ main = do
   case parseFile "<stdin>" str of
     Left e -> putStrLn $ show e
     Right a -> putStrLn $ toHS a
+-}
 
