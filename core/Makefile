@@ -1,5 +1,6 @@
-all: evan
+all:
+	ghc -W --make evan
 
-evan:
-	ghc --make $@
+clean:
+	find . | grep "\(\.hi\|\.o\)" | xargs rm -f
 

@@ -11,7 +11,7 @@ data Ident = Ident String
 data Param = IParam Int | NParam Float
   deriving (Eq, Show)
 
-data Expr = Id Ident | Pipe Ident [Param] [Ident]
+data Expr = Pipe Ident [Param] [Ident]
   deriving (Eq, Show)
 
 data Statement = Assign Ident Expr
@@ -56,7 +56,6 @@ pipe = do
                   Just a -> a
         as <- argList
         return $ Pipe f ps as
-idExpr = ident >>= return . Id
 
 assign = do
           d <- ident

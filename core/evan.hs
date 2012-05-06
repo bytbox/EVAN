@@ -1,64 +1,77 @@
 module Main where
 
+import Data.Map (Map)
+import qualified Data.Map as Map
 import Text.EVAN
+import Util
 
-main = putStrLn "Hello, world!"
+data Err = Err String
 
+err = Left . Err
 
--- old evan2hs code
-{-
+instance Show Err where
+  show (Err s) = s
 
-toHS :: ([Statement], Ident) -> String
-toHS (ss, r) =
-  intercalate "\n" $
-  "module Main where" :
-  "import EVAN" :
-  intercalate " " ["main = putStrLn . show $", hsIdent r] :
-  map (hsStatement "id") ss
+data Scope = Empty | Loop Scope String
+  deriving Show
 
-hsStatement :: String -> Statement -> String
-hsStatement p (Assign i e) = intercalate " "
-  [ hsIdent i
-  , "="
-  , concat ["(", p, ")"]
-  , hsExpr e
-  ]
-hsStatement p (Each i l ss es) =
-  intercalate "\n" . concat $
-  [ [intercalate " " $ [hsIdent i, "=", hsIdent l]]
-  , map (hsStatement ("map . " ++ p)) ss
-  , map (\(r, l) -> intercalate " " $ [hsIdent r, "=", hsIdent l]) es
-  ]
+data Definition = PipeDef [Ident] [Param] [Ident]
+                | LoopDef
 
-hsIdent :: Ident -> String
-hsIdent (Ident s) = '_' : map spaceToUnderscore s
+data Program = Program String (Map String (Scope, Statement))
+  deriving Show
+
+{- TODO typecheck should do much more
+ - check for duplicate idents (with context)
+ - check actual types
+ -}
+typecheck :: [Statement] -> String -> Either Err Program
+typecheck ss t = do
+                  ps <- sequence $ map (tcPart Empty) ss
+                  return . Program t $ Map.unions ps
   where
-    spaceToUnderscore ' ' = '_'
-    spaceToUnderscore x = x
+    tcPart :: Scope -> Statement -> Either Err (Map String (Scope, Statement))
+    tcPart s stmt@(Assign (Ident i) _) = return $ Map.fromList [(i, (s, stmt))]
+    tcPart s stmt@(Each _ _ _ _) =
+      let ns = Loop s "" in
+        err "  Not yet implemented : each"
 
-hsParam :: Param -> String
-hsParam (IParam i) = show i
-hsParam (NParam i) = show i
+data Value =  IVal Int
+            | DVal Double
+            | SVal String
+            | List [Value]
+  deriving (Eq)
 
-hsExpr :: Expr -> String
-hsExpr (Id i) = hsIdent i
-hsExpr (Pipe i ps is) = intercalate " "
-  [ "("
-  , hsIdent i
-  , plist $ map hsParam ps
-  , ")"
-  , plist $ map hsIdent is
-  ]
-  where plist l = concat
-                    [ "("
-                    , intercalate ", " l
-                    , ")"
-                    ]
+instance Show Value where
+  show (IVal i) = show i
+  show (DVal d) = show d
+  show (SVal s) = show s
+  show (List l) = show l
+
+resolve :: String -> Map String (Scope, Statement) -> Either Err Value
+resolve t p = case t `Map.lookup` p of
+                Nothing -> err $ concat ["undefined pipe: ", t]
+                Just ((s, Assign (Ident i) (Pipe (Ident fn) ps as))) ->
+                  do  args <- sequence $ map (flip resolve p . identStr) as
+                      resolvePipe fn ps args
+                Just _ -> err "ho"
+  where
+    identStr (Ident i) = i
+    resolvePipe :: String -> [Param] -> [Value] -> Either Err Value
+    resolvePipe fn ps as = err $ concat ["undefined block: ", fn]
+
+execProgram :: Program -> Either Err (IO ())
+execProgram (Program t p) = do
+                              res <- resolve t p
+                              return $ putStrLn $ show res
 
 main = do
-  str <- getContents
-  case parseFile "<stdin>" str of
-    Left e -> putStrLn $ show e
-    Right a -> putStrLn $ toHS a
--}
+        str <- getContents
+        let r = do
+                  (ss, Ident i) <- mapLeft (Err . show) $ parseFile "<stdin>" str
+                  p <- typecheck ss i
+                  execProgram p
+        case r of
+          Left e -> putStrLn $ show e
+          Right a -> a
 
