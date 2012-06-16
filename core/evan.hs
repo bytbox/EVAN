@@ -48,6 +48,10 @@ instance Show Value where
   show (SVal s) = show s
   show (List l) = show l
 
+valueOfParam :: Param -> Value
+valueOfParam (IParam i) = IVal i
+valueOfParam (NParam f) = DVal f
+
 resolve :: String -> Map String (Scope, Statement) -> Either Err Value
 resolve t p = case t `Map.lookup` p of
                 Nothing -> err $ concat ["undefined pipe: ", t]
@@ -58,6 +62,8 @@ resolve t p = case t `Map.lookup` p of
   where
     identStr (Ident i) = i
     resolvePipe :: String -> [Param] -> [Value] -> Either Err Value
+    resolvePipe "Const" [p] [] = return $ valueOfParam p
+    resolvePipe "Const" _ _ = err "Bad arguments to Const"
     resolvePipe fn ps as = err $ concat ["undefined block: ", fn]
 
 execProgram :: Program -> Either Err (IO ())

@@ -8,7 +8,7 @@ import Text.Parsec
 data Ident = Ident String
   deriving (Eq, Show)
 
-data Param = IParam Int | NParam Float
+data Param = IParam Int | NParam Double
   deriving (Eq, Show)
 
 data Expr = Pipe Ident [Param] [Ident]
@@ -21,7 +21,7 @@ data Statement = Assign Ident Expr
 int :: Parsec String () Int
 int = many1 digit >>= return . read
 
-number :: Parsec String () Float
+number :: Parsec String () Double
 number = do
           as <- many1 digit
           char '.'
