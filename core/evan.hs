@@ -41,6 +41,7 @@ data Value =  IVal Int
             | DVal Double
             | SVal String
             | List [Value]
+            | BVal Bool
   deriving (Eq)
 
 instance Show Value where
@@ -48,6 +49,7 @@ instance Show Value where
   show (DVal d) = show d
   show (SVal s) = show s
   show (List l) = show l
+  show (BVal b) = show b
 
 valueOfParam :: Param -> Value
 valueOfParam (IParam i) = IVal i
@@ -65,6 +67,8 @@ resolve t p = case t `Map.lookup` p of
     resolvePipe :: String -> [Param] -> [Value] -> Either Err Value
     resolvePipe "Const" [p] [] = return $ valueOfParam p
     resolvePipe "Const" _ _ = err "Bad arguments to Const"
+    resolvePipe "List" ps [] = return $ List $ map valueOfParam ps
+    resolvePipe "List" _ _ = err "Bad arguments to List"
     resolvePipe fn ps as = err $ concat ["undefined block: ", fn]
 
 execProgram :: Program -> Either Err (IO ())
