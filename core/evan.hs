@@ -2,8 +2,9 @@ module Main where
 
 import Data.Map (Map)
 import qualified Data.Map as Map
-import Text.EVAN
 import Util
+
+import EVAN.Parse
 
 data Err = Err String
 

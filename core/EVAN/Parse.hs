@@ -1,4 +1,4 @@
-module Text.EVAN
+module EVAN.Parse
   (Statement(..), Expr(..), Param(..), Ident(..), parseFile)
   where
 
