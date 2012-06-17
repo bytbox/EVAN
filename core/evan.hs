@@ -16,10 +16,11 @@ instance Show Err where
 data Scope = Empty | Loop Scope String
   deriving Show
 
-data Definition = PipeDef [Ident] [Param] [Ident]
+data Definition = PipeDef Ident [Param] [Ident]
                 | LoopDef
+  deriving Show
 
-data Program = Program String (Map String (Scope, Statement))
+data Program = Program String (Map String (Scope, Definition))
   deriving Show
 
 {- TODO typecheck should do much more
@@ -31,8 +32,9 @@ typecheck ss t = do
                   ps <- sequence $ map (tcPart Empty) ss
                   return . Program t $ Map.unions ps
   where
-    tcPart :: Scope -> Statement -> Either Err (Map String (Scope, Statement))
-    tcPart s stmt@(Assign (Ident i) _) = return $ Map.fromList [(i, (s, stmt))]
+    tcPart :: Scope -> Statement -> Either Err (Map String (Scope, Definition))
+    tcPart s (Assign (Ident i) (Pipe f ps as)) =
+      return $ Map.fromList [(i, (s, PipeDef f ps as))]
     tcPart s stmt@(Each _ _ _ _) =
       let ns = Loop s "" in
         err "  Not yet implemented : each"
@@ -55,10 +57,10 @@ valueOfParam :: Param -> Value
 valueOfParam (IParam i) = IVal i
 valueOfParam (NParam f) = DVal f
 
-resolve :: String -> Map String (Scope, Statement) -> Either Err Value
+resolve :: String -> Map String (Scope, Definition) -> Either Err Value
 resolve t p = case t `Map.lookup` p of
                 Nothing -> err $ concat ["undefined pipe: ", t]
-                Just ((s, Assign (Ident i) (Pipe (Ident fn) ps as))) ->
+                Just (s, PipeDef (Ident fn) ps as) ->
                   do  args <- sequence $ map (flip resolve p . identStr) as
                       resolvePipe fn ps args
                 Just _ -> err "ho"
