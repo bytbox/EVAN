@@ -23,22 +23,6 @@ data Definition = PipeDef Ident [Param] [Ident]
 data Program = Program String (Map String (Scope, Definition))
   deriving Show
 
-{- TODO typecheck should do much more
- - check for duplicate idents (with context)
- - check actual types
- -}
-typecheck :: [Statement] -> String -> Either Err Program
-typecheck ss t = do
-                  ps <- sequence $ map (tcPart Empty) ss
-                  return . Program t $ Map.unions ps
-  where
-    tcPart :: Scope -> Statement -> Either Err (Map String (Scope, Definition))
-    tcPart s (Assign (Ident i) (Pipe f ps as)) =
-      return $ Map.fromList [(i, (s, PipeDef f ps as))]
-    tcPart s stmt@(Each _ _ _ _) =
-      let ns = Loop s "" in
-        err "  Not yet implemented : each"
-
 data Value =  IVal Int
             | DVal Double
             | SVal String
@@ -52,6 +36,22 @@ instance Show Value where
   show (SVal s) = show s
   show (List l) = show l
   show (BVal b) = show b
+
+{- TODO typecheck should do much more
+ - check for duplicate idents (with context)
+ - check actual types
+ -}
+typecheck :: [Statement] -> String -> Either Err Program
+typecheck ss t = do
+                  ps <- sequence $ map (tcPart Empty) ss
+                  return . Program t $ Map.unions ps
+  where
+    tcPart :: Scope -> Statement -> Either Err (Map String (Scope, Definition))
+    tcPart s (Assign (Ident i) (Pipe f ps as)) =
+      return $ Map.fromList [(i, (s, PipeDef f ps as))]
+    tcPart s (Each part slist ss out) =
+      let ns = Loop s "" in
+        err "  Not yet implemented : each"
 
 valueOfParam :: Param -> Value
 valueOfParam (IParam i) = IVal i
@@ -71,7 +71,9 @@ resolve t p = case t `Map.lookup` p of
     resolvePipe "Const" _ _ = err "Bad arguments to Const"
     resolvePipe "List" ps [] = return $ List $ map valueOfParam ps
     resolvePipe "List" _ _ = err "Bad arguments to List"
-    resolvePipe fn ps as = err $ concat ["undefined block: ", fn]
+    resolvePipe "Id" [] [a] = return a
+    resolvePipe "Id" _ _ = err "Bad arguments to Id"
+    resolvePipe fn _ _ = err $ concat ["undefined block: ", fn]
 
 execProgram :: Program -> Either Err (IO ())
 execProgram (Program t p) = do
