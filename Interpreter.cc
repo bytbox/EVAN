@@ -4,7 +4,21 @@
 #include <map>
 using namespace std;
 
-const map<string, Interpreter::Function> Interpreter::functions =
+Interpreter *Interpreter::get(Pipe *pipe) {
+	// We want to avoid introducing a dependency from the program module on
+	// the interpreter module, so we manually specialize the interpreter
+	// here.
+
+	Block *b = dynamic_cast<Block *>(pipe);	
+	if (b) return new BlockInterpreter(b);
+
+	Each *e = dynamic_cast<Each *>(pipe);
+	if (e) return new EachInterpreter(e);
+
+	throw internal_error();
+}
+
+map<string, Interpreter::Function> Interpreter::functions =
 	make_map<string, Interpreter::Function>()
 	("justOne", ([] (vector <Param> ps, vector <Value> vs) -> Value {
 		return 1;

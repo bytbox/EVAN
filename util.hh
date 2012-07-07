@@ -5,6 +5,14 @@
 
 namespace util {
 
+class error {
+public:
+};
+
+class internal_error : public error {
+public:
+};
+
 template <typename K, typename V>
 class MapBuilder {
 public:
@@ -23,9 +31,28 @@ MapBuilder <K,V> make_map() {
 	return MapBuilder <K,V> ();
 }
 
+template <typename T>
+class maybe {
+	bool defined;
+	T val;
+public:
+	maybe() : defined(false) {}
+	maybe(T v) : defined(true), val(v) {}
+	bool isDefined() { return defined; }
+	T get() {
+		if (!defined) throw internal_error();
+		return val;
+	}
+};
+
 }
 
 using util::make_map;
+
+using util::maybe;
+
+using util::error;
+using util::internal_error;
 
 #endif /* !UTIL_HH */
 

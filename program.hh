@@ -1,11 +1,13 @@
 #ifndef PROGRAM_HH
 #define PROGRAM_HH
 
+#include "util.hh"
+
 #include <string>
 #include <vector>
 using namespace std;
 
-class TypeMismatchException {
+class TypeMismatchError : public error {
 };
 
 class Param {
@@ -25,10 +27,13 @@ public:
 
 class Pipe {
 public:
+	virtual vector<Pipe *> prerequisites() = 0;
 };
 
 class Block : public Pipe {
 public:
+	virtual vector<Pipe *> prerequisites();
+
 	string fname;
 	vector <Param> params;
 	vector <Pipe *> arguments;
@@ -39,6 +44,8 @@ class Each : public Pipe {
 		Each *outer;
 	};
 public:
+	virtual vector<Pipe *> prerequisites();
+
 	Pipe *source;
 	Pipe *result;
 	Inner *inner;

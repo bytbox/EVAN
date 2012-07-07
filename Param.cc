@@ -5,13 +5,13 @@ Param::Param(const double d) : type(DOUBLE) { value.d = d; }
 
 Param::operator int() {
 	if (type != INT)
-		throw TypeMismatchException();
+		throw TypeMismatchError();
 	return value.i;
 }
 
 Param::operator double() {
 	if (type != DOUBLE)
-		throw TypeMismatchException();
+		throw TypeMismatchError();
 	return value.d;
 }
 

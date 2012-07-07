@@ -2,6 +2,7 @@
 #define INTERP_HH
 
 #include "program.hh"
+#include "util.hh"
 
 #include <map>
 #include <vector>
@@ -9,6 +10,7 @@ using namespace std;
 
 class Value {
 public:
+	Value();
 	Value(const int);
 	Value(const double);
 	Value(const Param &);
@@ -16,7 +18,7 @@ public:
 	operator int();
 	operator double();
 
-	enum {INT, DOUBLE, LIST} type;
+	enum {BOT, INT, DOUBLE, LIST} type;
 	union {
 		int i;
 		double d;
@@ -24,13 +26,32 @@ public:
 	} value;
 };
 
-class InterpreterException {
+class InterpreterError : public error {
 };
 
 class Interpreter {
-	typedef Value (*Function)(vector <Param>, vector <Value>);
-	static const map<string, Function> functions;
 public:
+	static Interpreter *get(Pipe *);
+
+	virtual maybe<Value> next() = 0;
+protected:
+	typedef Value (*Function)(vector <Param>, vector <Value>);
+	static map<string, Function> functions;
+};
+
+class EachInterpreter : public Interpreter {
+	Each *each;
+public:
+	EachInterpreter(Each *);
+	virtual maybe<Value> next();
+};
+
+class BlockInterpreter : public Interpreter {
+	Block *block;
+	bool run; // relevant when there are no arguments
+public:
+	BlockInterpreter(Block *);
+	virtual maybe<Value> next();
 };
 
 #endif /* !INTERP_HH */

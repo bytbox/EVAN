@@ -1,10 +1,10 @@
 PARTS_UTIL = 
 PARTS_PROGRAM = Program Pipe Block Each Param
-PARTS_INTERP = Value Interpreter
+PARTS_INTERP = Value Interpreter BlockInterpreter EachInterpreter
 PARTS = evan ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}
 
 CXX = c++
-CXXFLAGS = -Wall -std=c++11
+CXXFLAGS = -Wall -std=c++11 -g -O0
 LD = c++
 
 HDRS =
