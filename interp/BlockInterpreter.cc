@@ -12,8 +12,7 @@ BlockInterpreter::BlockInterpreter(Block *block) : block(block), arguments(block
 			&Interpreter::get);
 }
 
-maybe<Value> BlockInterpreter::next() {
-	// TODO we could do with some massive optimization here
+maybe<Value> BlockInterpreter::next(Scope s) {
 	if (block->arguments.size() == 0) {
 		// When there are no arguments, the block is considered to
 		// output a single value.
@@ -21,10 +20,11 @@ maybe<Value> BlockInterpreter::next() {
 		run = true;
 		return maybe<Value>(functions[block->fname](block->params, {}));
 	}
-	// There is at least one argument.
+	// There is at least one argument - evaluate the sources. The scope
+	// will be the same as it was for us.
 	vector < maybe <Value> > maybeargs(arguments.size());
 	transform(arguments.begin(), arguments.end(), maybeargs.begin(),
-			( [] (Interpreter *i) -> maybe<Value> { return i->next(); }));
+			( [s] (Interpreter *i) -> maybe<Value> { return i->next(s); }));
 
 	// The 'defined' state of all arguments must match.
 	vector <bool> defined(arguments.size());

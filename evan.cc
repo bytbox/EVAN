@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 		b2.arguments.push_back(&e1.inner);
 
 		auto i = Interpreter::get(&e1);
-		cout << int(i->next().get()) << endl;
+		cout << int(i->next(Interpreter::Scope::empty).get()) << endl;
 	} catch (error *e) {
 		cerr << "uncaught error: " << e->get_message() << endl;
 	}

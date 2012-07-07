@@ -1,11 +1,12 @@
 PARTS_UTIL = util/Errors
 PARTS_PROGRAM = core/Program core/Pipe core/Block core/Each core/Param
-PARTS_INTERP = interp/Value interp/Interpreter interp/BlockInterpreter interp/EachInterpreter
+PARTS_INTERP = interp/Value interp/Interpreter interp/BlockInterpreter interp/EachInterpreter interp/Scope
 PARTS_GUI =
 
 GUI_PARTS = gui/main ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}
 TEST_PARTS = test/main ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}
 PARTS = evan ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}
+ALL_PARTS = gui/main test/main evan ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}
 
 HEADERS = include/program.hh include/interp.hh include/util.hh
 
@@ -22,10 +23,13 @@ GUI_OBJECTS = ${GUI_PARTS:=.o}
 SOURCES = ${PARTS:=.cc}
 OBJECTS = ${PARTS:=.o}
 
+ALL_SOURCES = ${ALL_PARTS:=.cc}
+ALL_OBJECTS = ${ALL_PARTS:=.o}
+
 all: tags evan evan-gui evan-test
 
-.depend: ${SOURCES} ${HEADERS}
-	${CXX} ${CXXFLAGS} -MM ${SOURCES} > $@
+.depend: ${ALL_SOURCES} ${HEADERS}
+	${CXX} ${CXXFLAGS} -MM ${ALL_SOURCES} > $@
 -include .depend
 
 evan: ${OBJECTS}
