@@ -40,11 +40,13 @@ public:
 };
 
 class Each : public Pipe {
+public:
 	class Inner : public Pipe {
+	public:
 		Each *outer;
 		virtual vector <Pipe *> prerequisites();
 	};
-public:
+
 	virtual vector <Pipe *> prerequisites();
 
 	Pipe *source;

@@ -40,13 +40,19 @@ public:
 protected:
 	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
 	static map<std::string, Function> functions;
+	static map<Pipe *, Interpreter *> cache;
 };
 
 class EachInterpreter : public Interpreter {
 	Each *each;
 public:
+	class Inner : public Interpreter {
+		EachInterpreter *outer;
+		virtual maybe<Value> next();
+	};
 	EachInterpreter(Each *);
 	virtual maybe<Value> next();
+	Inner inner;
 };
 
 class BlockInterpreter : public Interpreter {
