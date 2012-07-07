@@ -1,17 +1,21 @@
 #ifndef PROGRAM_HH
 #define PROGRAM_HH
 
-#include <map>
 #include <string>
 #include <vector>
 using namespace std;
 
-class Pipe {
-public:
+class TypeMismatchException {
 };
 
 class Param {
 public:
+	Param(const int);
+	Param(const double);
+
+	operator int();
+	operator double();
+
 	enum {INT, DOUBLE} type;
 	union {
 		int i;
@@ -19,39 +23,31 @@ public:
 	} value;
 };
 
-class Scope {
+class Pipe {
 public:
-	Scope();
-	map <string, Pipe> defs;
-};
-
-// A link connects pipes across scopes.
-class Link {
-public:
-	string top, bot;
 };
 
 class Block : public Pipe {
 public:
 	string fname;
 	vector <Param> params;
-	vector <string> arguments;
-	Scope &scope;
+	vector <Pipe *> arguments;
 };
 
 class Each : public Pipe {
+	class Inner : public Pipe {
+		Each *outer;
+	};
 public:
-	Link source;
-	vector <Link> outputs;
-	Scope &outer;
-	Scope &inner;
+	Pipe *source;
+	Pipe *result;
+	Inner *inner;
 };
 
 class Program {
 public:
-	Program(string, Scope &);
-	string result;
-	Scope &global;
+	Program(Pipe*);
+	Pipe *result;
 };
 
 #endif /* !PROGRAM_HH */

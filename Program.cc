@@ -1,4 +1,4 @@
 #include "program.hh"
 
-Program::Program(string result, Scope &global) : result(result), global(global) {}
+Program::Program(Pipe *res) : result(res) {}
 

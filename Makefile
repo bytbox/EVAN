@@ -1,23 +1,31 @@
-PARTS = evan Program Each Block Link Scope Param Pipe
+PARTS_UTIL = 
+PARTS_PROGRAM = Program Pipe Block Each Param
+PARTS_INTERP = Value Interpreter
+PARTS = evan ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}
 
 CXX = c++
+CXXFLAGS = -Wall -std=c++11
 LD = c++
 
 HDRS =
 SOURCES = ${PARTS:=.cc}
 OBJECTS = ${PARTS:=.o}
+HEADERS = program.hh interp.hh util.hh
 
-all: evan
+all: tags evan
 
-.depend: ${SOURCES} ${HDRS}
+.depend: ${SOURCES} ${HEADERS}
 	${CXX} ${CXXFLAGS} -MM ${SOURCES} > $@
 -include .depend
 
 evan: ${OBJECTS}
 	${LD} -o $@ ${OBJECTS}
 
+tags: ${HEADERS}
+	ctags ${HEADERS}
+
 clean:
-	${RM} evan *.o .depend
+	${RM} evan *.o .depend tags
 
 .PHONY: all clean
 

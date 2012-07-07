@@ -1,15 +1,15 @@
 #include "interp.hh"
 
-Param::Param(const int i) : type(INT) { value.i = i; }
-Param::Param(const double d) : type(DOUBLE) { value.d = d; }
+Value::Value(const int i) : type(INT) { value.i = i; }
+Value::Value(const double d) : type(DOUBLE) { value.d = d; }
 
-Param::operator int() {
+Value::operator int() {
 	if (type != INT)
 		throw TypeMismatchException();
 	return value.i;
 }
 
-Param::operator double() {
+Value::operator double() {
 	if (type != DOUBLE)
 		throw TypeMismatchException();
 	return value.d;
