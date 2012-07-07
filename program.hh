@@ -27,7 +27,7 @@ public:
 
 class Pipe {
 public:
-	virtual vector<Pipe *> prerequisites() = 0;
+	virtual vector <Pipe *> prerequisites() = 0;
 };
 
 class Block : public Pipe {
@@ -42,13 +42,14 @@ public:
 class Each : public Pipe {
 	class Inner : public Pipe {
 		Each *outer;
+		virtual vector <Pipe *> prerequisites();
 	};
 public:
-	virtual vector<Pipe *> prerequisites();
+	virtual vector <Pipe *> prerequisites();
 
 	Pipe *source;
 	Pipe *result;
-	Inner *inner;
+	Inner inner;
 };
 
 class Program {

@@ -27,24 +27,6 @@ public:
 	virtual std::string get_message();
 };
 
-template <typename K, typename V>
-class MapBuilder {
-public:
-	MapBuilder & operator()(K k, V v) {
-		result[k] = v;
-		return *this;
-	}
-	operator std::map <K,V> () {
-		return result;
-	}
-	std::map <K,V> result;
-};
-
-template <typename K, typename V>
-MapBuilder <K,V> make_map() {
-	return MapBuilder <K,V> ();
-}
-
 template <typename T>
 class maybe {
 	bool defined;
@@ -60,8 +42,6 @@ public:
 };
 
 }
-
-using util::make_map;
 
 using util::maybe;
 

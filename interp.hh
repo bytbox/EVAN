@@ -4,9 +4,10 @@
 #include "program.hh"
 #include "util.hh"
 
+#include <initializer_list>
 #include <map>
+#include <string>
 #include <vector>
-using namespace std;
 
 class Value {
 public:
@@ -14,6 +15,8 @@ public:
 	Value(const int);
 	Value(const double);
 	Value(const Param &);
+	Value(const initializer_list <Value> &);
+	~Value();
 
 	operator int();
 	operator double();
@@ -22,11 +25,11 @@ public:
 	union {
 		int i;
 		double d;
-		vector<Value> *l;
+		std::vector<Value> *l;
 	} value;
 };
 
-class InterpreterError : public error {
+class InterpreterError : public internal_error {
 };
 
 class Interpreter {
@@ -35,8 +38,8 @@ public:
 
 	virtual maybe<Value> next() = 0;
 protected:
-	typedef Value (*Function)(vector <Param>, vector <Value>);
-	static map<string, Function> functions;
+	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
+	static map<std::string, Function> functions;
 };
 
 class EachInterpreter : public Interpreter {
@@ -48,7 +51,7 @@ public:
 
 class BlockInterpreter : public Interpreter {
 	Block *block;
-	vector <Interpreter *> arguments;
+	std::vector <Interpreter *> arguments;
 	bool run = false; // relevant when there are no arguments
 public:
 	BlockInterpreter(Block *);

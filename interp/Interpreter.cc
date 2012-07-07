@@ -18,13 +18,13 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	throw new internal_error("attempted to create interpreter of unknown pipe");
 }
 
+#define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
+
 map<string, Interpreter::Function> Interpreter::functions =
-	make_map<string, Interpreter::Function>()
-	("justOne", ([] (vector <Param> ps, vector <Value> vs) -> Value {
-		return 1;
-	}))
-	("addOne", ([] (vector <Param> ps, vector <Value> vs) -> Value {
-		return int(vs[0]) + 1;
-	}));
+{
+	{"justOne", (IFUNC { return 1; })},
+	{"addOne", (IFUNC { return int(vs[0]) + 1; })},
+	{"aList", (IFUNC { return {1, 2, 3}; })},
+};
 
 

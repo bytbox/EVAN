@@ -8,14 +8,17 @@ using namespace std;
 int main(int argc, char *argv[]) {
 	try {
 		Block b1, b2;
-		b1.fname = "justOne";
+		b1.fname = "aList";
+
+		Each e1;
+		
 		b2.fname = "addOne";
-		b2.arguments.push_back(&b1);
+		b2.arguments.push_back(&e1.inner);
 
 		auto i = Interpreter::get(&b2);
 		cout << int(i->next().get()) << endl;
 	} catch (error *e) {
-		cerr << "Caught error: " << e->get_message() << endl;
+		cerr << "uncaught error: " << e->get_message() << endl;
 	}
 	return 0;
 }
