@@ -4,17 +4,13 @@
 #include <map>
 using namespace std;
 
-Value justOne(vector <Param> ps, vector <Value> vs) {
-	return 1;
-}
-
-Value addOne(vector <Param> ps, vector <Value> vs) {
-	return int(vs[0]) + 1;
-}
-
 const map<string, Interpreter::Function> Interpreter::functions =
 	make_map<string, Interpreter::Function>()
-	("justOne", justOne)
-	("addOne", addOne);
+	("justOne", ([] (vector <Param> ps, vector <Value> vs) -> Value {
+		return 1;
+	}))
+	("addOne", ([] (vector <Param> ps, vector <Value> vs) -> Value {
+		return int(vs[0]) + 1;
+	}));
 
 

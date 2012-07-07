@@ -30,7 +30,6 @@ class InterpreterException {
 class Interpreter {
 	typedef Value (*Function)(vector <Param>, vector <Value>);
 	static const map<string, Function> functions;
-	static const int a;
 public:
 };
 
