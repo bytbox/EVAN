@@ -6,13 +6,13 @@ Value::Value(const double d) : type(DOUBLE) { value.d = d; }
 
 Value::operator int() {
 	if (type != INT)
-		throw TypeMismatchError();
+		throw new TypeMismatchError();
 	return value.i;
 }
 
 Value::operator double() {
 	if (type != DOUBLE)
-		throw TypeMismatchError();
+		throw new TypeMismatchError();
 	return value.d;
 }
 

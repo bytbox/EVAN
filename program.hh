@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-class TypeMismatchError : public error {
+class TypeMismatchError : public user_error {
 };
 
 class Param {

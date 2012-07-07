@@ -48,7 +48,8 @@ public:
 
 class BlockInterpreter : public Interpreter {
 	Block *block;
-	bool run; // relevant when there are no arguments
+	vector <Interpreter *> arguments;
+	bool run = false; // relevant when there are no arguments
 public:
 	BlockInterpreter(Block *);
 	virtual maybe<Value> next();

@@ -1,4 +1,4 @@
-PARTS_UTIL = 
+PARTS_UTIL = Errors
 PARTS_PROGRAM = Program Pipe Block Each Param
 PARTS_INTERP = Value Interpreter BlockInterpreter EachInterpreter
 PARTS = evan ${PARTS_PROGRAM} ${PARTS_INTERP} ${PARTS_UTIL}

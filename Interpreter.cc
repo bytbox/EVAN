@@ -15,7 +15,7 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	Each *e = dynamic_cast<Each *>(pipe);
 	if (e) return new EachInterpreter(e);
 
-	throw internal_error();
+	throw new internal_error("attempted to create interpreter of unknown pipe");
 }
 
 map<string, Interpreter::Function> Interpreter::functions =
