@@ -10,13 +10,21 @@ class BlockSelector : public QWidget {
 public:
 };
 
-class App : public QApplication {
+class MainWindow : public QMainWindow {
 	Q_OBJECT;
 
 	QVBoxLayout *outsideLayout;
 	QHBoxLayout *mainLayout;
 
 	BlockSelector *blockSelector;
+public:
+	MainWindow();
+};
+
+class App : public QApplication {
+	Q_OBJECT;
+
+	MainWindow *mainWindow;
 public:
 	App(int argc, char *argv[]);
 };
