@@ -1,18 +1,4 @@
-*.o
 .*.swp
-.depend
-evan
 tags
-evan-gui
-evan-test
-doc/html
-CMakeCache.txt
-CMakeFiles
-Makefile
-*.cmake
-*.a
-moc_*.cxx
-include/config.hh
-doc/Doxyfile
 
 build/
