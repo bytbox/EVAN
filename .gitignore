@@ -14,3 +14,5 @@ Makefile
 moc_*.cxx
 include/config.hh
 doc/Doxyfile
+
+^build
