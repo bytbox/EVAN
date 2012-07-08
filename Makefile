@@ -3,7 +3,7 @@ all: build
 build: out
 	cd out && make -s
 
-check:
+check: out
 	cd out && make -s check
 
 clean:
