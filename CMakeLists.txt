@@ -1,6 +1,12 @@
+# TODO generate ctags
+# TODO doxygen
+# TODO pass version as definition
+# TODO use separate build dir
+
 cmake_minimum_required (VERSION 2.6)
 
 project (EVAN)
+set (EVAN_VERSION 0.0.1)
 
 set (CMAKE_BUILD_TYPE Debug)
 
