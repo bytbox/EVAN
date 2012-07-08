@@ -1,5 +1,3 @@
-# TODO deal with out-of-source builds
-
 set (DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 set (DOXYGEN_INPUTS "${CMAKE_SOURCE_DIR}/core ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/interp ${CMAKE_SOURCE_DIR}/util")
 
