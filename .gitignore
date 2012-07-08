@@ -6,3 +6,8 @@ tags
 evan-gui
 evan-test
 doc
+CMakeCache.txt
+CMakeFiles
+Makefile
+*.cmake
+*.a
