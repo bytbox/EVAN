@@ -1,4 +1,5 @@
 #include "util.hh"
+using namespace util;
 
 #include <string>
 using namespace std;
