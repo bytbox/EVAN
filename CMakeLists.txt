@@ -12,7 +12,7 @@ set (CMAKE_CXX_FLAGS "-Wall -Wswitch-enum -Wunused -Wuninitialized -std=c++11")
 set (CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -g -O0")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-include_directories (${EVAN_SOURCE_DIR}/include)
+include_directories (${EVAN_SOURCE_DIR}/include ${EVAN_BINARY_DIR}/include)
 
 add_subdirectory (include)
 add_subdirectory (doc)
