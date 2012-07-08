@@ -1,5 +1,4 @@
 # TODO generate ctags
-# TODO doxygen
 # TODO use separate build dir
 
 cmake_minimum_required (VERSION 2.6)
