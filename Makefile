@@ -44,11 +44,17 @@ evan-test: ${TEST_OBJECTS}
 test: evan-test
 	./evan-test
 
+doc:
+	doxygen
+
+dist:
+
 tags: ${HEADERS}
 	ctags ${HEADERS}
 
 clean:
 	${RM} evan evan-gui ${OBJECTS} ${GUI_OBJECTS} .depend tags
+	${RM} -r doc
 
-.PHONY: all clean test
+.PHONY: all clean test doc dist
 
