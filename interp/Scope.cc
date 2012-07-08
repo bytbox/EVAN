@@ -8,6 +8,17 @@ Interpreter::Scope::Scope(vector<int> d) : data(d) {}
 
 const Interpreter::Scope Interpreter::Scope::empty = Scope();
 
+bool Interpreter::Scope::operator==(const Interpreter::Scope &s) const {
+	if (data.size() != s.data.size()) return false;
+	for (size_t i=0; i < data.size(); i++)
+		if (data[i] != s.data[i]) return false;
+	return true;
+}
+
+bool Interpreter::Scope::operator!=(const Interpreter::Scope &s) const {
+	return !(*this == s);
+}
+
 Interpreter::Scope Interpreter::Scope::next() const {
 	Scope s(data);
 	s.data[s.data.size()-1]++;

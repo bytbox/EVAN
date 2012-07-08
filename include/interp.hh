@@ -19,7 +19,6 @@ public:
 	Value(const double);
 	Value(const Param &);
 	Value(const initializer_list <Value> &);
-	~Value();
 
 	operator int();
 	operator double();
@@ -28,8 +27,8 @@ public:
 	union {
 		int i;
 		double d;
-		std::vector<Value> *l;
 	} value;
+	maybe < std::vector<Value> > l;
 };
 
 class InterpreterError : public internal_error {
@@ -46,10 +45,15 @@ public:
 	 */
 	class Scope {
 		std::vector<int> data;
-		Scope();
-		Scope(std::vector<int>);
 	public:
 		static const Scope empty;
+
+		Scope();
+		Scope(std::vector<int>);
+
+		bool operator==(const Scope &) const;
+		bool operator!=(const Scope &) const;
+
 		Scope next() const;
 		Scope into() const;
 	};
@@ -79,7 +83,8 @@ public:
 class BlockInterpreter : public Interpreter {
 	Block *block;
 	std::vector <Interpreter *> arguments;
-	bool run = false; // relevant when there are no arguments
+	maybe <Scope> last;
+	maybe <Value> lastVal;
 public:
 	BlockInterpreter(Block *);
 	virtual maybe<Value> next(Scope);

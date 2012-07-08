@@ -14,14 +14,26 @@ BlockInterpreter::BlockInterpreter(Block *block) : block(block), arguments(block
 
 maybe<Value> BlockInterpreter::next(Scope s) {
 	/// @todo this could (and should) be way cleaner
-	
+	//
 	if (block->arguments.size() == 0) {
 		// When there are no arguments, the block is considered to
 		// output a single value.
-		if (run) return maybe<Value>();
-		run = true;
-		return maybe<Value>(functions[block->fname](block->params, {}));
+		
+		if (last.isDefined() && s != last.get())
+			return maybe<Value>();
+		else if (last.isDefined())
+			return lastVal;
+
+		// We've never run before
+		last = maybe<Scope>(s);
+		lastVal = maybe<Value>(functions[block->fname](block->params, {}));
+		return lastVal;
 	}
+
+	if (last.isDefined() && s == last.get())
+		return lastVal;
+
+	last = maybe<Scope>(s);
 	// There is at least one argument - evaluate the sources. The scope
 	// will be the same as it was for us.
 	vector < maybe <Value> > maybeargs(arguments.size());
@@ -41,6 +53,7 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 	vector <Value> args(arguments.size());
 	transform(maybeargs.begin(), maybeargs.end(), args.begin(),
 			( [] (maybe <Value> m) -> Value { return m.get(); }));
-	return maybe<Value>(functions[block->fname](block->params, args));
+	lastVal = maybe<Value>(functions[block->fname](block->params, args));
+	return lastVal;
 }
 

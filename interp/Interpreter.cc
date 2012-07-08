@@ -15,10 +15,16 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	// here.
 
 	Block *b = dynamic_cast<Block *>(pipe);	
-	if (b) return (cache[pipe] = new BlockInterpreter(b));
+	if (b) {
+		cache[pipe] = new BlockInterpreter(b);
+		return cache[pipe];
+	}
 
 	Each *e = dynamic_cast<Each *>(pipe);
-	if (e) return (cache[pipe] = new EachInterpreter(e));
+	if (e) {
+		cache[pipe] = new BlockInterpreter(b);
+		return cache[pipe];
+	}
 
 	Each::Inner *i = dynamic_cast<Each::Inner *>(pipe);
 	if (i) {

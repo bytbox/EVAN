@@ -2,7 +2,7 @@
 #include "util.hh"
 
 EachInterpreter::EachInterpreter(Each *each) : each(each) {
-
+	inner.outer = this;
 }
 
 maybe <Value> EachInterpreter::next(Scope s) {

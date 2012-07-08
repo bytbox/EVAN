@@ -18,12 +18,7 @@ Value::Value(const Param &p) {
 	}
 }
 Value::Value(const initializer_list<Value> &vs) : type(LIST) {
-	value.l = new vector<Value>(vs);
-}
-
-Value::~Value() {
-	if (type == LIST)
-		delete value.l;
+	l = vector<Value>(vs);
 }
 
 Value::operator int() {

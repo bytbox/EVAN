@@ -56,10 +56,12 @@ public:
 		virtual vector <Pipe *> prerequisites();
 	};
 
+	Each();
+
 	virtual vector <Pipe *> prerequisites();
 
-	Pipe *source;
-	Pipe *result;
+	Pipe *source = NULL;
+	Pipe *result = NULL;
 	Inner inner;
 };
 

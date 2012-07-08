@@ -41,8 +41,8 @@ class maybe {
 public:
 	maybe() : defined(false) {}
 	maybe(T v) : defined(true), val(v) {}
-	bool isDefined() { return defined; }
-	T get() {
+	bool isDefined() const { return defined; }
+	T get() const {
 		if (!defined) throw new internal_error("maybe: get() called on undefined");
 		return val;
 	}
