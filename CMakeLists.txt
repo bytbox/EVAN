@@ -17,6 +17,7 @@ set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 include_directories (${EVAN_SOURCE_DIR}/include)
 
 add_subdirectory (include)
+add_subdirectory (doc)
 
 add_subdirectory (core)
 add_subdirectory (interp)
