@@ -4,6 +4,8 @@
 #include "program.hh"
 #include "util.hh"
 
+using namespace util;
+
 #include <initializer_list>
 #include <map>
 #include <string>

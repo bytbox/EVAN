@@ -50,11 +50,5 @@ public:
 
 }
 
-using util::maybe;
-
-using util::error;
-using util::internal_error;
-using util::user_error;
-
 #endif /* !UTIL_HH */
 

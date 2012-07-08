@@ -3,6 +3,8 @@
 
 #include "util.hh"
 
+using namespace util;
+
 #include <string>
 #include <vector>
 using namespace std;
