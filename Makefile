@@ -3,6 +3,9 @@ all: build
 build: out
 	cd out && make -s
 
+check:
+	cd out && make -s check
+
 clean:
 	${RM} -r out
 
