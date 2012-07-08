@@ -9,6 +9,7 @@ if (QT_FOUND)
 
 	QT4_WRAP_CPP (GUIHDRS_MOC ${GUIHDRS})
 
+	include_directories (${QT_INCLUDE_DIR})
 	add_executable (evan-gui ${GUISRCS} ${GUIHDRS_MOC})
 	target_link_libraries (evan-gui core interp util ${QT_LIBRARIES})
 endif ()

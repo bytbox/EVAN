@@ -1,7 +1,7 @@
 #ifndef CANVAS_HH
 #define CANVAS_HH
 
-#include <QtGui/QWidget>
+#include <QtGui>
 
 class Canvas : public QWidget {
 	Q_OBJECT;

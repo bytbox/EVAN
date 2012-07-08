@@ -1,9 +1,7 @@
 #ifndef APP_HH
 #define APP_HH
 
-#include <QtGui/QApplication>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QHBoxLayout>
+#include <QtGui>
 
 #include "canvas.hh"
 
