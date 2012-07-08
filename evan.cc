@@ -1,3 +1,4 @@
+#include "config.hh"
 #include "interp.hh"
 #include "program.hh"
 #include "util.hh"
