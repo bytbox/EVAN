@@ -1,6 +1,5 @@
 # TODO generate ctags
 # TODO doxygen
-# TODO pass version as definition
 # TODO use separate build dir
 
 cmake_minimum_required (VERSION 2.6)

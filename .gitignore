@@ -12,3 +12,4 @@ Makefile
 *.cmake
 *.a
 moc_*.cxx
+include/config.hh
