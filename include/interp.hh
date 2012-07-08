@@ -9,6 +9,9 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief Represents a concrete value acquired during interpretation.
+ */
 class Value {
 public:
 	Value();
@@ -34,10 +37,17 @@ class InterpreterError : public internal_error {
 
 class Interpreter {
 public:
-	// A scope details the context in which a call to next() is being made - it
-	// allows us to tell when to serve the next result versus when we're still
-	// talking about the old one.
-	class Scope : std::vector<int> {
+	/**
+	 * @brief Details the context in which a call to Interpreter::next() is
+	 * being made.
+	 *
+	 * It allows us to tell when to serve the next result versus when we're
+	 * still talking about the old one.
+	 */
+	class Scope {
+		std::vector<int> data;
+		Scope();
+		Scope(std::vector<int>);
 	public:
 		static const Scope empty;
 		Scope next() const;

@@ -4,6 +4,13 @@
 #include <map>
 #include <string>
 
+/**
+ * @brief Functionality not conceptually specific to EVAN.
+ *
+ * We follow the STL naming convention (all lower-case with underscores) in
+ * this namespace, so that it is visually distinguished from code which is more
+ * tightly coupled with EVAN's core logic.
+ */
 namespace util {
 
 class error {
