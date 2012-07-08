@@ -11,3 +11,4 @@ CMakeFiles
 Makefile
 *.cmake
 *.a
+moc_*.cxx

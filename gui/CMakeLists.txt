@@ -1,3 +1,15 @@
-add_executable (evan-gui main.cc)
-target_link_libraries (evan-gui core interp util)
+find_package (Qt4)
+
+if (QT_FOUND)
+	include (${QT_USE_FILE})
+	add_definitions (${QT_DEFINITIONS})
+
+	file (GLOB GUISRCS *.cc)
+	file (GLOB GUIHDRS *.hh)
+
+	QT4_WRAP_CPP (GUIHDRS_MOC ${GUIHDRS})
+
+	add_executable (evan-gui ${GUISRCS} ${GUIHDRS_MOC})
+	target_link_libraries (evan-gui core interp util ${QT_LIBRARIES})
+endif ()
 
