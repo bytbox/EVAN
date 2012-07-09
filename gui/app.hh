@@ -13,10 +13,11 @@ public:
 class MainWindow : public QMainWindow {
 	Q_OBJECT;
 
-	QVBoxLayout *outsideLayout;
-	QHBoxLayout *mainLayout;
+	QVBoxLayout outsideLayout;
+	QHBoxLayout mainLayout;
 
-	BlockSelector *blockSelector;
+	BlockSelector blockSelector;
+	Canvas canvas;
 public:
 	MainWindow();
 };
