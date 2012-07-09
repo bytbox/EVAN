@@ -22,6 +22,8 @@ add_subdirectory (util)
 
 add_subdirectory (gui)
 add_subdirectory (httpd)
+
+enable_testing()
 add_subdirectory (test)
 
 add_executable (evan evan.cc)

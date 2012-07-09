@@ -1,7 +1,27 @@
-add_executable (evan-test main.cc)
-target_link_libraries (evan-test core interp util)
+add_subdirectory(common)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/common)
 
-enable_testing()
-add_test (evan-test evan-test)
-add_custom_target (check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS evan-test)
+set (LIBS core interp util)
+
+function (add_tests NAME PATTERN)
+	file (GLOB TEST_FILES ${PATTERN})
+	foreach (TESTFILE ${TEST_FILES})
+		get_filename_component (TEST ${TESTFILE} NAME_WE)
+		set (TESTNAME test-${NAME}-${TEST})
+		add_executable (${TESTNAME} EXCLUDE_FROM_ALL ${TESTFILE})
+		target_link_libraries (${TESTNAME} test-common ${LIBS})
+		add_test (${NAME}-${TEST} ${TESTNAME})
+		
+		list (APPEND ALL_TEST_EXES ${TESTNAME})
+		set (ALL_TEST_EXES ${ALL_TEST_EXES} PARENT_SCOPE)
+	endforeach (TESTFILE)
+endfunction (add_tests)
+
+add_tests (core "core/*.cc")
+add_tests (interp "interp/*.cc")
+add_tests (util "util/*.cc")
+
+#message (${ALL_TEST_EXES})
+
+add_custom_target (check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${ALL_TEST_EXES})
 

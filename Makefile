@@ -12,5 +12,5 @@ clean:
 out:
 	if [ ! -d out ]; then mkdir -p out && cd out && cmake ..; fi
 
-.PHONY: all build clean
+.PHONY: all build clean check
 
