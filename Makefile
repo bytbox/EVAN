@@ -3,6 +3,12 @@ all: build
 build: out
 	@cd out && make -s
 
+full: out
+	@cd out && make -s full
+
+doc: out
+	@cd out && make -s doc-html
+
 check: out
 	@cd out && make -s check
 

@@ -30,3 +30,5 @@ add_subdirectory (test)
 add_executable (evan evan.cc)
 target_link_libraries (evan core interp util)
 
+add_custom_target (full DEPENDS core interp util evan-gui doc-html check)
+
