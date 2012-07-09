@@ -1,6 +1,6 @@
 #include "test.hh"
 
-#include "program.hh"
+#include "util.hh"
 
 void testmain() {
 

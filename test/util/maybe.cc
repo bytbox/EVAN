@@ -5,10 +5,9 @@ using util::maybe;
 
 #include <cassert>
 
-int main(int argc, char *argv[]) {
+void testmain() {
 	assert(!maybe<int>().isDefined());
 	assert(maybe<int>(3).isDefined());
 	assert(maybe<int>(3).get() == 3);
-	return 0;
 }
 

@@ -5,15 +5,16 @@
 add_subdirectory(common)
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/common)
 
-set (LIBS core interp util)
+set (TESTLIBS core interp util)
 
 function (add_tests NAME PATTERN)
 	file (GLOB TEST_FILES ${PATTERN})
 	foreach (TESTFILE ${TEST_FILES})
 		get_filename_component (TEST ${TESTFILE} NAME_WE)
 		set (TESTNAME test-${NAME}-${TEST})
+
 		add_executable (${TESTNAME} EXCLUDE_FROM_ALL ${TESTFILE})
-		target_link_libraries (${TESTNAME} test-common ${LIBS})
+		target_link_libraries (${TESTNAME} test-common ${TESTLIBS})
 		add_test (${NAME}-${TEST} ${TESTNAME})
 		
 		list (APPEND ALL_TEST_EXES ${TESTNAME})
