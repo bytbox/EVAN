@@ -21,13 +21,13 @@ Value::Value(const initializer_list<Value> &vs) : type(LIST) {
 	l = vector<Value>(vs);
 }
 
-Value::operator int() {
+Value::operator int() const {
 	if (type != INT)
 		throw new TypeMismatchError();
 	return value.i;
 }
 
-Value::operator double() {
+Value::operator double() const {
 	if (type != DOUBLE)
 		throw new TypeMismatchError();
 	return value.d;

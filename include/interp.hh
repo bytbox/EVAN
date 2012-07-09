@@ -22,8 +22,8 @@ public:
 	Value(const Param &);
 	Value(const initializer_list <Value> &);
 
-	operator int();
-	operator double();
+	operator int() const;
+	operator double() const;
 
 	enum {BOT, INT, DOUBLE, LIST} type;
 	union {

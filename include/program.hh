@@ -26,8 +26,8 @@ public:
 	Param(const int);
 	Param(const double);
 
-	operator int();
-	operator double();
+	operator int() const;
+	operator double() const;
 
 	enum {INT, DOUBLE} type;
 	union {

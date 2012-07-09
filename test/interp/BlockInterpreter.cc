@@ -1,6 +1,8 @@
 #include "test.hh"
 
-#include "program.hh"
+#include "interp.hh"
+
+#include <cassert>
 
 void testmain() {
 
