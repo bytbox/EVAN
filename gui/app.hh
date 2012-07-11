@@ -4,6 +4,7 @@
 #include <QtGui>
 
 #include "canvas.hh"
+#include "menu.hh"
 
 class BlockSelector : public QWidget {
 	Q_OBJECT;
@@ -18,8 +19,13 @@ class MainWindow : public QMainWindow {
 
 	BlockSelector blockSelector;
 	Canvas canvas;
+
+	MenuBarManager menus;
 public:
 	MainWindow();
+
+private slots:
+	void exit();
 };
 
 class App : public QApplication {
