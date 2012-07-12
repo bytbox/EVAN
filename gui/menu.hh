@@ -10,8 +10,8 @@ class MenuAction : public QAction {
 	Q_OBJECT;
 public:
 	MenuAction(const std::string &, QWidget *parent);
-	MenuAction(const std::string &, QWidget *, const QObject *, const char *);
-	MenuAction(const std::string &, QWidget *, const QObject *, const char *, const QKeySequence &);
+	MenuAction(const std::string &, QWidget *, const char *);
+	MenuAction(const std::string &, QWidget *, const char *, const QKeySequence &);
 };
 
 class MenuItem {

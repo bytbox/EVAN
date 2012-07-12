@@ -3,11 +3,14 @@
 MenuAction::MenuAction(const std::string &text, QWidget *parent)
 	: QAction(tr(text.data()), parent) {}
 
-MenuAction::MenuAction(const std::string &text, QWidget *parent, const QObject *receiver, const char *member) : MenuAction(text, parent) {
-	connect(this, SIGNAL(triggered(bool)), receiver, member);
+
+// The actual QWidget API takes both a parent and a receiver, but since they're
+// always (in practice) the same...
+MenuAction::MenuAction(const std::string &text, QWidget *parentReceiver, const char *member) : MenuAction(text, parentReceiver) {
+	connect(this, SIGNAL(triggered(bool)), parentReceiver, member);
 }
 
-MenuAction::MenuAction(const std::string &text, QWidget *parent, const QObject *receiver, const char *member, const QKeySequence &ks) : MenuAction(text, parent, receiver, member) {
+MenuAction::MenuAction(const std::string &text, QWidget *parentReceiver, const char *member, const QKeySequence &ks) : MenuAction(text, parentReceiver, member) {
 	setShortcut(ks);
 }
 
