@@ -6,26 +6,43 @@
 #include "canvas.hh"
 #include "menu.hh"
 
-class BlockSelector : public QWidget {
+class BlockSelector : public QToolBar {
 	Q_OBJECT;
 public:
+	BlockSelector();
 };
 
-class MainWindow : public QMainWindow {
+class MainPanel : public QWidget {
 	Q_OBJECT;
 
 	QVBoxLayout outsideLayout;
 	QHBoxLayout mainLayout;
 
-	BlockSelector blockSelector;
 	Canvas canvas;
 
+public:
+	MainPanel();
+};
+
+class MainWindow : public QMainWindow {
+	Q_OBJECT;
+
 	MenuBarManager menus;
+	MainPanel mainPanel;
+	
+	BlockSelector blockSelector;
+
 public:
 	MainWindow();
 
 private slots:
-	void exit();
+	void file_new();
+	void file_open();
+	void file_save();
+	void file_save_as();
+	void file_exit();
+
+	void help_about();
 };
 
 class App : public QApplication {
