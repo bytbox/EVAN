@@ -11,8 +11,8 @@ using namespace util;
 #include <string>
 #include <vector>
 
-/**
- * @brief Represents a concrete value acquired during interpretation.
+/*!
+ * \brief Represents a concrete value acquired during interpretation.
  */
 class Value {
 public:
@@ -38,8 +38,8 @@ class InterpreterError : public internal_error {
 
 class Interpreter {
 public:
-	/**
-	 * @brief Details the context in which a call to Interpreter::next() is
+	/*!
+	 * \brief Details the context in which a call to Interpreter::next() is
 	 * being made.
 	 *
 	 * It allows us to tell when to serve the next result versus when we're
@@ -68,6 +68,17 @@ protected:
 	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
 	static map<std::string, Function> functions;
 	static map<Pipe *, Interpreter *> cache;
+
+#ifdef TESTING
+public:
+	/*!
+	 * \brief Testing hook to provider an interpreted function.
+	 *
+	 * \testing
+	 */
+	static void addFunction(const std::string &, Function);
+#endif
+
 };
 
 class EachInterpreter : public Interpreter {

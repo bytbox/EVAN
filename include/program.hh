@@ -10,7 +10,7 @@ using namespace util;
 using namespace std;
 
 /**
- * @brief Indicates that an actual type did not match an expected type.
+ * \brief Indicates that an actual type did not match an expected type.
  *
  * This error can be used during both interpretation and compilation.
  */
@@ -18,7 +18,7 @@ class TypeMismatchError : public user_error {
 };
 
 /**
- * @brief Represents a static (effectively compile-time) parameter passed to a
+ * \brief Represents a static (effectively compile-time) parameter passed to a
  * function.
  */
 class Param {
