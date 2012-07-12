@@ -14,11 +14,13 @@ BlockInterpreter::BlockInterpreter(Block *block) : block(block), arguments(block
 
 maybe<Value> BlockInterpreter::next(Scope s) {
 	/// @todo this could (and should) be way cleaner
-	//
+	
 	if (block->arguments.size() == 0) {
 		// When there are no arguments, the block is considered to
 		// output a single value.
-		
+	
+		// If the scope has advanced, we're empty. Otherwise, if
+		// there's a previous value, use it.	
 		if (last.isDefined() && s != last.get())
 			return maybe<Value>();
 		else if (last.isDefined())
@@ -30,6 +32,7 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 		return lastVal;
 	}
 
+	// If we were called before with the same scope, use that value.
 	if (last.isDefined() && s == last.get())
 		return lastVal;
 
@@ -48,8 +51,10 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 	for (size_t i=1; i<defined.size(); i++)
 		if (defined[i] != def) throw new TypeMismatchError();
 
-	if (!def) return maybe<Value>();
-	
+	if (!def) // The sources are done, so we are too.
+		return maybe<Value>();
+
+	// All values available - call the function.
 	vector <Value> args(arguments.size());
 	transform(maybeargs.begin(), maybeargs.end(), args.begin(),
 			( [] (maybe <Value> m) -> Value { return m.get(); }));
