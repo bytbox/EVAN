@@ -63,6 +63,7 @@ public:
 	static Interpreter *get(Pipe *);
 
 	virtual maybe<Value> next(Scope) = 0;
+
 protected:
 	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
 	static map<std::string, Function> functions;
