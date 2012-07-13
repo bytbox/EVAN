@@ -7,11 +7,19 @@ Each::Each() {
 	inner.outer = this;
 }
 
-vector<Pipe *> Each::Inner::prerequisites() {
-	return {};
-}
+Each::~Each() {}
+
+Pipe::Type Each::type() { return Type::EACH; }
 
 vector<Pipe *> Each::prerequisites() {
 	return {source};
+}
+
+Each::Inner::~Inner() {}
+
+Pipe::Type Each::Inner::type() { return Type::EACH_INNER; }
+
+vector<Pipe *> Each::Inner::prerequisites() {
+	return {};
 }
 

@@ -13,26 +13,20 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	// We want to avoid introducing a dependency from the program module on
 	// the interpreter module, so we manually specialize the interpreter
 	// here.
-
-	Block *b = dynamic_cast<Block *>(pipe);	
-	if (b) {
-		cache[pipe] = new BlockInterpreter(b);
+	
+	switch (pipe->type()) {
+	case Pipe::BLOCK:
+		cache[pipe] = new BlockInterpreter((Block *)pipe);
 		return cache[pipe];
-	}
-
-	Each *e = dynamic_cast<Each *>(pipe);
-	if (e) {
-		cache[pipe] = new BlockInterpreter(b);
+	case Pipe::EACH:
+		cache[pipe] = new EachInterpreter((Each *)pipe);
 		return cache[pipe];
+	case Pipe::EACH_INNER:
+		Each *e = ((Each::Inner *)pipe)->outer;
+		return &((EachInterpreter *)cache[e])->inner;
 	}
 
-	Each::Inner *i = dynamic_cast<Each::Inner *>(pipe);
-	if (i) {
-		Each *e = i->outer;
-		return &(dynamic_cast<EachInterpreter *>(cache[e])->inner);
-	}
-
-	throw new internal_error("attempted to create interpreter of unknown pipe");
+	throw new internal_error("attempted to create interpreter of unknown type");
 }
 
 #define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value

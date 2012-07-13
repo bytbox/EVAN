@@ -1,3 +1,4 @@
+# TODO support clang
 # TODO generate ctags
 # TODO benchmarks and profiling
 
@@ -9,7 +10,7 @@ set (EVAN_VERSION 0.0.1)
 set (CMAKE_BUILD_TYPE Debug)
 
 set (CMAKE_CXX_FLAGS "-Wall -Wswitch-enum -Wunused -Wuninitialized -std=c++11")
-set (CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -g -O0")
+set (CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 include_directories (${EVAN_SOURCE_DIR}/include ${EVAN_BINARY_DIR}/include)

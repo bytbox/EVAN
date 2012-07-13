@@ -11,10 +11,10 @@ int main(int argc, char *argv[]) {
 		Block b1, b2;
 		b1.fname = "aList";
 
-		Each e1;
+/*		Each e1;
 		
 		b2.fname = "addOne";
-		b2.arguments.push_back(&e1.inner);
+		b2.arguments.push_back(&e1.inner);*/
 
 		auto i = Interpreter::get(&b1);
 		cout << int(i->next(Interpreter::Scope::empty).get()) << endl;

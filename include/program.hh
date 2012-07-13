@@ -36,13 +36,25 @@ public:
 	} value;
 };
 
+/*!
+ * \brief
+ *
+ * Note that this class should not be further subclassed - the kinds of pipes
+ * available are hard-coded in several places.
+ */
 class Pipe {
 public:
+	enum Type {BLOCK, EACH, EACH_INNER};
+
+	virtual ~Pipe();
+	virtual Type type() = 0; // To avoid needing to use RTTI
 	virtual vector <Pipe *> prerequisites() = 0;
 };
 
 class Block : public Pipe {
 public:
+	virtual ~Block();
+	virtual Type type();
 	virtual vector<Pipe *> prerequisites();
 
 	string fname;
@@ -55,11 +67,14 @@ public:
 	class Inner : public Pipe {
 	public:
 		Each *outer;
+		virtual ~Inner();
+		virtual Type type();
 		virtual vector <Pipe *> prerequisites();
 	};
 
 	Each();
-
+	virtual ~Each();
+	virtual Type type();
 	virtual vector <Pipe *> prerequisites();
 
 	Pipe *source = NULL;
