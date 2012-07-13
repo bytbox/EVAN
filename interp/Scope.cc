@@ -1,4 +1,5 @@
 #include "interp.hh"
+#include "util.hh"
 
 #include <vector>
 using namespace std;
@@ -20,6 +21,8 @@ bool Interpreter::Scope::operator!=(const Interpreter::Scope &s) const {
 }
 
 Interpreter::Scope Interpreter::Scope::next() const {
+	if (data.size() < 1)
+		throw new internal_error("attempted to advance empty scope");
 	Scope s(data);
 	s.data[s.data.size()-1]++;
 	return s;
