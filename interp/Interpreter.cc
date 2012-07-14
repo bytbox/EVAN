@@ -16,11 +16,9 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	
 	switch (pipe->type()) {
 	case Pipe::BLOCK:
-		cache[pipe] = new BlockInterpreter((Block *)pipe);
-		return cache[pipe];
+		return new BlockInterpreter((Block *)pipe);
 	case Pipe::EACH:
-		cache[pipe] = new EachInterpreter((Each *)pipe);
-		return cache[pipe];
+		return new EachInterpreter((Each *)pipe);
 	case Pipe::EACH_INNER:
 		Each *e = ((Each::Inner *)pipe)->outer;
 		return &((EachInterpreter *)cache[e])->inner;

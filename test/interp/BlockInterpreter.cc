@@ -2,9 +2,11 @@
 
 #include "interp.hh"
 
+#include <vector>
+
 #include <cassert>
 
-#define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
+#define IFUNC [] (std::vector <Param> ps, std::vector <Value> vs) -> Value
 
 void testmain() {
 	// Function for testing

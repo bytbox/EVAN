@@ -5,9 +5,9 @@
 
 using namespace util;
 
+#include <functional>
 #include <string>
 #include <vector>
-using namespace std;
 
 /*!
  * \brief Indicates that an actual type did not match an expected type.
@@ -47,19 +47,19 @@ public:
 
 	virtual ~Pipe();
 	virtual Type type() const = 0; // To avoid needing to use RTTI
-	virtual vector <Pipe *> prerequisites() const = 0;
+	virtual std::vector <Pipe *> prerequisites() const = 0;
 };
 
 class Block : public Pipe {
 public:
-	Block(const string &, vector <Param>, vector <Pipe *>);
+	Block(const std::string &, std::vector <Param>, std::vector <Pipe *>);
 	virtual ~Block();
 	virtual Type type() const;
-	virtual vector<Pipe *> prerequisites() const;
+	virtual std::vector<Pipe *> prerequisites() const;
 
-	const string fname;
-	const vector <Param> params;
-	const vector <Pipe *> arguments;
+	const std::string fname;
+	const std::vector <Param> params;
+	const std::vector <Pipe *> arguments;
 };
 
 class Each : public Pipe {
@@ -69,13 +69,13 @@ public:
 		Each *outer;
 		virtual ~Inner();
 		virtual Type type() const;
-		virtual vector <Pipe *> prerequisites() const;
+		virtual std::vector <Pipe *> prerequisites() const;
 	};
 
-	Each();
+	Each(Pipe*, std::function<Pipe* (Pipe*)>);
 	virtual ~Each();
 	virtual Type type() const;
-	virtual vector <Pipe *> prerequisites() const;
+	virtual std::vector <Pipe *> prerequisites() const;
 
 	Pipe *source = NULL;
 	Pipe *result = NULL;

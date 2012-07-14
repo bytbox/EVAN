@@ -20,7 +20,8 @@ public:
 	Value(const int);
 	Value(const double);
 	Value(const Param &);
-	Value(const initializer_list <Value> &);
+	Value(const std::initializer_list <Value> &);
+	Value(const std::vector <Value> &);
 
 	operator int() const;
 	operator double() const;
@@ -67,8 +68,8 @@ public:
 
 protected:
 	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
-	static map<std::string, Function> functions;
-	static map<Pipe *, Interpreter *> cache;
+	static std::map<std::string, Function> functions;
+	static std::map<Pipe *, Interpreter *> cache;
 
 #ifdef TESTING
 public:
@@ -84,12 +85,17 @@ public:
 
 class EachInterpreter : public Interpreter {
 	Each *each;
+	Interpreter *source, *result;
+	maybe <Scope> last;
+	maybe <Value> lastVal;
 public:
 	/*!
 	 * \brief Represents the pipe used as a source by the first block
 	 * inside the Each construct.
 	 */
 	class Inner : public Interpreter {
+		maybe <Scope> last;
+		maybe <Value> lastVal;
 	public:
 		EachInterpreter *outer;
 		virtual maybe<Value> next(Scope);

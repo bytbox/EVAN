@@ -1,5 +1,9 @@
 #include "interp.hh"
 
+#include <initializer_list>
+#include <vector>
+using namespace std;
+
 Value::Value() : type(BOT) {}
 Value::Value(const int i) : type(INT) { value.i = i; }
 Value::Value(const double d) : type(DOUBLE) { value.d = d; }
@@ -17,9 +21,10 @@ Value::Value(const Param &p) {
 		throw new InterpreterError();
 	}
 }
-Value::Value(const initializer_list<Value> &vs) : type(LIST) {
+Value::Value(const std::initializer_list <Value> &vs) : type(LIST) {
 	l = vector<Value>(vs);
 }
+Value::Value(const vector <Value> &vs) : type(LIST), l(vs) {}
 
 Value::operator int() const {
 	if (type != INT)

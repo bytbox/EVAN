@@ -6,6 +6,7 @@
 using namespace std;
 
 BlockInterpreter::BlockInterpreter(Block *block) : block(block), arguments(block->arguments.size()) {
+	cache[block] = this;
 	transform (	block->arguments.begin(),
 			block->arguments.end(),
 			arguments.begin(),

@@ -1,10 +1,12 @@
 #include "program.hh"
 
+#include <functional>
 #include <vector>
 using namespace std;
 
-Each::Each() {
+Each::Each(Pipe *source, std::function<Pipe* (Pipe*)> resultGen) : source(source) {
 	inner.outer = this;
+	result = resultGen(&inner);
 }
 
 Each::~Each() {}
