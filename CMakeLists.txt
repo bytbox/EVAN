@@ -20,12 +20,15 @@ add_subdirectory (doc)
 
 add_subdirectory (core)
 add_subdirectory (interp)
+add_subdirectory (typecheck)
+add_subdirectory (compile)
 add_subdirectory (util)
 
+add_subdirectory (cli)
 add_subdirectory (gui)
 add_subdirectory (httpd)
 
-enable_testing()
+enable_testing ()
 add_subdirectory (test)
 
 add_custom_target (full DEPENDS core interp util evan-gui doc-html check)

@@ -5,7 +5,7 @@
 add_subdirectory(common)
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/common)
 
-set (TESTLIBS core interp util)
+set (TESTLIBS core interp typecheck compile util)
 
 function (add_tests NAME PATTERN)
 	file (GLOB TEST_FILES ${PATTERN})
