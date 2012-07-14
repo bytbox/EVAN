@@ -18,8 +18,7 @@ class TypeMismatchError : public user_error {
 };
 
 /**
- * \brief Represents a static (effectively compile-time) parameter passed to a
- * function.
+ * \brief Represents a static, compile-time parameter passed to a function.
  */
 class Param {
 public:
