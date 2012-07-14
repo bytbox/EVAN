@@ -17,8 +17,6 @@ void testmain() {
 		return new Block("test_addOne", {}, {source});
 	}));
 
-	//e.result = &addOne;
-
 	auto i = Interpreter::get(&e);
 	auto s = Interpreter::Scope::empty.into();
 	auto v = i->next(s);
