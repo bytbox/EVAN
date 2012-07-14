@@ -44,3 +44,9 @@ Value Value::operator [](int i) const {
 	return l.get()[i];
 }
 
+vector<Value> Value::vec() const {
+	if (type != LIST)
+		throw new TypeMismatchError();
+	return vector<Value>(l.get());
+}
+

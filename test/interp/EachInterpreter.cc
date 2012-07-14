@@ -23,11 +23,11 @@ void testmain() {
 	auto s = Interpreter::Scope::empty.into();
 	auto v = i->next(s);
 	assert(v.isDefined());
-	//assert(int(v.get()[0]) == 2);
-	//assert(int(v.get()[2]) == 6);
+	assert(int(v.get()[0]) == 2);
+	assert(int(v.get()[2]) == 6);
 	assert(i->next(s).isDefined());
-	//assert(int(i->next(s).get()[1]) == 4);
-	//assert(! i->next(s.next()).isDefined());
+	assert(int(i->next(s).get()[1]) == 4);
+	assert(! i->next(s.next()).isDefined());
 
 	// add some OO-ness to tests
 }

@@ -5,7 +5,7 @@
 using namespace std;
 
 Interpreter::Scope::Scope() {}
-Interpreter::Scope::Scope(vector<int> d) : data(d) {}
+Interpreter::Scope::Scope(vector<unsigned int> d) : data(d) {}
 
 const Interpreter::Scope Interpreter::Scope::empty = Scope();
 
@@ -38,5 +38,11 @@ Interpreter::Scope Interpreter::Scope::outer() const {
 	Scope s(data);
 	s.data.pop_back();
 	return s;
+}
+
+unsigned int Interpreter::Scope::lowIndex() const {
+	if (data.size() < 1)
+		throw new internal_error("attempted to peek at empty scope");
+	return data[data.size()-1];
 }
 

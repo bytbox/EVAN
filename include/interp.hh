@@ -23,9 +23,29 @@ public:
 	Value(const std::initializer_list <Value> &);
 	Value(const std::vector <Value> &);
 
+	/*!
+	 * \throw TypeMismatchError
+	 */
 	operator int() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
 	operator double() const;
+
+	/*!
+	 * \brief Access the nth element of the list contained in this value.
+	 *
+	 * It is an error to call this method on a value with type other than
+	 * LIST.
+	 *
+	 * \throw TypeMismatchError
+	 */
 	Value operator [](int) const;
+
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	std::vector<Value> vec() const;
 
 	enum {BOT, INT, DOUBLE, LIST} type;
 	union {
@@ -48,12 +68,12 @@ public:
 	 * still talking about the old one.
 	 */
 	class Scope {
-		std::vector<int> data;
+		std::vector<unsigned int> data;
 	public:
 		static const Scope empty;
 
 		Scope();
-		Scope(std::vector<int>);
+		Scope(std::vector<unsigned int>);
 
 		bool operator==(const Scope &) const;
 		bool operator!=(const Scope &) const;
@@ -61,6 +81,7 @@ public:
 		Scope next() const;
 		Scope into() const;
 		Scope outer() const;
+		unsigned int lowIndex() const;
 	};
 
 	static Interpreter *get(Pipe *);
@@ -89,6 +110,8 @@ class EachInterpreter : public Interpreter {
 	Interpreter *source, *result;
 	maybe <Scope> last;
 	maybe <Value> lastVal;
+	std::vector <Value> srcVec;
+	bool finished;
 public:
 	/*!
 	 * \brief Represents the pipe used as a source by the first block
