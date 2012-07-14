@@ -34,3 +34,9 @@ Interpreter::Scope Interpreter::Scope::into() const {
 	return s;
 }
 
+Interpreter::Scope Interpreter::Scope::outer() const {
+	Scope s(data);
+	s.data.pop_back();
+	return s;
+}
+

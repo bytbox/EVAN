@@ -33,6 +33,9 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 
 maybe <Value> EachInterpreter::Inner::next(Scope s) {
 	// \todo handle repeated scopes
+
+	Scope outerScope = s.outer();
+
 	return maybe <Value> ();
 }
 

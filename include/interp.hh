@@ -60,6 +60,7 @@ public:
 
 		Scope next() const;
 		Scope into() const;
+		Scope outer() const;
 	};
 
 	static Interpreter *get(Pipe *);

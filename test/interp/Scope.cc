@@ -13,5 +13,7 @@ void testmain() {
 	assert (s != s.into());
 	assert (s.next() != s.into().next());
 	assert (s.next().into() != s.into().next());
+	assert (s.into().outer() == s);
+	assert (s.into().outer() != s.into());
 }
 
