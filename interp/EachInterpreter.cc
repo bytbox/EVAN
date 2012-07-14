@@ -12,10 +12,14 @@ EachInterpreter::EachInterpreter(Each *each) : each(each) {
 }
 
 maybe <Value> EachInterpreter::next(Scope outsideScope) {
-	/// \todo handle repeated scopes
+	if (last.isDefined() && outsideScope == last.get())
+		return lastVal;
+	last = outsideScope;
 
 	// We want to get a list from this.result, using scopes inside the
-	// starting scope.
+	// starting scope. The decision to terminate is made from Inner (since
+	// it's based on what's coming to source).
+
 	auto s = outsideScope.into();
 	vector <Value> collect;
 	maybe <Value> value;
@@ -23,7 +27,8 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 		value = result->next(s);
 		s = s.next();
 	} while(value.isDefined() && (collect.push_back(value.get()), true));
-	return maybe <Value> (collect);
+	lastVal = maybe <Value> (collect);
+	return lastVal;
 }
 
 maybe <Value> EachInterpreter::Inner::next(Scope s) {
