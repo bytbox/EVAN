@@ -85,6 +85,10 @@ public:
 class EachInterpreter : public Interpreter {
 	Each *each;
 public:
+	/*!
+	 * \brief Represents the pipe used as a source by the first block
+	 * inside the Each construct.
+	 */
 	class Inner : public Interpreter {
 	public:
 		EachInterpreter *outer;
