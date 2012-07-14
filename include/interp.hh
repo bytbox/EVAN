@@ -24,6 +24,7 @@ public:
 
 	operator int() const;
 	operator double() const;
+	Value operator [](int) const;
 
 	enum {BOT, INT, DOUBLE, LIST} type;
 	union {

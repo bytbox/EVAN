@@ -33,3 +33,9 @@ Value::operator double() const {
 	return value.d;
 }
 
+Value Value::operator [](int i) const {
+	if (type != LIST)
+		throw new TypeMismatchError();
+	return l.get()[i];
+}
+

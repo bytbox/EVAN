@@ -47,19 +47,20 @@ public:
 	enum Type {BLOCK, EACH, EACH_INNER};
 
 	virtual ~Pipe();
-	virtual Type type() = 0; // To avoid needing to use RTTI
-	virtual vector <Pipe *> prerequisites() = 0;
+	virtual Type type() const = 0; // To avoid needing to use RTTI
+	virtual vector <Pipe *> prerequisites() const = 0;
 };
 
 class Block : public Pipe {
 public:
+	Block(const string &, vector <Param>, vector <Pipe *>);
 	virtual ~Block();
-	virtual Type type();
-	virtual vector<Pipe *> prerequisites();
+	virtual Type type() const;
+	virtual vector<Pipe *> prerequisites() const;
 
-	string fname;
-	vector <Param> params;
-	vector <Pipe *> arguments;
+	const string fname;
+	const vector <Param> params;
+	const vector <Pipe *> arguments;
 };
 
 class Each : public Pipe {
@@ -68,14 +69,14 @@ public:
 	public:
 		Each *outer;
 		virtual ~Inner();
-		virtual Type type();
-		virtual vector <Pipe *> prerequisites();
+		virtual Type type() const;
+		virtual vector <Pipe *> prerequisites() const;
 	};
 
 	Each();
 	virtual ~Each();
-	virtual Type type();
-	virtual vector <Pipe *> prerequisites();
+	virtual Type type() const;
+	virtual vector <Pipe *> prerequisites() const;
 
 	Pipe *source = NULL;
 	Pipe *result = NULL;
