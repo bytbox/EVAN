@@ -54,6 +54,8 @@ public:
 	static void runAll();
 };
 
+#define SUITE(n, m) suite s(n, module::get(m))
+
 int main(int argc, char *argv[]);
 
 #endif /* !TEST_HH */
