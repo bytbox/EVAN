@@ -49,8 +49,8 @@ typecheck ss t = do
     tcPart :: Scope -> Statement -> Either Err (Map String (Scope, Definition))
     tcPart s (Assign (Ident i) (Pipe f ps as)) =
       return $ Map.fromList [(i, (s, PipeDef f ps as))]
-    tcPart s (Each part slist ss out) =
-      let ns = Loop s "" in
+    tcPart s (Each part (Ident slist) ss out) =
+      let ns = Loop s slist in
         err "  Not yet implemented : each"
 
 valueOfParam :: Param -> Value
