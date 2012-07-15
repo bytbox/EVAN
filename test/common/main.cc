@@ -2,9 +2,8 @@
 
 #include <cstdlib>
 
-extern void testmain();
 int main(int argc, char *argv[]) {
-	testmain();
+	module::runAll();
 	return EXIT_SUCCESS;
 }
 

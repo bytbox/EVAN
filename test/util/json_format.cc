@@ -2,7 +2,5 @@
 
 #include "util.hh"
 
-suite s("json-format");
-
-RUNSUITE(s)
+suite s("json-format", module::get("util"));
 

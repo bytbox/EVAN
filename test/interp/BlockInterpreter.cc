@@ -8,7 +8,9 @@
 
 #define IFUNC [] (std::vector <Param> ps, std::vector <Value> vs) -> Value
 
-void testmain() {
+namespace _BlockInterpreter {
+suite s("BlockInterpreter", module::get("interp"));
+test t1("basic", s, ([](){
 	// Function for testing
 	Interpreter::addFunction("test_justOne", (IFUNC { return 1; }));
 	Block b("test_justOne", {}, {});
@@ -17,5 +19,6 @@ void testmain() {
 	assert(int(i->next(s).get()) == 1);
 	assert(int(i->next(s).get()) == 1);
 	assert(! i->next(s.next()).isDefined());
-}
+}));
+};
 

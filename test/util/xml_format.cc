@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("xml-format");
-
-RUNSUITE(s)
+namespace _xml_format {
+suite s("xml-format", module::get("util"));
+};
 

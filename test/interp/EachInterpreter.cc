@@ -8,7 +8,9 @@
 
 #define IFUNC [] (std::vector <Param> ps, std::vector <Value> vs) -> Value
 
-void testmain() {
+namespace _EachInterpreter {
+suite s("EachInterpreter", module::get("interp"));
+test t1("basic", s, ([](){
 	Interpreter::addFunction("test_aList", (IFUNC { return {1, 3, 5, 7, 9}; }));
 	Interpreter::addFunction("test_addOne", (IFUNC { return int(vs[0])+1; }));
 
@@ -28,5 +30,6 @@ void testmain() {
 	assert(! i->next(s.next()).isDefined());
 
 	// add some OO-ness to tests
-}
+}));
+};
 

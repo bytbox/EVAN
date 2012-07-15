@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("either");
-
-RUNSUITE(s)
+namespace _either {
+suite s("either", module::get("util"));
+};
 

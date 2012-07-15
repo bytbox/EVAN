@@ -3,10 +3,10 @@
 #include <string>
 using namespace std;
 
-suite::suite(const string &name) : suite(name, NULL) {}
+suite::suite(const string &name) : name(name) {}
 
-suite::suite(const string &name, module *m) : name(name) {
-	if (m) m->add(this);
+suite::suite(const string &name, module &m) : name(name) {
+	m.add(this);
 }
 
 void suite::add(const test *t) {
@@ -14,6 +14,7 @@ void suite::add(const test *t) {
 }
 
 void suite::run() const {
-
+	for (const test *t : tests)
+		t->run();
 }
 

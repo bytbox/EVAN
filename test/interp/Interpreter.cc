@@ -4,7 +4,7 @@
 
 #include <cassert>
 
-void testmain() {
-
-}
+namespace _Interpreter {
+suite s("Interpreter", module::get("interp"));
+};
 

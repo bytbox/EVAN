@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("basic_serializable");
-
-RUNSUITE(s)
+namespace _basic_serializable {
+suite s("basic_serializable", module::get("util"));
+};
 

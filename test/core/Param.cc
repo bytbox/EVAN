@@ -2,9 +2,7 @@
 
 #include "program.hh"
 
-#include <cassert>
-
-void testmain() {
-	assert(int(Param(5)) == 5);
-}
+namespace _Param {
+suite s("Param", module::get("core"));
+};
 

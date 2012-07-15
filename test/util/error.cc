@@ -2,12 +2,7 @@
 
 #include "util.hh"
 
-void all() {
-
-}
-
-suite s1("error");
-test t1("all", s1, all);
-
-RUNSUITE(s1)
+namespace _error {
+suite s1("error", module::get("util"));
+};
 

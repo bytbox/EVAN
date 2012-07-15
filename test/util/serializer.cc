@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("serializer");
-
-RUNSUITE(s)
+namespace _serializer {
+suite s("serializer", module::get("util"));
+};
 

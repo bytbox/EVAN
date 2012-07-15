@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("string_atom");
-
-RUNSUITE(s)
+namespace _string_atom {
+suite s("string_atom", module::get("util"));
+};
 

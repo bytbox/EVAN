@@ -4,6 +4,10 @@
 
 #include <cassert>
 
-void testmain() {
+namespace _Value {
+suite s("Value", module::get("interp"));
+test t1("all", s, ([](){
 	assert(int(Value(5)) == 5);
-}
+}));
+};
+

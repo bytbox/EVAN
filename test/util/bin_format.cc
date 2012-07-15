@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("bin-format");
-
-RUNSUITE(s)
+namespace _bin_format {
+suite s("bin-format", module::get("util"));
+};
 

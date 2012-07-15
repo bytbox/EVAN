@@ -2,6 +2,7 @@
 #define TEST_HH
 
 #include <functional>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -31,7 +32,7 @@ class suite {
 	std::vector<const test *> tests;
 public:
 	suite(const std::string &);
-	suite(const std::string &, module *);
+	suite(const std::string &, module &);
 	void add(const test *);
 	void run() const;
 };
@@ -40,15 +41,18 @@ public:
  * \brief A set of suites applying to a particular module.
  */
 class module {
-	const std::string name;
+	std::string name;
 	std::vector<const suite *> suites;
+	static std::map<std::string, module> modules;
 public:
+	module();
 	module(const std::string &);
 	void add(const suite *);
 	void run() const;
-};
 
-#define RUNSUITE(s) void testmain() {s.run();}
+	static module &get(const std::string &);
+	static void runAll();
+};
 
 int main(int argc, char *argv[]);
 

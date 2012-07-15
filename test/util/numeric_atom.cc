@@ -2,7 +2,7 @@
 
 #include "util.hh"
 
-suite s("numeric_atom");
-
-RUNSUITE(s)
+namespace _numeric_atom {
+suite s("numeric_atom", module::get("util"));
+};
 
