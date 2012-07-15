@@ -1,5 +1,5 @@
 /**
- * \file doxygen.hh
+ * \file include/doxygen.hh
  * \brief Doxygen comments and definitions that do not belong anywhere else.
  *
  * Note that it is an error to include this file from the actual source code.

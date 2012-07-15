@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <sstream>
 
 /*!
  * \brief Functionality not conceptually specific to EVAN.
@@ -46,6 +47,107 @@ public:
 		if (!defined) throw new internal_error("maybe: get() called on undefined");
 		return val;
 	}
+};
+
+template <typename A, typename B>
+class either {
+	bool left;
+	A leftV;
+	B rightV;
+public:
+	either(A a) : leftV(a), left(true) {}
+	either(B b) : rightV(b), left(false) {}
+	bool isLeft() const { return left; }
+	bool isRight() const { return !left; }
+	A getLeft() const {
+		if (!left) throw new internal_error("either: getLeft() called on right");
+		return leftV;
+	}
+	B getRight() const {
+		if (left) throw new internal_error("either: getRight() called on left");
+		return rightV;
+	}
+};
+
+/*!
+ * \brief A non-composite structure supporting trivial serialization to a
+ * variety of forms.
+ *
+ * Although it is not (cannot be) specified by the interface, implementations
+ * should also provide a constructor from std::string, to allow
+ * deserialization.
+ */
+class atom {
+public:
+	virtual operator std::string() const = 0;
+};
+
+template <typename N>
+class numeric_atom {
+	N n;
+public:
+	numeric_atom(N n) : n(n) {}
+	operator std::string() const {
+		using namespace std;
+		ostringstream oss;
+		oss << n;
+		return oss.str();
+	}
+};
+
+class string_atom {
+	const std::string s;
+public:
+	string_atom(const std::string &s);
+	operator std::string() const;
+};
+
+/*!
+ * \brief A interface for classes providing the necessary hooks for serialization.
+ */
+class serializable {
+public:
+};
+
+/*!
+ * \brief A partial implementation for \ref serializable.
+ */
+class basic_serializable : public serializable {
+public:
+};
+
+/*!
+ * \brief Interface for backends to \ref serializer.
+ *
+ * This definition exists entirely for documentation. Although it is good form
+ * to inherit it, the C++ type checker will not care if type arguments passed
+ * to \ref serializer do so.
+ */
+class format {
+public:
+};
+
+class bin_format : public format {
+public:
+};
+
+class xml_format : public format {
+public:
+};
+
+class json_format : public format {
+public:
+};
+
+/*!
+ * \brief A serializer for a class implementing the \ref serializable interface.
+ */
+template <typename format = xml_format>
+class serializer {
+	const serializable *const obj;
+	format f;
+public:
+	serializer(const serializable *const s) : obj(s) {}
 };
 
 }
