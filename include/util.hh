@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-/**
+/*!
  * \brief Functionality not conceptually specific to EVAN.
  *
  * We follow the STL naming convention (all lower-case with underscores) in

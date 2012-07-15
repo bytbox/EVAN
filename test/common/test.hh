@@ -2,15 +2,23 @@
 #define TEST_HH
 
 #include <string>
+#include <vector>
 
 #define TESTING
+
+class test;
+class suite;
+class module;
 
 /*!
  * \brief An individual test case.
  */
 class test {
+	friend suite;
 	const std::string name;
+	void run() const;
 public:
+	test(const std::string &, suite &);
 };
 
 /*!
@@ -18,16 +26,24 @@ public:
  */
 class suite {
 	const std::string name;
+	std::vector<const test *> tests;
 public:
 	suite(const std::string &);
-	void add(const test &);
+	suite(const std::string &, module *);
+	void add(const test *);
+	void run() const;
 };
 
 /*!
  * \brief A set of suites applying to a particular module.
  */
 class module {
+	const std::string name;
+	std::vector<const suite *> suites;
 public:
+	module(const std::string &);
+	void add(const suite *);
+	void run() const;
 };
 
 int main(int argc, char *argv[]);
