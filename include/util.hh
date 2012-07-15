@@ -114,6 +114,7 @@ public:
  */
 class serializable {
 public:
+	serializable();
 };
 
 /*!

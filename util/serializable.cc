@@ -3,7 +3,9 @@
 namespace util {
 namespace serial {
 
+serializable::serializable() {
 
+}
 
 };
 };
