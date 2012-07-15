@@ -20,6 +20,7 @@ add_subdirectory (doc)
 
 add_subdirectory (core)
 add_subdirectory (interp)
+add_subdirectory (parse)
 add_subdirectory (typecheck)
 add_subdirectory (compile)
 add_subdirectory (util)

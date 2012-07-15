@@ -26,7 +26,5 @@ add_tests (core "core/*.cc")
 add_tests (interp "interp/*.cc")
 add_tests (util "util/*.cc")
 
-#message (${ALL_TEST_EXES})
-
 add_custom_target (check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${ALL_TEST_EXES})
 
