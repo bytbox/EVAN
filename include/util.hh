@@ -2,6 +2,7 @@
 #define UTIL_HH
 
 #include <map>
+#include <ostream>
 #include <string>
 #include <sstream>
 
@@ -69,6 +70,8 @@ public:
 	}
 };
 
+namespace serial {
+
 /*!
  * \brief A non-composite structure supporting trivial serialization to a
  * variety of forms.
@@ -104,6 +107,10 @@ public:
 
 /*!
  * \brief A interface for classes providing the necessary hooks for serialization.
+ *
+ * This definition mostly exists for documentation, in that the typechecker
+ * will not verify that type arguments to \ref serializer actually inherit from
+ * it. However, as with \ref format below, it is good form to do so.
  */
 class serializable {
 public:
@@ -142,12 +149,14 @@ public:
 /*!
  * \brief A serializer for a class implementing the \ref serializable interface.
  */
-template <typename format = xml_format>
+template <typename serializable, typename format = xml_format>
 class serializer {
-	const serializable *const obj;
-	format f;
+	const format f;
 public:
-	serializer(const serializable *const s) : obj(s) {}
+	serializer() {}
+	void write(std::ostream &s);
+};
+
 };
 
 }

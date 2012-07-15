@@ -10,6 +10,8 @@
 
 namespace util {
 
+namespace serial {
+
 #ifdef itoa
 template<>
 numeric_atom<int>::operator std::string() const {
@@ -21,6 +23,8 @@ numeric_atom<int>::operator std::string() const {
 	return _itoa(n);
 }
 #endif
+
+};
 
 };
 
