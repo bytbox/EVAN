@@ -2,10 +2,12 @@
 
 #include "util.hh"
 
-suite s1("");
-test t1("", s1);
-
-void testmain() {
+void all() {
 
 }
+
+suite s1("error");
+test t1("all", s1, all);
+
+RUNSUITE(s1)
 

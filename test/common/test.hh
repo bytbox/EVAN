@@ -1,6 +1,7 @@
 #ifndef TEST_HH
 #define TEST_HH
 
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -16,9 +17,10 @@ class module;
 class test {
 	friend suite;
 	const std::string name;
+	std::function<void ()> func;
 	void run() const;
 public:
-	test(const std::string &, suite &);
+	test(const std::string &, suite &, std::function<void ()>);
 };
 
 /*!
@@ -45,6 +47,8 @@ public:
 	void add(const suite *);
 	void run() const;
 };
+
+#define RUNSUITE(s) void testmain() {s.run();}
 
 int main(int argc, char *argv[]);
 
