@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<builtins>
+
+  <category name="Core">
+    <builtin>
+      <name>Identity</name>
+      <type></type>
+      <description>
+
+      </description>
+    </builtin>
+    <builtin>
+      <name>Constant</name>
+      <type></type>
+      <description>
+
+      </description>
+    </builtin>
+  </category>
+
+  <category name="Math">
+    <builtin>
+      <name>Sum</name>
+      <type></type>
+      <description>
+
+      </description>
+    </builtin>
+    <builtin>
+      <name>Product</name>
+      <type></type>
+      <description>
+
+      </description>
+    </builtin>
+  </category>
+
+</builtins>
