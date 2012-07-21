@@ -18,9 +18,12 @@ BlockSelector::BlockSelector() {
 		auto action = addAction(cat.name.data());
 		connect(action, SIGNAL(triggered()), categoryMapper, SLOT(map()));
 		categoryMapper->setMapping(action, cat.name.data());
-		/*for (Builtin b : cat.builtins) {
-			addAction(b.name.data());
-		}*/
+
+		QMenu *m = new QMenu;
+		for (Builtin b : cat.builtins) {
+			m->addAction(b.name.data());
+		}
+		categoryMenu[cat.name] = m;
 	}
 }
 
@@ -30,5 +33,8 @@ void BlockSelector::run() {
 
 void BlockSelector::category(const QString &qname) {
 	string name = qname.toStdString();
+	QMenu *menu = categoryMenu[name];
+	auto pt = QCursor::pos();
+	menu->popup(pt);
 }
 

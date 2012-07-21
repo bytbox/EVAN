@@ -18,7 +18,7 @@ private:
 	QSignalMapper *categoryMapper;
 	QSignalMapper *builtinMapper;
 
-	std::map <std::string, QMenu *> categoryMenus;
+	std::map <std::string, QMenu *> categoryMenu;
 
 private slots:
 	void run();
