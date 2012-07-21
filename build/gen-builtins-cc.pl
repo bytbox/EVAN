@@ -17,13 +17,30 @@ if (my $ifname = shift) {
 my $xml = new XML::Simple;
 my $data = $xml->XMLin($fin);
 
-use Data::Dumper;
+print $fout <<END;
+#include "builtins.hh"
+
+#include <string>
+#include <vector>
+using namespace std;
+
+const vector <Category> categories =
+{
+END
 
 for my $cname (keys $data->{'category'}) {
-	print $fout "$cname\n";
 	my $cat = $data->{'category'}{$cname}{'builtin'};
-	print $fout Dumper($cat);
+	print $fout "\tCategory(\"$cname\", {\n";
+	for my $bname (keys $cat) {
+		my $builtin = $cat->{$bname};
+		print $fout "\t\tBuiltin(\"$bname\"),\n";
+	}
+	print $fout "\t}),\n";
 }
+
+print $fout <<END;
+};
+END
 
 close $fin;
 close $fout;
