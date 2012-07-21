@@ -1,7 +1,7 @@
 add_custom_command (
 	OUTPUT builtins.cc
 	COMMAND ${CMAKE_SOURCE_DIR}/build/gen-builtins-cc.pl ${CMAKE_CURRENT_SOURCE_DIR}/builtins.xml builtins.cc
-	MAIN_DEPENDENCY builtins.xml
+	DEPENDS builtins.xml
 	COMMENT "Generating builtins.cc"
 )
 

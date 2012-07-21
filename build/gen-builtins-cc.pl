@@ -24,7 +24,7 @@ print $fout <<END;
 #include <vector>
 using namespace std;
 
-const vector <Category> categories =
+const vector <Category> BuiltinInfo::categories =
 {
 END
 

@@ -13,7 +13,7 @@
 class Builtin {
 public:
 	Builtin(const std::string &name);
-	const std::string &name;
+	const std::string name;
 };
 
 /*!
@@ -27,11 +27,14 @@ public:
 class Category {
 public:
 	Category(const std::string &, const std::vector<Builtin> &);
-	const std::string &name;
-	const std::vector <Builtin> &builtins;
+	const std::string name;
+	const std::vector <Builtin> builtins;
 };
 
-extern const std::vector <Category> categories;
+class BuiltinInfo {
+public:
+	static const std::vector <Category> categories;
+};
 
 #endif /* !BUILTINS_HH */
 

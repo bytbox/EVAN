@@ -2,10 +2,16 @@
 
 #include "builtins.hh"
 
+#include <iostream>
+
 BlockSelector::BlockSelector() {
 	setMovable(false);
-	addAction(tr("hi"));
+
+	addAction(tr("Compile"));
+	addAction(tr("Run"));
 	addSeparator();
-	addAction(tr("ho"));
+	for (Category cat : BuiltinInfo::categories) {
+		addAction(cat.name.data());
+	}
 }
 
