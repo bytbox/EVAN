@@ -17,6 +17,7 @@ MainWindow::MainWindow() : menus(menuBar()) {
 	menus.addMenu("&Help", {
 			MenuItem::separator,
 			new MenuAction("&About", this, SLOT(help_about())),
+			new MenuAction("About &Qt", this, SLOT(help_about_qt())),
 			});
 
 	addToolBar(ToolBarArea::LeftToolBarArea, &blockSelector);
@@ -48,6 +49,12 @@ void MainWindow::file_exit() {
 }
 
 void MainWindow::help_about() {
+	// TODO
+	//QMessageBox::about(this, "Hello", "Some <b>text</b>");
+}
 
+void MainWindow::help_about_qt() {
+	// TODO
+	//QMessageBox::aboutQt(this, tr("huh?"));
 }
 

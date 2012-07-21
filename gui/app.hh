@@ -1,10 +1,13 @@
 #ifndef APP_HH
 #define APP_HH
 
-#include <QtGui>
-
 #include "canvas.hh"
 #include "menu.hh"
+
+#include <QtGui>
+
+#include <map>
+#include <string>
 
 class BlockSelector : public QToolBar {
 	Q_OBJECT;
@@ -14,6 +17,8 @@ public:
 private:
 	QSignalMapper *categoryMapper;
 	QSignalMapper *builtinMapper;
+
+	std::map <std::string, QMenu *> categoryMenus;
 
 private slots:
 	void run();
@@ -52,6 +57,7 @@ private slots:
 	void file_exit();
 
 	void help_about();
+	void help_about_qt();
 };
 
 class App : public QApplication {
