@@ -2,6 +2,7 @@
 #define BUILTINS_HH
 
 #include <string>
+#include <vector>
 
 /*!
  * \brief Description of a builtin block.
@@ -25,9 +26,12 @@ public:
  */
 class Category {
 public:
-	Category(const std::string &);
+	Category(const std::string &, const std::vector<Builtin> &);
 	const std::string &name;
+	const std::vector <Builtin> &builtins;
 };
+
+extern const std::vector <Category> categories;
 
 #endif /* !BUILTINS_HH */
 
