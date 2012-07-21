@@ -11,8 +11,14 @@ class BlockSelector : public QToolBar {
 public:
 	BlockSelector();
 
+private:
+	QSignalMapper *categoryMapper;
+	QSignalMapper *builtinMapper;
+
 private slots:
-	void category();
+	void run();
+
+	void category(const QString &);
 };
 
 class MainPanel : public QWidget {
