@@ -11,6 +11,7 @@ BlockSelector::BlockSelector() {
 	categoryMapper = new QSignalMapper(this);
 	builtinMapper = new QSignalMapper(this);
 	connect(categoryMapper, SIGNAL(mapped(const QString &)), this, SLOT(category(const QString &)));
+	connect(builtinMapper, SIGNAL(mapped(const QString &)), this, SLOT(builtin(const QString &)));
 
 	addAction(tr("Run"), this, SLOT(run()));
 	addSeparator();
@@ -21,7 +22,9 @@ BlockSelector::BlockSelector() {
 
 		QMenu *m = new QMenu;
 		for (Builtin b : cat.builtins) {
-			m->addAction(b.name.data());
+			auto ba = m->addAction(b.name.data());
+			connect(action, SIGNAL(triggered()), builtinMapper, SLOT(map()));
+			builtinMapper->setMapping(ba, b.name.data());
 		}
 		categoryMenu[cat.name] = m;
 	}
@@ -36,5 +39,10 @@ void BlockSelector::category(const QString &qname) {
 	QMenu *menu = categoryMenu[name];
 	auto pt = QCursor::pos();
 	menu->popup(pt);
+}
+
+void BlockSelector::builtin(const QString &qname) {
+	string name = qname.toStdString();
+	
 }
 

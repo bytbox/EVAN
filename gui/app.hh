@@ -24,6 +24,7 @@ private slots:
 	void run();
 
 	void category(const QString &);
+	void builtin(const QString &);
 };
 
 class MainPanel : public QWidget {
