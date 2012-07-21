@@ -3,6 +3,14 @@
 
 #include <QtGui>
 
+class Tool {
+
+};
+
+class BuiltinTool : public Tool {
+public:
+};
+
 class Canvas : public QWidget {
 	Q_OBJECT;
 
