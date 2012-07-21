@@ -44,7 +44,7 @@ void MainWindow::file_save_as() {
 }
 
 void MainWindow::file_exit() {
-
+	this->close();
 }
 
 void MainWindow::help_about() {

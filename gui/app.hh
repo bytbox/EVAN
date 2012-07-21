@@ -10,6 +10,9 @@ class BlockSelector : public QToolBar {
 	Q_OBJECT;
 public:
 	BlockSelector();
+
+private slots:
+	void category();
 };
 
 class MainPanel : public QWidget {

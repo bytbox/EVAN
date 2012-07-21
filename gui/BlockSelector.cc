@@ -11,7 +11,14 @@ BlockSelector::BlockSelector() {
 	addAction(tr("Run"));
 	addSeparator();
 	for (Category cat : BuiltinInfo::categories) {
-		addAction(cat.name.data());
+		addAction(cat.name.data(), this, SLOT(category()));
+		for (Builtin b : cat.builtins) {
+			addAction(b.name.data());
+		}
 	}
+}
+
+void BlockSelector::category() {
+
 }
 
