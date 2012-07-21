@@ -1,3 +1,13 @@
+find_package(BISON)
+find_package(FLEX)
+
+BISON_TARGET(EVANSRC parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cc)
+FLEX_TARGET(EVANSRC lexer.l  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc)
+ADD_FLEX_BISON_DEPENDENCY(EVANSRC EVANSRC)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 file (GLOB PARSESRCS "*.cc")
-add_library (parse ${PARSESRCS})
+add_library (parse ${PARSESRCS} ${BISON_EVANSRC_OUTPUTS} ${FLEX_EVANSRC_OUTPUTS})
+
 
