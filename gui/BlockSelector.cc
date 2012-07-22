@@ -2,6 +2,7 @@
 
 #include "builtins.hh"
 
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -30,6 +31,15 @@ BlockSelector::BlockSelector() {
 	}
 }
 
+BlockSelector::~BlockSelector() {
+	delete categoryMapper;
+	delete builtinMapper;
+	for (pair<string, QMenu *> p : categoryMenu) {
+		QMenu *m = p.second;
+		delete m;
+	}
+}
+
 void BlockSelector::run() {
 
 }
@@ -43,6 +53,6 @@ void BlockSelector::category(const QString &qname) {
 
 void BlockSelector::builtin(const QString &qname) {
 	string name = qname.toStdString();
-	
+	cerr << name << endl;
 }
 

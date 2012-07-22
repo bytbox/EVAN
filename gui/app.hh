@@ -13,6 +13,7 @@ class BlockSelector : public QToolBar {
 	Q_OBJECT;
 public:
 	BlockSelector();
+	~BlockSelector();
 
 private:
 	QSignalMapper *categoryMapper;
