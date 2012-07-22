@@ -1,15 +1,22 @@
 %{
 extern "C" {
-	int yyparse(void);
 	int yylex(void);
 	int yywrap() { return 1; }
+	void yyerror(const char *);
 }
-
-extern void yyerror(const char *);
 
 %}
 
+%token TRETURN TPERIOD
+
 %%
 
-program:
+program: statements
+
+statements:
+	| statement statements
+
+statement: TRETURN TPERIOD
+
+%%
 
