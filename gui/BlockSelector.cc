@@ -24,7 +24,7 @@ BlockSelector::BlockSelector() {
 		QMenu *m = new QMenu;
 		for (Builtin b : cat.builtins) {
 			auto ba = m->addAction(b.name.data());
-			connect(action, SIGNAL(triggered()), builtinMapper, SLOT(map()));
+			connect(ba, SIGNAL(triggered()), builtinMapper, SLOT(map()));
 			builtinMapper->setMapping(ba, b.name.data());
 		}
 		categoryMenu[cat.name] = m;
@@ -34,10 +34,8 @@ BlockSelector::BlockSelector() {
 BlockSelector::~BlockSelector() {
 	delete categoryMapper;
 	delete builtinMapper;
-	for (pair<string, QMenu *> p : categoryMenu) {
-		QMenu *m = p.second;
-		delete m;
-	}
+	for (pair<string, QMenu *> p : categoryMenu)
+		delete p.second;
 }
 
 void BlockSelector::run() {
