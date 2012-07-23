@@ -36,6 +36,34 @@ public:
 };
 
 /*!
+ * \brief An display-agnostic description of a single position.
+ */
+class Position {
+public:
+	int x;
+	int y;
+};
+
+/*!
+ * \brief Tangential information storage.
+ */
+class Extra {
+public:
+};
+
+class NullExtra : public Extra {
+public:
+};
+
+class BlockExtra : public Extra {
+public:
+};
+
+class EachExtra : public Extra {
+public:
+};
+
+/*!
  * \brief
  *
  * Note that this class should not be further subclassed - the kinds of pipes
@@ -48,6 +76,7 @@ public:
 	virtual ~Pipe();
 	virtual Type type() const = 0; // To avoid needing to use RTTI
 	virtual std::vector <Pipe *> prerequisites() const = 0;
+	virtual Extra &extra() = 0;
 };
 
 class Block : public Pipe {
@@ -55,11 +84,14 @@ public:
 	Block(const std::string &, std::vector <Param>, std::vector <Pipe *>);
 	virtual ~Block();
 	virtual Type type() const;
-	virtual std::vector<Pipe *> prerequisites() const;
+	virtual std::vector <Pipe *> prerequisites() const;
+	virtual BlockExtra &extra();
 
 	const std::string fname;
 	const std::vector <Param> params;
 	const std::vector <Pipe *> arguments;
+
+	BlockExtra extraInfo;
 };
 
 class Each : public Pipe {
@@ -70,16 +102,20 @@ public:
 		virtual ~Inner();
 		virtual Type type() const;
 		virtual std::vector <Pipe *> prerequisites() const;
+		virtual Extra &extra();
+		NullExtra extraInfo;
 	};
 
 	Each(Pipe*, std::function<Pipe* (Pipe*)>);
 	virtual ~Each();
 	virtual Type type() const;
 	virtual std::vector <Pipe *> prerequisites() const;
+	virtual EachExtra &extra();
 
 	Pipe *source = NULL;
 	Pipe *result = NULL;
 	Inner inner;
+	EachExtra extraInfo;
 };
 
 class Program {

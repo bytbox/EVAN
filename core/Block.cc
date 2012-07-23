@@ -15,3 +15,7 @@ vector<Pipe *> Block::prerequisites() const {
 	return arguments;
 }
 
+BlockExtra &Block::extra() {
+	return extraInfo;
+}
+

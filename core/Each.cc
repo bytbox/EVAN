@@ -19,6 +19,10 @@ vector<Pipe *> Each::prerequisites() const {
 	return {source};
 }
 
+EachExtra &Each::extra() {
+	return extraInfo;
+}
+
 Each::Inner::~Inner() {}
 
 Pipe::Type Each::Inner::type() const {
@@ -27,5 +31,9 @@ Pipe::Type Each::Inner::type() const {
 
 vector<Pipe *> Each::Inner::prerequisites() const {
 	return {};
+}
+
+Extra &Each::Inner::extra() {
+	return extraInfo;
 }
 
