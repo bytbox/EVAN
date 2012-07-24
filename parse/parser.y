@@ -1,13 +1,13 @@
 %{
-#include <string>
-
 int yylex(void);
 extern "C" int yywrap() { return 1; }
 void yyerror(const char *);
 
-#define YYSTYPE std::string
-
 %}
+
+%union {
+	char *str;
+}
 
 %token TRETURN TEACH
 %token TLBRACKET TRBRACKET

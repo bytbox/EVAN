@@ -1,7 +1,5 @@
 %{
-#include <string>
-
-#define YYSTYPE std::string
+#include <cstring>
 
 #include "parser.hh"
 
@@ -17,7 +15,7 @@ ALPHANUM		[a-zA-Z_0-9]
 return			return TRETURN;
 each			return TEACH;
 \.			return TPERIOD;
-{ALPHA}{ALPHANUM}*	yylval = std::string(yytext); return TIDENT;
+{ALPHA}{ALPHANUM}*	yylval.str = strdup(yytext); return TIDENT;
 \n			/* ignored */
 [ \t]+			/* ignored */
 .			yyerror("Bad token");
