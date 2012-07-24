@@ -13,7 +13,9 @@ void yyerror(const char *);
 %token TLBRACKET TRBRACKET TLPAREN TRPAREN
 %token TLARROW TRARROW TPERIOD
 
-%token TIDENT
+%token <str> TIDENT
+
+%type <str> ident
 
 %%
 
@@ -24,11 +26,13 @@ statements:
 
 statement: pipe | each
 
-pipe: TIDENT TLARROW TPERIOD
+ident: TIDENT { $$ = $1; }
+
+pipe: ident TLARROW ident TPERIOD
 
 each: TEACH TLBRACKET TRBRACKET TPERIOD
 	 
-return: TRETURN TIDENT TPERIOD
+return: TRETURN ident TPERIOD
 
 %%
 

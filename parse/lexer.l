@@ -24,7 +24,7 @@ each			return TEACH;
 \)			return TRPAREN;
 
 {ALPHA}{ALPHANUM}*	yylval.str = strdup(yytext); return TIDENT;
-\[[^\]]+\]		yylval.str = strdup(yytext); return TIDENT;
+\[[^\]]+\]		yylval.str = strndup(yytext+1, yyleng-2); return TIDENT;
 
 #.*			/* ignored */
 \n			/* ignored */
