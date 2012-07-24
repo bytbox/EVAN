@@ -24,7 +24,7 @@ statements:
 
 statement: pipe | each
 
-pipe: TPERIOD
+pipe: TIDENT TLARROW TPERIOD
 
 each: TEACH TPERIOD
 	 
