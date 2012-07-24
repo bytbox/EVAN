@@ -5,18 +5,30 @@ extern "C" {
 	void yyerror(const char *);
 }
 
+#define YYSTYPE char *
+
 %}
 
-%token TRETURN TPERIOD
+%token TRETURN TEACH
+%token TLBRACKET TRBRACKET
+%token TLARROW TRARROW TPERIOD
+
+%token TIDENT
 
 %%
 
-program: statements
+program: statements return
 
 statements:
-	| statement statements
+	| statements statement
 
-statement: TRETURN TPERIOD
+statement: pipe | each
+
+pipe: TPERIOD
+
+each: TEACH TPERIOD
+	 
+return: TRETURN TIDENT TPERIOD
 
 %%
 
