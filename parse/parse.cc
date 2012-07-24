@@ -9,7 +9,7 @@ using namespace std;
 
 extern FILE *yyin;
 extern int yyparse();
-extern "C" void yyerror(const char *s);
+void yyerror(const char *s);
 
 Program *parseProgram(FILE *fin) {
 	yyin = fin;
@@ -18,6 +18,6 @@ Program *parseProgram(FILE *fin) {
 }
 
 void yyerror(const char *s) {
-	throw s; // TODO
+	throw string(s); // TODO
 }
 

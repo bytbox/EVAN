@@ -1,12 +1,17 @@
 #include "parse.hh"
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 #include <cstdio>
 
 int main(int argc, char *argv[]) {
-	parseProgram(stdin);
+	try {
+		parseProgram(stdin);
+	} catch (string s) {
+		cerr << "Caught: " << s << endl;
+	}
 	return 0;
 }
 

@@ -1,11 +1,11 @@
 %{
-extern "C" {
-	int yylex(void);
-	int yywrap() { return 1; }
-	void yyerror(const char *);
-}
+#include <string>
 
-#define YYSTYPE char *
+int yylex(void);
+extern "C" int yywrap() { return 1; }
+void yyerror(const char *);
+
+#define YYSTYPE std::string
 
 %}
 
