@@ -18,8 +18,13 @@ each			return TEACH;
 \.			return TPERIOD;
 \<-			return TLARROW;
 -\>			return TRARROW;
+\{			return TLBRACKET;
+\}			return TRBRACKET;
+\(			return TLPAREN;
+\)			return TRPAREN;
 
 {ALPHA}{ALPHANUM}*	yylval.str = strdup(yytext); return TIDENT;
+\[[^\]]+\]		yylval.str = strdup(yytext); return TIDENT;
 
 #.*			/* ignored */
 \n			/* ignored */

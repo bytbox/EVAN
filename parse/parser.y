@@ -10,7 +10,7 @@ void yyerror(const char *);
 }
 
 %token TRETURN TEACH
-%token TLBRACKET TRBRACKET
+%token TLBRACKET TRBRACKET TLPAREN TRPAREN
 %token TLARROW TRARROW TPERIOD
 
 %token TIDENT
@@ -26,7 +26,7 @@ statement: pipe | each
 
 pipe: TIDENT TLARROW TPERIOD
 
-each: TEACH TPERIOD
+each: TEACH TLBRACKET TRBRACKET TPERIOD
 	 
 return: TRETURN TIDENT TPERIOD
 
