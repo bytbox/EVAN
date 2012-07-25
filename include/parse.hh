@@ -10,5 +10,10 @@
  */
 Program *parseProgram(FILE *);
 
+/**
+ * \brief Writes a program to the given file.
+ */
+void writeProgram(FILE *, const Program *);
+
 #endif /* !PARSE_HH */
 

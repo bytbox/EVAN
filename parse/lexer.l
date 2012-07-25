@@ -18,6 +18,8 @@ each			return TEACH;
 \.			return TPERIOD;
 \<-			return TLARROW;
 -\>			return TRARROW;
+-\<			return TJOIN;
+\>-			return TSPLIT;
 \{			return TLBRACKET;
 \}			return TRBRACKET;
 \(			return TLPAREN;
