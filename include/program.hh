@@ -84,8 +84,6 @@ public:
 
 class BlockExtra : public FieldExtra<2> {
 public:
-	BlockExtra();
-
 	virtual vec<2, std::string> toFields() const;
 	virtual void fromFields(const vec<2, std::string> &);
 
@@ -94,8 +92,6 @@ public:
 
 class EachExtra : public FieldExtra<4> {
 public:
-	EachExtra();
-
 	virtual vec<4, std::string> toFields() const;
 	virtual void fromFields(const vec<4, std::string> &);
 
