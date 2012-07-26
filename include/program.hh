@@ -39,8 +39,37 @@ typedef vec<2, int> IVec2;
 
 /*!
  * \brief Tangential information storage.
+ *
+ * To allow for more flexible storage and retrieval, we require serialization
+ * to be done only via std::string objects, rather than use the full
+ * serialization library in libutil.
  */
 class Extra {
+public:
+	virtual std::string toString() const = 0;
+	virtual void fromString(const std::string &) = 0;
+};
+
+/*!
+ * \brief An extra implementation that manages multiple fields.
+ */
+template <int size, char separator = ':'>
+class FieldExtra : public Extra {
+public:
+	virtual vec<size, std::string> toFields() const = 0;
+	virtual void fromFields(vec<size, std::string>) = 0;
+
+	std::string toString() const {
+		auto fs = toFields();
+		return "";
+	}
+
+	void fromString(const std::string &str) {
+
+	}
+};
+
+class Graphical {
 public:
 };
 
@@ -49,15 +78,23 @@ public:
  */
 class NullExtra : public Extra {
 public:
+	std::string toString() const;
+	void fromString(const std::string&);
 };
 
-class BlockExtra : public Extra {
+class BlockExtra : public FieldExtra<2> {
 public:
+	virtual vec<2, std::string> toFields() const;
+	virtual void fromFields(vec<2, std::string>);
+
 	IVec2 position;
 };
 
-class EachExtra : public Extra {
+class EachExtra : public FieldExtra<4> {
 public:
+	virtual vec<4, std::string> toFields() const;
+	virtual void fromFields(vec<4, std::string>);
+
 	IVec2 position;
 	IVec2 size;
 };
