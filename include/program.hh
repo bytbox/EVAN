@@ -57,7 +57,7 @@ template <int size, char separator = ':'>
 class FieldExtra : public Extra {
 public:
 	virtual vec<size, std::string> toFields() const = 0;
-	virtual void fromFields(vec<size, std::string>) = 0;
+	virtual void fromFields(const vec<size, std::string> &) = 0;
 
 	std::string toString() const {
 		auto fs = toFields();
@@ -84,16 +84,20 @@ public:
 
 class BlockExtra : public FieldExtra<2> {
 public:
+	BlockExtra();
+
 	virtual vec<2, std::string> toFields() const;
-	virtual void fromFields(vec<2, std::string>);
+	virtual void fromFields(const vec<2, std::string> &);
 
 	IVec2 position;
 };
 
 class EachExtra : public FieldExtra<4> {
 public:
+	EachExtra();
+
 	virtual vec<4, std::string> toFields() const;
-	virtual void fromFields(vec<4, std::string>);
+	virtual void fromFields(const vec<4, std::string> &);
 
 	IVec2 position;
 	IVec2 size;

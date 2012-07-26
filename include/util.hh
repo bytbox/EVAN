@@ -73,8 +73,29 @@ public:
 template <int L, typename T>
 class vec {
 public:
+	T &operator[](int i) {
+		return v[i];
+	}
+	const T &get(int i) const {
+		return v[i];
+	}
 	T v[L];
 };
+
+template <typename T>
+std::string asString(T x) {
+	std::ostringstream oss;
+	oss << x;
+	return oss.str();
+}
+
+template <typename T>
+T ofString(const std::string &s) {
+	T x;
+	std::istringstream iss(s);
+	iss >> x;
+	return x;
+}
 
 namespace serial {
 
