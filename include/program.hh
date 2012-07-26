@@ -61,7 +61,13 @@ public:
 
 	std::string toString() const {
 		auto fs = toFields();
-		return "";
+		std::ostringstream oss;
+		for (std::string f : fs.v)
+			if (f.find(separator) != std::string::npos)
+				throw new internal_error("Separator found in field given to FieldExtra");
+			else oss << f << separator;
+		auto s = oss.str();
+		return s.substr(0, s.size()-1);
 	}
 
 	void fromString(const std::string &str) {
