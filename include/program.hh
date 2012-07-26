@@ -35,14 +35,7 @@ public:
 	} value;
 };
 
-/*!
- * \brief An display-agnostic description of a single position.
- */
-class Position {
-public:
-	int x;
-	int y;
-};
+typedef vec<2, int> IVec2;
 
 /*!
  * \brief Tangential information storage.
@@ -51,16 +44,22 @@ class Extra {
 public:
 };
 
+/*!
+ * \brief Blank Extra stub carrying no information.
+ */
 class NullExtra : public Extra {
 public:
 };
 
 class BlockExtra : public Extra {
 public:
+	IVec2 position;
 };
 
 class EachExtra : public Extra {
 public:
+	IVec2 position;
+	IVec2 size;
 };
 
 /*!

@@ -70,6 +70,12 @@ public:
 	}
 };
 
+template <int L, typename T>
+class vec {
+public:
+	T v[L];
+};
+
 namespace serial {
 
 /*!
