@@ -77,6 +77,7 @@ args:
 	}
 
 arg:
+	TIDENT { $$ = $1; }
 
 each: TEACH ident TSPLIT ident TLBRACKET statements TRBRACKET ident TJOIN ident TPERIOD
 	 
