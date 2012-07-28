@@ -35,7 +35,7 @@ class MainPanel : public QWidget {
 	QVBoxLayout outsideLayout;
 	QHBoxLayout mainLayout;
 
-	Canvas canvas;
+	CanvasView canvas;
 
 public:
 	MainPanel();

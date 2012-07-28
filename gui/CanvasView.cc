@@ -1,15 +1,15 @@
 #include "canvas.hh"
 
-Canvas::Canvas() : defaultTool(), tool(defaultTool) {
+CanvasView::CanvasView() : QGraphicsView(new CanvasScene), defaultTool(), tool(defaultTool) {
 	setBackgroundRole(QPalette::Base);
 	setAutoFillBackground(true);
 }
 
-QSize Canvas::minimumSizeHint() const {
+QSize CanvasView::minimumSizeHint() const {
 	return QSize(50, 50);
 }
 
-void Canvas::paintEvent(QPaintEvent *ev) {
+void CanvasView::paintEvent(QPaintEvent *ev) {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing, true);
 	// TODO painter.setClipRegion

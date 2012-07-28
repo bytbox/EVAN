@@ -37,7 +37,25 @@ public:
 	virtual void apply(Program *, const QPoint &, const QPoint &) const;
 };
 
-class Canvas : public QWidget {
+class CanvasPipe : public QGraphicsItem {
+public:
+};
+
+class CanvasBlock : public QGraphicsItem {
+public:
+};
+
+class CanvasEach : public QGraphicsItem {
+public:
+};
+
+class CanvasScene : public QGraphicsScene {
+	Q_OBJECT;
+
+public:
+};
+
+class CanvasView : public QGraphicsView {
 	Q_OBJECT;
 
 	QPen pen;
@@ -46,7 +64,7 @@ class Canvas : public QWidget {
 	const DefaultTool *defaultTool;
 	const Tool *tool;
 public:
-	Canvas();
+	CanvasView();
 
 	QSize minimumSizeHint() const;
 	void paintEvent(QPaintEvent *);
