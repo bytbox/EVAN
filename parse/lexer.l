@@ -30,7 +30,7 @@ each			return TEACH;
 \(			return TLPAREN;
 \)			return TRPAREN;
 
-[0-9]+\.[0-9]*		return TNUM; // TODO
+[0-9]+\.[0-9]*		yylval.num = ofString<double>(yytext); return TNUM;
 [0-9]+			yylval.ival = ofString<int>(yytext); return TINT;
 
 {ALPHA}{ALPHANUM}*	yylval.str = new std::string(yytext); return TIDENT;
