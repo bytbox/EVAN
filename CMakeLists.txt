@@ -1,6 +1,7 @@
 # TODO support clang
 # TODO generate ctags
 # TODO benchmarks and profiling
+# TODO support ccache
 
 cmake_minimum_required (VERSION 2.6)
 

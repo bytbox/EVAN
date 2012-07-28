@@ -1,6 +1,6 @@
 #include "canvas.hh"
 
-Canvas::Canvas() {
+Canvas::Canvas() : defaultTool(), tool(defaultTool) {
 	setBackgroundRole(QPalette::Base);
 	setAutoFillBackground(true);
 }

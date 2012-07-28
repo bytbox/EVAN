@@ -26,6 +26,7 @@ BlockSelector::BlockSelector() {
 			auto ba = m->addAction(b.name.data());
 			connect(ba, SIGNAL(triggered()), builtinMapper, SLOT(map()));
 			builtinMapper->setMapping(ba, b.name.data());
+			builtinTools[b.name] = new BuiltinTool(b);
 		}
 		categoryMenu[cat.name] = m;
 	}

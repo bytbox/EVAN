@@ -20,6 +20,7 @@ private:
 	QSignalMapper *builtinMapper;
 
 	std::map <std::string, QMenu *> categoryMenu;
+	std::map <std::string, BuiltinTool *> builtinTools;
 
 private slots:
 	void run();

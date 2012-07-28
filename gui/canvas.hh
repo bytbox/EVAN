@@ -2,15 +2,27 @@
 #define CANVAS_HH
 
 #include "program.hh"
+#include "builtins.hh"
 
 #include <QtGui>
 
 class Tool {
 public:
-	void apply(Program *, const QPoint &, const QPoint &);
+	virtual void apply(Program *, const QPoint &, const QPoint &) const = 0;
+
+	/*virtual void move(Program *, const QPoint &);
+	virtual void down(Program *, const QPoint &);
+	virtual void up(Program *, const QPoint &);*/
 };
 
 class DefaultTool : public Tool {
+public:
+	virtual void apply(Program *, const QPoint &, const QPoint &) const;
+};
+
+// Note that despite the name, this object is not associated with the Pipe
+// class in program.hh.
+class PipeTool : public Tool {
 public:
 };
 
@@ -19,7 +31,10 @@ public:
 };
 
 class BuiltinTool : public Tool {
+	const Builtin &builtin;
 public:
+	explicit BuiltinTool(const Builtin &b);
+	virtual void apply(Program *, const QPoint &, const QPoint &) const;
 };
 
 class Canvas : public QWidget {
@@ -27,6 +42,9 @@ class Canvas : public QWidget {
 
 	QPen pen;
 	QBrush brush;
+
+	const DefaultTool *defaultTool;
+	const Tool *tool;
 public:
 	Canvas();
 
