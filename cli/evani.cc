@@ -1,5 +1,7 @@
 #include "parse.hh"
 
+#include "program.hh"
+
 #include <iostream>
 #include <string>
 using namespace std;

@@ -1,5 +1,9 @@
 %{
-#include <cstring>
+#include "program.hh"
+#include "util.hh"
+
+#include <string>
+#include <vector>
 
 #include "parser.hh"
 
@@ -16,6 +20,7 @@ return			return TRETURN;
 each			return TEACH;
 
 \.			return TPERIOD;
+,			return TCOMMA;
 \<-			return TLARROW;
 -\>			return TRARROW;
 -\<			return TJOIN;
@@ -25,8 +30,11 @@ each			return TEACH;
 \(			return TLPAREN;
 \)			return TRPAREN;
 
-{ALPHA}{ALPHANUM}*	yylval.str = strdup(yytext); return TIDENT;
-\[[^\]]+\]		yylval.str = strndup(yytext+1, yyleng-2); return TIDENT;
+[0-9]+\.[0-9]*		return TNUM; // TODO
+[0-9]+			yylval.ival = ofString<int>(yytext); return TINT;
+
+{ALPHA}{ALPHANUM}*	yylval.str = new std::string(yytext); return TIDENT;
+\[[^\]]+\]		yylval.str = new std::string(strndup(yytext+1, yyleng-2)); return TIDENT;
 
 #.*			/* ignored */
 \n			/* ignored */
