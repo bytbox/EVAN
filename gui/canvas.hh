@@ -39,6 +39,10 @@ public:
 	virtual ~BuiltinTool();
 };
 
+class CanvasComment : public QGraphicsItem {
+public:
+};
+
 class CanvasPipe : public QGraphicsItem {
 public:
 };
