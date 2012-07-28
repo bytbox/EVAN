@@ -17,6 +17,7 @@ void yyerror(const char *);
 	std::vector <std::string *> *sVec;
 	Param *par;
 	std::vector <Param *> *pVec;
+	Pipe *pipe;
 }
 
 %token TRETURN TEACH
@@ -32,6 +33,7 @@ void yyerror(const char *);
 %type <sVec> args
 %type <par> param
 %type <pVec> params param_list
+%type <pipe> pipe block each
 
 %%
 
@@ -40,9 +42,14 @@ program: statements return
 statements:
 	| statements statement
 
-statement: pipe | each
+statement: pipe
+	 
+pipe: block | each
 
-pipe: ident TLARROW ident params args TPERIOD
+block: ident TLARROW ident params args TPERIOD
+	{
+		$$ = NULL;
+	}
 
 params:
 	{
@@ -80,6 +87,9 @@ arg:
 	TIDENT { $$ = $1; }
 
 each: TEACH ident TSPLIT ident TLBRACKET statements TRBRACKET ident TJOIN ident TPERIOD
+	{
+		$$ = NULL;
+	}
 	 
 return: TRETURN ident TPERIOD
 
