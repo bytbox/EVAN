@@ -38,8 +38,7 @@ public:
 };
 
 class CanvasPipe : public QGraphicsItem {
-public:
-};
+public: };
 
 class CanvasBlock : public QGraphicsItem {
 public:
@@ -67,7 +66,6 @@ public:
 	CanvasView();
 
 	QSize minimumSizeHint() const;
-	void paintEvent(QPaintEvent *);
 };
 
 #endif /* !CANVAS_HH */
