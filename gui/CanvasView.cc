@@ -4,6 +4,10 @@ CanvasView::CanvasView() : QGraphicsView(new CanvasScene), defaultTool(), tool(d
 
 }
 
+CanvasView::~CanvasView() {
+	delete defaultTool;
+}
+
 QSize CanvasView::minimumSizeHint() const {
 	return QSize(50, 50);
 }

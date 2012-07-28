@@ -8,7 +8,7 @@
 
 class Tool {
 public:
-	virtual void apply(Program *, const QPoint &, const QPoint &) const = 0;
+	virtual ~Tool();
 
 	/*virtual void move(Program *, const QPoint &);
 	virtual void down(Program *, const QPoint &);
@@ -17,28 +17,31 @@ public:
 
 class DefaultTool : public Tool {
 public:
-	virtual void apply(Program *, const QPoint &, const QPoint &) const;
+	virtual ~DefaultTool();
 };
 
 // Note that despite the name, this object is not associated with the Pipe
 // class in program.hh.
 class PipeTool : public Tool {
 public:
+	virtual ~PipeTool();
 };
 
 class EachTool : public Tool {
 public:
+	virtual ~EachTool();
 };
 
 class BuiltinTool : public Tool {
 	const Builtin &builtin;
 public:
 	explicit BuiltinTool(const Builtin &b);
-	virtual void apply(Program *, const QPoint &, const QPoint &) const;
+	virtual ~BuiltinTool();
 };
 
 class CanvasPipe : public QGraphicsItem {
-public: };
+public:
+};
 
 class CanvasBlock : public QGraphicsItem {
 public:
@@ -52,6 +55,7 @@ class CanvasScene : public QGraphicsScene {
 	Q_OBJECT;
 
 public:
+	CanvasScene();
 };
 
 class CanvasView : public QGraphicsView {
@@ -64,6 +68,7 @@ class CanvasView : public QGraphicsView {
 	const Tool *tool;
 public:
 	CanvasView();
+	~CanvasView();
 
 	QSize minimumSizeHint() const;
 };
