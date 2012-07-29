@@ -88,6 +88,14 @@ public:
 	void fromString(const std::string&);
 };
 
+class CommentExtra : public FieldExtra<2> {
+public:
+	virtual vec<2, std::string> toFields() const;
+	virtual void fromFields(const vec<2, std::string> &);
+
+	IVec2 position;
+};
+
 class BlockExtra : public FieldExtra<2> {
 public:
 	virtual vec<2, std::string> toFields() const;
@@ -103,6 +111,13 @@ public:
 
 	IVec2 position;
 	IVec2 size;
+};
+
+class Comment {
+public:
+	virtual CommentExtra &extra();
+
+	CommentExtra extraInfo;
 };
 
 /*!

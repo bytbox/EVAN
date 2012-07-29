@@ -11,6 +11,11 @@ public:
 	virtual E extract(C) = 0;
 };
 
+class ParsedComment : ParsedElement<Comment *> {
+public:
+	virtual Comment *extract(ParsedProgram *);
+};
+
 class ParsedParam : ParsedElement<Param> {
 	Param p;
 public:
