@@ -1,8 +1,8 @@
 %{
 #include "program.hh"
+#include "parsed.hh"
 
-#include <string>
-#include <vector>
+#include "parser_header.hh"
 
 int yylex(void);
 extern "C" int yywrap() { return 1; }
@@ -15,9 +15,10 @@ void yyerror(const char *);
 	double num;
 	std::string *str;
 	std::vector <std::string *> *sVec;
-	Param *par;
-	std::vector <Param *> *pVec;
-	Pipe *pipe;
+	ParsedParam *param;
+	std::vector <ParsedParam *> *pVec;
+	std::pair <std::string *, ParsedBlock *> *block;
+	std::pair <std::string *, ParsedEach *> *each;
 }
 
 %token TRETURN TEACH
@@ -31,9 +32,10 @@ void yyerror(const char *);
 
 %type <str> ident arg
 %type <sVec> args
-%type <par> param
+%type <param> param
 %type <pVec> params param_list
-%type <pipe> pipe block each
+%type <block> block
+%type <each> each
 
 %%
 
@@ -48,12 +50,13 @@ pipe: block | each
 
 block: ident TLARROW ident params args TPERIOD
 	{
-		$$ = NULL;
+		auto b = new ParsedBlock($3, $4, $5);
+		$$ = new std::pair<std::string *, ParsedBlock *>($1, b);
 	}
 
 params:
 	{
-		$$ = new std::vector<Param *>{};
+		$$ = new std::vector<ParsedParam *>{};
 	}
 	| TLPAREN param_list TRPAREN {
 		$$ = $2;
@@ -61,7 +64,7 @@ params:
 
 param_list:
 	{
-		$$ = new std::vector<Param *>{};
+		$$ = new std::vector<ParsedParam *>{};
 	}
 	| param_list TCOMMA param {
 		auto v = $1;
@@ -70,8 +73,8 @@ param_list:
 	}
 
 param:
-	TINT { $$ = new Param($1); }
-	| TNUM { $$ = new Param($1); }
+	TINT { $$ = new ParsedParam($1); }
+	| TNUM { $$ = new ParsedParam($1); }
 
 args:
 	{

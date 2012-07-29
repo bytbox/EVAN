@@ -1,10 +1,9 @@
 %{
 #include "program.hh"
+#include "parsed.hh"
 #include "util.hh"
 
-#include <string>
-#include <vector>
-
+#include "parser_header.hh"
 #include "parser.hh"
 
 int yylex();
