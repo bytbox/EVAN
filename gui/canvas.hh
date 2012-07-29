@@ -20,6 +20,11 @@ public:
 	virtual ~DefaultTool();
 };
 
+class CommentTool : public Tool {
+public:
+	virtual ~CommentTool();
+};
+
 // Note that despite the name, this object is not associated with the Pipe
 // class in program.hh.
 class PipeTool : public Tool {
