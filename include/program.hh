@@ -115,8 +115,10 @@ public:
 
 class Comment {
 public:
+	Comment(const std::string &);
 	virtual CommentExtra &extra();
 
+	const std::string content;
 	CommentExtra extraInfo;
 };
 

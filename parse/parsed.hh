@@ -3,6 +3,8 @@
 
 #include "program.hh"
 
+#include <string>
+
 class ParsedProgram;
 
 template <typename E, typename C = ParsedProgram *>
@@ -13,7 +15,10 @@ public:
 
 class ParsedComment : ParsedElement<Comment *> {
 public:
+	explicit ParsedComment(const std::string *);
 	virtual Comment *extract(ParsedProgram *);
+
+	const std::string *content;
 };
 
 class ParsedParam : ParsedElement<Param> {
