@@ -40,7 +40,17 @@ public:
 };
 
 class CanvasComment : public QGraphicsItem {
+	std::string content;
+	QGraphicsRectItem *rect;
+	QGraphicsTextItem *text;
+
+	void updateText();
 public:
+	CanvasComment(const std::string &);
+	~CanvasComment();
+
+	virtual QRectF boundingRect() const;
+	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
 class CanvasPipe : public QGraphicsItem {
