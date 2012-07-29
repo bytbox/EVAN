@@ -1,12 +1,22 @@
 # TODO support clang
 # TODO generate ctags
 # TODO benchmarks and profiling
-# TODO support ccache
 
 cmake_minimum_required (VERSION 2.6)
 
 project (EVAN)
 set (EVAN_VERSION 0.0.1)
+
+set (CMAKE_MODULE_PATH "${EVAN_SOURCE_DIR}/cmake/")
+
+find_package (CCACHE)
+if (NOT CCACHE_FOUND)
+	message (WARNING "ccache not found - compilation will be slow")
+endif()
+
+message (${CMAKE_CXX_COMPILER})
+set (CMAKE_CXX_COMPILER_ARG1 ${CMAKE_CXX_COMPILER})
+set (CMAKE_CXX_COMPILER ${CCACHE_EXECUTABLE})
 
 set (CMAKE_BUILD_TYPE Debug)
 
