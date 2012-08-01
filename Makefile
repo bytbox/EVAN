@@ -1,16 +1,16 @@
 all: build
 
 build: out
-	@cd out && make -s
+	@cd out && ${MAKE} -s
 
 full: out
-	@cd out && make -s full
+	@cd out && ${MAKE} -s full
 
 doc: out
-	@cd out && make -s doc-html
+	@cd out && ${MAKE} -s doc-html
 
 check: out
-	@cd out && make -s check
+	@cd out && ${MAKE} -s check
 
 clean:
 	@${RM} -r out
