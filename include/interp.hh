@@ -139,5 +139,13 @@ public:
 	virtual maybe<Value> next(Scope);
 };
 
+class ProgramInterpreter : public Interpreter {
+	Program *program;
+	Interpreter *resultInterpreter;
+public:
+	ProgramInterpreter(Program *);
+	virtual maybe<Value> next(Scope);
+};
+
 #endif /* !INTERP_HH */
 

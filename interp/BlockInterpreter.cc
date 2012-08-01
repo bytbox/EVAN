@@ -14,8 +14,6 @@ BlockInterpreter::BlockInterpreter(Block *block) : block(block), arguments(block
 }
 
 maybe<Value> BlockInterpreter::next(Scope s) {
-	/// \todo this could (and should) be way cleaner
-	
 	if (block->arguments.size() == 0) {
 		// When there are no arguments, the block is considered to
 		// output a single value.
