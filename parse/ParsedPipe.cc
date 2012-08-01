@@ -16,6 +16,8 @@ ParsedPipe::~ParsedPipe() {
 }
 
 Pipe *ParsedPipe::extract(ParsedProgram *prog) {
-	return NULL;
+	if (block)
+		return block->extract(prog);
+	else return each->extract(prog);
 }
 
