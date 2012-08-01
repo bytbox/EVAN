@@ -24,7 +24,11 @@ Pipe *ParsedProgram::getPipe(const string &name) {
 	return pipes[name];
 }
 
-Program *ParsedProgram::extract(ParsedProgram *prog) {
+Program *ParsedProgram::extract() {
 	return new Program(getPipe(*rname));
+}
+
+Program *ParsedProgram::extract(ParsedProgram *prog) {
+	return extract();
 }
 

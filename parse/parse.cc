@@ -14,7 +14,7 @@ void yyerror(const char *s);
 Program *parseProgram(FILE *fin) {
 	yyin = fin;
 	yyparse();
-	return NULL;
+	return yylval.program->extract();
 }
 
 void yyerror(const char *s) {

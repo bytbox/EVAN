@@ -70,6 +70,7 @@ public:
 	ParsedProgram(std::map<std::string, ParsedPipe *> *, std::string *);
 	virtual ~ParsedProgram();
 	virtual Pipe *getPipe(const std::string &);
+	virtual Program *extract();
 	virtual Program *extract(ParsedProgram *);
 };
 
