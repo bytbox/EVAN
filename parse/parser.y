@@ -30,7 +30,7 @@ void yyerror(const char *);
 %token <ival> TINT
 %token <num> TNUM
 
-%type <str> ident arg
+%type <str> ident arg return
 %type <sVec> args
 %type <param> param
 %type <pVec> params param_list
@@ -94,7 +94,7 @@ each: TEACH ident TSPLIT ident TLBRACKET statements TRBRACKET ident TJOIN ident 
 		$$ = NULL;
 	}
 	 
-return: TRETURN ident TPERIOD
+return: TRETURN ident TPERIOD { $$ = $2; }
 
 ident: TIDENT { $$ = $1; }
 
