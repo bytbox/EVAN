@@ -19,6 +19,9 @@ void yyerror(const char *);
 	std::vector <ParsedParam *> *pVec;
 	std::pair <std::string *, ParsedBlock *> *block;
 	std::pair <std::string *, ParsedEach *> *each;
+	std::pair <std::string *, ParsedPipe *> *pipe;
+	std::map <std::string, ParsedPipe *> *pipes;
+	ParsedProgram *program;
 }
 
 %token TRETURN TEACH
@@ -36,17 +39,36 @@ void yyerror(const char *);
 %type <pVec> params param_list
 %type <block> block
 %type <each> each
+%type <pipe> pipe
+%type <pipes> statements
+%type <program> program
 
 %%
 
 program: statements return
+	{
+		$$ = new ParsedProgram($1, $2);
+	}
 
 statements:
-	| statements statement
+	{
+		$$ = new std::map<std::string, ParsedPipe *>;
+	}
+	| statements pipe {
+		auto k = ($2)->first;
+		(*($$))[std::string(*k)] = ($2)->second;
+		delete k;
+	}
 
-statement: pipe
-	 
-pipe: block | each
+pipe:
+	block {
+		auto p = new ParsedPipe(($1)->second);
+		$$ = new std::pair<std::string *, ParsedPipe *>(($1)->first, p);
+	}
+	| each {
+		auto p = new ParsedPipe(($1)->second);
+		$$ = new std::pair<std::string *, ParsedPipe *>(($1)->first, p);
+	}
 
 block: ident TLARROW ident params args TPERIOD
 	{

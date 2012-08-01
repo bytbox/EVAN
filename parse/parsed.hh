@@ -49,13 +49,18 @@ public:
 // This class is necessary because C++'s type system isn't expressive enough.
 class ParsedPipe : ParsedElement<Pipe *> {
 public:
+	ParsedPipe(ParsedBlock *);
+	ParsedPipe(ParsedEach *);
 	virtual Pipe *extract(ParsedProgram *);
 };
 
 class ParsedProgram : ParsedElement<Program *> {
+	std::map<std::string, ParsedPipe *> *pipes;
+	std::string *rname;
 public:
+	ParsedProgram(std::map<std::string, ParsedPipe *> *, std::string *);
 	virtual Pipe *getPipe(const std::string &);
-	virtual Program *extract(Program *);
+	virtual Program *extract(ParsedProgram *);
 };
 
 #endif /* !PARSED_HH */
