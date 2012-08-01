@@ -7,6 +7,10 @@ ParsedComment::ParsedComment(const std::string *content) : content(content) {
 
 }
 
+ParsedComment::~ParsedComment() {
+	delete content;
+}
+
 Comment *ParsedComment::extract(ParsedProgram *) {
 	return new Comment(*content);
 }

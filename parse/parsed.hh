@@ -10,12 +10,14 @@ class ParsedProgram;
 template <typename E, typename C = ParsedProgram *>
 class ParsedElement {
 public:
+	virtual ~ParsedElement() {};
 	virtual E extract(C) = 0;
 };
 
 class ParsedComment : ParsedElement<Comment *> {
 public:
 	explicit ParsedComment(const std::string *);
+	virtual ~ParsedComment();
 	virtual Comment *extract(ParsedProgram *);
 
 	const std::string *content;
@@ -26,6 +28,7 @@ class ParsedParam : ParsedElement<Param> {
 public:
 	explicit ParsedParam(const int);
 	explicit ParsedParam(const double);
+	virtual ~ParsedParam();
 	
 	virtual Param extract(ParsedProgram *);
 };
@@ -38,11 +41,13 @@ public:
 	ParsedBlock(	const std::string *,
 			std::vector<ParsedParam *> *,
 			std::vector<std::string *> *);
+	virtual ~ParsedBlock();
 	virtual Block *extract(ParsedProgram *);
 };
 
 class ParsedEach : ParsedElement<Each *> {
 public:
+	~ParsedEach();
 	virtual Each *extract(ParsedProgram *);
 };
 
@@ -51,6 +56,7 @@ class ParsedPipe : ParsedElement<Pipe *> {
 public:
 	ParsedPipe(ParsedBlock *);
 	ParsedPipe(ParsedEach *);
+	virtual ~ParsedPipe();
 	virtual Pipe *extract(ParsedProgram *);
 };
 
@@ -59,6 +65,7 @@ class ParsedProgram : ParsedElement<Program *> {
 	std::string *rname;
 public:
 	ParsedProgram(std::map<std::string, ParsedPipe *> *, std::string *);
+	virtual ~ParsedProgram();
 	virtual Pipe *getPipe(const std::string &);
 	virtual Program *extract(ParsedProgram *);
 };

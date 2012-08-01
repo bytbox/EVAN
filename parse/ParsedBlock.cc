@@ -13,6 +13,14 @@ ParsedBlock::ParsedBlock(
 : blockName(blockName), params(params), args(args)
 {}
 
+ParsedBlock::~ParsedBlock() {
+	delete blockName;
+	for (auto p : *params) delete p;
+	delete params;
+	for (auto a : *args) delete a;
+	delete args;
+}
+
 Block *ParsedBlock::extract(ParsedProgram *prog) {
 	vector<Param> ps;
 	transform(params->begin(), params->end(), ps.begin(),
