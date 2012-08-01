@@ -20,6 +20,7 @@ Pipe *ParsedProgram::getPipe(const string &name) {
 	if (pipes.find(name) != pipes.end())
 		return pipes[name];
 	auto parsed = (*parsed_pipes)[name];
+	if (!parsed) throw "No such pipe: "+name; // TODO
 	pipes[name] = parsed->extract(this);
 	return pipes[name];
 }

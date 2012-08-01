@@ -8,6 +8,8 @@ int yylex(void);
 extern "C" int yywrap() { return 1; }
 void yyerror(const char *);
 
+ParsedProgram *parsed_program;
+
 %}
 
 %union {
@@ -44,6 +46,11 @@ void yyerror(const char *);
 %type <program> program
 
 %%
+
+start: program
+	{
+		parsed_program = $1;
+	}
 
 program: statements return
 	{

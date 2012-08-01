@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 	try {
-		parseProgram(stdin);
+		Program *program = parseProgram(stdin);
 	} catch (string s) {
 		cerr << "Caught: " << s << endl;
 	}
