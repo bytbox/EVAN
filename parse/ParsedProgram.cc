@@ -5,22 +5,26 @@
 #include <string>
 using namespace std;
 
-ParsedProgram::ParsedProgram(map<string, ParsedPipe *> *pipes, string *rname) : pipes(pipes), rname(rname) {
+ParsedProgram::ParsedProgram(map<string, ParsedPipe *> *pipes, string *rname) : parsed_pipes(pipes), rname(rname) {
 
 }
 
 ParsedProgram::~ParsedProgram() {
-	for (auto p : *pipes)
+	for (auto p : *parsed_pipes)
 		delete p.second;
-	delete pipes;
+	delete parsed_pipes;
 	delete rname;
 }
 
 Pipe *ParsedProgram::getPipe(const string &name) {
-	return NULL;
+	if (pipes.find(name) != pipes.end())
+		return pipes[name];
+	auto parsed = (*parsed_pipes)[name];
+	pipes[name] = parsed->extract(this);
+	return pipes[name];
 }
 
 Program *ParsedProgram::extract(ParsedProgram *prog) {
-	return NULL;
+	return new Program(getPipe(*rname));
 }
 

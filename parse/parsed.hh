@@ -63,7 +63,8 @@ public:
 };
 
 class ParsedProgram : ParsedElement<Program *> {
-	std::map<std::string, ParsedPipe *> *pipes;
+	std::map<std::string, ParsedPipe *> *parsed_pipes;
+	std::map<std::string, Pipe *> pipes;
 	std::string *rname;
 public:
 	ParsedProgram(std::map<std::string, ParsedPipe *> *, std::string *);
