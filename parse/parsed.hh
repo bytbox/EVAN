@@ -53,6 +53,8 @@ public:
 
 // This class is necessary because C++'s type system isn't expressive enough.
 class ParsedPipe : ParsedElement<Pipe *> {
+	ParsedBlock *block;
+	ParsedEach *each;
 public:
 	ParsedPipe(ParsedBlock *);
 	ParsedPipe(ParsedEach *);
