@@ -9,9 +9,16 @@ set (EVAN_VERSION 0.0.1)
 
 #set (CMAKE_MODULE_PATH "${EVAN_SOURCE_DIR}/cmake/")
 
+if (${PROFILE})
+	set(CXX_FLAGS_PROFILE "")
+endif()
+if (${COVERAGE})
+	set(CXX_FLAGS_COVERAGE "")
+endif()
+
 set (CMAKE_BUILD_TYPE Debug)
 
-set (CMAKE_CXX_FLAGS "-Wall -Wswitch-enum -Wunused -Wuninitialized -std=c++11")
+set (CMAKE_CXX_FLAGS "-Wall -Wswitch-enum -Wunused -Wuninitialized -std=c++11 ${CXX_FLAGS_PROFILE} ${CXX_FLAGS_COVERAGE}")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 
