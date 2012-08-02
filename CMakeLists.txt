@@ -15,7 +15,7 @@ if (${PROFILE})
 endif()
 if (${COVERAGE})
 	set(CXX_FLAGS_COVERAGE "-fprofile-arcs -ftest-coverage")
-	set(LINKER_FLAGS_COVERAGE "-fprofile-args -ftest-coverage")
+	set(LINKER_FLAGS_COVERAGE "-fprofile-arcs -ftest-coverage")
 endif()
 
 set (CMAKE_BUILD_TYPE Debug)
