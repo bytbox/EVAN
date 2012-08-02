@@ -2,3 +2,5 @@
 tags
 
 out/
+out.cov/
+out.prof/
