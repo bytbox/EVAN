@@ -92,8 +92,8 @@ params:
 	}
 
 param_list:
-	{
-		$$ = new std::vector<ParsedParam *>{};
+	param {
+		$$ = new std::vector<ParsedParam *>{$1};
 	}
 	| param_list TCOMMA param {
 		auto v = $1;
