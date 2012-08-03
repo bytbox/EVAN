@@ -35,7 +35,7 @@ util::simple_registry<Interpreter::Function> *Interpreter::testFunctions =
 new simple_registry<Interpreter::Function>();
 
 Interpreter::FunctionRegistry *Interpreter::functions =
-new composite_registry<Interpreter::Function>(
-		{ Interpreter::testFunctions
+new composite_registry<Interpreter::Function>( std::vector<Interpreter::FunctionRegistry *>
+		{ Interpreter::coreFunctions
 		});
 
