@@ -1,5 +1,6 @@
 #include "program.hh"
 
+Param::Param() : type(INT) { value.i = 0; }
 Param::Param(const int i) : type(INT) { value.i = i; }
 Param::Param(const double d) : type(DOUBLE) { value.d = d; }
 

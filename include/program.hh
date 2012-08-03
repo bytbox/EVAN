@@ -22,6 +22,7 @@ class TypeMismatchError : public user_error {
  */
 class Param {
 public:
+	Param();
 	Param(const int);
 	Param(const double);
 

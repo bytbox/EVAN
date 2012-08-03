@@ -6,8 +6,7 @@ using namespace std;
 
 #define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
 
-simple_registry<Interpreter::Function> *Interpreter::mathFunctions =
-new simple_registry<Interpreter::Function>(
-		{ {"Sum", (IFUNC { return 0; })}
-		});
+simple_registry<Interpreter::Function> Interpreter::mathFunctions
+({ {"Sum", (IFUNC { return 0; })}
+ });
 

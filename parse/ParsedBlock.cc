@@ -22,12 +22,12 @@ ParsedBlock::~ParsedBlock() {
 }
 
 Block *ParsedBlock::extract(ParsedProgram *prog) {
-	vector<Param> ps;
+	vector<Param> ps(params->size());
 	transform(params->begin(), params->end(), ps.begin(),
 			([prog](ParsedParam *p) -> Param {
 				return p->extract(prog);
 			}));
-	vector<Pipe *> as;
+	vector<Pipe *> as(args->size());
 	transform(args->begin(), args->end(), as.begin(),
 			([prog](string *id) -> Pipe * {
 				return prog->getPipe(*id);

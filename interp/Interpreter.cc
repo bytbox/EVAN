@@ -31,11 +31,12 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 
 map<Pipe *, Interpreter *> Interpreter::cache;
 
-util::simple_registry<Interpreter::Function> *Interpreter::testFunctions =
-new simple_registry<Interpreter::Function>();
+util::simple_registry<Interpreter::Function> Interpreter::testFunctions;
 
 Interpreter::FunctionRegistry *Interpreter::functions =
-new composite_registry<Interpreter::Function>( std::vector<Interpreter::FunctionRegistry *>
-		{ Interpreter::coreFunctions
+new composite_registry<Interpreter::Function>(
+		{ &Interpreter::coreFunctions
+		, &Interpreter::mathFunctions
+		, &Interpreter::testFunctions
 		});
 
