@@ -5,6 +5,7 @@
 #include <ostream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 /*!
  * \brief Functionality not conceptually specific to EVAN.
@@ -104,6 +105,53 @@ T ofString(const std::string &s) {
 	iss >> x;
 	return x;
 }
+
+template <typename T>
+class registry {
+public:
+	virtual bool has(const std::string &) const = 0;
+	virtual T &operator[](const std::string &) = 0;
+};
+
+template <typename T>
+class simple_registry : public registry<T> {
+	std::map<std::string, T> m;
+public:
+	simple_registry() {}
+	simple_registry(std::map<std::string, T> m) : m(m) {}
+	virtual bool has(const std::string &s) const {
+		return m.find(s) != m.end();
+	}
+	virtual T &operator[](const std::string &s) {
+		auto i = m.find(s);
+		if (i != m.end()) return (*i).second;
+		throw new internal_error("not found in registry");
+	}
+	virtual void add(const std::string &s, T &t) {
+		m[s] = t;
+	}
+};
+
+/**
+ * \brief A registry that performs lookups sequentially through several
+ * sub-registries.
+ */
+template <typename T>
+class composite_registry : public registry<T> {
+	std::vector<registry<T> *> registries;
+public:
+	composite_registry(std::vector<registry<T> *> v) : registries(v) {}
+	virtual bool has(const std::string &s) const {
+		for (registry<T> *r : registries)
+			if (r->has(s)) return true;
+		return false;
+	}
+	virtual T &operator[](const std::string &s) {
+		for (registry<T> *r : registries)
+			if (r->has(s)) return (*r)[s];
+		throw new internal_error("not found in registry");
+	}
+};
 
 namespace serial {
 

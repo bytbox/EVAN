@@ -1,4 +1,4 @@
-#include "interp.hh"
+#include "program.hh"
 
 Param::Param(const int i) : type(INT) { value.i = i; }
 Param::Param(const double d) : type(DOUBLE) { value.d = d; }

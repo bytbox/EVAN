@@ -27,7 +27,7 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 
 		// We've never run before
 		last = maybe<Scope>(s);
-		lastVal = maybe<Value>(functions[block->fname](block->params, {}));
+		lastVal = maybe<Value>((*functions)[block->fname](block->params, {}));
 		return lastVal;
 	}
 
@@ -57,7 +57,7 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 	vector <Value> args(arguments.size());
 	transform(maybeargs.begin(), maybeargs.end(), args.begin(),
 			( [] (maybe <Value> m) -> Value { return m.get(); }));
-	lastVal = maybe<Value>(functions[block->fname](block->params, args));
+	lastVal = maybe<Value>((*functions)[block->fname](block->params, args));
 	return lastVal;
 }
 

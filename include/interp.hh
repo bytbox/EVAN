@@ -91,9 +91,13 @@ public:
 	virtual maybe<Value> next(Scope) = 0;
 
 protected:
-	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
-	static std::map<std::string, Function> functions;
 	static std::map<Pipe *, Interpreter *> cache;
+
+	typedef Value (*Function)(std::vector <Param>, std::vector <Value>);
+	typedef registry<Function> FunctionRegistry;
+	static FunctionRegistry *functions;
+
+	static simple_registry<Function> *testFunctions;
 
 #ifdef TESTING
 public:

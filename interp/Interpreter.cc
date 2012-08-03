@@ -13,7 +13,7 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	// We want to avoid introducing a dependency from the program module on
 	// the interpreter module, so we manually specialize the interpreter
 	// here.
-	
+
 	switch (pipe->type()) {
 	case Pipe::BLOCK:
 		return new BlockInterpreter((Block *)pipe);
@@ -31,11 +31,11 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 
 map<Pipe *, Interpreter *> Interpreter::cache;
 
-map<string, Interpreter::Function> Interpreter::functions =
-{
-	{"justOne", (IFUNC { return 1; })},
-	{"addOne", (IFUNC { return int(vs[0]) + 1; })},
-	{"aList", (IFUNC { return {1, 2, 3}; })},
-};
+util::simple_registry<Interpreter::Function> *Interpreter::testFunctions =
+new simple_registry<Interpreter::Function>();
 
+Interpreter::FunctionRegistry *Interpreter::functions =
+new composite_registry<Interpreter::Function>(
+		{ Interpreter::testFunctions
+		});
 
