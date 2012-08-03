@@ -37,7 +37,7 @@ std::string Value::toString() const {
 	case LIST:
 		return "<list>"; // TODO
 	default:
-		throw ""; // TODO
+		throw new impossible_error();
 	}
 }
 

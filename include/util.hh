@@ -28,6 +28,14 @@ public:
 	virtual std::string get_message();
 };
 
+/**
+ * \todo Add various types (switch, etc.)
+ */
+class impossible_error : public internal_error {
+public:
+	impossible_error();
+};
+
 class user_error : public error {
 	std::string message;
 public:
