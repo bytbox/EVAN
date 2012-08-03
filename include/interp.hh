@@ -23,6 +23,8 @@ public:
 	Value(const std::initializer_list <Value> &);
 	Value(const std::vector <Value> &);
 
+	std::string toString() const;
+
 	/*!
 	 * \throw TypeMismatchError
 	 */

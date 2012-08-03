@@ -26,6 +26,21 @@ Value::Value(const std::initializer_list <Value> &vs) : type(LIST) {
 }
 Value::Value(const vector <Value> &vs) : type(LIST), l(vs) {}
 
+std::string Value::toString() const {
+	switch (type) {
+	case INT:
+		return asString<int>(value.i);
+	case DOUBLE:
+		return asString<double>(value.d);
+	case BOT:
+		return "null";
+	case LIST:
+		return "<list>"; // TODO
+	default:
+		throw ""; // TODO
+	}
+}
+
 Value::operator int() const {
 	if (type != INT)
 		throw new TypeMismatchError();
