@@ -10,6 +10,12 @@ using namespace std;
 #include <cstdio>
 
 int main(int argc, char *argv[]) {
+	cli_arguments args(argc, argv);
+	if (args.flag("h") || args.flag("help")) {
+		cout << "usage: " << argv[0] << " [options]" << endl;
+		cout << "options:";
+		return 0;
+	}
 	try {
 		Program *program = parseProgram(stdin);
 		ProgramInterpreter *pi = new ProgramInterpreter(program);
