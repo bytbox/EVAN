@@ -154,12 +154,15 @@ public:
 };
 
 class cli_arguments {
-	std::vector<std::string> command_line;
+	std::vector<std::string> command_line, arguments, options;
+	void process();
 public:
 	cli_arguments(int, char *[]);
 	cli_arguments(std::vector<std::string>);
 	bool flag(const std::string &);
 	std::string opt(const std::string &);
+	std::string opt(const std::string &, const std::string &);
+	std::vector<std::string> args();
 };
 
 namespace serial {
