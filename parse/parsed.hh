@@ -33,6 +33,8 @@ public:
 	virtual Param extract(ParsedProgram *);
 };
 
+class ParsedPipe;
+
 class ParsedBlock : ParsedElement<Block *> {
 	const std::string *blockName;
 	std::vector<ParsedParam *> *params;
@@ -46,7 +48,13 @@ public:
 };
 
 class ParsedEach : ParsedElement<Each *> {
+	const std::string *outer_source, *inner_source, *result;
+	std::map<std::string, ParsedPipe *> *pipes;
 public:
+	ParsedEach(	const std::string *,
+			const std::string *,
+			std::map<std::string, ParsedPipe *> *,
+			const std::string *);
 	~ParsedEach();
 	virtual Each *extract(ParsedProgram *);
 };

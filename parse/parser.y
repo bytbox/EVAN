@@ -120,7 +120,8 @@ arg:
 
 each: TEACH ident TSPLIT ident TLBRACKET statements TRBRACKET ident TJOIN ident TPERIOD
 	{
-		$$ = NULL;
+		auto b = new ParsedEach($4, $2, $6, $10);
+		$$ = new std::pair<std::string *, ParsedEach *>($8, b);
 	}
 	 
 return: TRETURN ident TPERIOD { $$ = $2; }
