@@ -12,8 +12,10 @@
  */
 class Builtin {
 public:
-	Builtin(const std::string &name);
+	Builtin(const std::string &);
+	Builtin(const std::string &, const std::string &);
 	const std::string name;
+	const std::string description;
 };
 
 /*!
