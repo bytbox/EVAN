@@ -4,7 +4,11 @@
   <category name="Core">
     <builtin>
       <name>Identity</name>
-      <type></type>
+      <type>
+        <variable>T</variable>
+        <parameter>T</parameter>
+        <result>T</result>
+      </type>
       <description>
 
       </description>

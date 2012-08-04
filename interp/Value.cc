@@ -23,7 +23,7 @@ Value::Value(const Param &p) {
 		throw new InterpreterError();
 	}
 }
-Value::Value(const initializer_list <Value> &vs) : type(VEC) {
+Value::Value(const std::initializer_list <Value> &vs) : type(VEC) {
 	v = vector<Value>(vs);
 }
 Value::Value(const vector <Value> &vs) : type(VEC), v(vs) {}
