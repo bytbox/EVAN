@@ -37,14 +37,17 @@ bool cli_arguments::flag(const string &name) {
 }
 
 string cli_arguments::opt(const string &name) {
-	return "";
+	return opt(name, "");
 }
 
 string cli_arguments::opt(const string &name, const string &def) {
+	for (string s : options)
+		if (s.substr(1, name.size()) == name && s[name.size()+1] == '=')
+			return s.substr(name.size()+2);
 	return def;
 }
 
 vector<string> cli_arguments::args() {
-	return {};
+	return arguments;
 }
 

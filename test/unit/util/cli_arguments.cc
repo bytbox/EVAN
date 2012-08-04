@@ -16,15 +16,21 @@ test t1("flag", s, ([](){
 }));
 
 test t2("opt", s, ([](){
-
+	assert(cli_arguments({}).opt("a") == "");
+	assert(cli_arguments({"-a"}).opt("a") == "");
+	assert(cli_arguments({"-a="}).opt("a") == "");
+	assert(cli_arguments({"-a=bc"}).opt("a") == "bc");
 }));
 
 test t3("opt-default", s, ([](){
-
+	assert(cli_arguments({}).opt("a", "b") == "b");
+	assert(cli_arguments({"-a"}).opt("a", "b") == "b");
+	assert(cli_arguments({"-a="}).opt("a", "b") == "");
+	assert(cli_arguments({"-a=bc"}).opt("a", "b") == "bc");
 }));
 
 test t4("args", s, ([](){
-
+	assert(cli_arguments({"-a", "b"}).args().size() == 1);
 }));
 
 };
