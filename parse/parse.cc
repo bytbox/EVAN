@@ -19,6 +19,6 @@ Program *parseProgram(FILE *fin) {
 }
 
 void yyerror(const char *s) {
-	throw string(s); // TODO
+	throw new ParseError(s);
 }
 

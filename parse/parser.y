@@ -36,7 +36,7 @@ ParsedProgram *parsed_program;
 %token <num> TNUM
 
 %type <str> ident arg return
-%type <sVec> args
+%type <sVec> args arg_list
 %type <param> param
 %type <pVec> params param_list
 %type <block> block
@@ -109,14 +109,19 @@ args:
 	{
 		$$ = new std::vector<std::string *>{};
 	}
-	| args TCOMMA arg {
+	| arg_list
+
+arg_list:
+	arg {
+		$$ = new std::vector<std::string *>{$1};
+	}
+	| arg_list TCOMMA arg {
 		auto v = $1;
 		v->push_back($3);
 		$$ = v;
 	}
 
-arg:
-	TIDENT { $$ = $1; }
+arg:	TIDENT
 
 each: TEACH ident TSPLIT ident TLBRACKET statements TRBRACKET ident TJOIN ident TPERIOD
 	{

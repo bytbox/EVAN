@@ -1,0 +1,6 @@
+a <- Constant (1).
+each b >- a {
+	e <- B b.
+} d -< e .
+return d.
+
