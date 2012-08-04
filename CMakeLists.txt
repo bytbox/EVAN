@@ -43,5 +43,5 @@ add_subdirectory (httpd)
 enable_testing ()
 add_subdirectory (test)
 
-add_custom_target (full DEPENDS core interp util evan-gui evani evanc evan-doc doc-html check)
+add_custom_target (full DEPENDS core interp util evan-gui evani evanc evan-doc evan-httpd doc-html check)
 
