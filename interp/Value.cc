@@ -69,6 +69,7 @@ vector<Value> Value::vec() const {
 		throw new TypeMismatchError();
 	return vector<Value>(v.get());
 }
+
 list<Value> Value::lst() const {
 	if (type != LIST)
 		throw new TypeMismatchError();
