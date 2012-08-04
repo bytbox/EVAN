@@ -32,8 +32,9 @@ void module::runAll() {
 	for (pair<string, module> p : modules) {
 		i++;
 		auto m = p.second;
-		cerr << i << "/" << modules.size() << " " << m.name << endl;
+		cerr << i << "/" << modules.size() << " " << m.name << flush;
 		m.run();
+		cerr << endl;
 	}
 }
 
