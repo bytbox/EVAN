@@ -7,6 +7,7 @@
 using namespace util;
 
 #include <initializer_list>
+#include <list>
 #include <map>
 #include <string>
 #include <vector>
@@ -22,6 +23,7 @@ public:
 	Value(const Param &);
 	Value(const std::initializer_list <Value> &);
 	Value(const std::vector <Value> &);
+	Value(const std::list <Value> &);
 
 	std::string toString() const;
 
@@ -38,7 +40,7 @@ public:
 	 * \brief Access the nth element of the list contained in this value.
 	 *
 	 * It is an error to call this method on a value with type other than
-	 * LIST.
+	 * VEC.
 	 *
 	 * \throw TypeMismatchError
 	 */
@@ -49,12 +51,18 @@ public:
 	 */
 	std::vector<Value> vec() const;
 
-	enum {BOT, INT, DOUBLE, LIST} type;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	std::list<Value> lst() const;
+
+	enum {BOT, INT, DOUBLE, VEC, LIST} type;
 	union {
 		int i;
 		double d;
 	} value;
-	maybe < std::vector<Value> > l;
+	maybe < std::vector<Value> > v;
+	maybe < std::list<Value> > l;
 };
 
 class InterpreterError : public internal_error {

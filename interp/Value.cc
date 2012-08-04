@@ -1,6 +1,8 @@
 #include "interp.hh"
 
 #include <initializer_list>
+#include <list>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -21,12 +23,13 @@ Value::Value(const Param &p) {
 		throw new InterpreterError();
 	}
 }
-Value::Value(const std::initializer_list <Value> &vs) : type(LIST) {
-	l = vector<Value>(vs);
+Value::Value(const initializer_list <Value> &vs) : type(VEC) {
+	v = vector<Value>(vs);
 }
-Value::Value(const vector <Value> &vs) : type(LIST), l(vs) {}
+Value::Value(const vector <Value> &vs) : type(VEC), v(vs) {}
+Value::Value(const list <Value> &vs) : type(LIST), l(vs) {}
 
-std::string Value::toString() const {
+string Value::toString() const {
 	switch (type) {
 	case INT:
 		return asString<int>(value.i);
@@ -34,6 +37,8 @@ std::string Value::toString() const {
 		return asString<double>(value.d);
 	case BOT:
 		return "null";
+	case VEC:
+		return "<vec>"; // TODO
 	case LIST:
 		return "<list>"; // TODO
 	default:
@@ -54,14 +59,19 @@ Value::operator double() const {
 }
 
 Value Value::operator [](int i) const {
-	if (type != LIST)
+	if (type != VEC)
 		throw new TypeMismatchError();
-	return l.get()[i];
+	return v.get()[i];
 }
 
 vector<Value> Value::vec() const {
+	if (type != VEC)
+		throw new TypeMismatchError();
+	return vector<Value>(v.get());
+}
+list<Value> Value::lst() const {
 	if (type != LIST)
 		throw new TypeMismatchError();
-	return vector<Value>(l.get());
+	return list<Value>(l.get());
 }
 
