@@ -153,6 +153,15 @@ public:
 	}
 };
 
+class cli_arguments {
+	std::vector<std::string> command_line;
+public:
+	cli_arguments(int, char *[]);
+	cli_arguments(std::vector<std::string>);
+	bool flag(const std::string &);
+	std::string opt(const std::string &);
+};
+
 namespace serial {
 
 /*!
