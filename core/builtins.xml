@@ -24,6 +24,47 @@
         Returns the passed parameter.
       </description>
     </builtin>
+    <builtin>
+      <name>Both</name>
+      <type>
+        <argument>Bool</argument>
+        <argument>Bool</argument>
+        <result>Bool</result>
+      </type>
+      <description>
+        Returns true if and only if both arguments are true.
+      </description>
+    </builtin>
+    <builtin>
+      <name>Either</name>
+      <type>
+        <argument>Bool</argument>
+        <argument>Bool</argument>
+        <result>Bool</result>
+      </type>
+      <description>
+        Returns true if either argument is true.
+      </description>
+    </builtin>
+    <builtin>
+      <name>Neither</name>
+      <type>
+        <argument>Bool</argument>
+        <argument>Bool</argument>
+        <result>Bool</result>
+      </type>
+      <description>
+        Returns true if and only if both arguments are false.
+      </description>
+    </builtin>
+    <builtin>
+      <name>Not</name>
+      <type>
+        <argument>Bool</argument>
+        <result>Bool</result>
+      </type>
+      <description></description>
+    </builtin>
   </category>
 
   <category name="Combinatorics">
