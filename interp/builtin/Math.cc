@@ -36,5 +36,11 @@ simple_registry<Interpreter::Function> Interpreter::mathFunctions
 	{"Sub", &Sub},
 	{"Mul", &Mul},
 	{"Div", &Div},
+	{"Lt", (IFUNC { return double(vs[0]) < double(vs[1]); })},
+	{"Le", (IFUNC { return double(vs[0]) <= double(vs[1]); })},
+	{"Gt", (IFUNC { return double(vs[0]) > double(vs[1]); })},
+	{"Ge", (IFUNC { return double(vs[0]) >= double(vs[1]); })},
+	{"Eq", (IFUNC { return double(vs[0]) == double(vs[1]); })},
+	{"Ne", (IFUNC { return double(vs[0]) != double(vs[1]); })},
  });
 
