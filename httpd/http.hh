@@ -1,7 +1,17 @@
 #ifndef HTTP_HH
 #define HTTP_HH
 
-class HTTPServer {
+#include "server.hh"
+
+class HTTPRequest {
+public:
+};
+
+class HTTPResponse {
+public:
+};
+
+class HTTPServer : public Server {
 public:
 };
 
