@@ -9,5 +9,11 @@ using namespace std;
 simple_registry<Interpreter::Function> Interpreter::coreFunctions
 ({	{"Identity", (IFUNC { return vs[0]; })},
 	{"Constant", (IFUNC { return ps[0]; })},
+	{"True", (IFUNC { return true; })},
+	{"False", (IFUNC { return true; })},
+	{"Not", (IFUNC { return !vs[0]; })},
+	{"Both", (IFUNC { return vs[0] && vs[1]; })},
+	{"Either", (IFUNC { return vs[0] || vs[1]; })},
+	{"Neither", (IFUNC { return !(vs[0] || vs[1]); })},
  });
 
