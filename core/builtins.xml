@@ -26,7 +26,44 @@
     </builtin>
   </category>
 
+  <category name="Combinatorics">
+    <builtin>
+      <name>Combinations</name>
+      <type>
+      </type>
+      <description>
+      </description>
+    </builtin>
+    <builtin>
+      <name>Permutations</name>
+      <type>
+      </type>
+      <description>
+      </description>
+    </builtin>
+  </category>
+
   <category name="Math">
+    <builtin>
+      <name>Add</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Mul</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Sub</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Div</name>
+      <type></type>
+      <description></description>
+    </builtin>
     <builtin>
       <name>Sum</name>
       <type></type>
@@ -40,6 +77,36 @@
       <description>
 
       </description>
+    </builtin>
+    <builtin>
+      <name>Lt</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Le</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Gt</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Ge</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Eq</name>
+      <type></type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>Ne</name>
+      <type></type>
+      <description></description>
     </builtin>
   </category>
 

@@ -105,7 +105,7 @@ protected:
 	typedef registry<Function> FunctionRegistry;
 	static FunctionRegistry *functions;
 
-	static simple_registry<Function> testFunctions, coreFunctions, mathFunctions;
+	static simple_registry<Function> testFunctions, coreFunctions, combinatoricsFunctions, mathFunctions;
 
 #ifdef TESTING
 public:

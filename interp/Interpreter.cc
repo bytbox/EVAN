@@ -37,6 +37,7 @@ Interpreter::FunctionRegistry *Interpreter::functions =
 new composite_registry<Interpreter::Function>(
 		{ &Interpreter::coreFunctions
 		, &Interpreter::mathFunctions
+		, &Interpreter::combinatoricsFunctions
 		, &Interpreter::testFunctions
 		});
 
