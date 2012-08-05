@@ -7,6 +7,7 @@
 using namespace std;
 
 Value::Value() : type(BOT) {}
+Value::Value(const bool b) : type(BOOL) { value.b = b; }
 Value::Value(const int i) : type(INT) { value.i = i; }
 Value::Value(const double d) : type(DOUBLE) { value.d = d; }
 Value::Value(const Param &p) {
@@ -31,6 +32,8 @@ Value::Value(const list <Value> &vs) : type(LIST), l(vs) {}
 
 string Value::toString() const {
 	switch (type) {
+	case BOOL:
+		return value.b ? "True" : "False";
 	case INT:
 		return asString<int>(value.i);
 	case DOUBLE:
@@ -56,6 +59,12 @@ Value::operator double() const {
 	if (type != DOUBLE)
 		throw new TypeMismatchError();
 	return value.d;
+}
+
+Value::operator bool() const {
+	if (type != BOOL)
+		throw new TypeMismatchError();
+	return value.b;
 }
 
 Value Value::operator [](int i) const {

@@ -25,6 +25,20 @@
       </description>
     </builtin>
     <builtin>
+      <name>True</name>
+      <type>
+        <result>Bool</result>
+      </type>
+      <description></description>
+    </builtin>
+    <builtin>
+      <name>False</name>
+      <type>
+        <result>Bool</result>
+      </type>
+      <description></description>
+    </builtin>
+    <builtin>
       <name>Both</name>
       <type>
         <argument>Bool</argument>

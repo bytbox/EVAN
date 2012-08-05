@@ -18,6 +18,7 @@ using namespace util;
 class Value {
 public:
 	Value();
+	Value(const bool);
 	Value(const int);
 	Value(const double);
 	Value(const Param &);
@@ -35,6 +36,10 @@ public:
 	 * \throw TypeMismatchError
 	 */
 	operator double() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator bool() const;
 
 	/*!
 	 * \brief Access the nth element of the list contained in this value.
@@ -56,8 +61,9 @@ public:
 	 */
 	std::list<Value> lst() const;
 
-	enum {BOT, INT, DOUBLE, VEC, LIST} type;
+	enum {BOT, BOOL, INT, DOUBLE, VEC, LIST} type;
 	union {
+		bool b;
 		int i;
 		double d;
 	} value;
