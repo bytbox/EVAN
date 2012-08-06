@@ -15,7 +15,7 @@ ParsedPipe::~ParsedPipe() {
 	if (each) delete each;
 }
 
-Pipe *ParsedPipe::extract(ParsedProgram *prog) {
+Pipe *ParsedPipe::extract(ParsingScope *prog) {
 	if (block)
 		return block->extract(prog);
 	else return each->extract(prog);

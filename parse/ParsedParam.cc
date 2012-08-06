@@ -8,7 +8,7 @@ ParsedParam::~ParsedParam() {
 
 }
 
-Param ParsedParam::extract(ParsedProgram *) {
+Param ParsedParam::extract(ParsingScope *) {
 	return p;
 }
 

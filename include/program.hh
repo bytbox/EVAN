@@ -154,6 +154,10 @@ public:
 	BlockExtra extraInfo;
 };
 
+/*!
+ * \brief An Each construct is a limited foreach loop, with termination
+ * guaranteed.
+ */
 class Each : public Pipe {
 public:
 	class Inner : public Pipe {
@@ -166,6 +170,13 @@ public:
 		NullExtra extraInfo;
 	};
 
+	/*!
+	 * \brief Create an Each construct.
+	 *
+	 * The passed function is given a pointer to a Pipe representing the
+	 * inner source, and is expected to product a Pipe representing the
+	 * inner result.
+	 */
 	Each(Pipe*, std::function<Pipe* (Pipe*)>);
 	virtual ~Each();
 	virtual Type type() const;

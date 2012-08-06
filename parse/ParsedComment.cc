@@ -11,7 +11,7 @@ ParsedComment::~ParsedComment() {
 	delete content;
 }
 
-Comment *ParsedComment::extract(ParsedProgram *) {
+Comment *ParsedComment::extract(ParsingScope *) {
 	return new Comment(*content);
 }
 

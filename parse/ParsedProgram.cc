@@ -30,7 +30,7 @@ Program *ParsedProgram::extract() {
 	return new Program(getPipe(*rname));
 }
 
-Program *ParsedProgram::extract(ParsedProgram *prog) {
+Program *ParsedProgram::extract(ParsingScope *prog) {
 	return extract();
 }
 

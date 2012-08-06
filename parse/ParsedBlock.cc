@@ -21,7 +21,7 @@ ParsedBlock::~ParsedBlock() {
 	delete args;
 }
 
-Block *ParsedBlock::extract(ParsedProgram *prog) {
+Block *ParsedBlock::extract(ParsingScope *prog) {
 	vector<Param> ps(params->size());
 	transform(params->begin(), params->end(), ps.begin(),
 			([prog](ParsedParam *p) -> Param {
