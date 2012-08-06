@@ -15,6 +15,8 @@ using namespace util;
  * This error can be used during both interpretation and compilation.
  */
 class TypeMismatchError : public user_error {
+public:
+	TypeMismatchError() : user_error("Type mismatch error") {};
 };
 
 /*!

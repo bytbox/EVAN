@@ -21,7 +21,7 @@ Value::Value(const Param &p) {
 		value.d = p.value.d;
 		break;
 	default:
-		throw new InterpreterError();
+		throw (new InterpreterError())->with(_POS);
 	}
 }
 Value::Value(const std::initializer_list <Value> &vs) : type(VEC) {
@@ -45,43 +45,43 @@ string Value::toString() const {
 	case LIST:
 		return "<list>"; // TODO
 	default:
-		throw new impossible_error();
+		throw (new impossible_error())->with(_POS);
 	}
 }
 
 Value::operator int() const {
 	if (type != INT)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return value.i;
 }
 
 Value::operator double() const {
 	if (type != DOUBLE)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return value.d;
 }
 
 Value::operator bool() const {
 	if (type != BOOL)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return value.b;
 }
 
 Value Value::operator [](int i) const {
 	if (type != VEC)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return v.get()[i];
 }
 
 vector<Value> Value::vec() const {
 	if (type != VEC)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return vector<Value>(v.get());
 }
 
 list<Value> Value::lst() const {
 	if (type != LIST)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return list<Value>(l.get());
 }
 

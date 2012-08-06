@@ -6,13 +6,13 @@ Param::Param(const double d) : type(DOUBLE) { value.d = d; }
 
 Param::operator int() const {
 	if (type != INT)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return value.i;
 }
 
 Param::operator double() const {
 	if (type != DOUBLE)
-		throw new TypeMismatchError();
+		throw (new TypeMismatchError())->with(_POS);
 	return value.d;
 }
 

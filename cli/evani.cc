@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
 		cerr << "Caught: " << s << endl;
 	} catch (util::error *err) {
 		cerr << "Caught error: " << err->get_message() << endl;
+		cerr << "  at: " << string(err->position) << endl;
 	}
 	return 0;
 }

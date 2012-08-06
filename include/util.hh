@@ -7,6 +7,8 @@
 #include <sstream>
 #include <vector>
 
+#define _POS (debug::code_position(__FILE__, __LINE__))
+
 /*!
  * \brief Functionality not conceptually specific to EVAN.
  *
@@ -16,9 +18,30 @@
  */
 namespace util {
 
+namespace debug {
+class code_position {
+public:
+	code_position();
+	code_position(const std::string &, int);
+	operator std::string () const;
+	std::string filename;
+	int line;
+};
+};
+
 class error {
 public:
+	debug::code_position position;
 	virtual std::string get_message() = 0;
+
+	/*!
+	 * \brief Adds the given code_position to the error, and returns the
+	 * result.
+	 *
+	 * The original error object is modified - the result is returned only
+	 * as a convenience to the caller.
+	 */
+	virtual error *with(debug::code_position);
 };
 
 class internal_error : public error {
