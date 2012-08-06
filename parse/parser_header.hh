@@ -1,4 +1,4 @@
-/// \file parser_header.hh
+/// \file parse/parser_header.hh
 ///
 /// All the includes and definitions needed to use parser.hh
 ///
