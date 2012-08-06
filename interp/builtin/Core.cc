@@ -6,6 +6,13 @@ using namespace std;
 
 #define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
 
+Value Sequence(vector <Param> ps, vector <Value> vs) {
+	list <Value> lst;
+	for (int i = ps[0]; i < int(ps[0]) + int(ps[1]); i++)
+		lst.push_back(i);
+	return lst;
+}
+
 simple_registry<Interpreter::Function> Interpreter::coreFunctions
 ({	{"Identity", (IFUNC { return vs[0]; })},
 	{"Constant", (IFUNC { return ps[0]; })},
@@ -15,5 +22,7 @@ simple_registry<Interpreter::Function> Interpreter::coreFunctions
 	{"Both", (IFUNC { return vs[0] && vs[1]; })},
 	{"Either", (IFUNC { return vs[0] || vs[1]; })},
 	{"Neither", (IFUNC { return !(vs[0] || vs[1]); })},
+	{"Count", (IFUNC { return int(vs[0].lst().size()); })},
+	{"Sequence", &Sequence},
  });
 

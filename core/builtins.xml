@@ -79,6 +79,16 @@
       </type>
       <description></description>
     </builtin>
+    <builtin>
+      <name>Count</name>
+      <type></type>
+      <description>Count the number of elements in a list.</description>
+    </builtin>
+    <builtin>
+      <name>Sequence</name>
+      <type></type>
+      <description></description>
+    </builtin>
   </category>
 
   <category name="Combinatorics">
