@@ -25,7 +25,8 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 	auto val = source->next(outsideScope);
 	if (!val.isDefined()) // we're done
 		return maybe<Value>();
-	srcVec = val.get().vec();
+	srcLst = val.get().lst();
+	srcIt = srcLst.begin();
 
 	// We want to get a list from this.result, using scopes inside the
 	// starting scope. The decision to terminate is made from Inner (since
@@ -43,11 +44,19 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 }
 
 maybe <Value> EachInterpreter::Inner::next(Scope s) {
-	// At this point, srcVec should be populated, and we're just iterating
+	// At this point, srcLst should be populated, and we're just iterating
 	// through it.
 	
-	if (s.lowIndex() >= outer->srcVec.size())
+	if (s.lowIndex() >= outer->srcLst.size())
 		return maybe <Value> ();
-	return outer->srcVec[s.lowIndex()];
+
+	if (last.isDefined() && s == last.get())
+		return lastVal;
+
+	last = maybe<Scope>(s);
+	lastVal = maybe<Value>(*outer->srcIt);
+	outer->srcIt++;
+
+	return lastVal;
 }
 
