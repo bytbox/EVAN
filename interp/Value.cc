@@ -2,6 +2,7 @@
 
 #include <initializer_list>
 #include <list>
+#include <sstream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -43,7 +44,14 @@ string Value::toString() const {
 	case VEC:
 		return "<vec>"; // TODO
 	case LIST:
-		return "<list>"; // TODO
+		{
+			ostringstream oss;
+			oss << "<list>[ ";
+			for (Value v : l.get())
+				oss << v.toString() << ' ';
+			oss << "]";
+			return oss.str();
+		}
 	default:
 		throw (new impossible_error())->with(_POS);
 	}

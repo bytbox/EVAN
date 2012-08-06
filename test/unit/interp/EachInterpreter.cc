@@ -2,6 +2,8 @@
 
 #include "interp.hh"
 
+#include <iostream>
+#include <list>
 #include <vector>
 
 #include <cassert>
@@ -11,7 +13,7 @@
 namespace _EachInterpreter {
 suite s("EachInterpreter", module::get("interp"));
 test t1("basic", s, ([](){
-	Interpreter::addFunction("test_aList", (IFUNC { return {1, 3, 5, 7, 9}; }));
+	Interpreter::addFunction("test_aList", (IFUNC { return std::list<Value>{1, 3, 5, 7, 9}; }));
 	Interpreter::addFunction("test_addOne", (IFUNC { return int(vs[0])+1; }));
 
 	Block start("test_aList", {}, {});
@@ -23,13 +25,13 @@ test t1("basic", s, ([](){
 	auto s = Interpreter::Scope::empty.into();
 	auto v = i->next(s);
 	assert(v.isDefined());
-	assert(int(v.get()[0]) == 2);
-	assert(int(v.get()[2]) == 6);
+	auto lst = v.get().lst();
+	auto iter = lst.begin();
+	assert(int(*iter) == 2);
+	iter++;
+	assert(int(*iter) == 4);
 	assert(i->next(s).isDefined());
-	assert(int(i->next(s).get()[1]) == 4);
 	assert(! i->next(s.next()).isDefined());
-
-	// add some OO-ness to tests
 }));
 };
 
