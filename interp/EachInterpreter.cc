@@ -2,6 +2,7 @@
 #include "util.hh"
 
 #include <iostream>
+#include <list>
 #include <vector>
 using namespace std;
 
@@ -33,7 +34,7 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 	// it's based on what's coming to source).
 
 	auto s = outsideScope.into();
-	vector <Value> collect;
+	list <Value> collect;
 	maybe <Value> value;
 	do {
 		value = result->next(s);

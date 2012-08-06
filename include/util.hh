@@ -148,7 +148,7 @@ public:
 	virtual T &operator[](const std::string &s) {
 		auto i = m.find(s);
 		if (i != m.end()) return (*i).second;
-		throw new internal_error("not found in registry");
+		throw new internal_error("not found in simple_registry: "+s);
 	}
 	virtual void add(const std::string &s, T &t) {
 		m[s] = t;
@@ -172,7 +172,7 @@ public:
 	virtual T &operator[](const std::string &s) {
 		for (registry<T> *r : registries)
 			if (r->has(s)) return (*r)[s];
-		throw new internal_error("not found in registry");
+		throw new internal_error("not found in composite_registry: "+s);
 	}
 };
 
