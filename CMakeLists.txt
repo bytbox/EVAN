@@ -35,6 +35,7 @@ add_subdirectory (interp)
 add_subdirectory (parse)
 add_subdirectory (typecheck)
 add_subdirectory (compile)
+add_subdirectory (foreign)
 add_subdirectory (util)
 
 add_subdirectory (cli)
