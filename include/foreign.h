@@ -6,6 +6,8 @@
  * accessed from both the interpreter and any statically linked code. In order
  * to increase portability, the exposed interfaces must be plain C (although
  * obviously, the backends will most likely involve several languages).
+ *
+ * \TODO this file should be automatically generated from a foreign.xml
  */
 
 #ifndef FOREIGN_H
