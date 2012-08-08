@@ -1,3 +1,7 @@
+/*!
+ * \file include/foreign.hh
+ */
+
 #ifndef FOREIGN_H
 #define FOREIGN_H
 
