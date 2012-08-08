@@ -1,5 +1,5 @@
 /*!
- * \file include/foreign.hh
+ * \file include/foreign.h
  * \brief Declarations of foreign functions
  *
  * This header file declares all known foreign functions, which can then be
