@@ -11,14 +11,8 @@ int main(int argc, char *argv[]) {
 	if (args.flag("h") || args.flag("help")) {
 		cout << "usage: " << argv[0] << " [options]" << endl;
 		cout << "options:" << endl;
-		cout << "\t-serve    serve docs via HTTP" << endl;
 		cout << "\t-out=FILE output docs to FILE (default: builtin.html)" << endl;
 		return 0;
-	}
-
-	if (args.flag("serve")) {
-		cerr << "Doc server not yet implemented" << endl;
-		return 1;
 	}
 
 	string outFilename = args.opt("out", "builtins.html");
