@@ -10,15 +10,15 @@ using namespace std;
 Value::Value() : type(BOT) {}
 Value::Value(const bool b) : type(BOOL) { value.b = b; }
 Value::Value(const int i) : type(INT) { value.i = i; }
-Value::Value(const double d) : type(DOUBLE) { value.d = d; }
+Value::Value(const double d) : type(FLOAT) { value.d = d; }
 Value::Value(const Param &p) {
 	switch (p.type) {
 	case Param::INT:
 		type = INT;
 		value.i = p.value.i;
 		break;
-	case Param::DOUBLE:
-		type = DOUBLE;
+	case Param::FLOAT:
+		type = FLOAT;
 		value.d = p.value.d;
 		break;
 	default:
@@ -37,7 +37,7 @@ string Value::toString() const {
 		return value.b ? "True" : "False";
 	case INT:
 		return asString<int>(value.i);
-	case DOUBLE:
+	case FLOAT:
 		return asString<double>(value.d);
 	case BOT:
 		return "null";
@@ -64,7 +64,7 @@ Value::operator int() const {
 }
 
 Value::operator double() const {
-	if (type != DOUBLE)
+	if (type != FLOAT)
 		throw (new TypeMismatchError())->with(_POS);
 	return value.d;
 }

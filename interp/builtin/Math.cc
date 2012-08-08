@@ -7,21 +7,21 @@ using namespace std;
 #define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
 
 Value Add(vector <Param> ps, vector <Value> vs) {
-	if (vs[0].type == Value::DOUBLE || vs[1].type == Value::DOUBLE)
+	if (vs[0].type == Value::FLOAT || vs[1].type == Value::FLOAT)
 		return double(vs[0]) + double(vs[1]);
 	else
 		return int(vs[0]) + int(vs[1]);
 }
 
 Value Sub(vector <Param> ps, vector <Value> vs) {
-	if (vs[0].type == Value::DOUBLE || vs[1].type == Value::DOUBLE)
+	if (vs[0].type == Value::FLOAT || vs[1].type == Value::FLOAT)
 		return double(vs[0]) - double(vs[1]);
 	else
 		return int(vs[0]) - int(vs[1]);
 }
 
 Value Mul(vector <Param> ps, vector <Value> vs) {
-	if (vs[0].type == Value::DOUBLE || vs[1].type == Value::DOUBLE)
+	if (vs[0].type == Value::FLOAT || vs[1].type == Value::FLOAT)
 		return double(vs[0]) * double(vs[1]);
 	else
 		return int(vs[0]) * int(vs[1]);

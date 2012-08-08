@@ -31,7 +31,7 @@ public:
 	operator int() const;
 	operator double() const;
 
-	enum {INT, DOUBLE} type;
+	enum {INT, FLOAT} type;
 	union {
 		int i;
 		double d;
