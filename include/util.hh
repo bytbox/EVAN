@@ -44,6 +44,14 @@ public:
 	virtual error *with(debug::code_position);
 };
 
+class system_error : public error {
+	std::string message;
+public:
+	system_error();
+	system_error(const std::string &msg);
+	virtual std::string get_message();
+};
+
 class internal_error : public error {
 	std::string message;
 public:
