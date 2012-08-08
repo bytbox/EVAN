@@ -68,7 +68,6 @@ private slots:
 class App : public QApplication {
 	Q_OBJECT;
 
-	MainWindow *mainWindow;
 public:
 	App(int argc, char *argv[]);
 };
