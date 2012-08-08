@@ -29,6 +29,10 @@ public:
 };
 };
 
+namespace logging {
+
+};
+
 class error {
 public:
 	debug::code_position position;
