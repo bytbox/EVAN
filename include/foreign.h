@@ -15,8 +15,9 @@
 extern "C" {
 #endif
 
-typedef signed long long Int;
-typedef double Float;
+typedef char		Bool;
+typedef long long	Int;
+typedef double		Float;
 
 #ifdef __cplusplus
 }
