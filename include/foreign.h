@@ -18,6 +18,12 @@ extern "C" {
 typedef char		Bool;
 typedef long long	Int;
 typedef double		Float;
+typedef struct {
+
+} Vec;
+typedef struct {
+
+} List;
 
 #ifdef __cplusplus
 }
