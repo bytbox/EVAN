@@ -15,15 +15,37 @@
 extern "C" {
 #endif
 
+typedef unsigned short	tLen;
+
 typedef char		Bool;
 typedef long long	Int;
 typedef double		Float;
-typedef struct {
 
-} Vec;
 typedef struct {
+	tLen len;
+	Bool *data;
+} Vec_Bool;
+typedef struct {
+	tLen len;
+	Int *data;
+} Vec_Int;
+typedef struct {
+	tLen len;
+	Float *data;
+} Vec_Float;
 
-} List;
+typedef struct List_Bool_st {
+	Bool head;
+	struct List_Bool_st *tail;
+} List_Bool;
+typedef struct List_Int_st {
+	Int head;
+	struct List_Int_st *tail;
+} List_Int;
+typedef struct List_Float_st {
+	Float head;
+	struct List_Float_st *tail;
+} List_Float;
 
 #ifdef __cplusplus
 }
