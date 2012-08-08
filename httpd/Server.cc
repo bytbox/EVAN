@@ -36,7 +36,16 @@ Server::~Server() {
 }
 
 void Server::run() {
+	// \TODO make size of queue configurable
+	if (listen(sockfd, 5) < 0)
+		throw new system_error;
 
+	struct sockaddr_in addr;
+	int alen = sizeof(addr);
+	int fd = accept(sockfd, (struct sockaddr *)&addr, &alen);
+	if (fd < 0)
+		throw new system_error;
+	// and handle it
 }
 
 char *Server::readline() {
