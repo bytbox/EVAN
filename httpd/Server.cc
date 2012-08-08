@@ -41,7 +41,7 @@ void Server::run() {
 		throw new system_error;
 
 	struct sockaddr_in addr;
-	int alen = sizeof(addr);
+	socklen_t alen = sizeof(addr);
 	int fd = accept(sockfd, (struct sockaddr *)&addr, &alen);
 	if (fd < 0)
 		throw new system_error;
