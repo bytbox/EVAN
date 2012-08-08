@@ -1,6 +1,8 @@
+gui
+parsing lhco (via foreign)
+fill out builtin routines
+
 logging framework
 httpd
-gui
-fill out physics routines
 foreign interfaces
-parsing event files
+parse lhe and hepevt
