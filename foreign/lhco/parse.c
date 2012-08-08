@@ -46,6 +46,10 @@ int LHCOtoPDG(int lhcopid, double ntrack, double btag) {
 	}
 }
 
+Foreign Read_LHCO() {
+	return NULL;
+}
+
 /*
 int main(int argc, char* argv[]) {
 

@@ -47,6 +47,8 @@ typedef struct List_Float_st {
 	struct List_Float_st *tail;
 } List_Float;
 
+typedef void *Foreign;
+
 #ifdef __cplusplus
 }
 #endif
