@@ -23,9 +23,21 @@ logger &logger::get(const std::string &name) {
 	return *nl;
 }
 
+logger &logger::getWith(const std::string &name, std::vector<log *> logs) {
+	if (!_loggers) _loggers = new map<string, logger *>;
+	auto it = _loggers->find(name);
+	if (it != _loggers->end())
+		throw (new impossible_error())->with(_POS);
+	logger *nl = new logger(name, logs);
+	_loggers->insert(pair<string, logger *>("", nl));
+	return *nl;
+}
+
 logger::logger() : logger("misc") {}
 
 logger::logger(const std::string &name) : name(name) {}
+
+logger::logger(const string &name, vector<log *> logs) : name(name), logs(logs) {}
 
 void logger::logEntry(const entry &e) {
 	for (log *l : logs)

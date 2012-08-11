@@ -102,8 +102,20 @@ class logger {
 public:
 	static logger &get(const std::string &);
 
+	/*!
+	 * \brief Returns a new logger attached to the specified logs.
+	 *
+	 * It is an error to call this function with a logger name that already
+	 * exists, since the intended set of logs to use would then be
+	 * ambiguous.
+	 *
+	 * \todo getWith should add the logs to any old ones
+	 */
+	static logger &getWith(const std::string &, std::vector<log *>);
+
 	logger();
 	logger(const std::string &);
+	logger(const std::string &, std::vector<log *>);
 
 	void logEntry(const entry &);
 	void logEntry(const level &, const std::string &);
