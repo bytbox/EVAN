@@ -123,6 +123,7 @@ public:
 class Comment {
 public:
 	Comment(const std::string &);
+	virtual ~Comment();
 	virtual CommentExtra &extra();
 
 	const std::string content;
@@ -136,6 +137,10 @@ public:
  * available are hard-coded in several places.
  */
 class Pipe {
+	/*!
+	 * \brief The associated comment, or NULL if there is none.
+	 */
+	Comment *comment = NULL;
 public:
 	enum Type {BLOCK, EACH, EACH_INNER};
 
@@ -143,6 +148,10 @@ public:
 	virtual Type type() const = 0; // To avoid needing to use RTTI
 	virtual std::vector <Pipe *> prerequisites() const = 0;
 	virtual Extra &extra() = 0;
+
+	virtual std::string getComment();
+	virtual bool hasComment();
+	virtual void setComment(const std::string &);
 };
 
 class Block : public Pipe {
@@ -199,6 +208,11 @@ class Program {
 public:
 	Program(Pipe*);
 	Pipe *result;
+
+	/**
+	 * \brief Top-level comments in this program.
+	 */
+	std::vector<Comment *> comments;
 };
 
 #endif /* !PROGRAM_HH */
