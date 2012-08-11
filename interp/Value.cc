@@ -42,7 +42,14 @@ string Value::toString() const {
 	case BOT:
 		return "null";
 	case VEC:
-		return "<vec>"; // TODO
+		{
+			ostringstream oss;
+			oss << "<vec>[ ";
+			for (Value v : l.get())
+				oss << v.toString() << ' ';
+			oss << "]";
+			return oss.str();
+		}
 	case LIST:
 		{
 			ostringstream oss;
