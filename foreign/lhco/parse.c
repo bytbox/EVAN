@@ -6,6 +6,9 @@
 
 #include "foreign.h"
 
+#define LHCO_PARSE_LINE_BUF_SZ (1 << 9)
+#define LHCO_PARSE_EVT_BUF_SZ (1 << 8)
+
 float ptiso(float HADoverEM) {
 	return floor(HADoverEM);
 }
@@ -46,9 +49,76 @@ int LHCOtoPDG(int lhcopid, double ntrack, double btag) {
 	}
 }
 
+struct lhco_particle {
+	Int type; // LHCO, not PDG
+	Float eta;
+	Float phi;
+	Float pt;
+	Float mass;
+	Float ntrk;
+	Float btag;
+	Float had_over_em;
+};
+
+struct lhco_event {
+	short p_count;
+};
+
 Vec_Foreign LHCO_Input(const char *fname) {
 	FILE *fin = fopen(fname, "r");
 	if (!fin) exit(1); // TODO
+
+	struct lhco_particle *parts = NULL;
+	int npart;
+	char buf[LHCO_PARSE_LINE_BUF_SZ];
+	while (fgets(buf, LHCO_PARSE_LINE_BUF_SZ, fin)) {
+		// Since no valid LHCO file will actually have lines longer
+		// than LHCO_PARSE_LINE_BUF_SZ, we can just pretend that fgets
+		// actually does give us entire lines
+		
+		// Now we separate the fields
+		int fn = 0;
+		char *field[15];
+		char *fstart = buf, *fp;
+		while (*fstart == ' ' || *fstart == '\t') fstart++;
+		while (*fstart != '\n') {
+			fp = fstart;
+			while (*fp != ' ' && *fp != '\t' && *fp != '\n') fp++;
+			field[fn] = fstart;
+			// since there's at least one byte of (irrelevant)
+			// whitespace at fp, we can safely set it to 0.
+			*fp = 0;
+			fstart = fp;
+			while (*fstart == ' ' || *fstart == '\t') fstart++;
+			fn++;
+		}
+
+		// Parse
+		if (field[0][0] == '#') // ignore the comment
+			continue;
+		if (field[0][0] == '0') {
+			// new event
+			if (parts) {
+				// store the old one
+			}
+       			parts = calloc(LHCO_PARSE_EVT_BUF_SZ, sizeof(struct lhco_particle));
+			npart = 0;
+			continue;
+		}
+		// particle
+		struct lhco_particle part = {
+			atoi(field[1]), // type
+			atof(field[2]), // eta
+			atof(field[3]), // phi
+			atof(field[4]), // pt
+			atof(field[5]), // mass
+			atof(field[6]), // ntrk
+			atof(field[7]), // btag
+			atof(field[8]), // had/em
+		};
+		parts[npart++] = part;
+	}
+	if (!feof(fin)) exit(1); // TODO
 
 	fclose(fin);
 
