@@ -98,8 +98,13 @@ public:
 class CanvasScene : public QGraphicsScene {
 	Q_OBJECT;
 
+	Program *program;
+
 public:
 	CanvasScene();
+	CanvasScene(Program *);
+
+	Program *getProgram();
 };
 
 class CanvasView : public QGraphicsView {
@@ -113,8 +118,6 @@ class CanvasView : public QGraphicsView {
 public:
 	CanvasView();
 	~CanvasView();
-
-	Program *getProgram() const;
 
 	QSize minimumSizeHint() const;
 };
