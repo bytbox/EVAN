@@ -74,7 +74,8 @@ typedef struct {
 } Vec_Foreign;
 
 
-Vec_Foreign LHCO_Input(const char *fname);
+Vec_Foreign LHCO_Input(const char *);
+Vec_Foreign LHCO_Parts(Foreign);
 
 #ifdef __cplusplus
 }

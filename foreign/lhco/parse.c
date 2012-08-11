@@ -62,11 +62,16 @@ struct lhco_particle {
 
 struct lhco_event {
 	short p_count;
+	struct lhco_particle *parts;
 };
 
 Vec_Foreign LHCO_Input(const char *fname) {
 	FILE *fin = fopen(fname, "r");
 	if (!fin) exit(1); // TODO
+
+	int evtbuf_sz = 40;
+	struct lhco_event **events = calloc(evtbuf_sz, sizeof(struct lhco_event *));
+	int nevent = 0;
 
 	struct lhco_particle *parts = NULL;
 	int npart;
@@ -100,6 +105,16 @@ Vec_Foreign LHCO_Input(const char *fname) {
 			// new event
 			if (parts) {
 				// store the old one
+				struct lhco_event *evt = malloc(sizeof(struct lhco_event));
+				evt->p_count = npart;
+				evt->parts = parts;
+				// allocate new buffer if necessary
+				if (nevent > evtbuf_sz) {
+					evtbuf_sz *= 2;
+					events = realloc(events, evtbuf_sz);
+				}
+				events[nevent] = evt;
+				nevent++;
 			}
        			parts = calloc(LHCO_PARSE_EVT_BUF_SZ, sizeof(struct lhco_particle));
 			npart = 0;
@@ -122,6 +137,11 @@ Vec_Foreign LHCO_Input(const char *fname) {
 
 	fclose(fin);
 
+	Vec_Foreign result = {nevent, (Foreign *)events};
+	return result;
+}
+
+Vec_Foreign LHCO_Parts(Foreign event) {
 	Vec_Foreign result = {0, NULL};
 	return result;
 }
