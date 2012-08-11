@@ -27,14 +27,18 @@ public:
 	Param();
 	Param(const int);
 	Param(const double);
+	Param(const std::string &);
 
 	operator int() const;
 	operator double() const;
+	operator std::string() const;
+	operator const char *() const;
 
-	enum {INT, FLOAT} type;
+	enum {INT, FLOAT, STRING} type;
 	union {
 		int i;
 		double d;
+		const char *s;
 	} value;
 };
 
