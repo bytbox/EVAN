@@ -97,8 +97,8 @@ public:
 };
 
 class logger {
-	std::vector<log *> logs;
 	const std::string name;
+	std::vector<log *> logs;
 public:
 	static logger &get(const std::string &);
 
