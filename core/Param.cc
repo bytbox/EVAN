@@ -20,7 +20,7 @@ Param::operator double() const {
 	return value.d;
 }
 
-Param::operator string() const {
+Param::operator std::string() const {
 	if (type != STRING)
 		throw (new TypeMismatchError())->with(_POS);
 	return value.s;

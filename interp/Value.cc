@@ -21,6 +21,8 @@ Value::Value(const Param &p) {
 		type = FLOAT;
 		value.d = p.value.d;
 		break;
+	case Param::STRING:
+		throw (new InterpreterError())->with(_POS);
 	default:
 		throw (new InterpreterError())->with(_POS);
 	}
