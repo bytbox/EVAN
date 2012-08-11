@@ -7,6 +7,8 @@
 #include <sstream>
 #include <vector>
 
+#include <ctime>
+
 #define _POS (debug::code_position(__FILE__, __LINE__))
 
 /*!
@@ -29,7 +31,122 @@ public:
 };
 };
 
+/*!
+ * \brief Logging utilities.
+ *
+ * Done properly, a good logging system doubles as a debugging and development
+ * tool.
+ */
 namespace logging {
+
+enum level {Debug, Info, Warning, Error, Fatal};
+
+class entry {
+public:
+	const level lvl;
+	const std::string message;
+	const time_t tm;
+	entry(const level &, const std::string &);
+};
+
+class format {
+public:
+	virtual std::string timeString(const time_t &) const;
+	virtual std::string levelString(const level &) const;
+	virtual std::string entryString(const std::string &, const entry &) const = 0;
+protected:
+	std::string time_format = "%Y-%m-%d %H:%M:%S";
+};
+
+class default_format : public format {
+public:
+	virtual std::string entryString(const std::string &, const entry &) const;
+};
+
+class log {
+public:
+	log();
+	virtual void write(const std::string &, const entry &);
+
+	virtual void output(const std::string &) = 0;
+	virtual void close() = 0;
+protected:
+	format *fmt;
+};
+
+class stream_log : public log {
+public:
+	stream_log(std::ostream &stream);
+	virtual void output(const std::string &);
+	virtual void close();
+protected:
+	std::ostream &stream;
+};
+
+class filestream_log : public stream_log {
+public:
+	filestream_log(std::ofstream &fstream);
+	virtual void close();
+protected:
+	std::ofstream &fstream;
+};
+
+class console_log : public stream_log {
+public:
+	console_log();
+};
+
+class logger {
+	static std::vector<log *> logs;
+	static std::map<std::string, logger *> loggers;
+
+	const std::string name;
+public:
+	static logger &get(const std::string &);
+
+	logger();
+	logger(const std::string &);
+
+	void logEntry(const entry &);
+	void logEntry(const level &, const std::string &);
+
+	/*!
+	 * \brief Log a debugging message.
+	 *
+	 * This is a convenience method for logEntry(level.Debug, msg).
+	 */
+	void debug(const std::string &);
+
+	/*!
+	 * \brief Log an informational message.
+	 *
+	 * This is a convenience method for logEntry(level.Info, msg).
+	 */
+	void info(const std::string &);
+	
+	/*!
+	 * \brief Log a warning message.
+	 *
+	 * This is a convenience method for logEntry(level.Warning, msg).
+	 */
+	void warning(const std::string &);
+
+	/*!
+	 * \brief Log an error message.
+	 *
+	 * This is a convenience method for logEntry(level.Error, msg).
+	 */
+	void error(const std::string &);
+
+	/*!
+	 * \brief Log a fatal message.
+	 *
+	 * This is a convenience method for logEntry(level.Fatal, msg). Note
+	 * that calling this method will *not* terminate the program (or close
+	 * the logger) - the caller must do that itself.
+	 */
+	void fatal(const std::string &);
+};
 
 };
 

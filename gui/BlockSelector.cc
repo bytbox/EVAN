@@ -18,6 +18,7 @@ BlockSelector::BlockSelector() {
 	addSeparator();
 	addAction(tr("Cancel"), this, SLOT(cancel()));
 	addAction(tr("Comment"), this, SLOT(comment()));
+	addAction(tr("Return"), this, SLOT(result()));
 	for (Category cat : BuiltinInfo::categories) {
 		auto action = addAction(cat.name.data());
 		connect(action, SIGNAL(triggered()), categoryMapper, SLOT(map()));
@@ -50,6 +51,10 @@ void BlockSelector::cancel() {
 }
 
 void BlockSelector::comment() {
+
+}
+
+void BlockSelector::result() {
 
 }
 

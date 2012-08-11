@@ -37,6 +37,11 @@ public:
 	virtual ~EachTool();
 };
 
+class ReturnTool : public Tool {
+public:
+	virtual ~ReturnTool();
+};
+
 class BuiltinTool : public Tool {
 	const Builtin &builtin;
 public:
@@ -44,7 +49,23 @@ public:
 	virtual ~BuiltinTool();
 };
 
-class CanvasComment : public QGraphicsItem {
+class CanvasItem : public QGraphicsItem {
+public:
+protected:
+};
+
+class CanvasBlockItem : public CanvasItem {
+public:
+protected:
+	virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *);
+};
+
+class CanvasContainerItem : public CanvasItem {
+public:
+protected:
+};
+
+class CanvasComment : public CanvasBlockItem {
 	std::string content;
 	QGraphicsRectItem *rect;
 	QGraphicsTextItem *text;
@@ -58,15 +79,19 @@ public:
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
-class CanvasPipe : public QGraphicsItem {
+class CanvasPipe : public CanvasItem {
 public:
 };
 
-class CanvasBlock : public QGraphicsItem {
+class CanvasBlock : public CanvasBlockItem {
 public:
 };
 
-class CanvasEach : public QGraphicsItem {
+class CanvasReturn : public CanvasBlock {
+public:
+};
+
+class CanvasEach : public CanvasContainerItem {
 public:
 };
 
@@ -88,6 +113,8 @@ class CanvasView : public QGraphicsView {
 public:
 	CanvasView();
 	~CanvasView();
+
+	Program *getProgram() const;
 
 	QSize minimumSizeHint() const;
 };
