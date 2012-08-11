@@ -21,6 +21,9 @@
 extern "C" {
 #endif
 
+/*!
+ * \brief For storing the size of a vector.
+ */
 typedef unsigned short	tLen;
 
 typedef char		Bool;
