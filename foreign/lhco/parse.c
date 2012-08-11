@@ -80,23 +80,6 @@ Vec_Foreign LHCO_Input(const char *fname) {
 		// Since no valid LHCO file will actually have lines longer
 		// than LHCO_PARSE_LINE_BUF_SZ, we can just pretend that fgets
 		// actually does give us entire lines
-
-		if (! *buf) {
-			exit(-1);
-			struct lhco_event *evt = malloc(sizeof(struct lhco_event));
-			evt->p_count = npart;
-			struct lhco_particle **ps = malloc(sizeof(struct lhco_particle *));
-			*ps = parts;
-			evt->parts = ps;
-			// allocate new buffer if necessary
-			if (nevent > evtbuf_sz) {
-				evtbuf_sz *= 2;
-				events = realloc(events, evtbuf_sz);
-			}
-			events[nevent] = evt;
-			nevent++;
-			break;
-		}
 	
 		// Now we separate the fields
 		int fn = 0;
@@ -156,6 +139,18 @@ Vec_Foreign LHCO_Input(const char *fname) {
 		};
 		parts[npart++] = part;
 	}
+	struct lhco_event *evt = malloc(sizeof(struct lhco_event));
+	evt->p_count = npart;
+	struct lhco_particle **ps = malloc(sizeof(struct lhco_particle *));
+	*ps = parts;
+	evt->parts = ps;
+	// allocate new buffer if necessary
+	if (nevent > evtbuf_sz) {
+		evtbuf_sz *= 2;
+		events = realloc(events, evtbuf_sz);
+	}
+	events[nevent] = evt;
+	nevent++;
 	if (!feof(fin)) exit(1); // TODO
 
 	fclose(fin);
