@@ -46,12 +46,14 @@ int LHCOtoPDG(int lhcopid, double ntrack, double btag) {
 	}
 }
 
-Foreign LHCO_Input(const char *fname) {
+Vec_Foreign LHCO_Input(const char *fname) {
 	FILE *fin = fopen(fname, "r");
 	if (!fin) exit(1); // TODO
 
 	fclose(fin);
-	return NULL;
+
+	Vec_Foreign result = {0, NULL};
+	return result;
 }
 
 /*

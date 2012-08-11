@@ -40,6 +40,15 @@ typedef char		Bool;
 typedef long long	Int;
 typedef double		Float;
 
+/*!
+ * \brief A "wildcard" foreign data type.
+ *
+ * The typechecking phase will know more about this, of course, but here all we
+ * need to pass to and from the foreign interface is a pointer, to be cast
+ * appropriately only by the functions which know what it is.
+ */
+typedef void *Foreign;
+
 typedef struct {
 	tLen len;
 	Bool *data;
@@ -53,10 +62,19 @@ typedef struct {
 	Float *data;
 } Vec_Float;
 
-typedef void *Foreign;
+/*!
+ * \brief A vector of foreign objects.
+ *
+ * This data structure can be used to hack around the single-dimensional
+ * restriction on vectors.
+ */
+typedef struct {
+	tLen len;
+	Foreign *data;
+} Vec_Foreign;
 
 
-Foreign LHCO_Input(const char *fname);
+Vec_Foreign LHCO_Input(const char *fname);
 
 #ifdef __cplusplus
 }
