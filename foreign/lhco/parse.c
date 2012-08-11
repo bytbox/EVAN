@@ -62,7 +62,7 @@ struct lhco_particle {
 
 struct lhco_event {
 	short p_count;
-	struct lhco_particle *parts;
+	struct lhco_particle **parts;
 };
 
 Vec_Foreign LHCO_Input(const char *fname) {
@@ -107,7 +107,9 @@ Vec_Foreign LHCO_Input(const char *fname) {
 				// store the old one
 				struct lhco_event *evt = malloc(sizeof(struct lhco_event));
 				evt->p_count = npart;
-				evt->parts = parts;
+				struct lhco_particle **ps = malloc(sizeof(struct lhco_particle *));
+				*ps = parts;
+				evt->parts = ps;
 				// allocate new buffer if necessary
 				if (nevent > evtbuf_sz) {
 					evtbuf_sz *= 2;
@@ -141,8 +143,9 @@ Vec_Foreign LHCO_Input(const char *fname) {
 	return result;
 }
 
-Vec_Foreign LHCO_Parts(Foreign event) {
-	Vec_Foreign result = {0, NULL};
+Vec_Foreign LHCO_Parts(Foreign eventp) {
+	struct lhco_event event = *(struct lhco_event *)eventp;
+	Vec_Foreign result = {event.p_count, (Foreign *)event.parts};
 	return result;
 }
 
