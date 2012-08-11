@@ -5,15 +5,22 @@ using namespace util::logging;
 #include <vector>
 using namespace std;
 
-vector<log *> logger::logs = vector<log *>();
-map<std::string, logger *> logger::loggers = map<std::string, logger *>();
+// This is tricky.
+// 
+// The initialization order (in which constructors are called) of globals and
+// statics is undefined. Since logger::get is commonly called in top-level
+// initializers, everything it uses has to be initialized manually. In order to
+// pull that off, _loggers must be a pointer.
+map<string, logger *> *_loggers = NULL;
 
 logger &logger::get(const std::string &name) {
-	auto it = loggers.find(name);
-	if (it != loggers.end())
+	if (!_loggers) _loggers = new map<string, logger *>;
+	auto it = _loggers->find(name);
+	if (it != _loggers->end())
 		return *(*it).second;
-	loggers[name] = new logger(name);
-	return *loggers[name];
+	logger *nl = new logger(name);
+	_loggers->insert(pair<string, logger *>("", nl));
+	return *nl;
 }
 
 logger::logger() : logger("misc") {}

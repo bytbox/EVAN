@@ -3,6 +3,7 @@
 
 #include "canvas.hh"
 #include "menu.hh"
+#include "util.hh"
 
 #include <QtGui>
 
@@ -72,6 +73,8 @@ class App : public QApplication {
 public:
 	App(int argc, char *argv[]);
 };
+
+extern util::logging::logger qtLogger;
 
 #endif /* !APP_HH */
 
