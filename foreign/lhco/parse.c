@@ -168,27 +168,6 @@ Vec_Foreign LHCO_Parts(Foreign eventp) {
 /*
 int main(int argc, char* argv[]) {
 
-	int ninout = 0;
-	vector < string > fields;
-
-	string infilename = argv[1];
-	string outfilename;
-
-	ifstream unw(argv[1]);
-	ofstream lhe;
-
-	stringstream eventparticles;
-	string temp;
-	string tempfield;
-	istringstream infield;
-	istringstream instream;
-	int blockposition = 0;
-	string in_pid;
-	double eta, phi, pt, jmas, ntrk, btag, HADoverEM;
-	int pid;
-	double pX, pY, pL, m, E;
-	bool write_event = false;
-
 	//LOOP on LINES
 	ninout = 0;
 	while (getline(unw, temp)) {
