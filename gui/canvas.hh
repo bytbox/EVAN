@@ -126,16 +126,27 @@ public:
 class DialogFields : public QWidget {
 	Q_OBJECT;
 public:
+	DialogFields();
 };
+
+extern DialogFields *commentDialogFields;
 
 class CreationDialog : public Dialog {
 	Q_OBJECT;
+
+	DialogFields *fields;
 public:
+	CreationDialog(DialogFields *);
+	virtual ~CreationDialog();
 };
 
 class EditDialog : public Dialog {
 	Q_OBJECT;
+
+	DialogFields *fields;
 public:
+	EditDialog(DialogFields *);
+	virtual ~EditDialog();
 };
 
 class CanvasView : public QGraphicsView {
