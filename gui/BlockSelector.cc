@@ -19,6 +19,7 @@ BlockSelector::BlockSelector(CanvasView *cView) : canvasView(cView) {
 	addAction(tr("Cancel"), this, SLOT(cancel()));
 	addAction(tr("Comment"), this, SLOT(comment()));
 	addAction(tr("Return"), this, SLOT(result()));
+	addAction(tr("Each Loop"), this, SLOT(each()));
 	for (Category cat : BuiltinInfo::categories) {
 		auto action = addAction(cat.name.data());
 		connect(action, SIGNAL(triggered()), categoryMapper, SLOT(map()));
@@ -51,11 +52,18 @@ void BlockSelector::cancel() {
 }
 
 void BlockSelector::comment() {
+	qtLogger.debug("Selecting comment tool");
 	canvasView->setTool(new CommentTool());
 }
 
 void BlockSelector::result() {
+	qtLogger.debug("Selecting result tool");
+	canvasView->setTool(new ReturnTool());
+}
 
+void BlockSelector::each() {
+	qtLogger.debug("Selecting each tool");
+	canvasView->setTool(new EachTool());
 }
 
 void BlockSelector::category(const QString &qname) {

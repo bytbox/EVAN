@@ -30,6 +30,7 @@ private slots:
 	void cancel();
 	void comment();
 	void result();
+	void each();
 
 	void category(const QString &);
 	void builtin(const QString &);
