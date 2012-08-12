@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-BlockSelector::BlockSelector() {
+BlockSelector::BlockSelector(CanvasView *cView) : canvasView(cView) {
 	setMovable(false);
 
 	categoryMapper = new QSignalMapper(this);

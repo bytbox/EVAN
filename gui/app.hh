@@ -12,8 +12,10 @@
 
 class BlockSelector : public QToolBar {
 	Q_OBJECT;
+
+	CanvasView *canvasView;
 public:
-	BlockSelector();
+	BlockSelector(CanvasView *);
 	~BlockSelector();
 
 private:
@@ -39,9 +41,9 @@ class MainPanel : public QWidget {
 	QVBoxLayout outsideLayout;
 	QHBoxLayout mainLayout;
 
+public:
 	CanvasView canvas;
 
-public:
 	MainPanel();
 };
 

@@ -4,7 +4,7 @@
 
 using Qt::ToolBarArea;
 
-MainWindow::MainWindow() : menus(menuBar()) {
+MainWindow::MainWindow() : menus(menuBar()), blockSelector(&mainPanel.canvas) {
 	menus.addMenu("&File", {
 			new MenuAction("&New", this, SLOT(file_new())),
 			new MenuAction("&Open", this, SLOT(file_open())),
