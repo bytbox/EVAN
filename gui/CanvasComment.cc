@@ -1,10 +1,10 @@
 #include "canvas.hh"
 
-CanvasComment::CanvasComment(const std::string &c) : content(c) {
+CanvasComment::CanvasComment(const Comment *c) : comment(c) {
 	setFlag(ItemIsMovable, true);
 	setFlag(ItemIsSelectable, true);
 
-	text = new QGraphicsTextItem(c.data());
+	text = new QGraphicsTextItem(c->content.data());
 	rect = new QGraphicsRectItem();
 
 	updateText();

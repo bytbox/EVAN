@@ -6,48 +6,7 @@
 
 #include <QtGui>
 
-class Tool {
-public:
-	virtual ~Tool();
-
-	/*virtual void move(Program *, const QPoint &);
-	virtual void down(Program *, const QPoint &);
-	virtual void up(Program *, const QPoint &);*/
-};
-
-class DefaultTool : public Tool {
-public:
-	virtual ~DefaultTool();
-};
-
-class CommentTool : public Tool {
-public:
-	virtual ~CommentTool();
-};
-
-// Note that despite the name, this object is not associated with the Pipe
-// class in program.hh.
-class PipeTool : public Tool {
-public:
-	virtual ~PipeTool();
-};
-
-class EachTool : public Tool {
-public:
-	virtual ~EachTool();
-};
-
-class ReturnTool : public Tool {
-public:
-	virtual ~ReturnTool();
-};
-
-class BuiltinTool : public Tool {
-	const Builtin &builtin;
-public:
-	explicit BuiltinTool(const Builtin &b);
-	virtual ~BuiltinTool();
-};
+#include <functional>
 
 class CanvasItem : public QGraphicsItem {
 public:
@@ -66,13 +25,13 @@ protected:
 };
 
 class CanvasComment : public CanvasBlockItem {
-	std::string content;
+	const Comment *comment;
 	QGraphicsRectItem *rect;
 	QGraphicsTextItem *text;
 
 	void updateText();
 public:
-	CanvasComment(const std::string &);
+	CanvasComment(const Comment *);
 	~CanvasComment();
 
 	virtual QRectF boundingRect() const;
@@ -107,19 +66,81 @@ public:
 	Program *getProgram();
 };
 
+class Tool {
+public:
+	virtual ~Tool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const = 0;
+};
+
+class DefaultTool : public Tool {
+public:
+	virtual ~DefaultTool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
+class CommentTool : public Tool {
+public:
+	virtual ~CommentTool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
+// Note that despite the name, this object is not associated with the Pipe
+// class in program.hh.
+class PipeTool : public Tool {
+public:
+	virtual ~PipeTool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
+class EachTool : public Tool {
+public:
+	virtual ~EachTool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
+class ReturnTool : public Tool {
+public:
+	virtual ~ReturnTool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
+class BuiltinTool : public Tool {
+	const Builtin &builtin;
+public:
+	explicit BuiltinTool(const Builtin &b);
+	virtual ~BuiltinTool();
+
+	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
 class CanvasView : public QGraphicsView {
 	Q_OBJECT;
 
 	QPen pen;
 	QBrush brush;
 
+	CanvasScene *canvasScene;
 	const DefaultTool *defaultTool;
 	const Tool *tool;
+
+	// Allow lambda functions to access QGraphicsView::mousePressEvent.
+	virtual void super_mousePressEvent(QMouseEvent *);
 public:
 	CanvasView();
 	~CanvasView();
 
+	void setTool(const Tool *);
+
 	QSize minimumSizeHint() const;
+
+protected:
+	virtual void mousePressEvent(QMouseEvent *);
 };
 
 #endif /* !CANVAS_HH */

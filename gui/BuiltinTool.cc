@@ -9,3 +9,7 @@ BuiltinTool::~BuiltinTool() {
 
 }
 
+void BuiltinTool::apply(CanvasScene *s, const QPoint &p, std::function<void()> f) const {
+
+}
+

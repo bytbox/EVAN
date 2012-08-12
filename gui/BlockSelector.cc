@@ -67,6 +67,6 @@ void BlockSelector::category(const QString &qname) {
 
 void BlockSelector::builtin(const QString &qname) {
 	string name = qname.toStdString();
-	cerr << name << endl;
+	qtLogger.debug("Selecting builtin tool: " + name);
 }
 

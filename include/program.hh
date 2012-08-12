@@ -207,9 +207,10 @@ public:
 class Program {
 public:
 	Program(Pipe*);
+	Program(Pipe*, std::vector<Comment *>);
 	Pipe *result;
 
-	/**
+	/*!
 	 * \brief Top-level comments in this program.
 	 */
 	std::vector<Comment *> comments;
