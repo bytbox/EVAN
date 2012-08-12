@@ -52,10 +52,17 @@ public:
 class MainWindow : public QMainWindow {
 	Q_OBJECT;
 
+	static const QString fileFilters;
+
 	MenuBarManager menus;
 	MainPanel mainPanel;
 	
 	BlockSelector blockSelector;
+
+	/*!
+	 * \brief The currently open program file.
+	 */
+	maybe<std::string> filename;
 
 public:
 	MainWindow();

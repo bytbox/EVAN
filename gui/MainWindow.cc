@@ -2,6 +2,7 @@
 
 #include "app.hh"
 #include "dialog.hh"
+#include "util.hh"
 
 #include <QtGui>
 
@@ -9,6 +10,8 @@
 using namespace std;
 
 using Qt::ToolBarArea;
+
+const QString MainWindow::fileFilters = tr("EVAN Source (*.evan)");
 
 MainWindow::MainWindow() : menus(menuBar()), blockSelector(&mainPanel.canvas) {
 	menus.addMenu("&File", {
@@ -39,20 +42,51 @@ void MainWindow::file_new() {
 }
 
 void MainWindow::file_open() {
+	qtLogger.debug("Selecting open file");
 	string ofname = QFileDialog::getOpenFileName(
 			this,					// parent
 			tr("Open Program"),			// caption
 			"",					// directory
-			tr("EVAN Source (*.evan)")		// filters
+			fileFilters				// filters
 			).toStdString();
+	if (ofname.size()) {
+		// open ofname
+	} else
+		qtLogger.debug("No file selected");
 }
 
 void MainWindow::file_save() {
-
+	if (!filename.isDefined()) {
+		qtLogger.debug("Selecting save file");
+		string sfname = QFileDialog::getSaveFileName(
+				this,
+				tr("Save Program"),
+				"",
+				fileFilters
+				).toStdString();
+		if (sfname.size()) filename = sfname;
+		else {
+			qtLogger.debug("No file selected");
+			return;
+		}
+	}
+	string fname = filename.get();
+	qtLogger.debug("Saving '"+fname+"'");
+	// save to fname
 }
 
 void MainWindow::file_save_as() {
-
+	qtLogger.debug("Selecting save-as file");
+	string fname = QFileDialog::getSaveFileName(
+			this,
+			tr("Save Program As"),
+			"",
+			fileFilters
+			).toStdString();
+	if (fname.size()) {
+		// save to fname
+	} else
+		qtLogger.debug("No file selected");
 }
 
 void MainWindow::file_exit() {
