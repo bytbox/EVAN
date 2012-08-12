@@ -1,6 +1,12 @@
 #include "config.hh"
 
 #include "app.hh"
+#include "dialog.hh"
+
+#include <QtGui>
+
+#include <string>
+using namespace std;
 
 using Qt::ToolBarArea;
 
@@ -33,7 +39,12 @@ void MainWindow::file_new() {
 }
 
 void MainWindow::file_open() {
-
+	string ofname = QFileDialog::getOpenFileName(
+			this,					// parent
+			tr("Open Program"),			// caption
+			"",					// directory
+			tr("EVAN Source (*.evan)")		// filters
+			).toStdString();
 }
 
 void MainWindow::file_save() {
