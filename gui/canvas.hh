@@ -120,6 +120,13 @@ public:
 	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
 };
 
+/*!
+ * \brief A specification of the fields to be displayed in a dialog.
+ */
+class DialogFields {
+public:
+};
+
 class CreationDialog : public Dialog {
 	Q_OBJECT;
 public:
