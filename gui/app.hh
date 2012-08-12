@@ -2,6 +2,7 @@
 #define APP_HH
 
 #include "canvas.hh"
+#include "dialog.hh"
 #include "menu.hh"
 #include "util.hh"
 

@@ -49,7 +49,7 @@ void MainWindow::file_exit() {
 }
 
 void MainWindow::help_about() {
-	QMessageBox::about(this, "About EVAN", "Some text here"); // TODO
+	QMessageBox::about(this, tr("About EVAN"), "Some text here"); // TODO
 }
 
 void MainWindow::help_about_qt() {
