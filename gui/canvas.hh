@@ -1,8 +1,9 @@
 #ifndef CANVAS_HH
 #define CANVAS_HH
 
-#include "program.hh"
+#include "dialog.hh"
 #include "builtins.hh"
+#include "program.hh"
 
 #include <QtGui>
 
@@ -117,6 +118,16 @@ public:
 	virtual ~BuiltinTool();
 
 	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+};
+
+class CreationDialog : public Dialog {
+	Q_OBJECT;
+public:
+};
+
+class EditDialog : public Dialog {
+	Q_OBJECT;
+public:
 };
 
 class CanvasView : public QGraphicsView {
