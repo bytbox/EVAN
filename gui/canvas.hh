@@ -135,6 +135,7 @@ public:
 	CanvasView();
 	~CanvasView();
 
+	void cancelTool();
 	void setTool(const Tool *);
 
 	QSize minimumSizeHint() const;

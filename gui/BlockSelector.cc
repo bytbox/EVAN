@@ -47,11 +47,11 @@ void BlockSelector::run() {
 }
 
 void BlockSelector::cancel() {
-
+	canvasView->cancelTool();
 }
 
 void BlockSelector::comment() {
-
+	canvasView->setTool(new CommentTool());
 }
 
 void BlockSelector::result() {

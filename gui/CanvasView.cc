@@ -30,3 +30,7 @@ void CanvasView::setTool(const Tool *t) {
 	tool = t;
 }
 
+void CanvasView::cancelTool() {
+	tool = defaultTool;
+}
+
