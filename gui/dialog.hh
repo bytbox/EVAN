@@ -6,6 +6,9 @@
 class Dialog : public QDialog {
 	Q_OBJECT;
 public:
+	Dialog();
+	Dialog(QWidget *);
+	virtual ~Dialog();
 };
 
 #endif /* !DIALOG_HH */

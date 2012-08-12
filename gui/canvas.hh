@@ -123,7 +123,8 @@ public:
 /*!
  * \brief A specification of the fields to be displayed in a dialog.
  */
-class DialogFields {
+class DialogFields : public QWidget {
+	Q_OBJECT;
 public:
 };
 
