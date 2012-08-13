@@ -1,6 +1,8 @@
 #include "canvas.hh"
 #include "dialog.hh"
 
+#include <QtGui>
+
 EditDialog::EditDialog(DialogFields *fields) : fields(fields) {
 	setWindowTitle(tr("Create"));
 
