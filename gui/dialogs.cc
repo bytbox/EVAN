@@ -2,9 +2,13 @@
 
 #include <QtGui>
 
-DialogFields *commentDialogFields =
+#include <functional>
+
+DialogFields *_commentDialogFields = NULL;
+std::function<DialogFields *()> commentDialogFields =
 ([]() -> DialogFields *{
- 	DialogFields *fields = new DialogFields();
-	return fields;
-})();
+	if (_commentDialogFields) return _commentDialogFields;
+ 	_commentDialogFields = new DialogFields();
+	return _commentDialogFields;
+});
 

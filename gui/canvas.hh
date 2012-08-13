@@ -129,7 +129,7 @@ public:
 	DialogFields();
 };
 
-extern DialogFields *commentDialogFields;
+extern std::function<DialogFields *()> commentDialogFields;
 
 class CreationDialog : public Dialog {
 	Q_OBJECT;
