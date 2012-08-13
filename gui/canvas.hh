@@ -136,6 +136,11 @@ class CreationDialog : public Dialog {
 	Q_OBJECT;
 
 	DialogFields *fields;
+
+	QVBoxLayout layout;
+	QHBoxLayout buttonLayout;
+
+	QPushButton *okButton, *cancelButton;
 public:
 	CreationDialog(DialogFields *);
 	virtual ~CreationDialog();
@@ -145,6 +150,11 @@ class EditDialog : public Dialog {
 	Q_OBJECT;
 
 	DialogFields *fields;
+
+	QVBoxLayout layout;
+	QHBoxLayout buttonLayout;
+
+	QPushButton *okButton, *cancelButton;
 public:
 	EditDialog(DialogFields *);
 	virtual ~EditDialog();
