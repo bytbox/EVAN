@@ -65,6 +65,7 @@ public:
 	CanvasScene(Program *);
 
 	Program *getProgram();
+	void add(Comment *);
 };
 
 class Tool {

@@ -8,6 +8,11 @@ CommentTool::~CommentTool() {
 
 void CommentTool::apply(CanvasScene *s, const QPoint &p, std::function<void()> f) const {
 	qtLogger.debug("Creating new comment");
-	CreationDialog d(commentDialogFields());
+	auto fields = commentDialogFields();
+	CreationDialog d(fields);
+	d.exec();
+
+	Comment *comment = new Comment("some text");
+	s->add(comment);
 }
 

@@ -14,3 +14,7 @@ Program *CanvasScene::getProgram() {
 	return program;
 }
 
+void CanvasScene::add(Comment *c) {
+	qtLogger.debug("Adding comment: "+c->content);
+}
+
