@@ -8,6 +8,7 @@
 #include <QtGui>
 
 #include <functional>
+#include <map>
 
 class CanvasItem : public QGraphicsItem {
 public:
@@ -126,8 +127,12 @@ public:
  */
 class DialogFields : public QWidget {
 	Q_OBJECT;
+
+	const std::string title;
 public:
 	DialogFields();
+	DialogFields(const std::string &);
+	std::string operator[](const std::string &);
 };
 
 extern std::function<DialogFields *()> commentDialogFields;
