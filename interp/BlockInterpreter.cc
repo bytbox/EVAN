@@ -17,13 +17,8 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 	if (block->arguments.size() == 0) {
 		// When there are no arguments, the block is considered to
 		// output a single value.
+
 		if (last.isDefined()) return lastVal;
-		// If the scope has advanced, we're empty. Otherwise, if
-		// there's a previous value, use it.	
-		if (last.isDefined() && s != last.get())
-			return maybe<Value>();
-		else if (last.isDefined())
-			return lastVal;
 
 		// We've never run before
 		last = maybe<Scope>(s);
