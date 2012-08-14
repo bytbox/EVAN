@@ -31,7 +31,6 @@ test t1("basic", s, ([](){
 	iter++;
 	assert(int(*iter) == 4);
 	assert(i->next(s).isDefined());
-	assert(! i->next(s.next()).isDefined());
 }));
 };
 

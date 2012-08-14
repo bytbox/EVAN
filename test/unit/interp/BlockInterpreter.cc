@@ -18,7 +18,7 @@ test t1("basic", s, ([](){
 	auto s = Interpreter::Scope::empty.into();
 	assert(int(i->next(s).get()) == 1);
 	assert(int(i->next(s).get()) == 1);
-	assert(! i->next(s.next()).isDefined());
+	assert(i->next(s.next()).isDefined());
 }));
 };
 
