@@ -132,8 +132,8 @@ class EachInterpreter : public Interpreter {
 	Interpreter *source, *result;
 	maybe <Scope> last;
 	maybe <Value> lastVal;
-	std::list <Value> srcLst; // TODO use iterator only
 	std::list <Value> ::iterator srcIt;
+	std::list <Value> ::iterator srcEnd;
 	bool finished;
 public:
 	/*!
