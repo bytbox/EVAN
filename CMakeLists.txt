@@ -1,4 +1,3 @@
-# TODO support clang
 # TODO generate ctags
 # TODO benchmarks
 
@@ -8,6 +7,11 @@ project (EVAN)
 set (EVAN_VERSION 0.1.0)
 
 #set (CMAKE_MODULE_PATH "${EVAN_SOURCE_DIR}/cmake/")
+
+if (${USE_CLANG})
+	set (CMAKE_C_COMPILER clang)
+	set (CMAKE_CXX_COMPILER clang)
+endif()
 
 if (${PROFILE})
 	set(C_FLAGS_PROFILE "")
