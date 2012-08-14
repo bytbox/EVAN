@@ -130,9 +130,8 @@ class DialogFields : public QWidget {
 
 	QVBoxLayout layout;
 
-	std::map<std::string, QLineEdit *> lineEdits;
-	std::map<std::string, QTextEdit *> textEdits;
-	std::vector<QLabel *> labels;
+	std::map<std::string, std::function<std::string()>> properties;
+	std::vector<QObject *> objects;
 public:
 	const std::string title;
 
