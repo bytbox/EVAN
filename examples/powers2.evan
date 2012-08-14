@@ -3,9 +3,9 @@
 count <- Constant (10) .
 
 zero <- Constant (0) .
+two <- Constant (2) .
 exps <- Sequence zero, count .
 each exp >- exps {
-	two <- Constant (2) .
 	r <- Exp two, exp .
 } results -< r .
 return results .

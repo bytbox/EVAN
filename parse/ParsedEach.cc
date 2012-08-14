@@ -34,15 +34,18 @@ Pipe *ParsedEach::Scope::getPipe(const string &name) {
 	if (pipes.find(name) != pipes.end())
 		return pipes[name];
 	auto parsed = (*parsed_pipes)[name];
-	if (!parsed) {
+	if (!parsed)
 		// Not found in this scope; try the one higher
-		// TODO
-	}
+		return parent->getPipe(name);
 	pipes[name] = parsed->extract(this);
 	return pipes[name];
 }
 
 Each *ParsedEach::extract(ParsingScope *prog) {
+	// The argument is our parent scope, which will be used by
+	// ParsedEach::Scope.
+	scope.parent = prog;
+	
 	// Most of the construction of an each block involves fiddling with the
 	// links between inner and outer - but first, we need to get the
 	// (outer) source.

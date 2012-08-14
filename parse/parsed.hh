@@ -65,6 +65,7 @@ class ParsedEach : public ParsedElement<Each *> {
 		Scope(ParsedEach *);
 		virtual Pipe *getPipe(const std::string &);
 		Pipe *source;
+		ParsingScope *parent;
 	} scope;
 
 public:
