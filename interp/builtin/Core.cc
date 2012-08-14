@@ -6,7 +6,7 @@ using namespace std;
 
 #define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
 
-Value Sequence(vector <Param> ps, vector <Value> vs) {
+Value Sequence(vector <Param> ps, vector <Value> as) {
 	list <Value> lst;
 	for (int i = as[0]; i < int(as[0]) + int(as[1]); i++)
 		lst.push_back(i);

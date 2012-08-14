@@ -5,7 +5,8 @@ count <- Constant (10) .
 one <- Constant (1) .
 exps <- Sequence one, count .
 each exp >- exps {
-	r <- Identity exp .
+	two <- Constant (2) .
+	r <- Exp two, exp .
 } results -< r .
 return results .
 
