@@ -7,6 +7,7 @@
 std::function<DialogFields *()> commentDialogFields =
 ([]() -> DialogFields *{
  	DialogFields *fields = new DialogFields();
+	fields->addTextEdit("", "content", "Hello, world!");
 	return fields;
 });
 

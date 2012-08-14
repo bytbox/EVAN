@@ -128,11 +128,21 @@ public:
 class DialogFields : public QWidget {
 	Q_OBJECT;
 
-	const std::string title;
+	std::map<std::string, QLineEdit *> lineEdits;
+	std::map<std::string, QTextEdit *> textEdits;
 public:
+	const std::string title;
+
 	DialogFields();
 	DialogFields(const std::string &);
-	std::string operator[](const std::string &);
+
+	void addLineEdit(const std::string &, const std::string &);
+	void addLineEdit(const std::string &, const std::string &, const std::string &);
+
+	void addTextEdit(const std::string &, const std::string &);
+	void addTextEdit(const std::string &, const std::string &, const std::string &);
+
+	virtual std::string get(const std::string &);
 };
 
 extern std::function<DialogFields *()> commentDialogFields;
