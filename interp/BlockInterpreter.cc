@@ -48,7 +48,7 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 			( [] (maybe <Value> m) -> bool { return m.isDefined(); }));
 	bool def = defined[0];
 	for (size_t i=1; i<defined.size(); i++)
-		if (defined[i] != def) throw new TypeMismatchError();
+		if (defined[i] != def) throw (new TypeMismatchError())->with(_POS);
 
 	if (!def) // The sources are done, so we are too.
 		return maybe<Value>();
