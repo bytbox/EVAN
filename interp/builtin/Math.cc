@@ -30,11 +30,11 @@ Value Mul(vector <Param> ps, vector <Value> vs) {
 }
 
 Value Exp(vector <Param> ps, vector <Value> vs) {
-	return pow(double(vs[0]), double(vs[1]));
+	return pow(vs[0].asDouble(), vs[1].asDouble());
 }
 
 Value Div(vector <Param> ps, vector <Value> vs) {
-	return double(vs[0]) / double(vs[1]);
+	return vs[0].asDouble() / vs[1].asDouble();
 }
 
 Value Sum(vector <Param> ps, vector <Value> vs) {

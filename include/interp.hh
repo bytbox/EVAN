@@ -61,6 +61,8 @@ public:
 	 */
 	std::list<Value> lst() const;
 
+	double asDouble() const;
+
 	enum {BOT, BOOL, INT, FLOAT, VEC, LIST} type;
 	union {
 		bool b;

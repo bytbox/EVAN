@@ -34,6 +34,15 @@ public:
 	operator std::string() const;
 	operator const char *() const;
 
+	/*!
+	 * \brief Attempts to represent this parameter as a double.
+	 *
+	 * This is a little different from the orginary double cast above, in
+	 * that if this parameter's underlying type is an int, it will still be
+	 * succesfully cast to a double.
+	 */
+	double asDouble() const;
+
 	enum {INT, FLOAT, STRING} type;
 	union {
 		int i;

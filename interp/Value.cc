@@ -102,3 +102,11 @@ list<Value> Value::lst() const {
 	return list<Value>(l.get());
 }
 
+double Value::asDouble() const {
+	if (type == FLOAT)
+		return value.d;
+	else if (type == INT)
+		return double(value.i);
+	else throw (new TypeMismatchError())->with(_POS);
+}
+

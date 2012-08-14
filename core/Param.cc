@@ -32,3 +32,11 @@ Param::operator const char *() const {
 	return value.s;
 }
 
+double Param::asDouble() const {
+	if (type == FLOAT)
+		return value.d;
+	else if (type == INT)
+		return double(value.i);
+	else throw (new TypeMismatchError())->with(_POS);
+}
+
