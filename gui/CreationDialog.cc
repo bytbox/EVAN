@@ -4,7 +4,7 @@
 #include <QtGui>
 
 CreationDialog::CreationDialog(DialogFields *fields) : fields(fields) {
-	setWindowTitle(tr("Create"));
+	setWindowTitle(tr(("Create " + fields->title).c_str()));
 
 	okButton = new QPushButton(tr("Ok"));
 	cancelButton = new QPushButton(tr("Cancel"));
@@ -12,6 +12,7 @@ CreationDialog::CreationDialog(DialogFields *fields) : fields(fields) {
 	buttonLayout.addWidget(cancelButton);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	layout.addWidget(fields);
 	layout.addLayout(&buttonLayout);
 	setLayout(&layout);
 }
