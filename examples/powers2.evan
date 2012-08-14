@@ -2,7 +2,7 @@
 
 count <- Constant (10) .
 
-one <- Constant (1) .
+one <- Constant (0) .
 exps <- Sequence one, count .
 each exp >- exps {
 	two <- Constant (2) .

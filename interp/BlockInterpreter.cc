@@ -17,7 +17,7 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 	if (block->arguments.size() == 0) {
 		// When there are no arguments, the block is considered to
 		// output a single value.
-	
+		if (last.isDefined()) return lastVal;
 		// If the scope has advanced, we're empty. Otherwise, if
 		// there's a previous value, use it.	
 		if (last.isDefined() && s != last.get())
@@ -42,16 +42,8 @@ maybe<Value> BlockInterpreter::next(Scope s) {
 	transform(arguments.begin(), arguments.end(), maybeargs.begin(),
 			( [s] (Interpreter *i) -> maybe<Value> { return i->next(s); }));
 
-	// The 'defined' state of all arguments must match.
-	vector <bool> defined(arguments.size());
-	transform(maybeargs.begin(), maybeargs.end(), defined.begin(), 
-			( [] (maybe <Value> m) -> bool { return m.isDefined(); }));
-	bool def = defined[0];
-	for (size_t i=1; i<defined.size(); i++)
-		if (defined[i] != def) throw (new TypeMismatchError())->with(_POS);
-
-	if (!def) // The sources are done, so we are too.
-		return maybe<Value>();
+	for (maybe<Value> m : maybeargs)
+		if (!m.isDefined()) return maybe<Value>();
 
 	// All values available - call the function.
 	vector <Value> args(arguments.size());
