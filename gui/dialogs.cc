@@ -11,3 +11,9 @@ std::function<DialogFields *()> commentDialogFields =
 	return fields;
 });
 
+std::function<DialogFields *()> returnDialogFields =
+([]() -> DialogFields *{
+ 	DialogFields *fields = new DialogFields();
+	return fields;
+});
+

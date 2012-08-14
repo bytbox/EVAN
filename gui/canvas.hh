@@ -148,7 +148,7 @@ public:
 	virtual std::string get(const std::string &);
 };
 
-extern std::function<DialogFields *()> commentDialogFields;
+extern std::function<DialogFields *()> commentDialogFields, returnDialogFields;
 
 class CreationDialog : public Dialog {
 	Q_OBJECT;
