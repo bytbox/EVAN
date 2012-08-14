@@ -30,12 +30,14 @@ ParsedEach::Scope::Scope(ParsedEach *pe) : each(pe) {
 }
 
 Pipe *ParsedEach::Scope::getPipe(const string &name) {
-	// TODO put this is ParsingScope
 	if (name == *source_name) return source;
 	if (pipes.find(name) != pipes.end())
 		return pipes[name];
 	auto parsed = (*parsed_pipes)[name];
-	if (!parsed) throw new ParseError("no such pipe: "+name);
+	if (!parsed) {
+		// Not found in this scope; try the one higher
+		// TODO
+	}
 	pipes[name] = parsed->extract(this);
 	return pipes[name];
 }

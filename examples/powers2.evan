@@ -2,8 +2,8 @@
 
 count <- Constant (10) .
 
-one <- Constant (0) .
-exps <- Sequence one, count .
+zero <- Constant (0) .
+exps <- Sequence zero, count .
 each exp >- exps {
 	two <- Constant (2) .
 	r <- Exp two, exp .
