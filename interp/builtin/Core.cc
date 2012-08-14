@@ -8,7 +8,7 @@ using namespace std;
 
 Value Sequence(vector <Param> ps, vector <Value> vs) {
 	list <Value> lst;
-	for (int i = ps[0]; i < int(ps[0]) + int(ps[1]); i++)
+	for (int i = as[0]; i < int(as[0]) + int(as[1]); i++)
 		lst.push_back(i);
 	return lst;
 }

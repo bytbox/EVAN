@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+#include <cmath>
+
 #define IFUNC [] (vector <Param> ps, vector <Value> vs) -> Value
 
 Value Add(vector <Param> ps, vector <Value> vs) {
@@ -25,6 +27,10 @@ Value Mul(vector <Param> ps, vector <Value> vs) {
 		return double(vs[0]) * double(vs[1]);
 	else
 		return int(vs[0]) * int(vs[1]);
+}
+
+Value Exp(vector <Param> ps, vector <Value> vs) {
+	return pow(double(vs[0]), double(vs[1]));
 }
 
 Value Div(vector <Param> ps, vector <Value> vs) {
@@ -70,6 +76,7 @@ simple_registry<Interpreter::Function> Interpreter::mathFunctions
 	{"Sub", &Sub},
 	{"Mul", &Mul},
 	{"Div", &Div},
+	{"Exp", &Exp},
 	{"Sum", &Sum},
 	{"Product", &Product},
 	{"Lt", (IFUNC { return double(vs[0]) < double(vs[1]); })},

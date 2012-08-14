@@ -1,0 +1,11 @@
+# Compute the first several powers of two.
+
+count <- Constant (10) .
+
+one <- Constant (1) .
+exps <- Sequence one, count .
+each exp >- exps {
+	r <- Identity exp .
+} results -< r .
+return results .
+

@@ -130,6 +130,14 @@
       <description></description>
     </builtin>
     <builtin>
+      <name>Exp</name>
+      <type></type>
+      <description>
+        Raise the first argument to the power of the second.
+      </description>
+    </builtin>
+
+    <builtin>
       <name>Sum</name>
       <type></type>
       <description>
