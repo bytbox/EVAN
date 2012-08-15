@@ -3,7 +3,9 @@
 
 CanvasView::CanvasView()
 	: QGraphicsView(new CanvasScene), canvasScene((CanvasScene *)scene()), defaultTool(new DefaultTool), tool(defaultTool) {
-
+	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+	setResizeAnchor(AnchorUnderMouse);
 }
 
 CanvasView::~CanvasView() {

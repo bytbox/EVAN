@@ -11,13 +11,12 @@ CanvasScene::CanvasScene(Program *program) : program(program) {
 }
 
 Program *CanvasScene::getProgram() {
-	// TODO extract updates
 	return program;
 }
 
 void CanvasScene::add(Comment *c) {
 	qtLogger.debug("Adding comment: "+c->content);
-	// We don't update the program in parallel - that is saved for getProgram()
+	program->comments.push_back(c);
 	addItem(new CanvasComment(c));
 }
 

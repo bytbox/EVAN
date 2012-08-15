@@ -4,6 +4,7 @@ CanvasComment::CanvasComment(const Comment *c) : comment(c) {
 	setFlag(ItemIsMovable, true);
 	setFlag(ItemIsSelectable, true);
 
+	setPos(QPoint(c->extraInfo.position.get(0), c->extraInfo.position.get(1)));
 	text = new QGraphicsTextItem(c->content.data());
 	rect = new QGraphicsRectItem();
 
