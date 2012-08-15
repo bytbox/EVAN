@@ -18,7 +18,7 @@ public:
 	TestExtra1(string s1, string s2) : a(s1), b(s2) {}
 
 	vec<2, string> toFields() const {
-		return {{a, b}};
+		return {a, b};
 	}
 
 	void fromFields(const vec<2, string> &fs) {

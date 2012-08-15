@@ -244,6 +244,14 @@ public:
 template <int L, typename T>
 class vec {
 public:
+	vec() : v{0} {}
+	vec(const std::initializer_list<T> &il) {
+		auto l = std::vector<T>(il);
+		if (l.size() != L)
+			throw (new internal_error())->with(_POS);
+		for (int i = 0; i < L; i++)
+			v[i] = l[i];
+	}
 	T &operator[](int i) {
 		return v[i];
 	}
