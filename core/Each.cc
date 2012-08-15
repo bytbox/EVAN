@@ -23,6 +23,22 @@ EachExtra &Each::extra() {
 	return extraInfo;
 }
 
+Each::Passthrough::Passthrough(Pipe *t) : target(t) {}
+
+Each::Passthrough::~Passthrough() {}
+
+Pipe::Type Each::Passthrough::type() const {
+	return Type::EACH_PASSTHROUGH;
+}
+
+vector<Pipe *> Each::Passthrough::prerequisites() const {
+	return {};
+}
+
+Extra &Each::Passthrough::extra() {
+	return extraInfo;
+}
+
 Each::Inner::~Inner() {}
 
 Pipe::Type Each::Inner::type() const {

@@ -151,7 +151,7 @@ class Pipe {
 	 */
 	Comment *comment = NULL;
 public:
-	enum Type {BLOCK, EACH, EACH_INNER};
+	enum Type {BLOCK, EACH, EACH_INNER, EACH_PASSTHROUGH};
 
 	virtual ~Pipe();
 	virtual Type type() const = 0; // To avoid needing to use RTTI
@@ -184,6 +184,20 @@ public:
  */
 class Each : public Pipe {
 public:
+	/*!
+	 * \brief Pass a pipe through without iterating on it.
+	 */
+	class Passthrough : public Pipe {
+	public:
+		Pipe *target;
+		Passthrough(Pipe *);
+		virtual ~Passthrough();
+		virtual Type type() const;
+		virtual std::vector <Pipe *> prerequisites() const;
+		virtual Extra &extra();
+		NullExtra extraInfo;
+	};
+
 	class Inner : public Pipe {
 	public:
 		Each *outer;

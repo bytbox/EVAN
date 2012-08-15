@@ -36,7 +36,7 @@ Pipe *ParsedEach::Scope::getPipe(const string &name) {
 	auto parsed = (*parsed_pipes)[name];
 	if (!parsed)
 		// Not found in this scope; try the one higher
-		return parent->getPipe(name);
+		return new Each::Passthrough(parent->getPipe(name));
 	pipes[name] = parsed->extract(this);
 	return pipes[name];
 }

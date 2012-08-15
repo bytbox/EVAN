@@ -157,6 +157,14 @@ public:
 	Inner inner;
 };
 
+class EachPassthroughInterpreter : public Interpreter {
+	Interpreter *target;
+	Each::Passthrough *passthrough;
+public:
+	EachPassthroughInterpreter(Each::Passthrough *);
+	virtual maybe<Value> next(Scope);
+};
+
 class BlockInterpreter : public Interpreter {
 	Block *block;
 	std::vector <Interpreter *> arguments;
