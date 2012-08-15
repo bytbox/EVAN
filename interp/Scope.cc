@@ -40,6 +40,13 @@ Interpreter::Scope Interpreter::Scope::outer() const {
 	return s;
 }
 
+Interpreter::Scope Interpreter::Scope::level(unsigned int l) const {
+	vector<unsigned int> d;
+	for (unsigned int i = 0; i < l; i++)
+		d.push_back(data[i]);
+	return Scope(d);
+}
+
 unsigned int Interpreter::Scope::lowIndex() const {
 	if (data.size() < 1)
 		throw new internal_error("attempted to peek at empty scope");

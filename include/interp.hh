@@ -99,6 +99,11 @@ public:
 		Scope next() const;
 		Scope into() const;
 		Scope outer() const;
+
+		/*!
+		 * \brief Truncate this scope to that level.
+		 */
+		Scope level(unsigned int) const;
 		unsigned int lowIndex() const;
 	};
 
