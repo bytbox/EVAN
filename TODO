@@ -1,3 +1,15 @@
+Development schedule:
+  Tuesday   functional nested loops
+  Wednesday creation of blocks
+  Thursday  creation of pipes, and positioning
+  Friday    working trivial programs in GUI, and creation of each blocks
+  Saturday  working each-based programs in GUI
+  Sunday    builtins
+  Monday    testing and misc. fixes
+  Tuesday   release
+
+
+
 gui
 parsing lhco (via foreign)
 fill out builtin routines
