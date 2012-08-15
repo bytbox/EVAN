@@ -76,5 +76,6 @@ void BlockSelector::category(const QString &qname) {
 void BlockSelector::builtin(const QString &qname) {
 	string name = qname.toStdString();
 	qtLogger.debug("Selecting builtin tool: " + name);
+	canvasView->setTool(builtinTools[name]);
 }
 

@@ -114,7 +114,7 @@ public:
 };
 
 class BuiltinTool : public Tool {
-	const Builtin &builtin;
+	const Builtin builtin;
 public:
 	explicit BuiltinTool(const Builtin &b);
 	virtual ~BuiltinTool();
