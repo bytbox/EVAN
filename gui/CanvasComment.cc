@@ -3,7 +3,6 @@
 
 CanvasComment::CanvasComment(const Comment *c) : comment(c) {
 	setFlag(ItemIsMovable, true);
-	setFlag(ItemIsSelectable, true);
 
 	qtLogger.debug("Positioning comment at " + asString<int>(c->extraInfo.position.get(0)));
 	qtLogger.debug("Positioning comment at " + asString<int>(c->extraInfo.position.get(1)));

@@ -11,6 +11,7 @@ CanvasScene::CanvasScene(Program *program) : program(program) {
 }
 
 Program *CanvasScene::getProgram() {
+	// TODO extract block structure
 	return program;
 }
 
@@ -18,5 +19,10 @@ void CanvasScene::add(Comment *c) {
 	qtLogger.debug("Adding comment: "+c->content);
 	program->comments.push_back(c);
 	addItem(new CanvasComment(c));
+}
+
+void CanvasScene::add(Block *b) {
+	qtLogger.debug("Adding block");
+	addItem(new CanvasBlock(b));
 }
 

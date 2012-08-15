@@ -34,7 +34,7 @@ class CanvasComment : public CanvasBlockItem {
 	void updateText();
 public:
 	CanvasComment(const Comment *);
-	~CanvasComment();
+	virtual ~CanvasComment();
 
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
@@ -45,7 +45,17 @@ public:
 };
 
 class CanvasBlock : public CanvasBlockItem {
+	Block *block;
+
+	QGraphicsRectItem *rect;
+	QGraphicsTextItem *text;
+
 public:
+	CanvasBlock(Block *);
+	virtual ~CanvasBlock();
+
+	virtual QRectF boundingRect() const;
+	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
 class CanvasReturn : public CanvasBlock {
@@ -67,6 +77,7 @@ public:
 
 	Program *getProgram();
 	void add(Comment *);
+	void add(Block *);
 };
 
 class Tool {
