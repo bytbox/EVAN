@@ -32,5 +32,15 @@ test t1("basic", s, ([](){
 	assert(int(*iter) == 4);
 	assert(i->next(s).isDefined());
 }));
+
+test t2("passthrough", s, ([](){
+	Interpreter::addFunction("test_aList", (IFUNC { return std::list<Value>{1, 3, 5, 7, 9}; }));
+	Interpreter::addFunction("test_addOne", (IFUNC { return int(vs[0])+1; }));
+	Interpreter::addFunction("test_one", (IFUNC { return 1; }));
+	Block start("test_aList", {}, {});
+	Block one("test_one", {}, {});
+	// TODO
+}));
+
 };
 

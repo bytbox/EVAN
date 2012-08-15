@@ -11,6 +11,7 @@ EachInterpreter::EachInterpreter(Each *each) : each(each) {
 	inner.outer = this;
 	result = Interpreter::get(each->result);
 	source = Interpreter::get(each->source);
+	finished = false;
 }
 
 maybe <Value> EachInterpreter::next(Scope outsideScope) {
@@ -19,7 +20,6 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 
 	// New outer scope. If we were finished, we're not any more.
 	last = outsideScope;
-	finished = false;
 
 	// Get the next item from source. If it exists, it'll be ready for the
 	// Inner pipe when it looks.
@@ -41,7 +41,8 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 		value = result->next(s);
 		s = s.next();
 	} while(value.isDefined() && (collect.push_back(value.get()), true));
-	lastVal = maybe <Value> (collect);
+	if (!finished) lastVal = maybe <Value> (collect);
+	else lastVal = maybe <Value> ();
 	return lastVal;
 }
 
@@ -65,7 +66,13 @@ EachInterpreter::Passthrough::Passthrough(Each::Passthrough *pt) {
 }
 
 maybe<Value> EachInterpreter::Passthrough::next(Scope s) {
-	// Tell outer: the game is up
-	return target->next(s.outer());
+	Scope os = s.outer();
+	maybe <Value> val = target->next(os);
+	if (!val.isDefined()) {
+		// Tell outer: the game is up. No more requests should be
+		// served from scope os (probably the current outer scope).
+		outer->finished = true;
+	}
+	return val;
 }
 
