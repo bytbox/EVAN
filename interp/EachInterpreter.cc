@@ -47,11 +47,11 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 }
 
 maybe <Value> EachInterpreter::Inner::next(Scope s) {
-	if (outer->srcIt == outer->srcEnd)
-		return maybe <Value> ();
-
 	if (last.isDefined() && s == last.get())
 		return lastVal;
+
+	if (outer->srcIt == outer->srcEnd)
+		return maybe <Value> ();
 
 	last = maybe<Scope>(s);
 	lastVal = maybe<Value>(*outer->srcIt);
