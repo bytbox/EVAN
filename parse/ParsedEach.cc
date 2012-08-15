@@ -3,6 +3,7 @@
 
 #include "program.hh"
 
+#include <iostream>
 #include <map>
 #include <string>
 using namespace std;
@@ -34,9 +35,10 @@ Pipe *ParsedEach::Scope::getPipe(const string &name) {
 	if (pipes.find(name) != pipes.end())
 		return pipes[name];
 	auto parsed = (*parsed_pipes)[name];
-	if (!parsed)
+	if (!parsed) {
 		// Not found in this scope; try the one higher
-		return new Each::Passthrough(parent->getPipe(name));
+		return new Each::Passthrough(parent->getPipe(name), &each->extracted);
+	}
 	pipes[name] = parsed->extract(this);
 	return pipes[name];
 }
@@ -50,11 +52,11 @@ Each *ParsedEach::extract(ParsingScope *prog) {
 	// links between inner and outer - but first, we need to get the
 	// (outer) source.
 	Pipe *source = prog->getPipe(*outer_source);
-	Each *each = new Each(source, ([this]
+	extracted = new Each(source, ([this]
 				(Pipe *src) -> Pipe * {
 					scope.source = src;
 					return scope.getPipe(*result);
 				}));
-	return each;
+	return extracted;
 }
 

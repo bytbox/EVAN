@@ -55,6 +55,7 @@ public:
 class ParsedEach : public ParsedElement<Each *> {
 	const std::string *outer_source, *inner_source, *result;
 	std::map<std::string, ParsedPipe *> *parsed_pipes;
+	Each *extracted;
 
 	class Scope : public ParsingScope {
 		std::map<std::string, ParsedPipe *> *parsed_pipes;

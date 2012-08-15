@@ -150,6 +150,7 @@ public:
 		Interpreter *target;
 		Each::Passthrough *passthrough;
 	public:
+		EachInterpreter *outer;
 		Passthrough(Each::Passthrough *);
 		virtual maybe<Value> next(Scope);
 	};

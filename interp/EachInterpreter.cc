@@ -46,7 +46,6 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 }
 
 maybe <Value> EachInterpreter::Inner::next(Scope s) {
-	cerr << string(s) << endl;
 	if (outer->srcIt == outer->srcEnd)
 		return maybe <Value> ();
 
@@ -66,8 +65,7 @@ EachInterpreter::Passthrough::Passthrough(Each::Passthrough *pt) {
 }
 
 maybe<Value> EachInterpreter::Passthrough::next(Scope s) {
-	// TODO the associated EachInterpreter needs to be told that the game
-	// is over
+	// Tell outer: the game is up
 	return target->next(s.outer());
 }
 

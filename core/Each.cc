@@ -1,6 +1,7 @@
 #include "program.hh"
 
 #include <functional>
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -23,7 +24,7 @@ EachExtra &Each::extra() {
 	return extraInfo;
 }
 
-Each::Passthrough::Passthrough(Pipe *t) : target(t) {}
+Each::Passthrough::Passthrough(Pipe *t, Each **o) : target(t), outer(o) {}
 
 Each::Passthrough::~Passthrough() {}
 

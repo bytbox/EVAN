@@ -190,7 +190,8 @@ public:
 	class Passthrough : public Pipe {
 	public:
 		Pipe *target;
-		Passthrough(Pipe *);
+		Each **outer;
+		Passthrough(Pipe *, Each **);
 		virtual ~Passthrough();
 		virtual Type type() const;
 		virtual std::vector <Pipe *> prerequisites() const;
