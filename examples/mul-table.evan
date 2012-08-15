@@ -4,7 +4,7 @@ X <- Constant (8) .
 X_0 <- Constant (0) .
 xs <- Sequence X_0, X .
 each x >- xs {
-	Y <- Constant (8) x .
+	Y <- Constant (5) .
 	Y_0 <- Constant (0) .
 	ys <- Sequence Y_0, Y .
 	each y >- ys {

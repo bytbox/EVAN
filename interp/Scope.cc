@@ -1,6 +1,8 @@
 #include "interp.hh"
 #include "util.hh"
 
+#include <sstream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -51,5 +53,14 @@ unsigned int Interpreter::Scope::lowIndex() const {
 	if (data.size() < 1)
 		throw new internal_error("attempted to peek at empty scope");
 	return data[data.size()-1];
+}
+
+Interpreter::Scope::operator std::string() const {
+	ostringstream oss;
+	oss << "( ";
+	for (unsigned int i : data)
+		oss << i << ' ';
+	oss << ")";
+	return oss.str();
 }
 

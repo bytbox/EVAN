@@ -1,6 +1,7 @@
 #include "interp.hh"
 #include "util.hh"
 
+#include <iostream>
 #include <vector>
 using namespace std;
 

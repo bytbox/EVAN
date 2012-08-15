@@ -105,6 +105,8 @@ public:
 		 */
 		Scope level(unsigned int) const;
 		unsigned int lowIndex() const;
+
+		operator std::string() const;
 	};
 
 	static Interpreter *get(Pipe *);
