@@ -4,7 +4,7 @@ PipeTool::~PipeTool() {
 
 }
 
-void PipeTool::apply(CanvasScene *s, const QPoint &p, std::function<void()> f) const {
+void PipeTool::apply(CanvasScene *s, const QPointF &p, std::function<void()> f) const {
 
 }
 

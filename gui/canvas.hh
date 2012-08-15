@@ -73,21 +73,21 @@ class Tool {
 public:
 	virtual ~Tool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const = 0;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const = 0;
 };
 
 class DefaultTool : public Tool {
 public:
 	virtual ~DefaultTool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
 };
 
 class CommentTool : public Tool {
 public:
 	virtual ~CommentTool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
 };
 
 // Note that despite the name, this object is not associated with the Pipe
@@ -96,21 +96,21 @@ class PipeTool : public Tool {
 public:
 	virtual ~PipeTool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
 };
 
 class EachTool : public Tool {
 public:
 	virtual ~EachTool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
 };
 
 class ReturnTool : public Tool {
 public:
 	virtual ~ReturnTool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
 };
 
 class BuiltinTool : public Tool {
@@ -119,7 +119,7 @@ public:
 	explicit BuiltinTool(const Builtin &b);
 	virtual ~BuiltinTool();
 
-	virtual void apply(CanvasScene *, const QPoint &, std::function<void()>) const;
+	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
 };
 
 /*!

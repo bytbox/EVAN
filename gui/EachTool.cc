@@ -4,7 +4,7 @@ EachTool::~EachTool() {
 
 }
 
-void EachTool::apply(CanvasScene *s, const QPoint &p, std::function<void()> f) const {
+void EachTool::apply(CanvasScene *s, const QPointF &p, std::function<void()> f) const {
 
 }
 

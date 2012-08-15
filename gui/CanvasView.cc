@@ -17,7 +17,10 @@ QSize CanvasView::minimumSizeHint() const {
 }
 
 void CanvasView::mousePressEvent(QMouseEvent *event) {
-	tool->apply(canvasScene, event->pos(), [this, event](){
+	QPoint gpos = event->pos();
+	QPointF cpos = mapToScene(gpos);
+	// get the position from event, but in canvas coordinates
+	tool->apply(canvasScene, cpos, [this, event](){
 		qtLogger.debug("CanvasView mouse press");
 		super_mousePressEvent(event);
 	});
