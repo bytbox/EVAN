@@ -20,7 +20,7 @@ Interpreter *Interpreter::get(Pipe *pipe) {
 	case Pipe::EACH:
 		return new EachInterpreter((Each *)pipe);
 	case Pipe::EACH_PASSTHROUGH:
-		return new EachPassthroughInterpreter((Each::Passthrough *)pipe);
+		return new EachInterpreter::Passthrough((Each::Passthrough *)pipe);
 	case Pipe::EACH_INNER:
 		Each *e = ((Each::Inner *)pipe)->outer;
 		return &((EachInterpreter *)cache[e])->inner;

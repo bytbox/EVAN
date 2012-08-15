@@ -144,6 +144,16 @@ class EachInterpreter : public Interpreter {
 	bool finished;
 public:
 	/*!
+	 * \brief Represents a non-iterated pipe.
+	 */
+	class Passthrough : public Interpreter {
+		Interpreter *target;
+		Each::Passthrough *passthrough;
+	public:
+		Passthrough(Each::Passthrough *);
+		virtual maybe<Value> next(Scope);
+	};
+	/*!
 	 * \brief Represents the pipe used as a source by the first block
 	 * inside the Each construct.
 	 */
@@ -157,14 +167,6 @@ public:
 	EachInterpreter(Each *);
 	virtual maybe<Value> next(Scope);
 	Inner inner;
-};
-
-class EachPassthroughInterpreter : public Interpreter {
-	Interpreter *target;
-	Each::Passthrough *passthrough;
-public:
-	EachPassthroughInterpreter(Each::Passthrough *);
-	virtual maybe<Value> next(Scope);
 };
 
 class BlockInterpreter : public Interpreter {
