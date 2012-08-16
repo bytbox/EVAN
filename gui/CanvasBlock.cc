@@ -40,6 +40,8 @@ QRectF CanvasBlock::boundingRect() const {
 }
 
 void CanvasBlock::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidget *w) {
+	for (auto arg : args)
+		arg->paint(p, sogi, w);
 	rect->paint(p, sogi, w);
 	ret->paint(p, sogi, w);
 	text->paint(p, sogi, w);
