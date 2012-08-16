@@ -10,8 +10,11 @@
 #include <functional>
 #include <map>
 
+class CanvasBlock;
+
 class CanvasItem : public QGraphicsItem {
 public:
+	virtual void createPipe(CanvasBlock *, const QPointF &);
 protected:
 };
 
@@ -59,6 +62,7 @@ public:
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *);
+	virtual void createPipe(CanvasBlock *, const QPointF &);
 };
 
 class CanvasReturn : public CanvasBlock {

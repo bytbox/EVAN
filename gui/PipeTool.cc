@@ -11,5 +11,11 @@ PipeTool::~PipeTool() {
 
 void PipeTool::apply(CanvasScene *s, const QPointF &p, std::function<void()> f) const {
 	qtLogger.debug("Attempting to create pipe");
+	CanvasItem *i = (CanvasItem *)s->itemAt(p);
+	if (!i) {
+		qtLogger.debug("Pipe creation cancelled");
+		return;
+	}
+	i->createPipe(from, i->mapFromScene(p));
 }
 

@@ -52,3 +52,6 @@ void CanvasBlock::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	}
 }
 
+void CanvasBlock::createPipe(CanvasBlock *from, const QPointF &p) {
+}
+
