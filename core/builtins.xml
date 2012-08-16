@@ -5,9 +5,8 @@
     <builtin>
       <name>Identity</name>
       <type>
-        <variable>T</variable>
-        <argument>T</argument>
-        <result>T</result>
+        <argument><variable>T</variable></argument>
+        <result><variable>T</variable></result>
       </type>
       <description>
         Returns its argument unchanged.
@@ -16,9 +15,8 @@
     <builtin>
       <name>Constant</name>
       <type>
-        <variable>T</variable>
-        <parameter>T</parameter>
-        <result>T</result>
+        <parameter><variable>T</variable></parameter>
+        <result><variable>T</variable></result>
       </type>
       <description>
         Returns the passed parameter.
@@ -27,23 +25,23 @@
     <builtin>
       <name>True</name>
       <type>
-        <result>Bool</result>
+        <result><primitive>Bool</primitive></result>
       </type>
       <description></description>
     </builtin>
     <builtin>
       <name>False</name>
       <type>
-        <result>Bool</result>
+        <result><primitive>Bool</primitive></result>
       </type>
       <description></description>
     </builtin>
     <builtin>
       <name>Both</name>
       <type>
-        <argument>Bool</argument>
-        <argument>Bool</argument>
-        <result>Bool</result>
+        <argument><primitive>Bool</primitive></argument>
+        <argument><primitive>Bool</primitive></argument>
+        <result><primitive>Bool</primitive></result>
       </type>
       <description>
         Returns true if and only if both arguments are true.
@@ -52,9 +50,9 @@
     <builtin>
       <name>Either</name>
       <type>
-        <argument>Bool</argument>
-        <argument>Bool</argument>
-        <result>Bool</result>
+        <argument><primitive>Bool</primitive></argument>
+        <argument><primitive>Bool</primitive></argument>
+        <result><primitive>Bool</primitive></result>
       </type>
       <description>
         Returns true if either argument is true.
@@ -63,9 +61,9 @@
     <builtin>
       <name>Neither</name>
       <type>
-        <argument>Bool</argument>
-        <argument>Bool</argument>
-        <result>Bool</result>
+        <argument><primitive>Bool</primitive></argument>
+        <argument><primitive>Bool</primitive></argument>
+        <result><primitive>Bool</primitive></result>
       </type>
       <description>
         Returns true if and only if both arguments are false.
@@ -74,8 +72,8 @@
     <builtin>
       <name>Not</name>
       <type>
-        <argument>Bool</argument>
-        <result>Bool</result>
+        <argument><primitive>Bool</primitive></argument>
+        <result><primitive>Bool</primitive></result>
       </type>
       <description></description>
     </builtin>

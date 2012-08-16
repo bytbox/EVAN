@@ -1,6 +1,8 @@
 #ifndef BUILTINS_HH
 #define BUILTINS_HH
 
+#include "typecheck.hh"
+
 #include <string>
 #include <vector>
 
@@ -12,10 +14,11 @@
  */
 class Builtin {
 public:
-	Builtin(const std::string &);
-	Builtin(const std::string &, const std::string &);
+	Builtin(const std::string &, const BlockType &);
+	Builtin(const std::string &, const std::string &, const BlockType &);
 	const std::string name;
 	const std::string description;
+	const BlockType type;
 };
 
 /*!

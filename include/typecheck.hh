@@ -1,8 +1,8 @@
 #ifndef TYPECHECK_HH
 #define TYPECHECK_HH
 
+#include <string>
 #include <vector>
-using namespace std;
 
 /*!
  * \brief Represents the type of a Value.
@@ -14,10 +14,30 @@ class Type {
 public:
 };
 
+class AnyType : public Type {
+public:
+};
+
+extern AnyType anyType;
+
 /*!
- * \brief A native (or built-in) type.
+ * \brief A primitive native (or built-in) type.
  */
-class NativeType : public Type {
+class PrimitiveType : public Type {
+	enum Type {BOOL, INT, FLOAT} type;
+	PrimitiveType(Type);
+public:
+	static PrimitiveType fromString(const std::string &);
+	std::string toString() const;
+};
+
+class ListType : public Type {
+	Type *element;
+public:
+};
+
+class VecType : public Type {
+	Type *element;
 public:
 };
 
@@ -38,6 +58,7 @@ class BlockType {
 	std::vector <Type *> arguments;
 	std::vector <Type *> results;
 public:
+	BlockType(std::vector <Type *>, std::vector <Type *>, std::vector <Type *>);
 };
 
 #endif /* !TYPECHECK_HH */

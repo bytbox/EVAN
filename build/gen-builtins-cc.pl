@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use Data::Dumper;
 use XML::Simple;
 
 my ($fin, $fout) = (\*STDIN, \*STDOUT);
@@ -40,7 +41,32 @@ for my $cname (keys $data->{'category'}) {
 		$desc =~ s/\s+$//;
 		$desc =~ s/\s+/ /msg;
 		$desc =~ s/"/\\"/msg; # TODO escape better
-		print $fout "\t\tBuiltin(\"$bname\",\"$desc\"),\n";
+
+		my $args = $builtin->{type}{argument} || [];
+		$args = [$args] if (ref $args eq 'HASH');
+		my $arg_str = "";
+		for my $a (@$args) {
+			$arg_str .= "&anyType,";
+		}
+
+		my $params = $builtin->{type}{parameter} || [];
+		$params = [$params] if (ref $params eq 'HASH');
+		my $param_str = "";
+		for my $a (@$params) {
+			$param_str .= "&anyType,";
+		}
+
+		print $fout <<END;
+		Builtin(
+			\"$bname\",
+			\"$desc\",
+			BlockType(
+				std::vector<Type *>{$param_str},
+				std::vector<Type *>{$arg_str},
+				{}
+			)
+		),
+END
 	}
 	print $fout "\t}),\n";
 }
