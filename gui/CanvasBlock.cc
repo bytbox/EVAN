@@ -7,6 +7,7 @@ CanvasBlock::CanvasBlock(Block *b) : block(b) {
 	text = new QGraphicsTextItem(QString::fromStdString(b->fname));
 	rect = new QGraphicsRectItem();
 	ret = new QGraphicsRectItem();
+	unsigned int argc = b->arguments.size();
 	for (unsigned int i = 0; i < b->arguments.size(); i++) {
 		auto ar = new QGraphicsRectItem();
 		args.push_back(ar);
@@ -14,6 +15,12 @@ CanvasBlock::CanvasBlock(Block *b) : block(b) {
 
 	rect->setRect(text->boundingRect());
 	ret->setRect(rect->rect().left(), rect->rect().bottom(), rect->rect().width(), 14);
+	double rw = rect->rect().width();
+	double p = rect->rect().left();
+	for (auto arg : args) {
+		arg->setRect(p, rect->rect().top()-10, rw/argc, 10);
+		p += rw/argc;
+	}
 }
 
 CanvasBlock::~CanvasBlock() {
