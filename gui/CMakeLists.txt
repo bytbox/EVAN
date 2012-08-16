@@ -11,6 +11,6 @@ if (QT_FOUND)
 
 	include_directories (${QT_INCLUDE_DIR})
 	add_executable (evan-gui ${GUISRCS} ${GUIHDRS_MOC})
-	target_link_libraries (evan-gui core interp util ${QT_LIBRARIES})
+	target_link_libraries (evan-gui core typecheck interp util ${QT_LIBRARIES})
 endif ()
 
