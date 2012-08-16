@@ -107,7 +107,10 @@ public:
 // Note that despite the name, this object is not associated with the Pipe
 // class in program.hh.
 class PipeTool : public Tool {
+	CanvasBlock *from;
+
 public:
+	PipeTool(CanvasBlock *);
 	virtual ~PipeTool();
 
 	virtual void apply(CanvasScene *, const QPointF &, std::function<void()>) const;
@@ -205,6 +208,8 @@ class CanvasView : public QGraphicsView {
 	// Allow lambda functions to access QGraphicsView::mousePressEvent.
 	virtual void super_mousePressEvent(QMouseEvent *);
 public:
+	static CanvasView *view;
+
 	CanvasView();
 	~CanvasView();
 

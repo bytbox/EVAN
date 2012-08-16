@@ -47,7 +47,8 @@ void CanvasBlock::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidg
 
 void CanvasBlock::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	if (event->pos().y() > boundingRect().height() - 10) {
-		qtLogger.debug("Starting pipe");
+		PipeTool *pt = new PipeTool(this);
+		CanvasView::view->setTool(pt);
 	}
 }
 

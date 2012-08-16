@@ -1,8 +1,11 @@
 #include "app.hh"
 #include "canvas.hh"
 
+CanvasView *CanvasView::view = NULL;
+
 CanvasView::CanvasView()
 	: QGraphicsView(new CanvasScene), canvasScene((CanvasScene *)scene()), defaultTool(new DefaultTool), tool(defaultTool) {
+	view = this;
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setResizeAnchor(AnchorUnderMouse);
@@ -20,11 +23,12 @@ void CanvasView::mousePressEvent(QMouseEvent *event) {
 	QPoint gpos = event->pos();
 	QPointF cpos = mapToScene(gpos);
 	// get the position from event, but in canvas coordinates
-	tool->apply(canvasScene, cpos, [this, event](){
+	auto oldTool = tool;
+	tool = defaultTool;
+	oldTool->apply(canvasScene, cpos, [this, event](){
 		qtLogger.debug("CanvasView mouse press");
 		super_mousePressEvent(event);
 	});
-	tool = defaultTool;
 }
 
 void CanvasView::super_mousePressEvent(QMouseEvent *event) {
