@@ -1,3 +1,4 @@
+#include "app.hh"
 #include "canvas.hh"
 
 CanvasBlock::CanvasBlock(Block *b) : block(b) {
@@ -42,5 +43,11 @@ void CanvasBlock::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidg
 	rect->paint(p, sogi, w);
 	ret->paint(p, sogi, w);
 	text->paint(p, sogi, w);
+}
+
+void CanvasBlock::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+	if (event->pos().y() > boundingRect().height() - 10) {
+		qtLogger.debug("Starting pipe");
+	}
 }
 

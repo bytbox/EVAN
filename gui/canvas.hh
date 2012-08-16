@@ -58,6 +58,7 @@ public:
 
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
+	virtual void mousePressEvent(QGraphicsSceneMouseEvent *);
 };
 
 class CanvasReturn : public CanvasBlock {
