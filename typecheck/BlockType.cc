@@ -8,3 +8,8 @@ BlockType::BlockType(vector<Type *> ps, vector<Type *> as, vector<Type *> rs)
 {
 
 }
+
+const std::vector <Type *> BlockType::args() const {
+	return arguments;
+}
+

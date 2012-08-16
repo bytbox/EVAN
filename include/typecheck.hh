@@ -59,6 +59,7 @@ class BlockType {
 	std::vector <Type *> results;
 public:
 	BlockType(std::vector <Type *>, std::vector <Type *>, std::vector <Type *>);
+	const std::vector <Type *> args() const;
 };
 
 #endif /* !TYPECHECK_HH */
