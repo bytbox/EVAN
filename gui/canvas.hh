@@ -49,6 +49,8 @@ class CanvasBlock : public CanvasBlockItem {
 
 	QGraphicsRectItem *rect;
 	QGraphicsTextItem *text;
+	std::vector<QGraphicsRectItem *> args;
+	QGraphicsRectItem *ret;
 
 public:
 	CanvasBlock(Block *);
