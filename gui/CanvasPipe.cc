@@ -1,3 +1,4 @@
+#include "app.hh"
 #include "canvas.hh"
 
 CanvasPipe::CanvasPipe(CanvasBlock *from, CanvasBlock *to) : from(from), to(to) {
@@ -13,6 +14,6 @@ QRectF CanvasPipe::boundingRect() const {
 }
 
 void CanvasPipe::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidget *w) {
-
+	p->drawLine(from->boundingRect().bottomRight(), to->boundingRect().topRight());
 }
 
