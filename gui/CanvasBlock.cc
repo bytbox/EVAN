@@ -13,6 +13,7 @@ CanvasBlock::CanvasBlock(Block *b) : block(b) {
 	}
 
 	rect->setRect(text->boundingRect());
+	ret->setRect(rect->rect().left(), rect->rect().bottom(), rect->rect().width(), 14);
 }
 
 CanvasBlock::~CanvasBlock() {
@@ -32,6 +33,7 @@ QRectF CanvasBlock::boundingRect() const {
 
 void CanvasBlock::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidget *w) {
 	rect->paint(p, sogi, w);
+	ret->paint(p, sogi, w);
 	text->paint(p, sogi, w);
 }
 
