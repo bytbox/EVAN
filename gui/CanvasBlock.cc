@@ -24,7 +24,10 @@ CanvasBlock::~CanvasBlock() {
 }
 
 QRectF CanvasBlock::boundingRect() const {
-	return text->boundingRect();
+	QRectF br = rect->boundingRect();
+	if (args.size() > 0) br |= args[0]->boundingRect();
+	br |= ret->boundingRect();
+	return br;
 }
 
 void CanvasBlock::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidget *w) {
