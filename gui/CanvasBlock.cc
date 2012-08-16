@@ -54,6 +54,13 @@ void CanvasBlock::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	}
 }
 
-void CanvasBlock::createPipe(CanvasBlock *from, const QPointF &p) {
+void CanvasBlock::createPipe(CanvasScene *scene, CanvasBlock *from, const QPointF &p) {
+	if (p.y() > 10) {
+		qtLogger.debug("No pipe created (argument not selected)");
+		return;
+	}
+	qtLogger.debug("Creating pipe");
+	CanvasPipe *pipe = new CanvasPipe(from, this);
+	scene->addItem(pipe);
 }
 

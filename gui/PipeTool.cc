@@ -16,6 +16,6 @@ void PipeTool::apply(CanvasScene *s, const QPointF &p, std::function<void()> f) 
 		qtLogger.debug("Pipe creation cancelled");
 		return;
 	}
-	i->createPipe(from, i->mapFromScene(p));
+	i->createPipe(s, from, i->mapFromScene(p));
 }
 

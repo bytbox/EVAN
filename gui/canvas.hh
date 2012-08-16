@@ -11,10 +11,11 @@
 #include <map>
 
 class CanvasBlock;
+class CanvasScene;
 
 class CanvasItem : public QGraphicsItem {
 public:
-	virtual void createPipe(CanvasBlock *, const QPointF &);
+	virtual void createPipe(CanvasScene *, CanvasBlock *, const QPointF &);
 protected:
 };
 
@@ -45,6 +46,13 @@ public:
 
 class CanvasPipe : public CanvasItem {
 public:
+	CanvasBlock *from, *to;
+
+	CanvasPipe(CanvasBlock *, CanvasBlock *);
+	virtual ~CanvasPipe();
+	
+	virtual QRectF boundingRect() const;
+	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
 class CanvasBlock : public CanvasBlockItem {
@@ -62,7 +70,7 @@ public:
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *);
-	virtual void createPipe(CanvasBlock *, const QPointF &);
+	virtual void createPipe(CanvasScene *, CanvasBlock *, const QPointF &);
 };
 
 class CanvasReturn : public CanvasBlock {
