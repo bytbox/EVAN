@@ -12,11 +12,17 @@ CanvasPipe::~CanvasPipe() {
 }
 
 QRectF CanvasPipe::boundingRect() const {
-	return from->boundingRect() | to->boundingRect();
+	qtLogger.debug("Bounding rect top: " + asString(from->mapToScene(from->boundingRect()).boundingRect().top()));
+	return from->mapToScene(from->boundingRect()).boundingRect() | to->mapToScene(to->boundingRect()).boundingRect();
 }
 
 void CanvasPipe::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidget *w) {
+	qtLogger.debug("Painting canvas pipe");
 	p->drawLine(	from->mapToScene(from->retPt(retId)),
 			to->mapToScene(to->argPt(argId)));
+}
+
+void CanvasPipe::_prepareGeometryChange() {
+	prepareGeometryChange();
 }
 

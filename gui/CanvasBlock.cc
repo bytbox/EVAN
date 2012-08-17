@@ -12,6 +12,7 @@ CanvasBlock::CanvasBlock(Block *b) : block(b) {
 	for (unsigned int i = 0; i < b->arguments.size(); i++) {
 		auto ar = new QGraphicsRectItem();
 		args.push_back(ar);
+		argPipes.push_back(NULL);
 	}
 
 	rect->setRect(text->boundingRect());
@@ -77,7 +78,11 @@ QPointF CanvasBlock::argPt(int argId) const {
 }
 
 void CanvasBlock::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+	for (auto arg : argPipes)
+		if (arg) arg->_prepareGeometryChange();
 	QGraphicsItem::mouseMoveEvent(event);
 	// update any associated pipes
+	for (auto arg : argPipes)
+		if (arg) arg->update(arg->boundingRect());
 }
 

@@ -54,6 +54,8 @@ public:
 	
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
+
+	virtual void _prepareGeometryChange();
 };
 
 class CanvasBlock : public CanvasBlockItem {
@@ -65,6 +67,8 @@ class CanvasBlock : public CanvasBlockItem {
 	QGraphicsRectItem *ret;
 
 public:
+	std::vector<CanvasPipe *> argPipes;
+
 	CanvasBlock(Block *);
 	virtual ~CanvasBlock();
 
