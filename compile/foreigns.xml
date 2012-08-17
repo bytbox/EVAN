@@ -5,15 +5,23 @@
   
   </category>
 
-  <category name="LHE">
+  <category name="LHCO" cname="lhco">
+    <foreign name="LHCO Input" cname="LHCO_Input">
+      <description>
+
+      </description>
+    </foreign>
+  </category>
+
+  <category name="LHE" cname="lhe">
   
   </category>
 
-  <category name="HEPEVT">
+  <category name="HEPEVT" cname="hepevt">
   
   </category>
 
-  <category name="FastJet">
+  <category name="FastJet" cname="fastjet">
   
   </category>
 
