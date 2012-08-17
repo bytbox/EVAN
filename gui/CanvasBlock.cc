@@ -19,7 +19,7 @@ CanvasBlock::CanvasBlock(Block *b) : block(b) {
 	double rw = rect->rect().width();
 	double p = rect->rect().left();
 	for (auto arg : args) {
-		arg->setRect(p, rect->rect().top()-10, rw/argc, 10);
+		arg->setRect(p, rect->rect().top()-14, rw/argc, 14);
 		p += rw/argc;
 	}
 }
@@ -48,19 +48,31 @@ void CanvasBlock::paint(QPainter *p, const QStyleOptionGraphicsItem *sogi, QWidg
 }
 
 void CanvasBlock::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-	if (event->pos().y() > boundingRect().height() - 10) {
+	if (event->pos().y() > boundingRect().height() - 14) {
 		PipeTool *pt = new PipeTool(this);
 		CanvasView::view->setTool(pt);
 	}
 }
 
-void CanvasBlock::createPipe(CanvasScene *scene, CanvasBlock *from, const QPointF &p) {
-	if (p.y() > 10) {
+void CanvasBlock::createPipe(CanvasScene *scene, CanvasBlock *from, int i, const QPointF &p) {
+	if (p.y() > 14) {
 		qtLogger.debug("No pipe created (argument not selected)");
 		return;
 	}
 	qtLogger.debug("Creating pipe");
-	CanvasPipe *pipe = new CanvasPipe(from, this);
+	int r = (int)(args.size() * (p.x()/rect->rect().width()));
+	CanvasPipe *pipe = new CanvasPipe(from, i, this, r);
 	scene->addItem(pipe);
+}
+
+QPointF CanvasBlock::retPt(int retId) const {
+	return QPointF(ret->rect().width()/2, ret->rect().bottom());
+}
+
+QPointF CanvasBlock::argPt(int argId) const {
+	double rw = rect->rect().width();
+	int argc = args.size();
+	double aw = rw/argc;
+	return QPointF(aw/2 + aw*argId, args[0]->rect().top());
 }
 

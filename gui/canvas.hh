@@ -15,7 +15,7 @@ class CanvasScene;
 
 class CanvasItem : public QGraphicsItem {
 public:
-	virtual void createPipe(CanvasScene *, CanvasBlock *, const QPointF &);
+	virtual void createPipe(CanvasScene *, CanvasBlock *, int, const QPointF &);
 protected:
 };
 
@@ -47,8 +47,9 @@ public:
 class CanvasPipe : public CanvasItem {
 public:
 	CanvasBlock *from, *to;
+	int retId, argId;
 
-	CanvasPipe(CanvasBlock *, CanvasBlock *);
+	CanvasPipe(CanvasBlock *, int, CanvasBlock *, int);
 	virtual ~CanvasPipe();
 	
 	virtual QRectF boundingRect() const;
@@ -70,7 +71,9 @@ public:
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *);
-	virtual void createPipe(CanvasScene *, CanvasBlock *, const QPointF &);
+	virtual void createPipe(CanvasScene *, CanvasBlock *, int, const QPointF &);
+	virtual QPointF retPt(int) const;
+	virtual QPointF argPt(int) const;
 };
 
 class CanvasReturn : public CanvasBlock {
