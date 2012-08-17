@@ -70,10 +70,13 @@ public:
 
 	virtual QRectF boundingRect() const;
 	virtual void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
-	virtual void mousePressEvent(QGraphicsSceneMouseEvent *);
 	virtual void createPipe(CanvasScene *, CanvasBlock *, int, const QPointF &);
 	virtual QPointF retPt(int) const;
 	virtual QPointF argPt(int) const;
+
+protected:
+	virtual void mousePressEvent(QGraphicsSceneMouseEvent *);
+	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *);
 };
 
 class CanvasReturn : public CanvasBlock {

@@ -76,3 +76,8 @@ QPointF CanvasBlock::argPt(int argId) const {
 	return QPointF(aw/2 + aw*argId, args[0]->rect().top());
 }
 
+void CanvasBlock::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+	QGraphicsItem::mouseMoveEvent(event);
+	// update any associated pipes
+}
+
