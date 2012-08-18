@@ -1,4 +1,5 @@
 #include "output.h"
+#include "methods.h"
 
 #include <stdio.h>
 #include <string.h>
