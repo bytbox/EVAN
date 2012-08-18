@@ -1,12 +1,25 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
 
+#include <stdio.h>
+
 typedef enum {PLAIN, PLOT, ROOT, ASCII} output_method_t;
 
 extern const char *output_method_names[];
 
 const char *output_method_name(output_method_t);
 output_method_t output_method_from_name(const char *);
+
+typedef struct {
+	FILE *file;
+	const char *basename;
+	const char *filename;
+} output_destination_t;
+
+output_destination_t output_to_stdout();
+output_destination_t output_to_file(FILE *);
+output_destination_t output_to_basename(const char *);
+output_destination_t output_to_filename(const char *);
 
 #endif /* !OUTPUT_H */
 
