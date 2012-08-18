@@ -115,9 +115,9 @@ Vec_Foreign LHCO_Input(const char *fname) {
 				*ps = parts;
 				evt->parts = ps;
 				// allocate new buffer if necessary
-				if (nevent > evtbuf_sz) {
+				if (nevent >= evtbuf_sz) {
 					evtbuf_sz *= 2;
-					events = realloc(events, evtbuf_sz);
+					events = realloc(events, evtbuf_sz * sizeof(struct lhco_event *));
 				}
 				events[nevent] = evt;
 				nevent++;
@@ -147,7 +147,7 @@ Vec_Foreign LHCO_Input(const char *fname) {
 	// allocate new buffer if necessary
 	if (nevent > evtbuf_sz) {
 		evtbuf_sz *= 2;
-		events = realloc(events, evtbuf_sz);
+		events = realloc(events, evtbuf_sz * sizeof(struct lhco_event *));
 	}
 	events[nevent] = evt;
 	nevent++;
