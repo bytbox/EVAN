@@ -7,11 +7,19 @@
 
   <category name="LHCO" cname="lhco">
     <foreign name="LHCO Input" cname="LHCO_Input">
+      <type>
+        <parameter><builtin>String</builtin></parameter>
+        <result><vector><foreign>LHCO_Event</foreign></vector></result>
+      </type>
       <description>
 
       </description>
     </foreign>
     <foreign name="LHCO Particles" cname="LHCO_Parts">
+      <type>
+        <argument><foreign>LHCO_Event</foreign></argument>
+        <result><vector><foreign>LHCO_Particle</foreign></vector></result>
+      </type>
       <description>
 
       </description>

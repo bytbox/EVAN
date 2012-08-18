@@ -36,6 +36,7 @@ for my $catname (keys $data->{'category'}) {
 	my $fs = $data->{'category'}{$catname}{'foreign'};
 	for my $fname (keys %$fs) {
 		my $fcname = $fs->{$fname}{cname};
+		print STDERR Dumper($fs->{$fname});
 		print "\t{\"$fname\", ($IFUNC {\n";
 		print "\t\treturn 0;\n";
 		print "\t})},\n";
