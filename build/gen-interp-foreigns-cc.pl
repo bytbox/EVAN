@@ -36,9 +36,28 @@ for my $catname (keys $data->{'category'}) {
 	my $fs = $data->{'category'}{$catname}{'foreign'};
 	for my $fname (keys %$fs) {
 		my $fcname = $fs->{$fname}{cname};
-		print STDERR Dumper($fs->{$fname});
+		my @args;
+		my $type = $fs->{$fname}{type};
+		my $parameters = $type->{parameter} || [];
+		$parameters = [$parameters] if (ref $parameters eq 'HASH');
+		my $pn = 0;
+		for my $p (@$parameters) {
+			die "parameters must be builtins" unless $p->{builtin};
+			push @args, "ps[$pn]";
+			$pn++;
+		}
+
+		my $arguments = $type->{argument} || [];
+		$arguments = [$arguments] if (ref $arguments eq 'HASH');
+		my $an = 0;
+		for my $p (@$arguments) {
+			push @args, "as[$an]";
+			$an++;
+		}
+
+		my $argstr = join ',', @args;
 		print "\t{\"$fname\", ($IFUNC {\n";
-		print "\t\treturn 0;\n";
+		print "\t\treturn $fcname($argstr);\n";
 		print "\t})},\n";
 	}
 }
