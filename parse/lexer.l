@@ -35,6 +35,8 @@ each			return TEACH;
 {ALPHA}{ALPHANUM}*	yylval.str = new std::string(yytext); return TIDENT;
 \[[^\]]+\]		yylval.str = new std::string(strndup(yytext+1, yyleng-2)); return TIDENT;
 
+\"[^\"]+\"		yylval.str = new std::string(strndup(yytext+1, yyleng-2)); return TSTRING;
+
 #.*			/* ignored */
 \n			/* ignored */
 [ \t]+			/* ignored */

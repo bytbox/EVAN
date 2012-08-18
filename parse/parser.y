@@ -31,7 +31,7 @@ ParsedProgram *parsed_program;
 %token TPERIOD TCOMMA
 %token TLARROW TRARROW TSPLIT TJOIN
 
-%token <str> TIDENT
+%token <str> TIDENT TSTRING
 %token <ival> TINT
 %token <num> TNUM
 
@@ -104,6 +104,7 @@ param_list:
 param:
 	TINT { $$ = new ParsedParam($1); }
 	| TNUM { $$ = new ParsedParam($1); }
+	| TSTRING { $$ = new ParsedParam(*$1); }
 
 args:
 	{

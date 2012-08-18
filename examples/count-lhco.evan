@@ -1,0 +1,5 @@
+# Return the number of events in an lhco file
+
+events <- [LHCO Input] ("events.lhco") .
+return events .
+

@@ -33,6 +33,7 @@ class ParsedParam : public ParsedElement<Param> {
 public:
 	explicit ParsedParam(const int);
 	explicit ParsedParam(const double);
+	explicit ParsedParam(const std::string &);
 	virtual ~ParsedParam();
 	
 	virtual Param extract(ParsingScope *);
