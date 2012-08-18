@@ -1,34 +1,32 @@
 all: build
+	@cd build && ${MAKE} -s
 
-build: out
-	@cd out && ${MAKE} -s
+full: build
+	@cd build && ${MAKE} -s full
 
-full: out
-	@cd out && ${MAKE} -s full
+doc: build
+	@cd build && ${MAKE} -s doc-html
 
-doc: out
-	@cd out && ${MAKE} -s doc-html
+check: build
+	@cd build && ${MAKE} -s check
 
-check: out
-	@cd out && ${MAKE} -s check
+prof: build.prof
+	@cd build.prof && ${MAKE} -s
 
-prof: out.prof
-	@cd out.prof && ${MAKE} -s
-
-cov: out.cov
-	@cd out.cov && ${MAKE} -s check
+cov: build.cov
+	@cd build.cov && ${MAKE} -s check
 
 clean:
-	@${RM} -r out out.prof out.cov
+	@${RM} -r build build.prof build.cov
 
-out:
-	@if [ ! -d out ]; then mkdir -p out && cd out && cmake ..; fi
+build:
+	@if [ ! -d build ]; then mkdir -p build && cd build && cmake ..; fi
 
-out.prof:
-	@if [ ! -d out.prof ]; then mkdir -p out.prof && cd out.prof && cmake -DPROFILE=1 ..; fi
+build.prof:
+	@if [ ! -d build.prof ]; then mkdir -p build.prof && cd build.prof && cmake -DPROFILE=1 ..; fi
 
-out.cov:
-	@if [ ! -d out.cov ]; then mkdir -p out.cov && cd out.cov && cmake -DCOVERAGE=1 ..; fi
+build.cov:
+	@if [ ! -d build.cov ]; then mkdir -p build.cov && cd build.cov && cmake -DCOVERAGE=1 ..; fi
 
-.PHONY: all build clean check prof cov
+.PHONY: all clean check prof cov
 
