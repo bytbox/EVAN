@@ -120,7 +120,7 @@ protected:
 	typedef registry<Function> FunctionRegistry;
 	static FunctionRegistry *functions;
 
-	static simple_registry<Function> testFunctions, coreFunctions, combinatoricsFunctions, mathFunctions;
+	static simple_registry<Function> testFunctions, coreFunctions, combinatoricsFunctions, mathFunctions, foreignFunctions;
 
 #ifdef TESTING
 public:
