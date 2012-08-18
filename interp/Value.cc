@@ -135,6 +135,42 @@ Value::operator Bool() const {
 	return value.b;
 }
 
+Value::operator Foreign() const {
+	if (type != FOREIGN)
+		throw (new TypeMismatchError())->with(_POS);
+	return value.f
+}
+
+Value::operator Vec_Int() const {
+	if (type != VEC)
+		throw (new TypeMismatchError())->with(_POS);
+	Vec_Int r;
+	r.len = v.get().size();
+	for (unsigned int i = 0; i < r.len; i++)
+		r.data[i] = v.get()[i];
+	return r;
+}
+
+Value::operator Vec_Bool() const {
+	if (type != VEC)
+		throw (new TypeMismatchError())->with(_POS);
+	Vec_Bool r;
+	r.len = v.get().size();
+	for (unsigned int i = 0; i < r.len; i++)
+		r.data[i] = v.get()[i];
+	return r;
+}
+
+Value::operator Vec_Float() const {
+	if (type != VEC)
+		throw (new TypeMismatchError())->with(_POS);
+	Vec_Float r;
+	r.len = v.get().size();
+	for (unsigned int i = 0; i < r.len; i++)
+		r.data[i] = v.get()[i];
+	return r;
+}
+
 Value Value::operator [](int i) const {
 	if (type != VEC)
 		throw (new TypeMismatchError())->with(_POS);
