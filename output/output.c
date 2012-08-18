@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-const char *output_method_names[] = {"plain", "plot", "root", 0};
+const char *output_method_names[] = {"plain", "plot", "root", "ascii", 0};
 
 const char *output_method_name(output_method_t meth) {
 	return output_method_names[meth];

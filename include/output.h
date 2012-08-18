@@ -1,7 +1,7 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
 
-typedef enum {PLAIN, PLOT, ROOT} output_method_t;
+typedef enum {PLAIN, PLOT, ROOT, ASCII} output_method_t;
 
 extern const char *output_method_names[];
 
