@@ -23,6 +23,7 @@ simple_registry<Interpreter::Function> Interpreter::coreFunctions
 	{"Either", (IFUNC { return vs[0] || vs[1]; })},
 	{"Neither", (IFUNC { return !(vs[0] || vs[1]); })},
 	{"Count", (IFUNC { return int(vs[0].lst().size()); })},
+	{"Size", (IFUNC { return int(vs[0].vec().size()); })},
 	{"Sequence", &Sequence},
  });
 

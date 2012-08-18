@@ -78,6 +78,11 @@
       <description></description>
     </builtin>
     <builtin>
+      <name>Size</name>
+      <type></type>
+      <description>Return the size of a vector.</description>
+    </builtin>
+    <builtin>
       <name>Count</name>
       <type></type>
       <description>Count the number of elements in a list.</description>
