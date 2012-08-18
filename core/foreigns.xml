@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <foreigns>
 
-  <category name="Tracks">
+  <category name="Tracks" cname="tracks">
   
   </category>
 
