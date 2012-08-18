@@ -1,6 +1,7 @@
 #ifndef INTERP_HH
 #define INTERP_HH
 
+#include "foreign.h"
 #include "program.hh"
 #include "util.hh"
 
@@ -20,11 +21,21 @@ public:
 	Value();
 	Value(const bool);
 	Value(const int);
-	Value(const double);
+	Value(const float);
 	Value(const Param &);
 	Value(const std::initializer_list <Value> &);
 	Value(const std::vector <Value> &);
 	Value(const std::list <Value> &);
+
+	Value(const Bool);
+	Value(const Int);
+	Value(const Float);
+
+	Value(Foreign);
+	Value(Vec_Bool);
+	Value(Vec_Int);
+	Value(Vec_Float);
+	Value(Vec_Foreign);
 
 	std::string toString() const;
 
@@ -35,11 +46,44 @@ public:
 	/*!
 	 * \throw TypeMismatchError
 	 */
-	operator double() const;
+	operator float() const;
 	/*!
 	 * \throw TypeMismatchError
 	 */
 	operator bool() const;
+
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Int() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Float() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Bool() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Foreign() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Vec_Int() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Vec_Bool() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Vec_Float() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator Vec_Foreign() const;
 
 	/*!
 	 * \brief Access the nth element of the list contained in this value.

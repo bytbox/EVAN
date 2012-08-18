@@ -1,4 +1,6 @@
+#include "foreign.h"
 #include "interp.hh"
+#include "program.hh"
 
 #include <initializer_list>
 #include <list>
@@ -10,7 +12,10 @@ using namespace std;
 Value::Value() : type(BOT) {}
 Value::Value(const bool b) : type(BOOL) { value.b = b; }
 Value::Value(const int i) : type(INT) { value.i = i; }
-Value::Value(const double d) : type(FLOAT) { value.d = d; }
+Value::Value(const float d) : type(FLOAT) { value.d = d; }
+Value::Value(const Bool b) : type(BOOL) { value.b = b; }
+Value::Value(const Int i) : type(INT) { value.i = i; }
+Value::Value(const Float d) : type(FLOAT) { value.d = d; }
 Value::Value(const Param &p) {
 	switch (p.type) {
 	case Param::INT:
@@ -72,13 +77,31 @@ Value::operator int() const {
 	return value.i;
 }
 
-Value::operator double() const {
+Value::operator float() const {
 	if (type != FLOAT)
 		throw (new TypeMismatchError())->with(_POS);
 	return value.d;
 }
 
 Value::operator bool() const {
+	if (type != BOOL)
+		throw (new TypeMismatchError())->with(_POS);
+	return value.b;
+}
+
+Value::operator Int() const {
+	if (type != INT)
+		throw (new TypeMismatchError())->with(_POS);
+	return value.i;
+}
+
+Value::operator Float() const {
+	if (type != FLOAT)
+		throw (new TypeMismatchError())->with(_POS);
+	return value.d;
+}
+
+Value::operator Bool() const {
 	if (type != BOOL)
 		throw (new TypeMismatchError())->with(_POS);
 	return value.b;
