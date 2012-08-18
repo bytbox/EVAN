@@ -11,6 +11,11 @@
 
       </description>
     </foreign>
+    <foreign name="LHCO Particles" cname="LHCO_Parts">
+      <description>
+
+      </description>
+    </foreign>
   </category>
 
   <category name="LHE" cname="lhe">

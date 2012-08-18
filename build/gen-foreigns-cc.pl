@@ -31,7 +31,21 @@ END
 
 for my $catname (keys $data->{'category'}) {
 	my $catcname = $data->{'category'}{$catname}{'cname'};
-	print $fout "\tForeignCategory(\"$catname\", \"$catcname\", {}),\n";
+	my $fs = $data->{'category'}{$catname}{'foreign'};
+	print $fout "\tForeignCategory(\"$catname\", \"$catcname\", {\n";
+	for my $fname (keys %$fs) {
+		my $fcname = $fs->{$fname}{cname};
+		my $desc = $fs->{$fname}{description};
+		$desc = "" if ref($desc);
+		$desc =~ s/\n/ /msg;
+		$desc =~ s/^\s+//;
+		$desc =~ s/\s+$//;
+		$desc =~ s/\s+/ /msg;
+		$desc =~ s/"/\\"/msg; # TODO escape better
+
+		print $fout "\t\tForeignFunc(\"$fname\", \"$fcname\", \"\", BlockType({}, {}, {})),\n";
+	}
+	print $fout "\t}),\n";
 }
 
 print $fout <<END;
