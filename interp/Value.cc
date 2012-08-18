@@ -78,8 +78,8 @@ string Value::toString() const {
 		{
 			ostringstream oss;
 			oss << "<vec>[ ";
-			for (Value v : l.get())
-				oss << v.toString() << ' ';
+			for (Value val : v.get())
+				oss << val.toString() << ' ';
 			oss << "]";
 			return oss.str();
 		}
@@ -87,8 +87,8 @@ string Value::toString() const {
 		{
 			ostringstream oss;
 			oss << "<list>[ ";
-			for (Value v : l.get())
-				oss << v.toString() << ' ';
+			for (Value val : l.get())
+				oss << val.toString() << ' ';
 			oss << "]";
 			return oss.str();
 		}
