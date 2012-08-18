@@ -30,13 +30,15 @@ using namespace std;
 simple_registry<Interpreter::Function> Interpreter::foreignFunctions({
 END
 
-my $IFUNC = "[] (vector <Param> ps, vector <Value> vs) -> Value";
+my $IFUNC = "[] (vector <Param> ps, vector <Value> as) -> Value";
 for my $catname (keys $data->{'category'}) {
 	my $catcname = $data->{'category'}{$catname}{'cname'};
 	my $fs = $data->{'category'}{$catname}{'foreign'};
 	for my $fname (keys %$fs) {
 		my $fcname = $fs->{$fname}{cname};
-		print "\t{\"$fname\", ($IFUNC { return 0; })},\n";
+		print "\t{\"$fname\", ($IFUNC {\n";
+		print "\t\treturn 0;\n";
+		print "\t})},\n";
 	}
 }
 
