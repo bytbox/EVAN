@@ -31,11 +31,11 @@ public:
 	Value(const Int);
 	Value(const Float);
 
-	Value(Foreign);
-	Value(Vec_Bool);
-	Value(Vec_Int);
-	Value(Vec_Float);
-	Value(Vec_Foreign);
+	Value(const Foreign);
+	Value(const Vec_Bool);
+	Value(const Vec_Int);
+	Value(const Vec_Float);
+	Value(const Vec_Foreign);
 
 	std::string toString() const;
 
@@ -107,11 +107,12 @@ public:
 
 	double asDouble() const;
 
-	enum {BOT, BOOL, INT, FLOAT, VEC, LIST} type;
+	enum {BOT, BOOL, INT, FLOAT, VEC, LIST, FOREIGN} type;
 	union {
 		bool b;
 		int i;
 		double d;
+		void *f;
 	} value;
 	maybe < std::vector<Value> > v;
 	maybe < std::list<Value> > l;

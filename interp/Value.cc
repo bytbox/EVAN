@@ -38,6 +38,32 @@ Value::Value(const std::initializer_list <Value> &vs) : type(VEC) {
 Value::Value(const vector <Value> &vs) : type(VEC), v(vs) {}
 Value::Value(const list <Value> &vs) : type(LIST), l(vs) {}
 
+Value::Value(const Foreign f) : type(FOREIGN) { value.f = f; }
+Value::Value(const Vec_Int vi) : type(VEC) {
+	auto res = vector<Value>{};
+	for (unsigned int i = 0; i < vi.len; i++)
+		res.push_back(vi.data[i]);
+	v = res;
+}
+Value::Value(const Vec_Float vi) : type(VEC) {
+	auto res = vector<Value>{};
+	for (unsigned int i = 0; i < vi.len; i++)
+		res.push_back(vi.data[i]);
+	v = res;
+}
+Value::Value(const Vec_Bool vi) : type(VEC) {
+	auto res = vector<Value>{};
+	for (unsigned int i = 0; i < vi.len; i++)
+		res.push_back(vi.data[i]);
+	v = res;
+}
+Value::Value(const Vec_Foreign vi) : type(VEC) {
+	auto res = vector<Value>{};
+	for (unsigned int i = 0; i < vi.len; i++)
+		res.push_back(vi.data[i]);
+	v = res;
+}
+
 string Value::toString() const {
 	switch (type) {
 	case BOOL:
@@ -66,6 +92,8 @@ string Value::toString() const {
 			oss << "]";
 			return oss.str();
 		}
+	case FOREIGN:
+		return "<foreign>";
 	default:
 		throw (new impossible_error())->with(_POS);
 	}
