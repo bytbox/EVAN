@@ -138,7 +138,7 @@ Value::operator Bool() const {
 Value::operator Foreign() const {
 	if (type != FOREIGN)
 		throw (new TypeMismatchError())->with(_POS);
-	return value.f
+	return value.f;
 }
 
 Value::operator Vec_Int() const {
