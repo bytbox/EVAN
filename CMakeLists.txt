@@ -47,6 +47,7 @@ add_subdirectory (typecheck)
 add_subdirectory (compile)
 add_subdirectory (foreign)
 add_subdirectory (util)
+add_subdirectory (output)
 
 add_subdirectory (cli)
 add_subdirectory (gui)

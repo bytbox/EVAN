@@ -1,6 +1,6 @@
 .*.swp
 tags
 
-out/
-out.cov/
-out.prof/
+build/
+build.cov/
+build.prof/
