@@ -21,5 +21,10 @@ output_destination_t output_to_file(FILE *);
 output_destination_t output_to_basename(const char *);
 output_destination_t output_to_filename(const char *);
 
+void output_number(output_method_t, output_destination_t, const char **, double);
+void output_bars(output_method_t, output_destination_t, const char **, int, double[]);
+void output_histogram(output_method_t, output_destination_t, const char **, int, double[]);
+void output_histogram2d(output_method_t, output_destination_t, const char **, int, int, double[]);
+
 #endif /* !OUTPUT_H */
 
