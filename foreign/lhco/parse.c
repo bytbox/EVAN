@@ -166,7 +166,7 @@ Vec_Foreign LHCO_Parts(Foreign eventp) {
 	return result;
 }
 
-Foreign LHCO_Particle_As_Track(Foreign f) {
+Foreign LHCO_Part_As_Track(Foreign f) {
 	struct lhco_particle p = *(struct lhco_particle *)f;
 	double theta = 2 * atan(exp(-2 * p.eta));
 	Track *t = (Track *)malloc(sizeof(Track));
