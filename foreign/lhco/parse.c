@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "foreign.h"
+#include "tracks.h"
 
 #define LHCO_PARSE_LINE_BUF_SZ (1 << 9)
 #define LHCO_PARSE_EVT_BUF_SZ (1 << 8)
@@ -163,6 +164,19 @@ Vec_Foreign LHCO_Parts(Foreign eventp) {
 	struct lhco_event event = *(struct lhco_event *)eventp;
 	Vec_Foreign result = {event.p_count, (Foreign *)event.parts};
 	return result;
+}
+
+Foreign LHCO_Particle_As_Track(Foreign f) {
+	struct lhco_particle p = *(struct lhco_particle *)f;
+	double theta = 2 * atan(exp(-2 * p.eta));
+	Track *t = (Track *)malloc(sizeof(Track));
+	t->pdgId = LHCOtoPDG(p.type, p.ntrk, p.btag);
+	t->mass = p.mass;
+	t->px = p.pt * sin(p.phi);
+	t->py = p.pt * cos(p.phi);
+	t->pz = p.pt * cos(theta);
+	t->energy = sqrt(t->px*t->px + t->py*t->py + t->pz*t->pz + t->mass*t->mass);
+	return t;
 }
 
 /*

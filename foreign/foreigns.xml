@@ -76,6 +76,14 @@
 
       </description>
     </foreign>
+    <foreign name="LHCO Particle as Track" cname="LHCO_Part_As_Track">
+      <type>
+
+      </type>
+      <description>
+
+      </description>
+    </foreign>
   </category>
 
   <category name="LHE" cname="lhe">

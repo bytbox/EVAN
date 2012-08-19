@@ -76,6 +76,7 @@ typedef struct {
 
 Vec_Foreign LHCO_Input(const char *);
 Vec_Foreign LHCO_Parts(Foreign);
+Foreign LHCO_Particle_As_Track(Foreign);
 
 Int Track_PDG_Id(Foreign);
 Float Track_Energy(Foreign);
