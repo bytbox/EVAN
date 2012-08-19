@@ -197,3 +197,7 @@ double Value::asDouble() const {
 	else throw (new TypeMismatchError())->with(_POS);
 }
 
+bool Value::isNumeric() const {
+	return type == INT || type == FLOAT;
+}
+

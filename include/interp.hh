@@ -105,7 +105,11 @@ public:
 	 */
 	std::list<Value> lst() const;
 
+	/*!
+	 * \throw TypeMismatchError
+	 */
 	double asDouble() const;
+	bool isNumeric() const;
 
 	enum {BOT, BOOL, INT, FLOAT, VEC, LIST, FOREIGN} type;
 	union {
