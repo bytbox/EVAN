@@ -1,0 +1,5 @@
+# Generate histogram of the number of particles with large mass
+
+events <- [LHCO Input] ("events.lhco") .
+return events .
+
