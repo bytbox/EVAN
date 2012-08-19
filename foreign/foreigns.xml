@@ -78,7 +78,8 @@
     </foreign>
     <foreign name="LHCO Particle as Track" cname="LHCO_Part_As_Track">
       <type>
-
+        <argument><foreign>LHCO_Particle</foreign></argument>
+        <result><foreign>Track</foreign></result>
       </type>
       <description>
 

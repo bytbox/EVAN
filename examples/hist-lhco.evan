@@ -1,5 +1,12 @@
 # Generate histogram of the number of particles with large mass
 
 events <- [LHCO Input] ("events.lhco") .
-return events .
+each e >- events {
+	parts <- [LHCO Particles] events .
+	each p >- parts {
+		
+	} f -< filter .
+	count <- Size parts .
+} counts -< count .
+return counts .
 
