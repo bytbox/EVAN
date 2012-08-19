@@ -77,6 +77,13 @@ typedef struct {
 Vec_Foreign LHCO_Input(const char *);
 Vec_Foreign LHCO_Parts(Foreign);
 
+Int Track_PDG_Id(Foreign);
+Float Track_Energy(Foreign);
+Float Track_Mass(Foreign);
+Float Track_Px(Foreign);
+Float Track_Py(Foreign);
+Float Track_Pz(Foreign);
+
 #ifdef __cplusplus
 }
 #endif

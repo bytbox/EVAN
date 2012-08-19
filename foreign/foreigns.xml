@@ -2,7 +2,59 @@
 <foreigns>
 
   <category name="Tracks" cname="tracks">
-  
+    <foreign name="Track PDG Id" cname="Track_PDG_Id">
+      <type>
+        <argument><foreign>Track</foreign></argument>
+        <result><builtin>Int</builtin></result>
+      </type>
+      <description>
+      </description>
+    </foreign>
+    <foreign name="Track Energy" cname="Track_Energy">
+      <type>
+        <argument><foreign>Track</foreign></argument>
+        <result><builtin>Float</builtin></result>
+      </type>
+      <description>
+
+      </description>
+    </foreign>
+    <foreign name="Track Mass" cname="Track_Mass">
+      <type>
+        <argument><foreign>Track</foreign></argument>
+        <result><builtin>Float</builtin></result>
+      </type>
+      <description>
+
+      </description>
+    </foreign>
+    <foreign name="Track Px" cname="Track_Px">
+      <type>
+        <argument><foreign>Track</foreign></argument>
+        <result><builtin>Float</builtin></result>
+      </type>
+      <description>
+
+      </description>
+    </foreign>
+    <foreign name="Track Py" cname="Track_Py">
+      <type>
+        <argument><foreign>Track</foreign></argument>
+        <result><builtin>Float</builtin></result>
+      </type>
+      <description>
+
+      </description>
+    </foreign>
+    <foreign name="Track Pz" cname="Track_Pz">
+      <type>
+        <argument><foreign>Track</foreign></argument>
+        <result><builtin>Float</builtin></result>
+      </type>
+      <description>
+
+      </description>
+    </foreign>
   </category>
 
   <category name="LHCO" cname="lhco">
