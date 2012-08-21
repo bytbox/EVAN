@@ -19,6 +19,7 @@ output_method_t output_method_from_name(const char *name) {
 	while (*np) {
 		if (!strcasecmp(name, *np))
 			return np - output_method_names;
+		np++;
 	}
 	return -1;
 }
