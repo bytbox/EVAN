@@ -73,6 +73,31 @@ typedef struct {
 	Foreign *data;
 } Vec_Foreign;
 
+/*!
+ * \brief A list of foreign objects.
+ *
+ * This structure can be thought of as a stream, or a lazy linked list, in
+ * which items are not computed until they are needed.
+ *
+ * Lists of primitive, builtin types are not supported. Vectors of these types
+ * are necessary for performance reasons, but since lists are pretty slow
+ * anyways, the user might as well manually extract values as necessary.
+ */
+typedef struct {
+	/*!
+	 * \brief Delimits the state at the start of the stream. Must be passed
+	 * to the iterator to retrieve the current item and the next state.
+	 */
+	void *state;
+
+	/*!
+	 * \brief The iterator function. The state passed to it is modified,
+	 * and the resulting element (pointed to by the previous state) is
+	 * returned.
+	 */
+	void *(*iterator)(void *);
+} List_Foreign;
+
 
 Vec_Foreign LHCO_Input(const char *);
 Vec_Foreign LHCO_Parts(Foreign);
