@@ -1,6 +1,7 @@
 #include "foreign.h"
 
-void *foreign_list_next(List_Foreign list) {
-	return NULL;
+Foreign foreign_list_next(List_Foreign list) {
+	Foreign n = list.iterator(list.state);
+	return n;
 }
 
