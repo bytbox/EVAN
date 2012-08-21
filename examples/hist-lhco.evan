@@ -2,7 +2,7 @@
 
 events <- [LHCO Input] ("events.lhco") .
 each e >- events {
-	parts <- [LHCO Particles] events .
+	parts <- [LHCO Particles] e .
 #	each p >- parts {
 #		
 #	} f -< filter .
