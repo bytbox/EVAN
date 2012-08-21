@@ -26,7 +26,7 @@ maybe <Value> EachInterpreter::next(Scope outsideScope) {
 	auto val = source->next(outsideScope);
 	if (!val.isDefined()) // we're done
 		return maybe<Value>();
-	auto srcLst = val.get().lst();
+	auto srcLst = val.get().asList();
 	srcIt = srcLst.begin();
 	srcEnd = srcLst.end();
 
