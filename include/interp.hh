@@ -31,13 +31,23 @@ public:
 	Value(const Int);
 	Value(const Float);
 
+	/*!
+	 * \brief Construct an interpreter value encapsulating a foreign
+	 * pointer. The underlying value will not be accessible to non-foreign
+	 * code.
+	 */
 	Value(const Foreign);
+
 	Value(const Vec_Bool);
 	Value(const Vec_Int);
 	Value(const Vec_Float);
 	Value(const Vec_Foreign);
 	Value(const List_Foreign);
 
+	/*!
+	 * \brief Convert the value to a string for debugging purposes.
+	 * User-facing code should use the `output` module.
+	 */
 	std::string toString() const;
 
 	/*!
