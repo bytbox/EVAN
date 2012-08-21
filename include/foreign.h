@@ -27,6 +27,10 @@
 #ifndef FOREIGN_H
 #define FOREIGN_H
 
+#ifndef NULL
+#define NULL 0
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -94,10 +98,18 @@ typedef struct {
 	 * \brief The iterator function. The state passed to it is modified,
 	 * and the resulting element (pointed to by the previous state) is
 	 * returned.
+	 *
+	 * If the end of the list has been reached, the returned element will
+	 * be NULL and the state will not be modified (meaning that asking for
+	 * the next element on an empty stream is idempotent).
 	 */
-	void *(*iterator)(void *);
+	Foreign (*iterator)(void *);
 } List_Foreign;
 
+/*!
+ * \brief Advance the stream and return the old element.
+ */
+Foreign foreign_list_next(List_Foreign);
 
 Vec_Foreign LHCO_Input(const char *);
 Vec_Foreign LHCO_Parts(Foreign);

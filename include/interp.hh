@@ -36,6 +36,7 @@ public:
 	Value(const Vec_Int);
 	Value(const Vec_Float);
 	Value(const Vec_Foreign);
+	Value(const List_Foreign);
 
 	std::string toString() const;
 
@@ -84,6 +85,10 @@ public:
 	 * \throw TypeMismatchError
 	 */
 	operator Vec_Foreign() const;
+	/*!
+	 * \throw TypeMismatchError
+	 */
+	operator List_Foreign() const;
 
 	/*!
 	 * \brief Access the nth element of the list contained in this value.

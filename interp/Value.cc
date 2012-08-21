@@ -63,6 +63,15 @@ Value::Value(const Vec_Foreign vi) : type(VEC) {
 		res.push_back(vi.data[i]);
 	v = res;
 }
+Value::Value(const List_Foreign fl) : type(LIST) {
+	auto res = list<Value>{};
+	Foreign n = foreign_list_next(fl);
+	while (n) {
+		res.push_back(n);
+		n = foreign_list_next(fl);
+	}
+	l = res;
+}
 
 string Value::toString() const {
 	switch (type) {
