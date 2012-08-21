@@ -123,6 +123,11 @@ public:
 	/*!
 	 * \throw TypeMismatchError
 	 */
+	std::list<Value> asList() const;
+
+	/*!
+	 * \throw TypeMismatchError
+	 */
 	double asDouble() const;
 	bool isNumeric() const;
 

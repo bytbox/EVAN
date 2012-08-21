@@ -198,6 +198,28 @@ list<Value> Value::lst() const {
 	return list<Value>(l.get());
 }
 
+list<Value> Value::asList() const {
+	switch (type) {
+	case LIST:
+		return list<Value>(l.get());
+	case VEC:
+		{
+			list<Value> rl;
+			for (Value val : v.get())
+				rl.push_back(val);
+			return rl;
+		}
+	
+	case BOT:
+	case BOOL:
+	case INT:
+	case FLOAT:
+	case FOREIGN:
+	default:
+		throw (new TypeMismatchError())->with(_POS);
+	}
+}
+
 double Value::asDouble() const {
 	if (type == FLOAT)
 		return value.d;
