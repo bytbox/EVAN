@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 				int sz = vs.size();
 				double ds[sz];
 				for (int i = 0; i < sz; i++)
-					ds[i] = vs[i];
+					ds[i] = vs[i].asDouble();
 				output_bars(meth, dest, NULL, sz, ds);
 			} else { // histogram
 			}
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 				double ds[sz];
 				auto it = vs.begin();
 				for (int i = 0; i < sz; i++)
-					ds[i] = (*it++);
+					ds[i] = (*it++).asDouble();
 				output_bars(meth, dest, NULL, sz, ds);
 			} else { // histogram
 			}
