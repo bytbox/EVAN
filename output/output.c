@@ -1,6 +1,7 @@
 #include "output.h"
 #include "methods.h"
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -99,6 +100,8 @@ void output_bars(output_method_t meth, output_destination_t dest, const char **o
 	case PLOT:
 		// TODO
 		break;
+	default:
+		assert(0);
 	}
 	if (mustclose)
 		fclose(fout);
