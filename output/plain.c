@@ -1,3 +1,4 @@
+#include "histogram.h"
 #include "output.h"
 #include "methods.h"
 
@@ -14,7 +15,14 @@ void plain_bars(FILE *f, const char **opts, int sz, double d[]) {
 }
 
 void plain_histogram(FILE *f, const char **opts, int sz, double d[]) {
-	// TODO
+	struct histogram_opts hist = histogram(1, 0);
+	make_histogram(&hist, sz, d);
+	int i;
+	double c = hist.first;
+	for (i = 0; i < hist.count; i++) {
+		fprintf(f, "%f: %d\n", c, hist.hist[i]);
+		c += hist.width;
+	}
 }
 
 void plain_histogram2d(FILE *f, const char **opts, int xsz, int ysz, double d[]) {

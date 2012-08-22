@@ -38,7 +38,7 @@ void make_histogram(struct histogram_opts *opts, unsigned int dsz, double data[]
 		opts->count = ceil(max0 / opts->width) - floor(min0 / opts->width);
 	}
 
-	double *hist = (double *)calloc(opts->count, sizeof(double));
+	unsigned int *hist = (unsigned int *)calloc(opts->count, sizeof(unsigned int));
 	for (i = 0; i < dsz; i++) {
 		// find the bin in which data[i] belongs;
 		double nd = data[i] - opts->first;

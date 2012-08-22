@@ -10,9 +10,16 @@
  * Values other than width and offset are ignored by make_histogram().
  */
 struct histogram_opts {
+	/*!
+	 * \brief The width of a single bin.
+	 */
 	double width;
 	double offset;
 
+	/*!
+	 * \brief The starting point of the first bin. The first value
+	 * potentially included in the histogram will be this value.
+	 */
 	double first;
 	/*!
 	 * \brief The starting point of the last bin. The last value
@@ -21,7 +28,7 @@ struct histogram_opts {
 	double last;
 	unsigned int count;
 
-	double *hist;
+	unsigned int *hist;
 };
 
 struct histogram_opts histogram(int, int);

@@ -43,27 +43,33 @@ int main(int argc, char *argv[]) {
 			break;
 		case Value::VEC:
 			// TODO handle 2d histograms
-			if (args.flag("bars")) {
+			{
 				vector <Value> vs = v.vec();
 				int sz = vs.size();
 				double ds[sz];
 				for (int i = 0; i < sz; i++)
 					ds[i] = vs[i].asDouble();
-				output_bars(meth, dest, NULL, sz, ds);
-			} else { // histogram
+				if (args.flag("bars")) {
+					output_bars(meth, dest, NULL, sz, ds);
+				} else { // histogram
+					output_histogram(meth, dest, NULL, sz, ds);
+				}
 			}
 			break;
 		case Value::LIST:
 			// TODO handle 2d histograms
-			if (args.flag("bars")) {
+			{
 				list <Value> vs = v.lst();
 				int sz = vs.size();
 				double ds[sz];
 				auto it = vs.begin();
 				for (int i = 0; i < sz; i++)
 					ds[i] = (*it++).asDouble();
-				output_bars(meth, dest, NULL, sz, ds);
-			} else { // histogram
+				if (args.flag("bars")) {
+					output_bars(meth, dest, NULL, sz, ds);
+				} else { // histogram
+					output_histogram(meth, dest, NULL, sz, ds);
+				}
 			}
 			break;
 		case Value::FOREIGN:
