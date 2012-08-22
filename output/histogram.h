@@ -6,14 +6,17 @@
  * to make_histogram(), and modified by said function with a complete
  * description of the contents of the returned double[] representing the
  * produced histogram.
+ *
+ * Values other than width and offset are ignored by make_histogram().
  */
 struct histogram_opts {
 	double width;
 	double offset;
+
 	double first;
 	/*!
-	 * \brief The starting point of the last bin. The last value included
-	 * in the histogram will be last+width.
+	 * \brief The starting point of the last bin. The last value
+	 * potentially included in the histogram will be last+width.
 	 */
 	double last;
 	unsigned int count;
