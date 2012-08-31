@@ -78,9 +78,13 @@ void output_number(output_method_t meth, output_destination_t dest, const char *
 		plain_number(fout, opts, d);
 		break;
 	case ASCII:
+		ascii_number(fout, opts, d);
+		break;
 	case ROOT:
+		root_number(fout, opts, d);
+		break;
 	case PLOT:
-		// TODO
+		plot_number(fout, opts, d);
 		break;
 	}
 	if (mustclose)
@@ -96,12 +100,14 @@ void output_bars(output_method_t meth, output_destination_t dest, const char **o
 		plain_bars(fout, opts, i, d);
 		break;
 	case ASCII:
-	case ROOT:
-	case PLOT:
-		// TODO
+		ascii_bars(fout, opts, i, d);
 		break;
-	default:
-		assert(0);
+	case ROOT:
+		root_bars(fout, opts, i, d);
+		break;
+	case PLOT:
+		plot_bars(fout, opts, i, d);
+		break;
 	}
 	if (mustclose)
 		fclose(fout);
@@ -116,9 +122,13 @@ void output_histogram(output_method_t meth, output_destination_t dest, const cha
 		plain_histogram(fout, opts, i, d);
 		break;
 	case ASCII:
+		ascii_histogram(fout, opts, i, d);
+		break;
 	case ROOT:
+		root_histogram(fout, opts, i, d);
+		break;
 	case PLOT:
-		// TODO
+		plot_histogram(fout, opts, i, d);
 		break;
 	}
 	if (mustclose)
@@ -134,9 +144,13 @@ void output_histogram2d(output_method_t meth, output_destination_t dest, const c
 		plain_histogram2d(fout, opts, xsz, ysz, d);
 		break;
 	case ASCII:
+		ascii_histogram2d(fout, opts, xsz, ysz, d);
+		break;
 	case ROOT:
+		root_histogram2d(fout, opts, xsz, ysz, d);
+		break;
 	case PLOT:
-		// TODO
+		plot_histogram2d(fout, opts, xsz, ysz, d);
 		break;
 	}
 	if (mustclose)
