@@ -25,7 +25,7 @@ void ascii_histogram(FILE *f, const char **opts, int sz, double d[]) {
 	}
 }
 
-void ascii_histogram2d(FILE *f, const char **opts, int xsz, int ysz, double d[]) {
+void ascii_contour(FILE *f, const char **opts, int xsz, int ysz, double d[]) {
 	// TODO
 }
 

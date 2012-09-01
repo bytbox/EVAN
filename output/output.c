@@ -135,22 +135,22 @@ void output_histogram(output_method_t meth, output_destination_t dest, const cha
 		fclose(fout);
 }
 
-void output_histogram2d(output_method_t meth, output_destination_t dest, const char **opts, int xsz, int ysz, double d[]) {
+void output_contour(output_method_t meth, output_destination_t dest, const char **opts, int xsz, int ysz, double d[]) {
 	char mustclose;
 	FILE *fout;
 	getFile(meth, dest, &mustclose, &fout);
 	switch (meth) {
 	case PLAIN:
-		plain_histogram2d(fout, opts, xsz, ysz, d);
+		plain_contour(fout, opts, xsz, ysz, d);
 		break;
 	case ASCII:
-		ascii_histogram2d(fout, opts, xsz, ysz, d);
+		ascii_contour(fout, opts, xsz, ysz, d);
 		break;
 	case ROOT:
-		root_histogram2d(fout, opts, xsz, ysz, d);
+		root_contour(fout, opts, xsz, ysz, d);
 		break;
 	case PLOT:
-		plot_histogram2d(fout, opts, xsz, ysz, d);
+		plot_contour(fout, opts, xsz, ysz, d);
 		break;
 	}
 	if (mustclose)

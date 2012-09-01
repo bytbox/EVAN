@@ -12,7 +12,7 @@ void root_histogram(FILE *f, const char **opts, int sz, double d[]) {
 	// TODO
 }
 
-void root_histogram2d(FILE *f, const char **opts, int xsz, int ysz, double d[]) {
+void root_contour(FILE *f, const char **opts, int xsz, int ysz, double d[]) {
 	// TODO
 }
 
