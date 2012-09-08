@@ -5,13 +5,13 @@
 #include <stdio.h>
 
 void plain_number(FILE *f, const char **opts, double d) {
-	fprintf(f, "%f\n", d);
+	fprintf(f, "%g\n", d);
 }
 
 void plain_bars(FILE *f, const char **opts, int sz, double d[]) {
 	int i;
 	for (i=0; i<sz; i++)
-		fprintf(f, "%f\n", d[i]);
+		fprintf(f, "%g\n", d[i]);
 }
 
 void plain_histogram(FILE *f, const char **opts, int sz, double d[]) {
@@ -20,7 +20,7 @@ void plain_histogram(FILE *f, const char **opts, int sz, double d[]) {
 	int i;
 	double c = hist.first;
 	for (i = 0; i < hist.count; i++) {
-		fprintf(f, "%f: %d\n", c, hist.hist[i]);
+		fprintf(f, "%g: %d\n", c, hist.hist[i]);
 		c += hist.width;
 	}
 }

@@ -23,7 +23,7 @@ void plot_histogram(FILE *f, const char **opts, int sz, double d[]) {
 	int i;
 	double c = hist.first;
 	for (i = 0; i < hist.count; i++) {
-		fprintf(f, "%f %d\n", c, hist.hist[i]);
+		fprintf(f, "%g %d\n", c, hist.hist[i]);
 		c += hist.width;
 	}
 }
