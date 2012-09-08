@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 			output_number(meth, dest, NULL, v.asDouble());
 			break;
 		case Value::VEC:
-			// TODO handle 2d histograms
+			// TODO handle contour plots
 			{
 				vector <Value> vs = v.vec();
 				int sz = vs.size();
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
 			}
 			break;
 		case Value::LIST:
-			// TODO handle 2d histograms
+			// TODO handle contour plots
 			{
 				list <Value> vs = v.lst();
 				int sz = vs.size();
