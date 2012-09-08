@@ -35,7 +35,7 @@ void make_histogram(struct histogram_opts *opts, unsigned int dsz, double data[]
 		double max0 = max - offset; // same deal
 		opts->first = opts->width * floor(min0 / opts->width) + offset;
 		opts->last = opts->width * ceil(max0 / opts->width) + offset;
-		opts->count = ceil(max0 / opts->width) - floor(min0 / opts->width);
+		opts->count = (int)ceil(max0 / opts->width) - (int)floor(min0 / opts->width) + 1;
 	}
 
 	unsigned int *hist = (unsigned int *)calloc(opts->count, sizeof(unsigned int));
