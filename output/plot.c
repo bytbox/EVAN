@@ -6,8 +6,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+FILE *gnuplot();
 
 void plot_number(FILE *f, const char **opts, double d) {
 	// TODO
@@ -18,21 +21,31 @@ void plot_bars(FILE *f, const char **opts, int sz, double d[]) {
 }
 
 void plot_histogram(FILE *f, const char **opts, int sz, double d[]) {
-	struct histogram_opts hist = histogram(1, 0);
-	make_histogram(&hist, sz, d);
+	// Obviously, we can't pass our FILE object to gnuplot. We'll write to
+	// a temporary file, and then read and copy that file to the given FILE
+	// object.
+	char *tmpfname = strdup(tmpnam(0));
+	FILE *tmp = fopen(tmpfname, "w");
+	// We don't have to construct the histogram ourselves - gnuplot can do
+	// it for us. Just dump the data to the file.
 	int i;
-	double c = hist.first;
-	for (i = 0; i < hist.count; i++) {
-		fprintf(f, "%g %d\n", c, hist.hist[i]);
-		c += hist.width;
-	}
+	for (i = 0; i < sz; i++)
+		fprintf(tmp, "%g\n", d[i]);
+	fclose(tmp);
+
+	FILE *gp = gnuplot();
+	// TODO
+	fclose(gp);
+
+	unlink(tmpfname);
+	free(tmpfname);
 }
 
 void plot_contour(FILE *f, const char **opts, int xsz, int ysz, double d[]) {
 	// TODO
 }
 
-void start_gnuplot() {
+FILE *gnuplot() {
 	int p[2]; // read from p[0], write to p[1]
 	if (pipe(p)) {
 		perror("could not create pipes for gnuplot");
@@ -56,7 +69,7 @@ void start_gnuplot() {
 	}
 
 	// parent
-	close(p[0]);
-	int gnuplot = p[1];
+	close(p[0]); // we don't actually need this
+	return fdopen(p[1], "w");
 }
 
